@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시글 상세조회</title>
+
+<style>
+table {
+	width: 700px;
+	border-collapse: collapse;
+	margin: 50px auto;
+	font-size: 12px;
+}
+
+table, tr, th, td {
+	border: 1px solid pink;
+	text-align: center;
+}
+
+th, td {
+	height: 35px;
+}
+
+h3 {
+	text-align: center;
+}
+
+#paging {
+	margin: 10px auto;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+<!--  댓글 작성 -->
+<script>      
+	$(document).ready(function() {
+
+        const getAjax = function(url, comContent,boardNo) {
+            return new Promise( (resolve, reject) => {
+                $.ajax({                        
+                    url: url,
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                    	url: url,
+                     	comContent: comContent,
+                     	boardNo: boardNo
+                    },
+                    success: function(data) {                    	
+                        resolve(data);
+                    }, 
+                    error: function(e) {                    	
+                        reject(e);
+                    }
+                });
+            });
+        }   
+        
+        const removeComment = function(url, comNo, boardNo) {
+            // resolve, reject는 자바스크립트에서 지원하는 콜백 함수이다.
+            return new Promise( (resolve, reject) => {
+                $.ajax({                        
+                    url: url,
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                    	url: url,
+                    	comNo: comNo,
+                    	boardNo: boardNo
+                    },
+                    success: function(data) {                    	
+                        resolve(data);
+                    }, 
+                    error: function(e) {                    	
+                        reject(e);
+                    }
+                });
+            });
+        }   
+
+        const modifyComment = function(url, comNo, comContent, boardNo) {
+            // resolve, reject는 자바스크립트에서 지원하는 콜백 함수이다.
+            return new Promise( (resolve, reject) => {
+                $.ajax({                        
+                    url: url,
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                    	url: url,
+                    	comNo: comNo,
+                    	comContent: comContent,
+                    	boardNo: boardNo
+                    },
+                    success: function(data) {                    	
+                        resolve(data);
+                    }, 
+                    error: function(e) {                    	
+                        reject(e);
+                    }
+                });
+            });
+        }   
+        //댓글 작성ㅇ용 함수
+        async function requestProcess(url, comContent, boardNo) {
+            try {
+            	let comList = null;
+            	
+            		comList = await getAjax(url, comContent,boardNo);	
+            	
+            	     
+                                   
+                $('#ListComment').html("");
+               
+			 	let htmlStr = [];
+			 	for(let i = 0; i< comList.length; i++) {
+			 		htmlStr.push('<table id=' + comList[i].comNo +'>');
+			 		htmlStr.push('<tbody>');
+			 		htmlStr.push('<tr>');
+			 		htmlStr.push('<td>' + comList[i].userId + '</td>');
+			 		htmlStr.push('<td>' + comList[i].comWdate + '</td>');
+			 		htmlStr.push('</tr>');		
+			 		htmlStr.push('<tr>');	
+			 		htmlStr.push('<td colspan="2" class="comContent">' + comList[i].comContent + '</td>');
+			 		htmlStr.push('</tr>');
+			 		htmlStr.push('<tr>');	
+			 		htmlStr.push('<td colspan="2">');
+			 		htmlStr.push('<button class="modifyFormBtn" type="button">수정</button>&nbsp;');		
+			 		htmlStr.push('<button class="removeBtn" type="button">삭제</button>');			
+			 		htmlStr.push('</td>');					
+			 		htmlStr.push('</tr>');
+			 		htmlStr.push('</tbody>');
+			 		htmlStr.push('</table>');				 		
+			 	}         
+			 	
+			 	$('#ListComment').html(htmlStr.join(""));
+                  
+            } catch (error) {
+                console.log("error : ", error);   
+            }
+        }
+        
+        
+        
+        //댓글 삭제용 함수
+        async function removeRequestProcess(url, comNo, boardNo) {
+            try {
+            	let comList = null;
+            	
+            		comList = await removeComment(url, comNo,boardNo);	
+            		$('#ListComment').html("");
+                    
+    			 	let htmlStr = [];
+    			 	for(let i = 0; i< comList.length; i++) {
+    			 		htmlStr.push('<table id=' + comList[i].comNo +'>');
+    			 		htmlStr.push('<tbody>');
+    			 		htmlStr.push('<tr>');
+    			 		htmlStr.push('<td>' + comList[i].userId + '</td>');
+    			 		htmlStr.push('<td>' + comList[i].comWdate + '</td>');
+    			 		htmlStr.push('</tr>');		
+    			 		htmlStr.push('<tr>');	
+    			 		htmlStr.push('<td colspan="2" class="comContent">' + comList[i].comContent + '</td>');
+    			 		htmlStr.push('</tr>');
+    			 		htmlStr.push('<tr>');	
+    			 		htmlStr.push('<td colspan="2">');
+    			 		htmlStr.push('<button class="modifyFormBtn" type="button">수정</button>&nbsp;');		
+    			 		htmlStr.push('<button class="removeBtn" type="button">삭제</button>');			
+    			 		htmlStr.push('</td>');					
+    			 		htmlStr.push('</tr>');
+    			 		htmlStr.push('</tbody>');
+    			 		htmlStr.push('</table>');				 		
+    			 	}         
+            
+    			 	$('#ListComment').html(htmlStr.join(""));
+            }catch (error) {
+                console.log("error : ", error);   
+            }
+        }
+		
+        //댓글 수정용 함수
+        async function modifyRequestProcess(url, comNo, comContent, boardNo) {
+            try {
+            	let comList = null;
+            	
+            		comList = await modifyComment(url, comNo, comContent, boardNo);	
+            	                   
+                $('#ListComment').html("");
+               
+			 	let htmlStr = [];
+			 	for(let i = 0; i< comList.length; i++) {
+			 		htmlStr.push('<table id=' + comList[i].comNo +'>');
+			 		htmlStr.push('<tbody>');
+			 		htmlStr.push('<tr>');
+			 		htmlStr.push('<td>' + comList[i].userId + '</td>');
+			 		htmlStr.push('<td>' + comList[i].comWdate + '</td>');
+			 		htmlStr.push('</tr>');		
+			 		htmlStr.push('<tr>');	
+			 		htmlStr.push('<td colspan="2" class="comContent">' + comList[i].comContent + '</td>');
+			 		htmlStr.push('</tr>');
+			 		htmlStr.push('<tr>');	
+			 		htmlStr.push('<td colspan="2">');
+			 		htmlStr.push('<button class="modifyFormBtn" type="button">수정</button>&nbsp;');		
+			 		htmlStr.push('<button class="removeBtn" type="button">삭제</button>');			
+			 		htmlStr.push('</td>');					
+			 		htmlStr.push('</tr>');
+			 		htmlStr.push('</tbody>');
+			 		htmlStr.push('</table>');				 		
+			 	}         
+			 	
+			 	$('#ListComment').html(htmlStr.join(""));
+                  
+            } catch (error) {
+                console.log("error : ", error);   
+            }
+        }
+        
+        //댓글 작성
+	    $('#addComBtn').on('click', function() {
+	    	const comContent = $('#addComContent').val();
+	    	const boardNo = ${requestScope.board.boardNo};
+	    	requestProcess('${pageContext.request.contextPath}/board/writeComment.do', comContent,boardNo);
+	   
+	    });
+        
+
+        $('#ListComment').on('click', '.modifyFormBtn', function() {                
+        	const comNo = $(this).parents('table').attr('id');
+        	$('#modifyComment').insertAfter('#' + comNo);                	
+        	const comContent = $(this).parents('tbody').find('.comContent').text();                
+        	$('#modifyComContent').val(comContent);
+        	$('#comNo').val(comNo);
+        	$('#modifyComment').show();
+        	$('#' + comNo).hide();                	
+        });
+        
+        
+        
+        //댓글 삭제
+        $('#ListComment').on('click', '.removeBtn', function() { 
+        	const boardNo = ${requestScope.board.boardNo};
+        	const comNo = $(this).parents('table').attr('id');
+        	removeRequestProcess('${pageContext.request.contextPath}/board/removeComment.do', comNo, boardNo);        	
+        });
+        
+        
+        //댓글 취소
+        $('#cancel').on('click', function() {
+        	const comNo = $('#comNo').val();
+        	$('#' + comNo).show();    
+        	$('#modifyComment').hide();
+        	$('#modifyComment').insertAfter('#addComment');
+        });
+        
+        //댓글 수정
+        $('#modifyBtn').on('click', function() {
+        	const comNo = $('#comNo').val();
+        	const comContent = $('#modifyComContent').val();
+        	const boardNo = ${requestScope.board.boardNo};
+        	modifyRequestProcess('${pageContext.request.contextPath}/board/modifyComment.do', comNo, comContent, boardNo);   
+        
+        });
+        
+        <!--  추천 처리 -->
+        const recomAjax = function(url, boardNo) {
+            return new Promise( (resolve, reject) => {
+                $.ajax({                        
+                    url: url,
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                    	url: url,
+                     	boardNo: boardNo
+                     	
+                    },
+                    success: function(data) {                    	
+                        resolve(data);
+                    }, 
+                    error: function(e) {                    	
+                        reject(e);
+                    }
+                });
+            });
+        }   
+        
+        
+        //추천등록용 함수
+        async function requestRecomProcess(url, boardNo) {
+            try {
+            	await recomAjax(url,boardNo);
+            	
+            	
+            	}         
+			 	 catch (error) {
+                console.log("error : ", error);   
+            }
+        }
+        
+        
+        //추천 insert
+        let isRecommend = true;
+        console.log("is", isRecommend);
+	    $("#recomBtn").click(	    		
+	    	function() {
+	    		
+	    	
+	    		if(isRecommend) {
+	    			alert("추천완료");
+	    			isRecommend = false;
+	    			const boardNo = ${requestScope.board.boardNo};
+		    		requestRecomProcess('${pageContext.request.contextPath}/board/recomBoard.do', boardNo);
+	    		} else {
+	    			alert("추천취소");
+	    			isRecommend = true;	 
+	    			const boardNo = ${requestScope.board.boardNo};
+		    		requestRecomProcess('${pageContext.request.contextPath}/board/recomBoard.do', boardNo);
+	    		}
+	    		
+	    	 }
+	    );
+        
+	    
+	    <!--  신고 처리 -->
+        const reportAjax = function(url, boardNo) {
+            return new Promise( (resolve, reject) => {
+                $.ajax({                        
+                    url: url,
+                    method: 'GET',
+                    dataType: 'json',
+                    data: {
+                    	url: url,
+                     	boardNo: boardNo
+                     	
+                    },
+                    success: function(data) {                    	
+                        resolve(data);
+                    }, 
+                    error: function(e) {                    	
+                        reject(e);
+                    }
+                });
+            });
+        }   
+        
+        
+        //신고등록용 함수
+        async function requestReportProcess(url, boardNo) {
+            try {
+            	await reportAjax(url,boardNo);         	
+            	}         
+			 	 catch (error) {
+                console.log("error : ", error);   
+            }
+        }
+        
+        
+        //신고 insert
+       $("#reportBtn").click(	    		
+	    	function() {
+	    		alert("신고완료");
+	    			const boardNo = ${requestScope.board.boardNo};
+		    		requestReportProcess('${pageContext.request.contextPath}/board/reportBoard.do', boardNo);
+	    		
+	    	 }
+	    );
+	});
+	    
+	    
+	 
+	</script>
+
+</head>
+<body>
+
+
+<!-- <p th:if="${requestScope.cateNo==1}">
+ 
+ 	<p th:if="${cateNo==1}">
+ 	<a th:href="@{/listBoardNewMem(cateNo=${requestScope.cateNo})}">목록</a>
+	<h3>새싹게시글 상세보기</h3>
+	<table>
+		<tr>
+				<td>제목</td>
+				<td th:text="${board.boardTitle}"></td>
+			</tr>
+	</table>
+</p>
+<!--  
+<p th:if="${requestScope.cateNo==2}">
+	<a th:href="@{/listBoardMovieReview/{cateNo}(cateNo=${requestScope.cateNo})}">목록</a>
+	<h3>영화리뷰 상세보기</h3>
+	<table>
+		<tr>
+				<td>제목</td>
+				<td th:text="${requestScope.board.boardTitle}"></td>
+			</tr>
+	</table>
+</p>
+
+<p th:if="${requestScope.cateNo==3}">
+	<a th:href="@{/listBoardSisa/{cateNo}(cateNo=${requestScope.cateNo})}">목록</a>
+	<h3>시사회 정보 상세보기</h3>
+	<table>
+		<tr>
+				<td>제목</td>
+				<td th:text="${requestScope.board.boardTitle}"></td>
+			</tr>
+	</table>
+</p>
+<p th:if="${requestScope.cateNo==5}">
+	<a th:href="@{/listBoardTicket/{cateNo}(cateNo=${requestScope.cateNo})}">목록</a>
+	<h3>티켓마켓 글 상세보기</h3>
+	<table>
+		<tr>
+				<td>제목</td>
+				<td th:text="${requestScope.board.boardTitle}"></td>
+			</tr>
+	</table>
+
+</p>
+	-->
+<a th:href="@{/listBoardNewMem(cateNo=${cateNo})}">목록</a>
+	<h3>새싹게시글 상세보기</h3>
+	<table>
+		<tr>
+				<td>제목</td>
+				<td th:text="${board.boardTitle}"></td>
+			</tr>
+</table>
+
+<!-- 	<table th:object="${requestScope.board}">
+ -->
+ 		<table th:object="${board}">
+ 		<tr>
+			<td>닉네임</td>
+			<td th:text="*{userNick}"></td>
+			<td>작성일자</td>
+			<td th:text="*{boardWdate}"></td>
+			<td>조회수</td>
+			<td th:text="*{boardCount}"></td>
+		</tr>
+		<tr>
+			<td height="200px">내용</td>
+			<td colspan="6" th:text="*{boardContent}"></td>			
+		</tr>
+	</table>
+
+	추천!
+	<button type="button" id="recomBtn">
+		<img src="images/recomBtn.png">
+	</button>
+	신고
+	<img id="reportBtn" src="images/reportBtn.jpg">
+
+		<!--  
+	<p th:if="${userInfo.rankType.equals('A') }">
+		<a th:href="@{/modifyBoardForm(boardNo=${boardNo}
+		, cateNo=${cateNo})}">수정</a>&nbsp;&nbsp;
+-->
+
+		<a th:href="@{/removeBoard(boardNo=${boardNo})}">삭제</a>&nbsp;&nbsp;
+        </p>
+
+<!-- 	<c:if test="${not empty requestScope.board.boardfileList}">
+ -->
+ <!--  
+ 		<table th:if="${not empty requestScope.board.boardfileList}">
+			<tr>
+				<th>파일명</th>
+				<th>파일크기</th>
+			</tr>
+<!--  
+			<c:forEach var="file" items="${requestScope.board.boardfileList }">
+				<c:url var="downloadUrl" value="/fileDownload">
+					<c:param name="boardfileOrigin" value="${file.boardfileOrigin }"></c:param>
+					<c:param name="boardfileSys" value="${file.boardfileSys }"></c:param>
+				</c:url>
+				<tr>
+					<td><a href="${downloadUrl}">${file.boardfileOrigin }</a></td>
+					<td>${file.boardfileSize}bytes</td>
+				</tr>
+
+			</c:forEach>
+-->
+<!--  
+				<tr th:each="file:${requestScope.board.boardfileList}">
+					<td><a th:href="@{/fileDownload(boardfileOrigin=${file.boardfileOrigin})}">
+					${file.boardfileOrigin }</a></td>
+					<td th:text ="${file.boardfileSize}+'bytes'"></td>
+				</tr>
+		</table>
+-->
+<!-- 	<c:if test="${empty requestScope.board.boardfileList}">
+ -->
+ 	<!-- 	<table th:if="${empty requestScope.board.boardfileList}">
+	 -->	
+	 <table>
+	 	<tr>
+				<th>파일명</th>
+				<th>파일크기</th>
+			</tr>
+			<tr>
+				<td colspan="2">파일 없음</td>
+			</tr>
+		</table>
+
+	<div id="ListComment">
+		
+		
+ <!--  
+			<table th:each="comment:${requestScope.commentList}" id="${comment.comNo}">
+--><table>
+				<tbody>
+					<tr>
+						<td th:text="${comment.userId}"></td>
+						<td th:text="${comment.comWdate}"></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="comContent" th:text="${comment.comContent }"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button class="modifyFormBtn" type="button">수정</button>
+							<button class="removeBtn" type="button">삭제</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	</div>
+
+<!-- 댓글 달기 -->
+	<div id="addComment">
+		<div>
+			<textarea id="addComContent" rows="5" cols="50"
+				placeholder="댓글을 입력해주세오 ."></textarea>
+		</div>
+		<div>
+			<button id="addComBtn">댓글 달기</button>
+		</div>
+	</div>
+
+<!-- 댓글 수정 -->
+	<div id="modifyComment" style="display: none;">
+		<div>
+			<input type="hidden" id="comNo" />
+			<textarea id="modifyComContent" rows="5" cols="50"
+				placeholder="댓글을 입력해주세오 ."></textarea>
+		</div>
+
+<!-- 		<c:if test="${userInfo.rankType.equals('A') }">
+ -->
+ 			
+ 			<div th:if="${rankType.equals('A')}">
+				<button id="cancel">취소</button>
+				<button id="modifyBtn">수정하기</button>
+			</div>
+
+	</div>
+
+
+</body>
+</html>
