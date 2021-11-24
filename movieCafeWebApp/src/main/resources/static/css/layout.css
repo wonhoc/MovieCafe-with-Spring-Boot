@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+header {
+	padding-top: 1em;
+}
+
+ main {
+	display: flex;
+	width: 100%;
+} 
+aside {
+	width: 20%;
+	background-color: #eab48a;
+}
+
+section {
+	width: 100%;
+}
+
+footer {
+	display: flex;
+	background-color: #f3f2f2;
+	justify-content: center;
+	padding: 1em;
+	align-items: center;
+	color: #b1b1b1;
+}

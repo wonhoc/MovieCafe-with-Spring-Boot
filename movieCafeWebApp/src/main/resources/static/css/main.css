@@ -1,0 +1,168 @@
+@charset "UTF-8";
+/* 전체 */
+section {
+	width: 100%;
+}
+
+.main_top {
+	align-items: center;
+	justify-content: space-between;
+}
+
+.main_divide {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 2em;
+	border-bottom: 1px dotted #8c8c8c;
+}
+
+.main_bottom {
+	display: flex;
+	justify-content: space-around;
+}
+
+/* Movie */
+.top_title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 4em;
+}
+
+.main_title {
+	padding: 0.5em 0 0 0.2em;
+	font-size: 28px;
+}
+
+.movieList {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.listSection {
+	display: flex;
+}
+
+.list_icon {
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+.content_text {
+	text-align: center;
+	line-height: 20rem;
+}
+
+.paging {
+	text-align: center;
+}
+
+.paging_icon {
+	transition: transform 200ms linear;
+}
+
+.paging_icon:hover {
+	transform: scale(1.2);
+}
+
+.deleteBtn {
+	height: 1.5rem;
+	margin-left: 1em;
+	color: #b1b1b1;
+	background-color: #fdfdfd;
+	border: 2px solid #b1b1b1;
+	border-bottom-color: #b1b1b1;
+	border-radius: 0.25em;
+	transition: all 150ms ease-in;
+	cursor: pointer;
+}
+
+.deleteBtn:hover {
+	background-color: #e2e2e2;
+}
+
+.movieImg {
+	width: 10rem;
+	height: 15rem;
+	border-radius: 0.25em;
+	transition: transform 200ms linear;
+}
+
+.movieImg:hover {
+	transform: scale(1.05);
+}
+
+.add_btn {
+	height: 2rem;
+	margin: 0 3em;
+	font-size: 18px;
+	color: #a7a6a6;
+	background-color: #fdfdfd;
+	border: 2px solid #b1b1b1;
+	border-bottom-color: #b1b1b1;
+	border-radius: 0.25em;
+	transition: all 150ms ease-in;
+	cursor: pointer;
+}
+
+.add_btn:hover {
+	background-color: #e2e2e2;
+}
+
+/* Board */
+.review_title {
+	margin: 1em 0.2em;
+	font-size: 28px;
+}
+
+table {
+	width: 700px;
+	border-collapse: collapse;
+}
+
+table {
+	text-align: center;
+	margin-bottom: 3em;
+}
+
+th, td {
+	height: 35px;
+}
+
+th {
+	border-top: 3px solid #ed7c31;
+	border-bottom: 3px solid #ed7c31;
+	font-size: 22px;
+	padding-bottom: 0.4em;
+	background-color: blanchedalmond;
+}
+
+tbody>tr {
+	background-color: #ffffe08f;
+	font-size: 18px;
+	border-bottom: 5px solid white;
+}
+
+.list_title {
+	font-weight: 600;
+}
+
+.list_notice {
+	color: red;
+	font-weight: 600;
+}
+
+#paging {
+	width: 200px;
+	margin: 10px auto;
+}
+
+#search {
+	margin: 10px auto;
+	width: 500px;
+}
+
+.highlight {
+	background-color: yellow;
+}
