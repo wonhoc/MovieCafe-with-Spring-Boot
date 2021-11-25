@@ -4,4 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	
+	<typeAliases>
+		<typeAlias type="com.example.domain.AddressVo" alias="AddressVo"/>
+		<typeAlias type="com.example.domain.ReceiveVo" alias="ReceiveVo"/>
+		<typeAlias type="com.example.domain.sendMsgVo" alias="sendMsgVo"/>
+	</typeAliases>
+	
 </configuration>

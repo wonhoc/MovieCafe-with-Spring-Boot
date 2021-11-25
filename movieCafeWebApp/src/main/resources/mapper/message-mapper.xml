@@ -3,5 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Message">
+
+	<resultMap type="AddressVo" id="AddressResult">
+		<result property="sendMsgno" column="send_msg_no" />
+		<result property="receiveId" column="receive_id" />
+	</resultMap>
 	
+	<insert id="insertAddr" parameterType="AddressVo"  statementType="PREPARED">
+	
+		INSERT INTO address(send_msg_no, receive_id)
+		VALUES ()
+		
+	</insert>
+		
 </mapper>
