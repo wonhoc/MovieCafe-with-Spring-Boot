@@ -1,20 +1,26 @@
 package com.example.biz;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.junit.jupiter.api.Test;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.dao.member.UserDao;
+import com.example.domain.member.UserInfoVo;
 
 @SpringBootTest
 class MovieCafeWebAppApplicationTests {
 	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
+	private UserDao userDao;
 	
 	@Test
 	public void test1() {
-		assertNotNull(this.sqlSessionTemplate);
+		UserInfoVo user = new UserInfoVo();
+		user.setUserId("test_user01");
+		user.setUserPwd("asdf1234");
+		
+		
+		int result = this.userDao.checkIsUser(user);
+		System.out.println(result);
 	}
 
 }
