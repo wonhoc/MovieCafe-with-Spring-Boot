@@ -1,6 +1,6 @@
-package com.example.dao.member;
+package com.example.member.dao;
 
-import com.example.domain.member.UserInfoVo;
+import com.example.member.domain.UserInfoVo;
 
 public interface UserDao {
 	

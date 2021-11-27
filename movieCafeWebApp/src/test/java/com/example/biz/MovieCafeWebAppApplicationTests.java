@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.dao.member.UserDao;
-import com.example.domain.member.UserInfoVo;
+import com.example.member.dao.UserDao;
+import com.example.member.domain.UserInfoVo;
 
 @SpringBootTest
 class MovieCafeWebAppApplicationTests {

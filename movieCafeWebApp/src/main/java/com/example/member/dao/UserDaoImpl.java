@@ -1,4 +1,4 @@
-package com.example.dao.member;
+package com.example.member.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.domain.member.UserInfoVo;
+import com.example.member.domain.UserInfoVo;
 
 @Repository("userInfoDao")
 public class UserDaoImpl implements UserDao {
@@ -26,8 +26,6 @@ public class UserDaoImpl implements UserDao {
 		
 		return session.selectOne("Member.checkIsUser", map);
 	}
-
-
 
 
 	@Override
