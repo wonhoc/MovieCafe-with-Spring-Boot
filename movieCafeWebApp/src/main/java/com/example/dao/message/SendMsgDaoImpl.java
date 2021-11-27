@@ -1,6 +1,7 @@
 package com.example.dao.message;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,15 @@ public class SendMsgDaoImpl implements SendMsgDao {
 	@Override
 	public int insertMessage(SendMsgVO msgVo) {
 		
-		return 0;
+		//보낸 메세지 저장
+		HashMap<String, String> sendMsg = new HashMap<String, String>();
 		
+		sendMsg.put("writerId", msgVo.getWriterId());
+		sendMsg.put("sendMsgContet", msgVo.getSendMsgContent());
+		
+		//mapper에서 insert된 pk의 값을 가져온다.
+		return this.sqlSession.insert(null, sendMsg);
+			
 	}//insertMessage() end
 
 	@Override
