@@ -12,7 +12,6 @@ section {
 .main_divide {
 	width: 90%;
 	margin-left: 5%;
-	margin-top: 2em;
 	border-bottom: 1px dotted #8c8c8c;
 }
 
@@ -38,7 +37,15 @@ section {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	height: 17em;
 }
+
+.sectionMovie {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .listSection {
 	display: flex;
@@ -108,6 +115,9 @@ section {
 
 .add_btn:hover {
 	background-color: #e2e2e2;
+}
+#pagination-div{
+	text-align: center;	
 }
 
 /* Board */
