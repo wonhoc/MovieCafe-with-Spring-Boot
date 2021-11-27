@@ -20,12 +20,12 @@ public class boardController {
 	@GetMapping("/boardlist/{cateNo}")
 	public String boardlist(@PathVariable int cateNo, Model model) {
 		
-		System.out.println(cateNo);
+		
 		List<BoardVO> list = boardService.readAllByCateNo(cateNo);
 		
 		System.out.println(list.toString());
 		
-		model.addAttribute("list",list);
+		
 		
 		return "views/board/boardlist";
 	}
