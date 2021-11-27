@@ -17,13 +17,13 @@ public class boardController {
 	@Autowired
 	private BoardService boardServie;
 	
-	@GetMapping("/boardlist{cateNo}")
+	@GetMapping("/boardlist/{cateNo}")
 	public String boardlist(@PathVariable int cateNo, Model model) {
 		
 		List<BoardVO> list = boardServie.readAllByCateNo(cateNo);
 		model.addAttribute("list",list);
 		
-		return "boardlist";
+		return "views/board/boardlist";
 	}
 	
 }
