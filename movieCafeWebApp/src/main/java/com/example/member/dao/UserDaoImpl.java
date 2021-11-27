@@ -1,9 +1,8 @@
 package com.example.member.dao;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
-import org.mybatis.spring.SqlSessionTemplate;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,25 +11,19 @@ import com.example.member.domain.UserInfoVo;
 @Repository("userInfoDao")
 public class UserDaoImpl implements UserDao {
 	@Autowired
-	private SqlSessionTemplate session;
+	private SqlSession sqlSession;
+	
 	
 	
 	@Override
-	public int checkIsUser(UserInfoVo userInfoVo) {
-		String userId = userInfoVo.getUserId();
-		String userPwd = userInfoVo.getUserPwd();
-		
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("userId", userId);
-		map.put("userPwd", userPwd);
-		
-		return session.selectOne("Member.checkIsUser", map);
+	public int checkIsUser(Map map) {
+		return sqlSession.selectOne("Member.checkIsUser", map); 
 	}
 
 
 	@Override
-	public void loginUser(UserInfoVo userInfVo) {
-		// TODO Auto-generated method stub
-		
+	public UserInfoVo sendUserInfo(String user) { 
+		return sqlSession.selectOne("Member.loginUser", user);
 	}
+
 }

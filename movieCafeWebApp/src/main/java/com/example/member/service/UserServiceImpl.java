@@ -1,5 +1,7 @@
 package com.example.member.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,13 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public int isCheckUserCount(UserInfoVo user) {
-		return this.userDao.checkIsUser(user);
+	public int isCheckUserCount(Map map) {
+		return this.userDao.checkIsUser(map);
+	}
+
+	@Override
+	public UserInfoVo uploadUserInfo(String userId) {
+		return this.userDao.sendUserInfo(userId);
 	}
 
 }
