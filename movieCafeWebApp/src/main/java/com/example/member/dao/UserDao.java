@@ -9,5 +9,7 @@ public interface UserDao {
 	int checkIsUser(Map map);
 	UserInfoVo sendUserInfo(String user);
 	
+	
+	
 
 }

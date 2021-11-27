@@ -20,6 +20,14 @@ import com.example.member.service.UserService;
 public class UserInfoController {
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping("/")
+	public String home() {
+		return "views/main"	;
+	}
+	
+	
+	
 
 	@RequestMapping(value = "/requestlogin", method = RequestMethod.POST)
 	public String loginController(@RequestParam(value = "userId") String userId,
@@ -28,6 +36,7 @@ public class UserInfoController {
 		String url = "";
 		map.put("userId", userId);
 		map.put("userPwd", userPwd);
+		
 
 		int isCheckUser = this.userService.isCheckUserCount(map);
 		System.out.println(isCheckUser);
@@ -47,6 +56,9 @@ public class UserInfoController {
 		System.out.println("controller return : "+url);
 		return 
 				url;
+
+		
+		
 	}
 
 }

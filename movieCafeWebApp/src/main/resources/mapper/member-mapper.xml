@@ -27,4 +27,5 @@
 		ON (user_info.userId = rank.userId) AND user_info.userId = #{userId}
 	</select>
 	
+	
 </mapper>

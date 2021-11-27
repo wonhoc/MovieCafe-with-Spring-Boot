@@ -21,6 +21,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserInfoVo uploadUserInfo(String userId) {
 		return this.userDao.sendUserInfo(userId);
+		
+		
 	}
 
 }

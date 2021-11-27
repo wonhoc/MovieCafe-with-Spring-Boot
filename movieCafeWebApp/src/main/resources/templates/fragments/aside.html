@@ -11,7 +11,11 @@
 				<img src="images/login.png" alt="login_icon" class="login_icon" />
 				<span class="login_title">로그인</span>
 				<div class="login_divide"></div>
-				<div th:if="${session.UserInfoVo == null}" id="thId">
+				<div th:if="${session.Hello == null}" id="thId">
+				
+				<span th:text = "${session.Hello}"></span>
+				<span th:text = "${Hello}"></span>
+				
 				<form action="/requestlogin"
 					method="POST" >
 					<div class="login_input">

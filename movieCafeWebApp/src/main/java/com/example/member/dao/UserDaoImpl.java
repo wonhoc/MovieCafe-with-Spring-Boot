@@ -13,8 +13,6 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
-	
 	@Override
 	public int checkIsUser(Map map) {
 		return sqlSession.selectOne("Member.checkIsUser", map); 

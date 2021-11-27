@@ -25,5 +25,7 @@ public class UserInfoVo {
 	private String rankType;
 	private int reportCount;
 	
+	
+	
 }
 

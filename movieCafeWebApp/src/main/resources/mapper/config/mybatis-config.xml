@@ -6,4 +6,5 @@
 	<typeAliases>
 		<typeAlias alias="UserInfoVo" type="com.example.member.domain.UserInfoVo"/>
 	</typeAliases>
+	
 </configuration>
