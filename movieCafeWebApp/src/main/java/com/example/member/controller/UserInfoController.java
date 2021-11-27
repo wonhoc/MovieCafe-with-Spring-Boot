@@ -21,6 +21,7 @@ public class UserInfoController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@GetMapping("/")
 	public String home() {
 		return "views/main";
@@ -50,12 +51,13 @@ public class UserInfoController {
 			
 			UserInfoVo user1 = (UserInfoVo) session.getAttribute("userInfo");
 			System.out.println("세션 유저 정보 : " + user1.toString());
-			
 		} else {
 			// 리다이렉트로 로그인 페이지 다시
 			url = "/redirect:/views/main";
 		}
-		return url;
+		System.out.println("controller return : "+url);
+		return 
+				url;
 	}
 
 }
