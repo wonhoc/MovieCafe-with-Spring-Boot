@@ -15,15 +15,19 @@ import com.example.board.vo.BoardVO;
 public class boardController {
 
 	@Autowired
-	private BoardService boardServie;
+	private BoardService boardService;
 	
-	@GetMapping("/boardlist{cateNo}")
+	@GetMapping("/boardlist/{cateNo}")
 	public String boardlist(@PathVariable int cateNo, Model model) {
 		
-		List<BoardVO> list = boardServie.readAllByCateNo(cateNo);
+		System.out.println(cateNo);
+		List<BoardVO> list = boardService.readAllByCateNo(cateNo);
+		
+		System.out.println(list.toString());
+		
 		model.addAttribute("list",list);
 		
-		return "boardlist";
+		return "views/board/boardlist";
 	}
 	
 }

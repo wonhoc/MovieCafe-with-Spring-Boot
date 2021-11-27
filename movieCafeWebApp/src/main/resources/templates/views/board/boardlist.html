@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/defaultLayout}"> 
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wwww.example.com</title>
+</head>
+<section layout:fragment="content">
+    <div class ="container">
+        <div>
+          
+                <table class="table table-hover">
+                    <thead>
+                        <td>닉네임</td>
+                        <td>제목</td>
+                        <td>날짜</td>
+                        <td>조회수</td>
+                        <td>추천</td>
+                        <td>신고</td>
+                    </thead>
+                    <tbody>
+                        <tr th:each="list : ${list}">
+                            <td th:text="${list.userNick}"></td>
+                            <td><p th:text="${list.horse}"></p><p th:text="${list.boardTitle}"></p> </td>
+                            <td th:text="${list.boardWdate}"></td>
+                            <td th:text="${list.boardCount}"></td>
+                            <td th:text="${list.boardCount}"></td>
+                            <td th:text="${list.boardCount}"></td>
+                        </tr>   
+                    </tbody>              
+                </table>
+        </div>
+    </div>
+</section>
+</html>

@@ -4,4 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
 	
+<resultMap type="boardVO" id="listboardByCateNoMap">
+	<result property="userId" javaType="string" column="userId" jdbcType="VARCHAR"/>
+	<result property="horse" javaType="string" column="horse" jdbcType="VARCHAR"/>
+	<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
+	<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
+	<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR"/>
+	<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER"/>
+</resultMap>
+
+<parameterMap type="int" id="getlist">
+	<parameter property="cateNo" javaType="int" jdbcType="INTEGER" mode="IN"/>
+</parameterMap>
+
+<select id="selectListByCateNo" statementType="CALLABLE" resultMap="listboardByCateNoMap"
+	parameterType="int" parameterMap="getlist">
+	{ call sp_list_board(?) }
+</select>
+
+
+
 </mapper>

@@ -16,8 +16,8 @@ public class BoardDaoImpl implements BoardDao {
 	
 	@Override
 	public List<BoardVO> selectList(int cateNo) {
-		
-		return null;
+		List<BoardVO> list = this.sqlSession.selectList("Board.selectListByCateNo", cateNo);
+		return list;
 	}
-
+	
 }
