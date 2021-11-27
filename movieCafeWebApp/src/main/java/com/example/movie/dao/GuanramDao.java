@@ -1,9 +1,9 @@
-package com.example.dao.movie;
+package com.example.movie.dao;
 
 import java.util.ArrayList;
 
-import com.example.domain.movie.GuanramListVO;
-import com.example.domain.movie.MovieGuanramVO;
+import com.example.movie.vo.GuanramListVO;
+import com.example.movie.vo.MovieGuanramVO;
 
 public interface GuanramDao {
 	ArrayList<GuanramListVO> selectGuanramList(int movieNo);

@@ -1,9 +1,9 @@
-package com.example.service.movie;
+package com.example.movie.service;
 
 import java.util.ArrayList;
 
-import com.example.domain.movie.MovieGuanramVO;
-import com.example.domain.movie.MovieInfoVO;
+import com.example.movie.vo.MovieGuanramVO;
+import com.example.movie.vo.MovieInfoVO;
 
 public interface MovieService {
 	void registerMovie(MovieInfoVO movie);

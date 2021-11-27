@@ -5,12 +5,10 @@
 	layout:decorate="~{layout/defaultLayout}">
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
-	<link rel="stylesheet" th:href="@{/css/movie/loading.css}">
 </th:block>
 <th:block layout:fragment="script">
 	<script th:src="@{/js/movie/main.js}"></script>
 </th:block>
-
 
 <head>
 </head>
@@ -18,7 +16,7 @@
 	<div class="main_top">
 		<div class="top_title">
 			<h1 class="main_title">인기 영화</h1>
-			<button class="add_btn">등록</button>
+			<button class="btn btn-outline-secondary">등록</button>
 		</div>
 		
 		<div class="movieList">

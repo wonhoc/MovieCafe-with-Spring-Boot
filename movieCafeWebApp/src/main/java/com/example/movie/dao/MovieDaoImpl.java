@@ -1,4 +1,4 @@
-package com.example.dao.movie;
+package com.example.movie.dao;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.domain.movie.MovieInfoVO;
+import com.example.movie.vo.MovieInfoVO;
 
 @Repository("movieDao")
 public class MovieDaoImpl implements MovieDao {
