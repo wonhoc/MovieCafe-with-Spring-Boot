@@ -21,8 +21,8 @@ public class MovieMain {
 		return "movie/movieBoardForm";
 	}
 	
-	@GetMapping("/guanramForm")
-	public String guanramForm() {
-		return "movie/registerGuanram";
+	@GetMapping("/guanramForm/{movieId}")
+	public String guanramForm(@PathVariable String movieId) {
+		return "views/movie/registerGuanram";
 	}
 }

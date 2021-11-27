@@ -20,14 +20,6 @@ import com.example.member.service.UserService;
 public class UserInfoController {
 	@Autowired
 	private UserService userService;
-	
-	@GetMapping("/")
-	public String home() {
-		return "views/main"	;
-	}
-	
-	
-	
 
 	@RequestMapping(value = "/requestlogin", method = RequestMethod.POST)
 	public String loginController(@RequestParam(value = "userId") String userId,

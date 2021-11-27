@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/movie/registerGuanram.css}">
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/movie/guanramForm.js}"></script>
+</th:block>
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Register Guanram</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
-	type="text/css" />
-<link rel="stylesheet" th:href="@{/css/movie/registerGuanram.css}"
-	type="text/css" />
 </head>
-<body>
+<section layout:fragment="content">
 <div class="review">
           <div class="review_left">   
             <img src="upload/movie/${movieImg}" alt="movieImg" class="review_img" />
@@ -40,5 +40,5 @@
           </div>
         </form>
        </div>
-</body>
+</section>
 </html>

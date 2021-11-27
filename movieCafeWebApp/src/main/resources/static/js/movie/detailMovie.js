@@ -1,6 +1,11 @@
+function registerGuanram() {
+    const url = window.location.pathname.split('/');
+    const movieId = url[2];
+    location.href = `/guanramForm/${movieId}`;
+}
+
 $(document).ready(function () {
     $(".like").on("click", function() {
-    	console.log("wow");
     	$(this).removeClass('far');
     	$(this).addClass('fas');
     	
