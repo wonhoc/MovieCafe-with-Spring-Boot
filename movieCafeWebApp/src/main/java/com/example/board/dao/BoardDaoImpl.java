@@ -23,7 +23,13 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public void insertBoard(BoardVO board) {
-		this.sqlSession.insert("insertNewMemBoardCall", board);
+		this.sqlSession.insert("insertBoardCall", board);
+	}
+
+	@Override
+	public void insertBoardNewMem(BoardVO board) {
+		this.sqlSession.insert("insertNewMemBoardCall",board);
+		
 	}
 
 	@Override
@@ -35,6 +41,12 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int lastId() {
 		return this.sqlSession.selectOne("lastId");
+	}
+
+	@Override
+	public void insertBoardTip(BoardVO board) {
+		this.sqlSession.insert("insertTipBoardCall", board);
+		
 	}
 
 

@@ -16,7 +16,7 @@
 		<!-- 새싹 게시판 -->
 		<div th:if="${cateNo==1}" class="container" role="main">
 		
-			<form name="form" id="form" role="form" method="post" th:action="@{/fileUpload}"
+			<form name="form" id="form" role="form" method="post" th:action="@{/NewMemfileUpload}"
 				enctype="multipart/form-data">
 				<input type="hidden" name="userId" value="test_user03">
 				<input type="hidden" id="cateNo" name="cateNo" value="1">

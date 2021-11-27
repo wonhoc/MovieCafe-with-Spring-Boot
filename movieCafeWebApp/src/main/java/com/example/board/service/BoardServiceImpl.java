@@ -23,7 +23,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void createBoard(BoardVO board) {
-		int no = boardDao.lastId();
+		/*int no = boardDao.lastId();
 		
 		
 		if(board.getBoardfileList() != null) {
@@ -33,7 +33,20 @@ public class BoardServiceImpl implements BoardService{
 			this.boardDao.insertBoardFile(file);
 		}
 		}
+		*/
 		this.boardDao.insertBoard(board);
+	}
+
+	@Override
+	public void createNewMemBoard(BoardVO board) {
+		this.boardDao.insertBoardNewMem(board);
+		
+	}
+
+	@Override
+	public void createTipBoard(BoardVO board) {
+		this.boardDao.insertBoardTip(board);
+		
 	}
 
 }

@@ -10,6 +10,8 @@ public interface BoardDao {
 	List<BoardVO> selectList(int cateNo);
 	void insertBoard(BoardVO board);
 	void insertBoardFile(BoardFileVO file);
+	void insertBoardNewMem(BoardVO board);
+	void insertBoardTip(BoardVO board);
 	int lastId();
 	
 }

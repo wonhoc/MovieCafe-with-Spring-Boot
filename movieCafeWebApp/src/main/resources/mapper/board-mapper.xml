@@ -5,7 +5,7 @@
 <mapper namespace="Board">
 
 <!-- 새싹게시판 게시글 작성 -->
-<parameterMap type="boardVO" id="boardCreateMap">
+<parameterMap type="boardVO" id="boardNewMemCreateMap">
    <parameter property="userId" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
    <parameter property="boardTitle" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
    <parameter property="boardContent" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
@@ -13,7 +13,25 @@
    <parameter property="boardNotice" javaType="int"  jdbcType="TINYINT" mode="IN"/>
 </parameterMap>
 
+<!-- 영화리뷰,시사회 정보 게시글 작성 -->
+ <parameterMap type="boardVO" id="boardCreateMap">
+   <parameter property="userId" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="boardTitle" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="boardContent" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="horseNo" javaType="int" jdbcType="INTEGER" mode="IN"/>
+   <parameter property="boardNotice" javaType="int"  jdbcType="TINYINT" mode="IN"/>
+</parameterMap>
 
+<!-- 팁 게시판 게시글 작성 -->
+<parameterMap type="boardVO" id="boardTipCreateMap">
+   <parameter property="userId" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="boardTitle" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="boardContent" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="horseNo" javaType="int" jdbcType="INTEGER" mode="IN"/>
+   <parameter property="boardNotice" javaType="int"  jdbcType="TINYINT" mode="IN"/>
+   <parameter property="apiX" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="apiY" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+</parameterMap>
 <!-- 파일 업로드 -->
 <parameterMap type="boardFileVO" id="boardFileCreateMap">
    <parameter property="boardfileOrigin" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
@@ -26,8 +44,20 @@
 
 <!-- 새싹 게시판 글 작성 -->
   <insert id="insertNewMemBoardCall" parameterType="BoardVo" statementType="CALLABLE" 
- parameterMap="boardCreateMap">
+ parameterMap="boardNewMemCreateMap">
   	{call sp_write_NewMemboard(?,?,?,?) }	<!--#{컬럼이름, jdbcType, mode(in,out,inout)}  -->
+ </insert>
+ 
+ <!-- 영화리뷰, 시사회 정보 게시글 작성 -->
+ <insert id="insertBoardCall" parameterType="BoardVo" statementType="CALLABLE" 
+ parameterMap="boardCreateMap">
+  	{call sp_write_board(?,?,?,?,?) }	<!--#{컬럼이름, jdbcType, mode(in,out,inout)}  -->
+ </insert>
+ 
+ <!-- 팁게시판 글 작성 -->
+ <insert id="insertTipBoardCall" parameterType="BoardVo" statementType="CALLABLE" 
+ parameterMap="boardTipCreateMap">
+  	{call sp_write_boardTip(?,?,?,?,?,?,?) }	<!--#{컬럼이름, jdbcType, mode(in,out,inout)}  -->
  </insert>
  
  <!--  파일 insert -->
