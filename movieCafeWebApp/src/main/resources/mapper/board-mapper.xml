@@ -12,13 +12,32 @@
 	<result property="commentCount" javaType="int" column="commentCount" jdbcType="INTEGER"/>
 </resultMap>
 	
-<parameterMap type="string" id="paramMapSelectList">
+<parameterMap type="int" id="paramMapSelectList">
 	<parameter property="cateNo" javaType="int" jdbcType="INTEGER" mode="IN"/>
-</parameterMap>
+</parameterMap>	
 	
 <select id="selectByCateNo" statementType="CALLABLE" resultMap="resultMapSelectList"
 	parameterType="string" parameterMap="paramMapSelectList">
 	{ call sp_list_board(?) }
+</select>
+	
+		
+<resultMap type="boardVO" id="resultMapSelectDetail">
+	<result property="horse" javaType="string" column="horse" jdbcType="VARCHAR"/>
+	<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
+	<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
+	<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR"/>
+	<result property="commentCount" javaType="int" column="commentCount" jdbcType="INTEGER"/>
+	<result property="boardContent" javaType="string" column="boardContent" jdbcType="VARCHAR"/>
+</resultMap>
+	
+<parameterMap type="int" id="paramMapSelectDetail">
+	<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN"/>
+</parameterMap>
+
+<select id="selectDetailBoard" statementType="CALLABLE" resultMap="resultMapSelectDetail"
+	parameterType="int" parameterMap="paramMapSelectDetail">
+	{ call sp_detail_board(?) }
 </select>
 	
 </mapper>

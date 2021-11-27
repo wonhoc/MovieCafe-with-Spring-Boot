@@ -33,12 +33,11 @@
 					<tr>
 					<!-- 상세보기 합치면 나중에 링크로 넣기 -->
 						<td th:text ="${board.userNick}"></td>
-                        
-                        <td><span id="horse" th:text ="${board.horse}" /><a th:href="@{/detail/{title}(title=${Title})}" th:text="${board.boardTitle}"></a></td>
-						<td><a th:text ="${board.boardWdate}"></td>
-						<td><a th:text ="${board.boardCount}"></td>
-						<td><a th:text ="${board.boardCount}"></td>
-						<td><a th:text ="${board.boardCount}"></td>
+                        <td><span id="horse" th:text ="${board.horse}" /><a th:href="@{/detail/{boardNo}(boardNo=${board.boardNo})}" th:text="${board.boardTitle}"></a></td>
+						<td th:text ="${board.boardWdate}"></td>
+						<td th:text ="${board.boardCount}"></td>
+						<td th:text ="${board.boardCount}"></td>
+						<td th:text ="${board.boardCount}"></td>
 					</tr>
 				</p>
 			</p>

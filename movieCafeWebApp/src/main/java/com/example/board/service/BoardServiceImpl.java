@@ -19,4 +19,10 @@ public class BoardServiceImpl implements BoardService{
 		return this.boardDao.selectList(cateNo);
 	}
 
+	@Override
+	public BoardVO readOne(int boardNo) {
+		return this.boardDao.selectBoard(boardNo);
+	}
+
+	
 }

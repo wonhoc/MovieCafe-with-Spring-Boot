@@ -20,4 +20,13 @@ public class BoardDaoImpl implements BoardDao {
 		return this.sqlSession.selectList("selectByCateNo", cateNo);
 	}
 
+	@Override
+	public BoardVO selectBoard(int boardNo) {
+		
+		return this.sqlSession.selectOne("selectDetailBoard", boardNo);
+	}
+
+	
+	
+	
 }

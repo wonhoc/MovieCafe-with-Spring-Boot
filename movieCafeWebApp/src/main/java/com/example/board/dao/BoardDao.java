@@ -10,7 +10,6 @@ public interface BoardDao {
 
 	List<BoardVO> selectList(int cateNo);
 	
-	
-	
+	BoardVO selectBoard(int boardNo);
 	
 }

@@ -26,4 +26,15 @@ public class boardController {
 		return "views/board/boardlist";
 	}
 	
+	@GetMapping("/detail/{boardNo}")
+	public String deltailboard(@PathVariable int boardNo, Model model) {
+		
+		BoardVO board = boardServie.readOne(boardNo);
+		
+		model.addAttribute("board",board);
+		
+		return "views/board/boardDetail";
+	}
+	 
+	
 }
