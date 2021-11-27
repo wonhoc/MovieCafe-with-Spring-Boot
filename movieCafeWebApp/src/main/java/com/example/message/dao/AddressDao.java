@@ -1,4 +1,4 @@
-package com.example.dao.message;
+package com.example.message.dao;
 
 import java.util.ArrayList;
 

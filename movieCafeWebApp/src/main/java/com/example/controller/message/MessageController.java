@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.domain.message.SendMsgVO;
-import com.example.service.message.MsgService;
+import com.example.message.service.MsgService;
+import com.example.message.vo.SendMsgVO;
 
 @Controller
 public class MessageController {

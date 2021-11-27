@@ -1,4 +1,4 @@
-package com.example.domain.message;
+package com.example.message.vo;
 
 import groovy.transform.ToString;
 import lombok.AllArgsConstructor;
