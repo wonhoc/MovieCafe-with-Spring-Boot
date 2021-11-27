@@ -3,5 +3,25 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Movie">
+
+	<resultMap type="movieVO" id="resultMovie">
+		<result property="movieNo" javaType="int" column="movie_no" jdbcType="INTEGER"/>
+		<result property="movieTitle" javaType="string" column="movie_title" jdbcType="VARCHAR"/>
+		<result property="movieDir" javaType="string" column="movie_dir" jdbcType="VARCHAR"/>
+		<result property="movieActor" javaType="string" column="movie_actor" jdbcType="VARCHAR"/>
+		<result property="movieGenre" javaType="string" column="movie_genre" jdbcType="VARCHAR"/>
+		<result property="movieRuntime" javaType="int" column="movie_runtime" jdbcType="INTEGER"/>
+		<result property="movieLink" javaType="string" column="movie_link" jdbcType="VARCHAR"/>
+		<result property="movieAge" javaType="string" column="movie_age" jdbcType="CHAR"/>
+		<result property="movieRelease" javaType="string" column="movie_release" jdbcType="DATE"/>
+		<result property="posterOrigin" javaType="string" column="poster_origin" jdbcType="VARCHAR"/>
+		<result property="posterSys" javaType="string" column="poster_sys" jdbcType="VARCHAR"/>
+	</resultMap>
 	
+	<select id="selectMovie" parameterType="int" resultType="movieVo" resultMap="resultMovie">
+		SELECT movie_no, movie_title, movie_dir, movie_actor, movie_genre, 
+		movie_runtime, movie_link, movie_age, movie_release, poster_origin, poster_sys 
+		FROM movie_info 
+		Where movie_no = #{movieNo}
+	</select>
 </mapper>

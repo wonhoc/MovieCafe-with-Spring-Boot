@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Detail Movie</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+	type="text/css" />
+<link rel="stylesheet" th:href="@{/css/movie/detailMovie.css}"
+	type="text/css" />
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/movie/detailMovie.js}"></script>
+</head>
+<body>
+	<div class="detail_top">
+		<div class="top_left">
+
+			<img
+				src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85121/85121_320.jpg"
+				alt="image" class="detail_img" />
+			<div class="detail_content">
+				<h1 class="detail_title">영화 1</h1>
+				<p class="detail_text">감독 :</p>
+				<p class="detail_text">배우 :</p>
+				<p class="detail_text">장르 :</p>
+				<p class="detail_text">러닝타임 :</p>
+				<p class="detail_text">예매처 링크 :</p>
+				<p class="detail_text">관람가 : 전체 관람가</p>
+				<p class="detail_text">상영 날짜 :</p>
+				<p class="detail_text">평점 : 0 / 5</p>
+			</div>
+		</div>
+	</div>
+	<div class="detail_divide"></div>
+	<div class="detail_bottom">
+		<div class="bottom_top">
+			<h1 class="review_title">관람평</h1>
+			<div class="review_lett">
+				<button class="review_btn">평점 작성</button>
+			</div>
+		</div>
+		<div class="review_line">
+			<img src="images/login.png" alt="profile"
+				class="review_profile" />
+			<p class="review_text id">user_id</p>
+			<p class="review_text content">content</p>
+			<p class="review_text date">write date</p>
+
+			<div class="like">
+				<i class="far fa-heart review_text heart"></i>
+				<p class="review_text">5</p>
+			</div>
+			<div class="rank">
+				<i class="fas fa-star review_text"></i>
+			</div>
+			<button class="delete_btn">삭제</button>
+		</div>
+	</div>
+</body>
+</html>
