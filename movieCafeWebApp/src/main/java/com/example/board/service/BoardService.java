@@ -7,5 +7,7 @@ import com.example.board.vo.BoardVO;
 public interface BoardService {
 
 	List<BoardVO> readAllByCateNo(int cateNo);
+	void createBoard(BoardVO board);
+
 	
 }

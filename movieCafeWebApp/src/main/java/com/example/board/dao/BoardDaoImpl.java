@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
 
 @Repository("boardDao")
@@ -19,5 +20,23 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return null;
 	}
+
+	@Override
+	public void insertBoard(BoardVO board) {
+		this.sqlSession.insert("insertNewMemBoardCall", board);
+	}
+
+	@Override
+	public void insertBoardFile(BoardFileVO file) {
+		this.sqlSession.insert("insertBoardFileCall",file);
+		
+	}
+
+	@Override
+	public int lastId() {
+		return this.sqlSession.selectOne("lastId");
+	}
+
+
 
 }

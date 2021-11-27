@@ -3,5 +3,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
-	
+
+<!-- 새싹게시판 게시글 작성 -->
+<parameterMap type="boardVO" id="boardCreateMap">
+   <parameter property="userId" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="boardTitle" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="boardContent" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   
+   <parameter property="boardNotice" javaType="int"  jdbcType="TINYINT" mode="IN"/>
+</parameterMap>
+
+
+<!-- 파일 업로드 -->
+<parameterMap type="boardFileVO" id="boardFileCreateMap">
+   <parameter property="boardfileOrigin" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="boardfileSys" javaType="string"  jdbcType="VARCHAR" mode="IN"/>
+   <parameter property="boardfileSize" javaType="long"  jdbcType="INTEGER" mode="IN"/>
+   
+   <parameter property="boardNo" javaType="int"  jdbcType="TINYINT" mode="IN"/>
+</parameterMap>
+
+
+<!-- 새싹 게시판 글 작성 -->
+  <insert id="insertNewMemBoardCall" parameterType="BoardVo" statementType="CALLABLE" 
+ parameterMap="boardCreateMap">
+  	{call sp_write_NewMemboard(?,?,?,?) }	<!--#{컬럼이름, jdbcType, mode(in,out,inout)}  -->
+ </insert>
+ 
+ <!--  파일 insert -->
+ <insert id="insertBoardFileCall" parameterType="BoardFileVo" statementType="CALLABLE" 
+ parameterMap="boardFileCreateMap">
+  	{call sp_insert_boardfile(?,?,?,?) }	<!--#{컬럼이름, jdbcType, mode(in,out,inout)}  -->
+ </insert>
+ 
+ <select id="lastId" resultType="int">
+ SELECT LAST_INSERT_ID()
+ </select>
+ 
+ 
 </mapper>
