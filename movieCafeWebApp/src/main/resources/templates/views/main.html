@@ -1,50 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layout/defaultLayout}"> 
-    <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/main.css}" >
-    </th:block>
-    <th:block layout:fragment="script">
-        <script th:src="@{/js/movie/movieBoardForm.js}"></script>
-    </th:block>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/movie/main.js}"></script>
+</th:block>
+
 <head>
 </head>
 <section layout:fragment="content">
 	<div class="main_top">
 		<div class="top_title">
-			<h1 class="main_title">이 달의 영화</h1>
-			<button class="add_btn">등록</button>
+			<h1 class="main_title">인기 영화</h1>
+			<button class="btn btn-outline-secondary">등록</button>
 		</div>
+		
 		<div class="movieList">
-			<div class="listSection">
-				<div class="sectionMovie" id="movie">
-					<a href="${detailUrl }"> <img
-						src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85121/85121_320.jpg"
-						alt="movie" class="movieImg" />
-					</a>
-					<h3 class="movie_title">영화1</h3>
-				</div>
-			</div>
-			<div class="listSection">
-				<div class="sectionMovie" id="movie">
-					<a href="${detailUrl }"> <img
-						src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000083/83105/83105_320.jpg"
-						alt="movie" class="movieImg" />
-					</a>
-					<h3 class="movie_title">영화1</h3>
-				</div>
-			</div>
-			<div class="listSection">
-				<div class="sectionMovie" id="movie">
-					<a href="${detailUrl }"> <img
-						src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85239/85239_320.jpg"
-						alt="movie" class="movieImg" />
-					</a>
-					<h3 class="movie_title">영화1</h3>
-				</div>
-			</div>
+		
 		</div>
+		<div id="pagination-div" >
+			<div id="page-content"></div>
+		</div>
+
 	</div>
 	<div class="main_divide"></div>
 	<div class="main_bottom">

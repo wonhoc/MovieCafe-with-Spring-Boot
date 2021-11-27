@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+}
+
+.review {
+	padding: 3em 5em;
+	display: flex;
+	justify-content: center;
+}
+
+.review_img {
+	width: 20rem;
+	height: 25rem;
+	margin-right: 5em;
+}
+
+.review_title {
+	font-size: 30px;
+	text-align: initial;
+}
+
+.review_right {
+	width: 80%;
+}
+
+.review_input {
+	display: flex;
+	width: 100%;
+	align-items: center;
+}
+
+.input_box, .select_box {
+	margin-left: 2em;
+	width: 25rem;
+	height: 3rem;
+	border: 3px solid black;
+	border-radius: 0.25em;
+}
+
+.rating_title, .input_title {
+	font-size: 24px;
+}
+
+.review_rating {
+	display: flex;
+	width: 100%;
+	align-items: center;
+}
+
+.select_box {
+	margin-left: 7em;
+	width: 15rem;
+}
+
+.review_btn {
+	height: 2rem;
+	margin: 0 0.5em;
+	font-size: 18px;
+	color: #a7a6a6;
+	background-color: #fdfdfd;
+	border: 2px solid #b1b1b1;
+	border-bottom-color: #b1b1b1;
+	border-radius: 0.25em;
+	transition: all 150ms ease-in;
+	cursor: pointer;
+}
+
+.review_btn:hover {
+	background-color: #e2e2e2;
+}
+
+.review_bottom {
+	padding: 10em 10em 0 0;
+	text-align: end;
+}
