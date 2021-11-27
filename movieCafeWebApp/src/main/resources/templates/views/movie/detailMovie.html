@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/movie/detailMovie.css}">
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/movie/detailMovie.js}"></script>
+</th:block>
+<head>
+</head>
+<section layout:fragment="content">
+	<div class="detail_top">
+		<div class="top_left"></div>
+	</div>
+	<div class="detail_divide"></div>
+	<div class="detail_bottom">
+		<div class="bottom_top">
+			<h1 class="review_title">관람평</h1>
+			<div class="review_lett">
+				<button class="review_btn">평점 작성</button>
+			</div>
+		</div>
+		<div class="review_line">
+			<img src="images/login.png" alt="profile"
+				class="review_profile" />
+			<p class="review_text id">user_id</p>
+			<p class="review_text content">content</p>
+			<p class="review_text date">write date</p>
+
+			<div class="like">
+				<i class="far fa-heart review_text heart"></i>
+				<p class="review_text">5</p>
+			</div>
+			<div class="rank">
+				<i class="fas fa-star review_text"></i>
+			</div>
+			<button class="delete_btn">삭제</button>
+		</div>
+	</div>
+</section>
+</html>

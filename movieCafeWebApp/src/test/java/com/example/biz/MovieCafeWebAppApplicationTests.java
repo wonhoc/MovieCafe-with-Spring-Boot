@@ -7,28 +7,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.member.service.UserService;
+import com.example.movie.service.MovieService;
 
 @SpringBootTest
 class MovieCafeWebAppApplicationTests {
 
 	@Autowired
-	private UserService userService;
-
+	private MovieService movieService;
+	
 	@Test
-	void test() {
-
-		Map<String, String> map = new HashMap<String, String>();
-
-		map.put("userId", "test_user01");
-		map.put("userPwd", "asdf1234");
-
-		int isCheckUser = this.userService.isCheckUserCount(map);
-		System.out.println(isCheckUser);
-		if (isCheckUser == 1) {
-			System.out.println(userService.uploadUserInfo(map.get("userId")).toString());
-
-		}
+	public void test1() {
+		assertNotNull(this.movieService);
+	}
+	
+	@Test
+	public void test2() {
+		System.out.println(this.movieService.retrieveMovieDetail(1).toString());
 	}
 
 }

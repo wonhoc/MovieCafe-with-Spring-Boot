@@ -1,0 +1,155 @@
+@charset "UTF-8";
+
+section {
+	width: 90%;
+	margin: 2em;
+}
+
+.detail_top {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 20em;
+}
+
+.top_left {
+	display: flex;
+	align-items: center;
+}
+
+.detail_img {
+	margin: 1em;
+	width: 13rem;
+	height: 20rem;
+}
+
+.detail_content {
+	margin-left: 2em;
+}
+
+.detail_title {
+	margin: 0.5em 0;
+}
+
+.detail_text {
+	font-size: 20px;
+	margin: 0.3em;
+}
+
+.modify_btn {
+	padding: 0.5em 0.5em;
+	color: #b1b1b1;
+	font-size: 18px;
+	background-color: #fdfdfd;
+	border: 2px solid #b1b1b1;
+	border-bottom-color: #b1b1b1;
+	border-radius: 0.25em;
+	transition: all 150ms ease-in;
+	margin-bottom: 15em;
+	cursor: pointer;
+}
+
+.modify_btn:hover {
+	background-color: #e2e2e2;
+}
+
+.detail_divide {
+	margin-left: 5%;
+	width: 90%;
+	height: 2px;
+	background-color: #b1b1b1;
+}
+
+.review_title {
+	font-size: 26px;
+}
+
+.review_line {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	padding: 0 5em;
+}
+
+.review_profile {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+	margin-right: 2.5em;
+}
+
+.review_text {
+	font-size: 20px;
+}
+
+.id, .date, .like, .rank {
+	flex: 1;
+}
+
+.content {
+	flex: 2;
+}
+
+.like {
+	display: flex;
+	align-items: center;
+}
+
+.review_lett {
+	display: flex;
+}
+
+.bottom_top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 4em;
+}
+
+.review_btn {
+	height: 2rem;
+	margin: 0 0.5em;
+	color: #b1b1b1;
+	background-color: #fdfdfd;
+	border: 2px solid #b1b1b1;
+	border-bottom-color: #b1b1b1;
+	border-radius: 0.25em;
+	transition: all 150ms ease-in;
+	cursor: pointer;
+}
+
+.review_btn:hover {
+	background-color: #e2e2e2;
+}
+
+.delete_btn {
+	width: 3rem;
+	height: 2rem;
+	margin: 0 0.5em;
+	color: #a7a6a6;
+	background-color: #fdfdfd;
+	border: 2px solid #b1b1b1;
+	border-bottom-color: #b1b1b1;
+	border-radius: 0.25em;
+	transition: all 150ms ease-in;
+	cursor: pointer;
+}
+
+.delete_btn:hover {
+	background-color: #e2e2e2;
+}
+
+.hidden {
+	width: 3rem;
+	margin: 0 0.5em;
+}
+
+.fa-heart {
+	margin-right: 0.5em;
+	cursor: pointer;
+	transition: transform 200ms linear;
+}
+
+.fa-heart:hover {
+	transform: scale(1.1);
+}
