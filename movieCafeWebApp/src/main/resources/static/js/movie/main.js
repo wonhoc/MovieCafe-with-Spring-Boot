@@ -46,18 +46,17 @@ $(document).ready(function () {
 					$(".loadingBox").remove();
 					const movieList = data.data.movies;
 					for (let i = startRow; i < startRow + 3; i++) {
-						console.log(movieList[i].medium_cover_image);
 						$(".movieList").append(`
 						<div class="listSection">
 						<div class="sectionMovie" id="movie">
 							<img
 								src="${movieList[i].medium_cover_image}"
-								alt="movie" class="movieImg" />
-							
+								alt="movie" class="movieImg" onclick="location.href='detailMovie/${movieList[i].id}';"/>
 							<h3 class="movie_title">${movieList[i].title}</h3>
 						</div>
 					</div>`);
 					}
+
 				},
 				beforeSend: function () {
 					$(".movieList").append(`

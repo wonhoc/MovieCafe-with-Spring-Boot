@@ -94,6 +94,7 @@ section {
 	height: 15rem;
 	border-radius: 0.25em;
 	transition: transform 200ms linear;
+	cursor: pointer;
 }
 
 .movieImg:hover {

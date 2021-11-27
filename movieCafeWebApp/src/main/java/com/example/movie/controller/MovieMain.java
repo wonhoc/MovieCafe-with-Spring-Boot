@@ -1,7 +1,8 @@
-package com.example.controller.movie;
+package com.example.movie.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class MovieMain {
@@ -10,9 +11,9 @@ public class MovieMain {
 		return "views/main";
 	}
 	
-	@GetMapping("/detail")
-	public String detailMovie() {
-		return "movie/detailMovie";
+	@GetMapping("/detailMovie/{movieId}")
+	public String detailMovie(@PathVariable String movieId) {
+		return "views/movie/detailMovie";
 	}
 	
 	@GetMapping("/boardForm")

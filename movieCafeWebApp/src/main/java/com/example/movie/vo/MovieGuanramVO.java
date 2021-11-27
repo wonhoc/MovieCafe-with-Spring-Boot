@@ -1,4 +1,4 @@
-package com.example.domain.movie;
+package com.example.movie.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

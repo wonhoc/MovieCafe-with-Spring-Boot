@@ -1,37 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/movie/detailMovie.css}">
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/movie/detailMovie.js}"></script>
+</th:block>
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Detail Movie</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
-	type="text/css" />
-<link rel="stylesheet" th:href="@{/css/movie/detailMovie.css}"
-	type="text/css" />
-<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-<script th:src="@{/js/movie/detailMovie.js}"></script>
 </head>
-<body>
+<section layout:fragment="content">
 	<div class="detail_top">
-		<div class="top_left">
-
-			<img
-				src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85121/85121_320.jpg"
-				alt="image" class="detail_img" />
-			<div class="detail_content">
-				<h1 class="detail_title">영화 1</h1>
-				<p class="detail_text">감독 :</p>
-				<p class="detail_text">배우 :</p>
-				<p class="detail_text">장르 :</p>
-				<p class="detail_text">러닝타임 :</p>
-				<p class="detail_text">예매처 링크 :</p>
-				<p class="detail_text">관람가 : 전체 관람가</p>
-				<p class="detail_text">상영 날짜 :</p>
-				<p class="detail_text">평점 : 0 / 5</p>
-			</div>
-		</div>
+		<div class="top_left"></div>
 	</div>
 	<div class="detail_divide"></div>
 	<div class="detail_bottom">
@@ -58,5 +40,5 @@
 			<button class="delete_btn">삭제</button>
 		</div>
 	</div>
-</body>
+</section>
 </html>

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.service.movie.MovieService;
+import com.example.movie.service.MovieService;
 
 @SpringBootTest
 class MovieCafeWebAppApplicationTests {

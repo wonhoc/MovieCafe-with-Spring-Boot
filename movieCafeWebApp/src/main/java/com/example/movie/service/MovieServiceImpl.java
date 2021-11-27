@@ -1,13 +1,13 @@
-package com.example.service.movie;
+package com.example.movie.service;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dao.movie.MovieDao;
-import com.example.domain.movie.MovieGuanramVO;
-import com.example.domain.movie.MovieInfoVO;
+import com.example.movie.dao.MovieDao;
+import com.example.movie.vo.MovieGuanramVO;
+import com.example.movie.vo.MovieInfoVO;
 
 @Service("movieService")
 public class MovieServiceImpl implements MovieService {

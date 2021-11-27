@@ -1,8 +1,8 @@
-package com.example.dao.movie;
+package com.example.movie.dao;
 
 import java.util.ArrayList;
 
-import com.example.domain.movie.MovieInfoVO;
+import com.example.movie.vo.MovieInfoVO;
 
 public interface MovieDao {
 	void insertMovie(MovieInfoVO movie);
