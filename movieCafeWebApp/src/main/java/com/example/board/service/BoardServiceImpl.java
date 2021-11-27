@@ -16,7 +16,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public List<BoardVO> readAllByCateNo(int cateNo) {
-		return null;
+		return this.boardDao.selectList(cateNo);
 	}
 
 }
