@@ -1,13 +1,13 @@
-package com.example.service.message;
+package com.example.message.service;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dao.message.SendMsgDao;
-import com.example.domain.message.ReceiveMsgVO;
-import com.example.domain.message.SendMsgVO;
+import com.example.message.dao.SendMsgDao;
+import com.example.message.vo.ReceiveMsgVO;
+import com.example.message.vo.SendMsgVO;
 
 @Service("msgService")
 public class MsgServiceImpl implements MsgService {

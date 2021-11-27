@@ -1,9 +1,9 @@
-package com.example.service.message;
+package com.example.message.service;
 
 import java.util.ArrayList;
 
-import com.example.domain.message.ReceiveMsgVO;
-import com.example.domain.message.SendMsgVO;
+import com.example.message.vo.ReceiveMsgVO;
+import com.example.message.vo.SendMsgVO;
 
 public interface MsgService {
 	

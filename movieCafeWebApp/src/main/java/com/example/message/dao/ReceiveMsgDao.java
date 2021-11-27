@@ -1,8 +1,8 @@
-package com.example.dao.message;
+package com.example.message.dao;
 
 import java.util.ArrayList;
 
-import com.example.domain.message.ReceiveMsgVO;
+import com.example.message.vo.ReceiveMsgVO;
 
 public interface ReceiveMsgDao {
 	
