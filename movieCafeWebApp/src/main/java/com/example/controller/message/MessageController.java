@@ -1,5 +1,7 @@
 package com.example.controller.message;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -45,13 +47,20 @@ public class MessageController {
 		//보낼 쪽지 메세지 set
 		sendMsg.setSendMsgContent(sendMsgContent);
 		
-		//
+		//받을 사람들 set
+		ArrayList<String> addr = new ArrayList<String>();	//받을 아이디 ArrayList
 		
+		for(String id : reciveId) {
+			
+		addr.add(id);
+			
+		}//for end
 		
+		sendMsg.setAddress(addr);
 		
-		 
-		
-		
+		//DB에 저장
+		this.msgService.registerMsg(sendMsg);
+
 		return null;
 		
 	}//sendMsg() end

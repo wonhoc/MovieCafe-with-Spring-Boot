@@ -2,21 +2,26 @@ package com.example.service.message;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.dao.message.SendMsgDao;
 import com.example.domain.message.ReceiveMsgVO;
 import com.example.domain.message.SendMsgVO;
 
 @Service("msgService")
 public class MsgServiceImpl implements MsgService {
 	
-	
+	@Autowired
+	SendMsgDao sendMsgDao;
 	
 	@Override
 	public void registerMsg(SendMsgVO msgVo) {
-		// TODO Auto-generated method stub
+		
+	//방금 insert된 보낸메세지의 pk값
+	int sendMsgNo =	this.sendMsgDao.insertMessage(msgVo);
 
-	}
+	}//registerMsg() end
 
 	@Override
 	public ArrayList<SendMsgVO> retrieveSendMsgList(String userId, int startRow, int postSize) {
