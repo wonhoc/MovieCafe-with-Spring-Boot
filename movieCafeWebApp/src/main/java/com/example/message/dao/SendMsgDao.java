@@ -1,6 +1,6 @@
 package com.example.message.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.example.message.vo.SendMsgVO;
 
@@ -10,7 +10,7 @@ public interface SendMsgDao {
 	public int insertMessage(SendMsgVO msgVo);
 	
 	//보낸 쪽지 모두 조회
-	public ArrayList<SendMsgVO> selectSendmsg(String userId, int startRow, int postSize);
+	public List<SendMsgVO> selectSendMsgList(String userId);
 	
 	//보낸 쪽지 삭제
 	public void deleteSendMsg(int SendMsgNo);

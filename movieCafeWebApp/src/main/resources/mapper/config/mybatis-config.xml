@@ -6,5 +6,7 @@
 	<typeAliases>
 		<typeAlias type="com.example.movie.vo.MovieInfoVO" alias="movieVO"/>
 		<typeAlias type="com.example.board.vo.BoardVO" alias="boardVO"/>
+		<typeAlias type="com.example.message.vo.SendMsgVO" alias="sendMsgVo"/>
+		<typeAlias type="com.example.message.vo.AddressVO" alias="addressVo"/>
 	</typeAliases>
 </configuration>
