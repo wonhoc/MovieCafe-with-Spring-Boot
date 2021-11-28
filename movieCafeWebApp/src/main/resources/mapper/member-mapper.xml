@@ -27,5 +27,11 @@
 		ON (user_info.userId = rank.userId) AND user_info.userId = #{userId}
 	</select>
 	
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="">
+		INSERT INTO user_info (userId, userPwd, userNick, userEmail, userBirth, userContact, gender, userName, joinDate)
+			VALUES (#{userId}, #{userPwd}, #{userNick},#{userEmail}, #{userBirth}, #{userContact}, #{gender}, #{userName}, #{joinDate},);
+	</insert>
+	
 	
 </mapper>
