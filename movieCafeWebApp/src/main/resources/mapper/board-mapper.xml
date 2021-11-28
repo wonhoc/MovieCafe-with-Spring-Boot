@@ -118,20 +118,26 @@
 
 	<!-- 상세조회 -->
 	<resultMap type="boardVO" id="resultMapSelectDetail">
+		<result property="boardNo" javaType="int" column="boardNo"
+			jdbcType="INTEGER" />
+		<result property="userId" javaType="string" column="userId"
+			jdbcType="VARCHAR" />
+		<result property="userNick" javaType="string" column="userNick"
+			jdbcType="VARCHAR" />
 		<result property="horse" javaType="string" column="horse"
 			jdbcType="VARCHAR" />
 		<result property="boardTitle" javaType="string"
 			column="boardTitle" jdbcType="VARCHAR" />
-		<result property="userNick" javaType="string" column="userNick"
-			jdbcType="VARCHAR" />
-		<result property="boardWdate" javaType="string"
-			column="boardWdate" jdbcType="VARCHAR" />
-		<result property="commentCount" javaType="int"
-			column="commentCount" jdbcType="INTEGER" />
 		<result property="boardContent" javaType="string"
 			column="boardContent" jdbcType="VARCHAR" />
 		<result property="horseNo" javaType="int" column="horseNo"
 			jdbcType="INTEGER" /><!-- 11.28추가 -->
+		<result property="cateNo" javaType="int" column="cateNo"
+			jdbcType="INTEGER" />
+		<result property="boardWdate" javaType="string"
+			column="boardWdate" jdbcType="VARCHAR" />
+		<result property="boardCount" javaType="int" column="boardCount"
+			jdbcType="INTEGER" />
 		<result property="apiX" javaType="string" column="apiX"
 			jdbcType="VARCHAR" />
 		<result property="apiY" javaType="string" column="apiY"
