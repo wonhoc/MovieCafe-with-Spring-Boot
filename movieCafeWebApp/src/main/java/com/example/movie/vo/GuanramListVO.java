@@ -12,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class GuanramListVO {
+	private int guanramNo;
 	private String userId;
 	private String photoOrigin;
 	private String photoSys;
