@@ -22,6 +22,7 @@ $(document).ready(function () {
     	const obj = $(this);
 
         console.log(document.getElementById("listSize").value);
+        $("#listSize").append(``)
 
      	console.log(document.getElementById("guanramReview").value);
         console.log(obj.find('#guanramReview'));

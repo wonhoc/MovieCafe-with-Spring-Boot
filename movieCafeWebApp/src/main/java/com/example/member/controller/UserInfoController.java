@@ -46,11 +46,13 @@ public class UserInfoController {
 			url = "/redirect:/views/main";
 		}
 		System.out.println("controller return : "+url);
-		return 
-				url;
-
-		
-		
+		return url;
 	}
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "views/member/mypage";
+	}
+	
 
 }

@@ -42,7 +42,8 @@ public class MovieMain {
 	}
 
 	@PostMapping("/detailMovie/{movieId}")
-	public String registerGuanram(@PathVariable String movieId, @RequestParam("movieId") String movieNo, @RequestParam("userId") String userId,
+	public String registerGuanram(@PathVariable String movieId,
+			@RequestParam("movieId") String movieNo, @RequestParam("userId") String userId,
 			@RequestParam("review") String review, @RequestParam("rating") int rating, Model model) {
 		MovieGuanramVO guanram = new MovieGuanramVO(userId, Integer.parseInt(movieNo), review, rating);
 		this.guanramService.registerGuanram(guanram);
