@@ -1,6 +1,7 @@
 package com.example.movie.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,10 @@ public class GuanramDaoImpl implements GuanramDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public ArrayList<GuanramListVO> selectGuanramList(int movieNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GuanramListVO> selectGuanramList(int movieNo) {
+		List<GuanramListVO> guanramList = new ArrayList<GuanramListVO>();
+		guanramList = this.sqlSession.selectList("Movie.selectGuanramList", movieNo);
+		return guanramList;
 	}
 
 	@Override
@@ -32,8 +34,8 @@ public class GuanramDaoImpl implements GuanramDao {
 	}
 
 	@Override
-	public void deleteGuanram(int movieNo, String userId) {
-		// TODO Auto-generated method stub
+	public void deleteGuanram(int guanramNo) {
+		this.sqlSession.delete("Movie.deleteGuanram", guanramNo);
 
 	}
 
