@@ -1,8 +1,5 @@
 @charset "UTF-8";
 /* 전체 */
-section {
-	width: 100%;
-}
 
 .main_top {
 	align-items: center;
@@ -83,15 +80,7 @@ section {
 	font-size: 28px;
 }
 
-table {
-	width: 700px;
-	border-collapse: collapse;
-}
 
-table {
-	text-align: center;
-	margin-bottom: 3em;
-}
 
 th, td {
 	height: 35px;
@@ -100,14 +89,14 @@ th, td {
 th {
 	border-top: 3px solid #ed7c31;
 	border-bottom: 3px solid #ed7c31;
-	font-size: 22px;
+	font-size: 18px;
 	padding-bottom: 0.4em;
 	background-color: blanchedalmond;
 }
 
 tbody>tr {
 	background-color: #ffffe08f;
-	font-size: 18px;
+	font-size: 14px;
 	border-bottom: 5px solid white;
 }
 

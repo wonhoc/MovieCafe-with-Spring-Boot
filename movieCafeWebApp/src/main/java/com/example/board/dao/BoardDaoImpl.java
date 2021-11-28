@@ -20,4 +20,12 @@ public class BoardDaoImpl implements BoardDao {
 		return null;
 	}
 
+	@Override
+	public List<BoardVO> selectRecomRevList() {
+		return this.sqlSession.selectList("Board.mainBestListSelect");
+	}
+	@Override
+	public List<BoardVO> selectNoticeRevList() {
+		return this.sqlSession.selectList("Board.mainNoticeListSelect");
+	}
 }

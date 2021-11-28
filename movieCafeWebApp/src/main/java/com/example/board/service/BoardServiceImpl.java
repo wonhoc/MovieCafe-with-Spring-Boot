@@ -19,4 +19,12 @@ public class BoardServiceImpl implements BoardService{
 		return null;
 	}
 
+	@Override
+	public List<BoardVO> readRecomRevList() {
+		return this.boardDao.selectRecomRevList();
+	}
+	@Override
+	public List<BoardVO> readNoticeRevList() {
+		return this.boardDao.selectNoticeRevList();
+	}
 }

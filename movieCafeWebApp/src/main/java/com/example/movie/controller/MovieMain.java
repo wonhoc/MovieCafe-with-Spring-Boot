@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.board.service.BoardService;
+import com.example.board.vo.BoardVO;
 import com.example.movie.service.GuanramService;
 import com.example.movie.vo.GuanramListVO;
 import com.example.movie.vo.MovieGuanramVO;
@@ -20,8 +22,15 @@ public class MovieMain {
 	@Autowired
 	private GuanramService guanramService;
 	
+	@Autowired
+	private BoardService boardServie;
+	
 	@GetMapping("/")
-	public String home() {
+	public String home(Model model) {
+		List<BoardVO> recomList = this.boardServie.readRecomRevList();
+		List<BoardVO> noticeList = this.boardServie.readNoticeRevList();
+		model.addAttribute("recomList", recomList);
+		model.addAttribute("noticeList", noticeList);
 		return "views/main";
 	}
 
