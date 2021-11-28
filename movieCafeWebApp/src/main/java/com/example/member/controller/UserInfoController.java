@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.member.service.UserService;
 import com.example.member.vo.UserInfoVo;
@@ -132,10 +133,26 @@ public class UserInfoController {
 		
 		
 	}
+	@GetMapping(value="/gomypage")
+	public ModelAndView myPage(HttpServletRequest req, ModelAndView model) {
+		HttpSession session = req.getSession();
+		UserInfoVo userInfo = (UserInfoVo)session.getAttribute("userInfo");
+		System.out.println("세션 정보 : " + userInfo.toString());
+		
+		model.setViewName("/views/member/mypage");
+		model.addObject("userId",userInfo.getUserId());
+		model.addObject("userNick",userInfo.getUserNick());
+		model.addObject("joinDate",userInfo.getJoinDate());
+		
+
+		return model;
 	
-  @GetMapping("/mypage")
-	public String mypage() {
-		return "views/member/mypage";
 	}
+	
+	
+ // @GetMapping("/mypage")
+//	public String mypage() {
+	//	return "views/member/mypage";
+	//}
 
 }
