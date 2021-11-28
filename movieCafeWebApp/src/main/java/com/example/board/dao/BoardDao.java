@@ -9,8 +9,6 @@ import com.example.board.vo.BoardVO;
 public interface BoardDao {
 
 	List<BoardVO> selectList(int cateNo);
-	
-	
-	
-	
+	List<BoardVO> selectRecomRevList();
+	List<BoardVO> selectNoticeRevList();
 }
