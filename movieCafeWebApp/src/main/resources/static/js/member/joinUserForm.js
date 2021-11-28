@@ -53,13 +53,8 @@ $(document).ready(function() {
 			};
 			
 			async function idchkProcess(url, userId) {
-				console.log('userId = ' , userId);
 				try {
-					const result = await getAjax2(url, userId);
-					console.log("result : ", result.isUserId);
-					console.log("url : ", result.url);
-					
-					
+					const result = await getAjax2(url, userId);					
 					if(result == 'true') {
 	                	$('#resultId').text('이미 사용중인 아이디 입니다.');
 	                	$('#resultId').css('color', 'red');
@@ -243,4 +238,5 @@ $(document).ready(function() {
 						$('#isSubmitBtn').attr("disabled",true);
 					}
 				})		
+				
 		});

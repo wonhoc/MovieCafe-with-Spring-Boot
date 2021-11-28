@@ -38,7 +38,6 @@ public class UserInfoController {
 		
 
 		int isCheckUser = this.userService.isCheckUserCount(map);
-		System.out.println(isCheckUser);
 		if (isCheckUser == 1) {
 			HttpSession session = req.getSession();
 			UserInfoVo user = userService.uploadUserInfo(userId);
@@ -47,19 +46,18 @@ public class UserInfoController {
 			url = "/views/main";
 			
 			UserInfoVo user1 = (UserInfoVo) session.getAttribute("userInfo");
-			System.out.println("세션 유저 정보 : " + user1.toString());
 		} else {
 			// 리다이렉트로 로그인 페이지 다시
 			url = "/redirect:/views/main";
 		}
-		System.out.println("controller return : "+url);
 		return 
 				url;
 	
 	}
 	//회원 가입
 	@RequestMapping(value="/joinUserRequest", method = RequestMethod.POST)
-	public @ResponseBody UserInfoVo joinUserRequest(@RequestParam(value="userId1") String userId,
+	public @ResponseBody UserInfoVo joinUserRequest(
+			@RequestParam(value="userId1") String userId,
 			@RequestParam(value="userPwd1") String userPwd,
 			@RequestParam(value="userEmail") String userEmail,
 			@RequestParam(value="birthYear") String tempYear,
@@ -90,12 +88,14 @@ public class UserInfoController {
 		user.setGender(gender);
 	
 		return userService.insertUserInfo(user);
+		
+
 	}
+
 	
 	// 회원가입 과정에서 아이디 중복 체크
 	@RequestMapping(value="/checkId", method=RequestMethod.POST)
 	public @ResponseBody String checkIdAjax(@RequestParam("userId") String reqId) {
-		System.out.println("req : "+reqId);
 		String inputId = reqId.trim();
 		int isCheckId = userService.isCheckId(inputId);
 		String checkResult = "";
@@ -114,7 +114,6 @@ public class UserInfoController {
 	// 회원가입 과정에서 닉네임 중복 체크
 	@RequestMapping(value="/checkNick", method=RequestMethod.POST)
 	public @ResponseBody String checkNickAjax(@RequestParam("userNick") String reqNick) {
-		System.out.println("req : " + reqNick);
 		String inputId = reqNick.trim();
 		int isCheckNick = userService.isCheckNick(reqNick);
 		String checkResult = "";
