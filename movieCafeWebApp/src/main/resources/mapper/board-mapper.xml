@@ -146,7 +146,7 @@
 	<select id="selectDetailBoard" statementType="CALLABLE"
 		resultMap="resultMapSelectDetail" parameterType="int"
 		parameterMap="paramMapSelectDetail">
-		{ call sp_detail_board_test(?) }	<!-- 11.28프로시저 이름 변경 -->
+		{ call sp_detail_board(?) }	
 	</select>
 	<!-- 상세조회 끝 -->
 
