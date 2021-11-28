@@ -1,7 +1,19 @@
 const url = window.location.pathname.split('/');
 const movieId = url[2];
 
+function addRating() {
+    let count = document.getElementById("rank").value;
+    console.log(count);
+    for(let i=0; i<count; i++){
+        $(".rank").append(`
+        <i class="fas fa-star review_text"></i>
+        `);
+    }
+}
+
 $(document).ready(function () {
+    //addRating();
+
     $(".like").on("click", function() {
     	$(this).removeClass('far');
     	$(this).addClass('fas');
