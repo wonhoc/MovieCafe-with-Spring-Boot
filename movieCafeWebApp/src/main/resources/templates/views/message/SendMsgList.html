@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+ <head>
+        <meta charset='UTF-8'>
+        <title>내가쓴 쪽지</title>
+     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	 <script th:src="@{/js/message/sendMsgForm.js}"> </script>
+   	<style>
+  	#removeSendMsgBtn,
+ 	#sendFormBtn,
+#sendMsglistBtn,
+#recieveMsglistBtn,
+#sendMsgBtn {
+  height: 2rem;
+  margin: 0 0.3em;
+  font-size: 18px;
+  color: #5b5b5b;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor: pointer;
+}
+#removeSendMsgBtn:hover,
+#sendFormBtn:hover,
+#sendMsglistBtn:hover,
+#recieveMsglistBtn:hover,
+#sendMsgBtn:hover {
+  background-color: #e2e2e2;
+}
+
+#sendMsgList {
+  border: #eab48a 4px solid;
+  border-radius: 0.5em;
+}
+
+.reciveId {
+  width: 60%;
+  height: 1.7rem;
+  line-height: 1.7rem;
+}
+#plusFrom {
+  cursor: pointer;
+}
+#removeSendMsgBtn{
+	margin-left: 350px;
+	color: red;
+	
+}
+
+#paging{
+	width: 350px;
+	text-align: center;
+}
+
+
+#recieveId,
+.content {
+  font-size: 16px;
+  padding: 0.5em;
+  border: 1px solid #b1b1b1;
+}
+#sendMsgList {
+  width: 400px;
+  height: 200px;
+}
+section{
+margin-left: auto;
+margin-right: auto;
+}
+.bottom {
+  text-align: end;
+}   	
+   	</style>
+    </head>
+    <body>
+    <section>
+        <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
+            <button type="button" id="sendFormBtn" onclick="location='/sendMsgForm'">쪽지쓰기</button>
+            <button type="button" id=sendMsglistBtn onclick="location='/sendMsgList'">보낸쪽지함</button>
+            <button type="button" id="recieveMsglistBtn" onclick="location='/receiveMsgList'">받은쪽지함</button>
+        </div>
+        <form action="/removeSendMsg" method="GET" id="removeSendMsgForm">
+			<div id="content">
+				<div>
+					<table border="1" id="sendMsgList">
+						<thead>
+							<tr>		              	
+								<td style="text-align: center;">받는사람</td>
+								<td style="text-align: center; width: 100px">내용</td> 
+								<td>작성시간</td>
+								<div th:if = "${sendMsgList != null}">		
+								<td><input type="checkbox" id="allChecked">삭제</td>
+								</div>
+							</tr>
+						</thead>
+							<tbody>
+								<div th:if = "${sendMsgList == null}">	
+									<tr>
+										<td colspan="4">보낸 쪽지가 없습니다.</td>
+									</tr>
+								</div>							
+								<div th:if = "${sendMsgList != null}">		
+									<tr th:each="sendMsg : ${sendMsgList}">
+										<!-- 받는사람이 1명일때  -->
+										<span th:if="${#list.size(sendMsg.addresses[0]) < 2}">
+											<td>
+												<span th:text="${sendMsg.addresses[0].receiveId}" />
+											</td>
+										</span>
+										<!--  받는사람이 2명 이상일때 -->
+										<td th:text="${sendMsg.sendMsgContent}"></td>
+										<td th:text="${#strings.substring(sendMsg.msgWdate, 0, 10)}"></td>
+										<td><input type="checkbox" name="removeCheckBox" th:value="${sendMsg.sendMsgNo}"></td>
+									</tr>								
+								</div>
+							</tbody>
+					</table>
+				</div>
+				<div th:if = "${sendMsgList != null}">
+					<button type="submit" id="removeSendMsgBtn">삭제</button>
+				</div>
+			</div>
+		</form>
+		</section>
+    </body>
+</html>

@@ -1,11 +1,12 @@
 package com.example.message.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface AddressDao {
 	
 	//보낸사람 주소록에 저장
-	void insertAddr(int sendMsgNo ,String receiveId);
+	void insertAddr(Map map);
 	
 	//받는 사람들 조회
 	ArrayList<String> selectAddr(int sendMsgNo);

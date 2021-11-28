@@ -1,6 +1,7 @@
 package com.example.message.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.example.message.vo.ReceiveMsgVO;
 import com.example.message.vo.SendMsgVO;
@@ -11,7 +12,7 @@ public interface MsgService {
 	public void registerMsg(SendMsgVO msgVo);
 	
 	//보낸쪽지 모두 조회
-	ArrayList<SendMsgVO> retrieveSendMsgList(String userId, int startRow, int postSize);
+	List<SendMsgVO> retrieveSendMsgList(String userId);
 	
 	//보낸쪽지 상세조회
 	SendMsgVO retrieveSendMsg(int sendMsgNo);
@@ -25,7 +26,7 @@ public interface MsgService {
 	
 	
 	//받은쪽지 모두 조회
-	ArrayList<ReceiveMsgVO> retrieveReceiveMsgList(String userId, int startRow, int postSize);
+	ArrayList<ReceiveMsgVO> retrieveReceiveMsgList(String userId);
 
 	//받은쪽지 상세조회
 	ReceiveMsgVO retrieveReceiveMsg(int receiveMsgNo);
