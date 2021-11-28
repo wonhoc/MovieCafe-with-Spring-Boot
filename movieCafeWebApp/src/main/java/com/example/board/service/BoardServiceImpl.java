@@ -64,6 +64,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public BoardVO readOne(int boardNo) {
 		return this.boardDao.selectBoard(boardNo);
+	}
 
 	public List<BoardVO> readRecomRevList() {
 		return this.boardDao.selectRecomRevList();
