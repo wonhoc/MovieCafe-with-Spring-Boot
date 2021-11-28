@@ -16,7 +16,7 @@
 		<result property="guanramRating" javaType="int" column="guanramRating" jdbcType="INTEGER"/>
 	</resultMap>
 	
-	<select id="selectGuanramList" parameterType="int" resultType="guanramListVo" resultMap="resultGuanramList">
+	<select id="selectGuanramList" parameterType="int" resultType="guanramListVo" resultMap="resultGuanramList" >
 		SELECT guanramNo, userId, photoOrigin, photoSys, userNick, guanramReview, guanramWdate, guanramLike, guanramRating 
 		FROM user_info JOIN movie_guanram USING(userId) 
 		WHERE movieNo = #{movieNo};
@@ -30,4 +30,19 @@
 	<delete id="deleteGuanram" parameterType="int">
 		DELETE FROM movie_guanram  WHERE guanramNo = #{guanramNo}
 	</delete>
+	
+	<update id="upLike" parameterType="int">
+		UPDATE movie_guanram 
+		SET guanramLike = guanramLike + 1 
+		WHERE guanramNo = #{guanramNo}; 
+	</update>
+	
+	<resultMap type="int" id="resultLike">
+		<result property="guanramLike" javaType="int" column="guanramLike" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="selectLike" parameterType="int" resultType="int" resultMap="resultLike">
+		SELECT guanramLike FROM movie_guanram 
+		WHERE guanramNo = #{guanramNo};
+	</select>
 </mapper>

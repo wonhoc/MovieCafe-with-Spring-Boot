@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.movie.service.GuanramService;
 import com.example.movie.vo.GuanramListVO;
@@ -56,5 +57,11 @@ public class MovieMain {
 		List<GuanramListVO> guanramList = this.guanramService.selectGuanramList(Integer.parseInt(movieId));
 		model.addAttribute("guanramList", guanramList);
 		return "views/movie/detailMovie";
+	}
+	
+	@GetMapping("/upLike")
+	public @ResponseBody int upLike(@RequestParam("guanramNo") int guanramNo) {
+		int likeCount = this.guanramService.upLikeGuanram(guanramNo);
+		return likeCount;
 	}
 }

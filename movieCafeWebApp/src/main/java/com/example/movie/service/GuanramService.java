@@ -9,5 +9,5 @@ public interface GuanramService {
 	void registerGuanram(MovieGuanramVO guanram);
 	List<GuanramListVO> selectGuanramList(int movieNo);
 	public void removeGuanram(int guanramNo);
-	public int upLikeGuanram(int movieNo, String userId);
+	public int upLikeGuanram(int guanramNo);
 }

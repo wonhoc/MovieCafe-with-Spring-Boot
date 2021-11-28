@@ -36,25 +36,16 @@ public class GuanramDaoImpl implements GuanramDao {
 	@Override
 	public void deleteGuanram(int guanramNo) {
 		this.sqlSession.delete("Movie.deleteGuanram", guanramNo);
-
 	}
 
 	@Override
-	public void deleteMovieGuanram(int movieNo) {
-		// TODO Auto-generated method stub
-
+	public void upLikecount(int guanramNo) {
+		this.sqlSession.update("Movie.upLike", guanramNo);
 	}
 
 	@Override
-	public void upLikecount(int movieNo, String userId) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int selectGuanramLike(int movieNo, String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectGuanramLike(int guanramNo) {
+		return this.sqlSession.selectOne("Movie.selectLike", guanramNo);
 	}
 
 }

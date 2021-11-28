@@ -32,9 +32,9 @@ public class GuanramServiceImpl implements GuanramService {
 	}
 
 	@Override
-	public int upLikeGuanram(int movieNo, String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int upLikeGuanram(int guanramNo) {
+		this.guanramDao.upLikecount(guanramNo);
+		return this.guanramDao.selectGuanramLike(guanramNo);
 	}
 
 }

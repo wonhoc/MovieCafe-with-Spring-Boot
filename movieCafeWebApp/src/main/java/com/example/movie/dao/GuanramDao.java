@@ -10,7 +10,6 @@ public interface GuanramDao {
 	void insertGuanram(MovieGuanramVO guanram);
 	int compareUserId(String userId);
 	void deleteGuanram(int guanramNo);
-	void deleteMovieGuanram(int movieNo);
-	void upLikecount(int movieNo, String userId);
-	int selectGuanramLike(int movieNo, String userId);
+	void upLikecount(int guanramNo);
+	int selectGuanramLike(int guanramNo);
 }

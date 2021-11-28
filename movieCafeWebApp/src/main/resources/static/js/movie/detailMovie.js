@@ -15,26 +15,25 @@ $(document).ready(function () {
     //addRating();
 
     $(".like").on("click", function() {
+        console.log("clicked");
     	$(this).removeClass('far');
     	$(this).addClass('fas');
     	
     	const obj = $(this);
-    	const userId = $(this).prevAll('.id').text();
-    	
-    	console.log(obj);
-     	
+
+        console.log(document.getElementById("listSize").value);
+
+     	console.log(document.getElementById("guanramReview").value);
+        console.log(obj.find('#guanramReview'));
     	 $.ajax({
-             url:'${pageContext.request.contextPath}/upLikeGuanram.do',
+             url:'http://localhost:8080/upLike',
              method: 'GET',
              dataType: 'json',
              data: {
-                movieNo: '${param.movieNo}' ,
-                reviewId: userId
+                guanramNo: document.getElementById("guanramNo").value
              },
              success:function(data){   
-            	 obj.find('p').hide(); 
-            	 obj.find('.review_text').html(data.upLikeCount);
-                	
+                obj.find('.review_text').html(data);
              },
              error:function(error){
                  console.log(error);
