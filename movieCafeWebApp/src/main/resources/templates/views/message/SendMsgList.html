@@ -102,9 +102,13 @@ margin-right: auto;
 								</div>							
 								<div th:if = "${sendMsgList != null}">		
 									<tr th:each="sendMsg : ${sendMsgList}">
-										<td>
-											<span th:text="${sendMsg.addresses[0].receiveId + '외'}" />
-										</td>
+										<!-- 받는사람이 1명일때  -->
+										<span th:if="${#list.size(sendMsg.addresses[0]) < 2}">
+											<td>
+												<span th:text="${sendMsg.addresses[0].receiveId}" />
+											</td>
+										</span>
+										<!--  받는사람이 2명 이상일때 -->
 										<td th:text="${sendMsg.sendMsgContent}"></td>
 										<td th:text="${#strings.substring(sendMsg.msgWdate, 0, 10)}"></td>
 										<td><input type="checkbox" name="removeCheckBox" th:value="${sendMsg.sendMsgNo}"></td>

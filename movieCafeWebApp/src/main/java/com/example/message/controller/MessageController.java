@@ -1,4 +1,4 @@
-package com.example.controller.message;
+package com.example.message.controller;
 
 import java.util.ArrayList;
 
