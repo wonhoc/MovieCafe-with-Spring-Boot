@@ -27,5 +27,24 @@
 		ON (user_info.userId = rank.userId) AND user_info.userId = #{userId}
 	</select>
 	
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="UserInfoVo" >
+		INSERT INTO user_info (userId, userPwd, userNick, userEmail, userBirth, userContact, gender, userName, joinDate)
+			VALUES (#{userId}, #{userPwd}, #{userNick}, #{userEmail}, #{userBirth}, #{userContact}, #{gender}, #{userName}, NOW() )
+	</insert>
+	
+	<!--  아이디 중복검사  -->
+	<select id="checkId" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		FROM user_info
+		WHERE userId = #{userId}
+	</select>
+	
+	<!--  닉네임 중복 검사 -->
+	<select id="checkNick" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		FROM user_info
+		WHERE userNick = #{userNick}
+	</select>
 	
 </mapper>

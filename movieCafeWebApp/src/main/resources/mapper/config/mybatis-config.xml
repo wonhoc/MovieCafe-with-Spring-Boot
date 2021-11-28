@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="UserInfoVo" type="com.example.member.domain.UserInfoVo"/>
+		<typeAlias type="com.example.member.vo.UserInfoVo" alias="UserInfoVo" />
 		<typeAlias type="com.example.movie.vo.MovieGuanramVO" alias="guanramVo"/>
 		<typeAlias type="com.example.movie.vo.GuanramListVO" alias="guanramListVo"/>
 		<typeAlias type="com.example.board.vo.BoardVO" alias="boardVO"/>
