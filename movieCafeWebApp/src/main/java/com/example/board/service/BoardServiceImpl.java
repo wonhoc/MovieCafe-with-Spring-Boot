@@ -18,7 +18,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public List<BoardVO> readAllByCateNo(int cateNo) {
-		return null;
+		return this.boardDao.selectList(cateNo);
 	}
 
 	@Override
@@ -49,4 +49,20 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
+	@Override
+	public void modifyBoard(BoardVO board) {
+		this.boardDao.updateBoard(board);
+		
+	}
+	
+	@Override
+	public void modifyBoardNewMem(BoardVO board) {
+		this.boardDao.updateBoardNewMem(board);
+		
+	}
+
+	@Override
+	public BoardVO readOne(int boardNo) {
+		return this.boardDao.selectBoard(boardNo);
+	}
 }

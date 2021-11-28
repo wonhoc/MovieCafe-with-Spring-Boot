@@ -9,25 +9,26 @@
 </head>
 <section layout:fragment="content">
 	<article>
-		<!-- 임의로 로그인 상태 부여 -->
 		
-
 
 		<!-- 새싹 게시판 -->
 		<div th:if="${cateNo==1}" class="container" role="main">
 		
-			<form name="form" id="form" role="form" method="post" th:action="@{/NewMemfileUpload}"
+			<form name="form" id="form" role="form" method="post" th:action="@{/modifyboard/1}"
 				enctype="multipart/form-data">
 				<input type="hidden" name="userId" value="test_user03">
-				<input type="hidden" id="cateNo" name="cateNo" value="1">
+				<input type="hidden" name="boardNo" id="boardNo" th:value="${board.boardNo}">
+				
+				
 				<div class="mb-3">
-					<h3 class="text-title" th:text="#{category.title1}"></h3>
-					<input type="text" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요">
+					<h3 class="text-title" th:text="#{category.modifytitle1}"></h3>
+					<input type="text" class="form-control" name="boardTitle" id="boardTitle" 
+						th:value="${board.boardTitle}">
 				</div>
 
 				<div class="mb-3">
 					<input type="text" class="form-control" name="boardContent" id="boardContent"
-						placeholder="내용을 입력해주세요" style="height: 300px;">
+						th:value="${board.boardContent}" style="height: 300px;">
 				</div>
 
 
@@ -36,7 +37,7 @@
 				</div>
 
 				<div>
-					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">글쓰기</button>
+					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
 					<button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
 				</div>
 
@@ -50,10 +51,12 @@
 
 		<!--  영화리뷰 게시판 -->
 		<div th:if="${cateNo==2}" class="container" role="main">
-			<form name="form" id="form" role="form" method="post" th:action="@{/fileUpload}"
+			<form name="form" id="form" role="form" method="post" th:action="@{/modifyboard/2}"
 				enctype="multipart/form-data">
 				<input type="hidden" name="userId" value="test_user03">
-				<h3 class="text-title" th:text="#{category.title2}"></h3>
+				<input type="hidden" name="boardNo" id="boardNo" th:value="${board.boardNo}">
+				
+				<h3 class="text-title" th:text="#{category.modifytitle2}"></h3>
 				<label>말머리</label> <select name="horseNo" id="horseNo">
 					<option value="1">로맨스</option>
 					<option value="2">스릴러</option>
@@ -61,15 +64,15 @@
 					<option value="4">SF판타지</option>
 					<option value="5">액션</option>
 					<option value="6">코미디</option>
-					<option value="7">기타</option>
-				</select> <input type="hidden" id="cateNo" name="cateNo" value="2">
+				</select>
 				<div class="mb-3">
-					<input type="text" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요">
+					<input type="text" class="form-control" name="boardTitle" id="boardTitle" 
+						th:value="${board.boardTitle}">
 				</div>
 
 				<div class="mb-3">
 					<input type="text" class="form-control" name="boardContent" id="boardContent"
-						placeholder="내용을 입력해주세요" style="height: 300px;">
+						th:value="${board.boardContent}" style="height: 300px;">
 				</div>
 
 
@@ -79,7 +82,7 @@
 				</div>
 
 				<div>
-					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">글쓰기</button>
+					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
 					<button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
 				</div>
 
@@ -93,21 +96,24 @@
 
 		<!-- 시사회 정보 게시판  -->
 		<div th:if="${cateNo==3}" class="container" role="main">
-			<form name="form" id="form" role="form" method="post" th:action="@{/fileUpload}"
+			<form name="form" id="form" role="form" method="post" th:action="@{/modifyboard/3}"
 				enctype="multipart/form-data">
 				<input type="hidden" name="userId" value="test_user03">
-				<h3 class="text-title" th:text="#{category.title3}"></h3>
+				<input type="hidden" name="boardNo" id="boardNo" th:value="${board.boardNo}">
+				
+				<h3 class="text-title" th:text="#{category.modifytitle3}"></h3>
 				<label>말머리</label> <select name="horseNo" id="horseNo">
-					<option value="8">시사회 후기</option>
-					<option value="9">예정 시사회</option>
-				</select> <input type="hidden" id="cateNo" name="cateNo" value="3">
+					<option value="7">다녀온 시사회</option>
+					<option value="8">예정 시사회</option>
+				</select> 
 				<div class="mb-3">
-					<input type="text" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요">
+					<input type="text" class="form-control" name="boardTitle" id="boardTitle" 
+						th:value="${board.boardTitle}">
 				</div>
 
 				<div class="mb-3">
 					<input type="text" class="form-control" name="boardContent" id="boardContent"
-						placeholder="내용을 입력해주세요" style="height: 300px;">
+						th:value="${board.boardContent}" style="height: 300px;">
 				</div>
 
 
@@ -117,7 +123,7 @@
 				</div>
 
 				<div>
-					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">글쓰기</button>
+					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
 					<button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
 				</div>
 

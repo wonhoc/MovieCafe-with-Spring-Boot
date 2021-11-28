@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="script">
+	<script th:src="@{/js/board/boardModifyTip.js}"></script>
+</th:block>
+<head>
+</head>
+<section layout:fragment="content">
+	<article>
+		<div  class="container" role="main">
+
+			<form name="form" id="form" role="form" method="post"
+				th:action="@{/modifyboard/4}" enctype="multipart/form-data">
+				<input type="hidden" name="userId" value="test_user03">
+				<input type="hidden" name="boardNo" id="boardNo" th:value="${board.boardNo}">
+				<h3 class="text-title" th:text="#{category.title4}"></h3>
+				<label>말머리</label> 
+				<div th:if="${board.horseNo==10}">
+				<select name="horseNo" id="horseNo" >
+					<option value="10" selected>영화관 추천</option>
+					<option value="11">할인 정보</option>
+				</select>
+				</div>
+				<div th:if="${board.horseNo==11}">
+				<select name="horseNo" id="horseNo" >
+					<option value="10">영화관 추천</option>
+					<option value="11" selected>할인 정보</option>
+				</select>
+				</div>
+				 <input type="hidden" id="cateNo" name="cateNo" value="3">
+				<div class="mb-3">
+					<input type="text" class="form-control" name="boardTitle"
+						id="boardTitle" th:value="${board.boardTitle}">
+				</div>
+
+				<div class="mb-3">
+					<input type="text" class="form-control" name="boardContent"
+						id="boardContent" th:value="${board.boardContent}" style="height: 300px;">
+				</div>
+
+
+				<div class="mb-3">
+					<label>파일</label> <input type="file" class="form-control"
+						name="fileList" multiple>
+
+				</div>
+
+				<div>
+					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
+					<button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
+				</div>
+				<input type="hidden" id="apiX" name="apiX"> <input
+					type="hidden" id="apiY" name="apiY">
+				<div th:if="${rankType.equals('A')}">
+					<input type="checkbox" var="1" value="1" name="boardNotice"><label>공지</label>
+				</div>
+			</form>
+			<input type="text" id="sample5_address" placeholder="주소"> <input
+				type="button" id="address" onclick="sample5_execDaumPostcode()"
+				value="주소 검색"><br>
+			<div id="map"
+				style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+
+			<th:block layout:fragment="apiscript">
+				<script
+					src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+				<script
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806&libraries=services"></script>
+				<script th:src="@{/js/board/mapApi.js}"></script>
+			</th:block>
+		</div>
+	</article>
+</section>
+</html>

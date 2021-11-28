@@ -12,7 +12,9 @@ $(document).ready(function() {
             $('#sample5_address').hide();
             $('#address').hide();
         }
-    });       		
+    });   
+    
+    
             
 });
         

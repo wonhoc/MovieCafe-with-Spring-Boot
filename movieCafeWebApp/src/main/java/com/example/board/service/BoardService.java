@@ -10,5 +10,7 @@ public interface BoardService {
 	void createBoard(BoardVO board);
 	void createNewMemBoard(BoardVO board);
 	void createTipBoard(BoardVO board);
-	
+	void modifyBoard(BoardVO board);
+	void modifyBoardNewMem(BoardVO board);
+	BoardVO readOne(int boardNo);
 }

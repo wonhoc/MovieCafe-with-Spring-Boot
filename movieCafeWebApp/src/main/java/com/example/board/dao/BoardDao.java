@@ -12,6 +12,9 @@ public interface BoardDao {
 	void insertBoardFile(BoardFileVO file);
 	void insertBoardNewMem(BoardVO board);
 	void insertBoardTip(BoardVO board);
+	void updateBoard(BoardVO board);
+	void updateBoardNewMem(BoardVO board);
+	BoardVO selectBoard(int boardNo);
 	int lastId();
 	
 }
