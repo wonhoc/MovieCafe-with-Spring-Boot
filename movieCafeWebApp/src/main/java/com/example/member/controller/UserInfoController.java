@@ -12,14 +12,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.member.domain.UserInfoVo;
 import com.example.member.service.UserService;
+import com.example.member.vo.UserInfoVo;
 
 @Controller
 public class UserInfoController {
 	@Autowired
 	private UserService userService;
+	
+	//회원가입 버튼 클릭시 작성 폼으로 이동
+	@GetMapping("/joinUser")
+	public String joinUser() {
+		return "/views/member/joinUserForm";
+	}
 
 	@RequestMapping(value = "/requestlogin", method = RequestMethod.POST)
 	public String loginController(@RequestParam(value = "userId") String userId,
@@ -48,9 +55,84 @@ public class UserInfoController {
 		System.out.println("controller return : "+url);
 		return 
 				url;
-
+	
+	}
+	//회원 가입
+	@RequestMapping(value="/joinUserRequest", method = RequestMethod.POST)
+	public @ResponseBody UserInfoVo joinUserRequest(@RequestParam(value="userId1") String userId,
+			@RequestParam(value="userPwd1") String userPwd,
+			@RequestParam(value="userEmail") String userEmail,
+			@RequestParam(value="birthYear") String tempYear,
+			@RequestParam(value="birthMonth") String tempMonth,
+			@RequestParam(value="birthDate") String tempDate,
+			@RequestParam(value="contact1") String tempCon1,
+			@RequestParam(value="contact2") String tempCon2,
+			@RequestParam(value="contact3") String tempCon3,
+			@RequestParam(value="userNick") String userNick,
+			@RequestParam(value="userName") String userName,	
+			@RequestParam(value="pickGender") String gender
+			) {
+		
+		UserInfoVo user = new UserInfoVo();
+		
+		user.setUserId(userId);
+		user.setUserPwd(userPwd);
+		user.setUserEmail(userEmail);
+		
+		String userBirth = tempYear + "-" + tempMonth + "-" + tempDate;
+		user.setUserBirth(userBirth);
+		
+		String userContact = tempCon1+"-"+ tempCon2 + "-" + tempCon3;
+		user.setUserContact(userContact);
+		
+		user.setUserNick(userNick);
+		user.setUserName(userName);
+		user.setGender(gender);
+	
+		return userService.insertUserInfo(user);
+	}
+	
+	// 회원가입 과정에서 아이디 중복 체크
+	@RequestMapping(value="/checkId", method=RequestMethod.POST)
+	public @ResponseBody String checkIdAjax(@RequestParam("userId") String reqId) {
+		System.out.println("req : "+reqId);
+		String inputId = reqId.trim();
+		int isCheckId = userService.isCheckId(inputId);
+		String checkResult = "";
+		// 아이디가 중복이 아니면 0 = 가입 가능
+		// 아이디가 중복이면 1 = 사용 불가
+		if (isCheckId == 0) {
+			checkResult = "false";
+			
+		} else if(isCheckId == 1) {
+			checkResult = "true";
+		}
+		return checkResult;
 		
 		
 	}
+	// 회원가입 과정에서 닉네임 중복 체크
+	@RequestMapping(value="/checkNick", method=RequestMethod.POST)
+	public @ResponseBody String checkNickAjax(@RequestParam("userNick") String reqNick) {
+		System.out.println("req : " + reqNick);
+		String inputId = reqNick.trim();
+		int isCheckNick = userService.isCheckNick(reqNick);
+		String checkResult = "";
+		// 닉네임이 중복이 아니면 0 = 가입 가능
+		// 넥니엠이 중복이면 1 = 사용 불가
+		if (isCheckNick == 0) {
+			checkResult = "false";
+			
+		} else if(isCheckNick == 1) {
+			checkResult = "true";
+		}
+		return checkResult;
+		
+		
+	}
+	
+	
+	
+	
 
 }

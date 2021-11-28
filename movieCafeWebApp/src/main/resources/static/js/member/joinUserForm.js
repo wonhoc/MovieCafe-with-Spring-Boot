@@ -38,9 +38,8 @@ $(document).ready(function() {
 					$.ajax({
 						url: url,
 						method: 'POST',
-						dataType: 'json',
 						data: {
-							userId: userId
+						userId : userId 
 						},
 						//콜백함수
 						success: function(data) {
@@ -58,14 +57,15 @@ $(document).ready(function() {
 				try {
 					const result = await getAjax2(url, userId);
 					console.log("result : ", result.isUserId);
+					console.log("url : ", result.url);
 					
 					
-					if(result.isUserId == 'true') {
+					if(result == 'true') {
 	                	$('#resultId').text('이미 사용중인 아이디 입니다.');
 	                	$('#resultId').css('color', 'red');
 	                	
 	                	$('#isSubmitBtn').attr("disabled",true);
-					} else {
+					} else if (result == 'false'){
 	                	$('#resultId').text('사용 가능한 아이디입니다.');
 	                	$('#resultId').css('color', 'blue');
 	                	$('#isSubmitBtn').attr("disabled",false);
@@ -86,7 +86,7 @@ $(document).ready(function() {
                 	$('#result').css('color', 'red');
                 	$('#isSubmitBtn').attr("disabled",true);
 				}  else {
-					sendProcess('/checkNick.do', userNick);		
+					sendProcess('/checkNick', userNick);		
 				};
 				
 				
@@ -97,7 +97,6 @@ $(document).ready(function() {
 		                $.ajax({                        
 		                    url: url,
 		                    method: 'POST',
-		                    dataType: 'json',
 		                    data: {
 		                    	userNick: userNick           
 		                    },
@@ -119,11 +118,11 @@ $(document).ready(function() {
 	            try {
 	                const result = await getAjax1(url, userNick);	               
 	                console.log("result : ", result.isUserNick);    
-	                if(result.isUserNick == 'true') {
+	                if(result == "true") {
 	                	$('#result').text('이미 사용중인 닉네임입니다.');
 	                	$('#result').css('color', 'red');
 	                	$('#isSubmitBtn').attr("disabled",true);
-	                }  else {
+	                }  else if (result == "false"){
 	                	$('#result').text('사용 가능한 닉네임입니다.');
 	                	$('#result').css('color', 'blue');
 	                	$('#isSubmitBtn').attr("disabled",false);

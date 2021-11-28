@@ -11,17 +11,4 @@ import com.example.movie.service.MovieService;
 @SpringBootTest
 class MovieCafeWebAppApplicationTests {
 
-	@Autowired
-	private MovieService movieService;
-	
-	@Test
-	public void test1() {
-		assertNotNull(this.movieService);
-	}
-	
-	@Test
-	public void test2() {
-		System.out.println(this.movieService.retrieveMovieDetail(1).toString());
-	}
-
 }
