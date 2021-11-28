@@ -1,0 +1,151 @@
+@charset "UTF-8";
+content {
+	width: 100%;
+}
+
+.join_box {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.join_right {
+	width: 30em;
+}
+
+.join_left {
+	width: 45em;
+}
+
+.join_title {
+	font-size: 36px;
+	font-weight: bolder;
+	margin: 0.3em 0;
+}
+
+.join_notice {
+	padding: 3em 0 2em 5em;
+}
+
+.join_devide {
+	width: 30%;
+	height: 4px;
+	background-color: black;
+}
+
+.join_text {
+	margin: 0.25em;
+}
+
+.input_section {
+	display: flex;
+	align-items: center;
+}
+
+.input_title {
+	margin-right: 1em;
+	width: 10em;
+}
+
+.input_box {
+	height: 1.5rem;
+	outline: auto;
+	border-radius: 0.25em;
+	width: 15em;
+}
+
+.input_select {
+	display: flex;
+}
+
+.input_profile {
+	display: flex;
+	align-items: center;
+	margin-bottom: 3em;
+}
+
+.input_radio {
+	font-size: 1.3rem;
+}
+
+#pickMale, #pickfeMale {
+	width: 1.3rem;
+	height: 1.3rem;
+}
+
+#contact1 {
+	width: 5em;
+}
+
+#contact2, #contact3, #birthYear, #birthMonth, #birthDate {
+	width: 6em;
+}
+
+button {
+	cursor: pointer;
+	height: 2rem;
+	margin: 0 0.3em;
+	font-size: 18px;
+	color: #454545;
+	background-color: #fdfdfd;
+	border: 2px solid #454545;
+	border-radius: 0.25em;
+	transition: all 150ms ease-in;
+}
+
+button:hover {
+	background-color: #e2e2e2;
+}
+
+#profilePhoto {
+	outline: none;
+}
+
+.form_imgBtn label {
+	margin-top: 1em;
+	display: inline-block;
+	padding: 0.5em 0.75em;
+	color: #404040;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #626262;
+	border-radius: 0.25em;
+}
+
+.form_imgBtn input[type="file"] {
+	/* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+#img {
+	border-radius: 50%;
+	width: 8rem;
+	height: 8rem;
+	border: 1px solid;
+	margin-right: 5em;
+}
+
+.btn_box {
+	display: flex;
+	flex-direction: unset;
+	justify-content: flex-end;
+	align-items: end;
+	margin-top: 3em;
+	text-align: center;
+}
+
+.submitBtn {
+	width: 3em;
+	height: 2em;
+	padding: 0.25em;
+}
