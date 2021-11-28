@@ -52,6 +52,7 @@ public class UserInfoController {
 			// 리다이렉트로 로그인 페이지 다시
 			url = "/redirect:/views/main";
 		}
+	
 		return 
 				url;
 	
@@ -132,8 +133,9 @@ public class UserInfoController {
 		
 	}
 	
-	
-	
-	
+  @GetMapping("/mypage")
+	public String mypage() {
+		return "views/member/mypage";
+	}
 
 }
