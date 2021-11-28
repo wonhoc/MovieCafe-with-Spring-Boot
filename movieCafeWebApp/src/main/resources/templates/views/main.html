@@ -1,58 +1,72 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layout/defaultLayout}"> 
-    <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/main.css}" >
-    </th:block>
-    <th:block layout:fragment="script">
-        <script th:src="@{/js/movie/movieBoardForm.js}"></script>
-    </th:block>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/movie/main.js}"></script>
+</th:block>
+
 <head>
 </head>
 <section layout:fragment="content">
 	<div class="main_top">
 		<div class="top_title">
-			<h1 class="main_title">이 달의 영화</h1>
-			<button class="add_btn">등록</button>
+			<h1 class="main_title">인기 영화</h1>
 		</div>
-		<div class="movieList">
-			<div class="listSection">
-				<div class="sectionMovie" id="movie">
-					<a href="${detailUrl }"> <img
-						src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85121/85121_320.jpg"
-						alt="movie" class="movieImg" />
-					</a>
-					<h3 class="movie_title">영화1</h3>
-				</div>
-			</div>
-			<div class="listSection">
-				<div class="sectionMovie" id="movie">
-					<a href="${detailUrl }"> <img
-						src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000083/83105/83105_320.jpg"
-						alt="movie" class="movieImg" />
-					</a>
-					<h3 class="movie_title">영화1</h3>
-				</div>
-			</div>
-			<div class="listSection">
-				<div class="sectionMovie" id="movie">
-					<a href="${detailUrl }"> <img
-						src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85239/85239_320.jpg"
-						alt="movie" class="movieImg" />
-					</a>
-					<h3 class="movie_title">영화1</h3>
-				</div>
-			</div>
+
+		<div class="movieList"></div>
+		<div id="pagination-div">
+			<div id="page-content"></div>
 		</div>
+
 	</div>
 	<div class="main_divide"></div>
 	<div class="main_bottom">
 		<div class="review">
 			<h3 class="review_title">최근 인기글</h3>
+			<table class="table table-striped">
+				<thead>
+					<th>제목</th>
+					<th>닉네임</th>
+					<th>작성일</th>
+					<th>조회수</th>
+					<th>추천</th>
+					<th>댓글</th>
+				</thead>
+				<tr th:each="list : ${recomList}" >
+					<td class="list_title" th:text="${list.boardTitle}"></td>
+					<td th:text="${list.userNick}"></td>
+					<td th:text=${#strings.substring(list.boardWdate,0,11)}></td>
+					<td th:text="${list.boardCount}"></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
 		</div>
 		<div class="notice">
 			<h3 class="review_title">공지사항</h3>
+			<table class="table table-striped">
+				<thead>
+					<th></th>
+					<th>제목</th>
+					<th>닉네임</th>
+					<th>작성일</th>
+					<th>조회수</th>
+					<th>추천수</th>
+				</thead>
+				<tr th:each="list : ${noticeList}">
+					<td class="list_notice">필독!!</td>
+					<td class="list_title" th:text="${list.boardTitle}"></td>
+					<td th:text="${list.userNick}"></td>
+					<td th:text=${#strings.substring(list.boardWdate,0,11)}></td>
+					<td th:text="${list.boardCount}"></td>
+					<td ></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </section>

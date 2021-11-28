@@ -23,8 +23,6 @@
 	</insert>
 	<!-- 새싹 게시판 글 작성 끝 -->
 
-
-
 	<!-- 영화리뷰,시사회 정보 게시글 작성 -->
 	<parameterMap type="boardVO" id="boardCreateMap">
 		<parameter property="userId" javaType="string"
@@ -85,8 +83,6 @@
 		<parameter property="boardNo" javaType="int"
 			jdbcType="TINYINT" mode="IN" />
 	</parameterMap>
-
-
 
 
 	<!--게시글 수정 -->
@@ -211,4 +207,30 @@
 		parameterMap="paramMapSelectList">
 		{ call sp_list_board(?) }
 	</select>
+
+	<resultMap type="boardVO" id="mainBestList">
+		<result property="boardNo" javaType="int" column="boardNo" jdbcType="INTEGER"/>
+		<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
+		<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
+		<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER"/>
+		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="DATE"/>
+		<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER"/>
+	</resultMap>
+	<select id="mainBestListSelect" resultType="boardVO" resultMap="mainBestList" statementType="CALLABLE">
+		{ call sp_select_hot_board() }
+	</select>
+
+	<resultMap type="boardVO" id="mainNoticeList">
+		<result property="boardNo" javaType="int" column="boardNo" jdbcType="INTEGER"/>
+		<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
+		<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
+		<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER"/>
+		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="DATE"/>
+		<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER"/>
+	</resultMap>
+	<select id="mainNoticeListSelect" resultType="boardVO" resultMap="mainNoticeList" statementType="CALLABLE">
+		{ call sp_select_new_notice() }
+	</select>
+	
 </mapper>
+

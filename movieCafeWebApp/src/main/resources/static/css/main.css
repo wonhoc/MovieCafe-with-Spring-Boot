@@ -1,8 +1,5 @@
 @charset "UTF-8";
 /* 전체 */
-section {
-	width: 100%;
-}
 
 .main_top {
 	align-items: center;
@@ -12,7 +9,6 @@ section {
 .main_divide {
 	width: 90%;
 	margin-left: 5%;
-	margin-top: 2em;
 	border-bottom: 1px dotted #8c8c8c;
 }
 
@@ -38,7 +34,15 @@ section {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	height: 17em;
 }
+
+.sectionMovie {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .listSection {
 	display: flex;
@@ -54,60 +58,20 @@ section {
 	line-height: 20rem;
 }
 
-.paging {
-	text-align: center;
-}
-
-.paging_icon {
-	transition: transform 200ms linear;
-}
-
-.paging_icon:hover {
-	transform: scale(1.2);
-}
-
-.deleteBtn {
-	height: 1.5rem;
-	margin-left: 1em;
-	color: #b1b1b1;
-	background-color: #fdfdfd;
-	border: 2px solid #b1b1b1;
-	border-bottom-color: #b1b1b1;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-	cursor: pointer;
-}
-
-.deleteBtn:hover {
-	background-color: #e2e2e2;
-}
-
 .movieImg {
 	width: 10rem;
 	height: 15rem;
 	border-radius: 0.25em;
 	transition: transform 200ms linear;
+	cursor: pointer;
 }
 
 .movieImg:hover {
 	transform: scale(1.05);
 }
 
-.add_btn {
-	height: 2rem;
-	margin: 0 3em;
-	font-size: 18px;
-	color: #a7a6a6;
-	background-color: #fdfdfd;
-	border: 2px solid #b1b1b1;
-	border-bottom-color: #b1b1b1;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-	cursor: pointer;
-}
-
-.add_btn:hover {
-	background-color: #e2e2e2;
+#pagination-div{
+	text-align: center;	
 }
 
 /* Board */
@@ -116,15 +80,7 @@ section {
 	font-size: 28px;
 }
 
-table {
-	width: 700px;
-	border-collapse: collapse;
-}
 
-table {
-	text-align: center;
-	margin-bottom: 3em;
-}
 
 th, td {
 	height: 35px;
@@ -133,14 +89,14 @@ th, td {
 th {
 	border-top: 3px solid #ed7c31;
 	border-bottom: 3px solid #ed7c31;
-	font-size: 22px;
+	font-size: 18px;
 	padding-bottom: 0.4em;
 	background-color: blanchedalmond;
 }
 
 tbody>tr {
 	background-color: #ffffe08f;
-	font-size: 18px;
+	font-size: 14px;
 	border-bottom: 5px solid white;
 }
 

@@ -2,6 +2,49 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Message">
+<mapper namespace="Msg">
+	
+	<!-- 보낸 쪽지 저장 -->
+	<insert id="insertSendMsg" parameterType="hashMap" statementType="PREPARED" useGeneratedKeys="true" keyProperty="sendMsgNo" >
+	
+	INSERT INTO send_msg(writerId, sendMsgContent)
+	VALUES(#{writerId}, #{sendMsgContent})
+		
+	</insert>
+	
+	<!-- 보낸 아이디 저장 -->
+	<insert id="insertAddr" parameterType="hashMap" statementType="PREPARED">
+	
+	INSERT INTO address(sendMsgNo, receiveId)
+	VALUES (#{sendMsgNo}, #{receiveId})
+	
+	
+	</insert>
+	
+	<!-- 보낸 메세지 리스트 리턴형 -->
+	<resultMap type="sendMsgVo" id="SendMsgList" autoMapping="true">
+		<result property="sendMsgNo" javaType="int" column="sendMsgNo" jdbcType="INTEGER" />
+		<result property="sendMsgContent" javaType="string" column="sendMsgContent" jdbcType="VARCHAR" />
+		<result property="msgWdate" javaType="string" column="msgWdate" jdbcType="VARCHAR" />
+		
+		<!--  주소록 -->
+		<collection property="addresses" ofType="addressVo">
+			<result property="receiveId" javaType="string" column="receiveId" jdbcType="VARCHAR" />
+			<result property="isRead" javaType="int" column="isRead" jdbcType="INTEGER"/>
+			
+		</collection>
+		
+	</resultMap>
+	
+	<!-- 모든 보낸 메세지 가져오기 -->
+	<select id="selectSendMsgList" parameterType="string" resultMap="SendMsgList">
+		
+	SELECT s.sendMsgNo, s.sendMsgContent, s.msgWdate, a.receiveId as receiveId, a.isRead as isRead
+	FROM send_msg s Inner JOIN address a USING(sendMsgNo)
+	WHERE writerId = #{userId}
+	ORDER BY msgWdate DESC
+	
+	</select>
+	
 	
 </mapper>

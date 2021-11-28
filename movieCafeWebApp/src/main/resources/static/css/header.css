@@ -8,7 +8,7 @@
 
 .header_bottom {
 	display: flex;
-	margin-right: 5em;
+	margin-right: 2em;
 }
 
 .yellowBox {
@@ -18,15 +18,14 @@
 }
 
 .logo_1 {
-	width: 10rem;
-	height: 7rem;
+	width: 13rem;
+	height: 9rem;
 	margin: 0.8em 2.5em 0 2em;
 }
 
 .logo_2 {
 	width: 7rem;
 	height: 7rem;
-	margin-left: 1.5em;
 }
 
 .header_text {
@@ -37,7 +36,7 @@
 .header_title {
 	font-size: 3.5rem;
 	margin: 0;
-	line-height: 90px;
+	line-height: 100px;
 }
 
 .home {

@@ -16,5 +16,7 @@ public interface BoardDao {
 	void updateBoardNewMem(BoardVO board);
 	BoardVO selectBoard(int boardNo);
 	int lastId();
-	
+	List<BoardVO> selectRecomRevList();
+	List<BoardVO> selectNoticeRevList();
+
 }

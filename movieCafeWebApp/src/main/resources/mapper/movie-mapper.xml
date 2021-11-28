@@ -3,5 +3,46 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Movie">
+
+	<resultMap type="guanramListVo" id="resultGuanramList">
+		<result property="guanramNo" javaType="int" column="guanramNo" jdbcType="INTEGER"/>
+		<result property="userId" javaType="string" column="userId" jdbcType="VARCHAR"/>
+		<result property="photoOrigin" javaType="string" column="photoOrigin" jdbcType="VARCHAR"/>
+		<result property="photoSys" javaType="string" column="photoSys" jdbcType="VARCHAR"/>
+		<result property="nickName" javaType="string" column="userNick" jdbcType="VARCHAR"/>
+		<result property="guanramReview" javaType="string" column="guanramReview" jdbcType="VARCHAR"/>
+		<result property="guanramWdate" javaType="string" column="guanramWdate" jdbcType="DATE"/>
+		<result property="guanramLike" javaType="int" column="guanramLike" jdbcType="INTEGER"/>
+		<result property="guanramRating" javaType="int" column="guanramRating" jdbcType="INTEGER"/>
+	</resultMap>
 	
+	<select id="selectGuanramList" parameterType="int" resultType="guanramListVo" resultMap="resultGuanramList" >
+		SELECT guanramNo, userId, photoOrigin, photoSys, userNick, guanramReview, guanramWdate, guanramLike, guanramRating 
+		FROM user_info JOIN movie_guanram USING(userId) 
+		WHERE movieNo = #{movieNo};
+	</select>
+	
+	<insert id="insertGuanram" parameterType="guanramVo">
+		INSERT INTO movie_guanram(guanramReview, guanramRating, userId, movieNo) 
+		VALUES(#{guanramReview}, #{guanramRating}, #{userId}, #{movieNo})
+	</insert>
+	
+	<delete id="deleteGuanram" parameterType="int">
+		DELETE FROM movie_guanram  WHERE guanramNo = #{guanramNo}
+	</delete>
+	
+	<update id="upLike" parameterType="int">
+		UPDATE movie_guanram 
+		SET guanramLike = guanramLike + 1 
+		WHERE guanramNo = #{guanramNo}; 
+	</update>
+	
+	<resultMap type="int" id="resultLike">
+		<result property="guanramLike" javaType="int" column="guanramLike" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="selectLike" parameterType="int" resultType="int" resultMap="resultLike">
+		SELECT guanramLike FROM movie_guanram 
+		WHERE guanramNo = #{guanramNo};
+	</select>
 </mapper>
