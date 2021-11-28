@@ -19,9 +19,13 @@
 	<div class="detail_bottom">
 		<div class="bottom_top">
 			<h1 class="review_title">관람평</h1>
-			<div th:text="${movieId}"></div>
 			<div class="review_lett">
-				<button class="btn btn-outline-secondary" onclick="registerGuanram()" >평점 작성</button>
+				<form action="/guanramForm" method="POST">
+					<input type="hidden" id="movieId" name="movieId" th:value="${movieId}"/>
+					<input type="hidden" id="imgUrl" name="imgUrl" />
+					<input type="hidden" id="title" name="title" />
+					<button type="submit" class="btn btn-light" >평점 작성</button>
+				</form>
 			</div>
 		</div>
 		<div class="review_line">
@@ -38,7 +42,7 @@
 			<div class="rank">
 				<i class="fas fa-star review_text"></i>
 			</div>
-			<button class="btn btn-outline-secondary">삭제</button>
+			<button class="btn btn-light">삭제</button>
 		</div>
 	</div>
 </section>

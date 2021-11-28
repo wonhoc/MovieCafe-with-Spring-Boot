@@ -61,34 +61,6 @@ section {
 	line-height: 20rem;
 }
 
-.paging {
-	text-align: center;
-}
-
-.paging_icon {
-	transition: transform 200ms linear;
-}
-
-.paging_icon:hover {
-	transform: scale(1.2);
-}
-
-.deleteBtn {
-	height: 1.5rem;
-	margin-left: 1em;
-	color: #b1b1b1;
-	background-color: #fdfdfd;
-	border: 2px solid #b1b1b1;
-	border-bottom-color: #b1b1b1;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-	cursor: pointer;
-}
-
-.deleteBtn:hover {
-	background-color: #e2e2e2;
-}
-
 .movieImg {
 	width: 10rem;
 	height: 15rem;
@@ -101,22 +73,6 @@ section {
 	transform: scale(1.05);
 }
 
-.add_btn {
-	height: 2rem;
-	margin: 0 3em;
-	font-size: 18px;
-	color: #a7a6a6;
-	background-color: #fdfdfd;
-	border: 2px solid #b1b1b1;
-	border-bottom-color: #b1b1b1;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-	cursor: pointer;
-}
-
-.add_btn:hover {
-	background-color: #e2e2e2;
-}
 #pagination-div{
 	text-align: center;	
 }

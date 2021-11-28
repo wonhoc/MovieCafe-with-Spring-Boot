@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Movie">
 
-	<resultMap type="movieVO" id="resultMovie">
+	<resultMap type="guanramVo" id="resultMovie">
 		<result property="movieNo" javaType="int" column="movie_no" jdbcType="INTEGER"/>
 		<result property="movieTitle" javaType="string" column="movie_title" jdbcType="VARCHAR"/>
 		<result property="movieDir" javaType="string" column="movie_dir" jdbcType="VARCHAR"/>
@@ -18,10 +18,15 @@
 		<result property="posterSys" javaType="string" column="poster_sys" jdbcType="VARCHAR"/>
 	</resultMap>
 	
-	<select id="selectMovie" parameterType="int" resultType="movieVo" resultMap="resultMovie">
+	<select id="selectMovie" parameterType="int" resultType="guanramVo" resultMap="resultMovie">
 		SELECT movie_no, movie_title, movie_dir, movie_actor, movie_genre, 
 		movie_runtime, movie_link, movie_age, movie_release, poster_origin, poster_sys 
 		FROM movie_info 
 		Where movie_no = #{movieNo}
 	</select>
+	
+	<insert id="insertGuanram" parameterType="guanramVo">
+		INSERT INTO movie_guanram(guanramReview, guanramRating, userId, movieNo) 
+		VALUES(#{guanramReview}, #{guanramRating}, #{userId}, #{movieNo})
+	</insert>
 </mapper>
