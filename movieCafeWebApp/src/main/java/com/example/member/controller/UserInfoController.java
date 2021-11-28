@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,8 +57,8 @@ public class UserInfoController {
 	
 	}
 	//회원 가입
-	@RequestMapping(value="/joinUserRequest", method = RequestMethod.POST)
-	public @ResponseBody UserInfoVo joinUserRequest(
+	@PostMapping(value="/joinUserRequest")
+	public String joinUserRequest(
 			@RequestParam(value="userId1") String userId,
 			@RequestParam(value="userPwd1") String userPwd,
 			@RequestParam(value="userEmail") String userEmail,
@@ -68,8 +70,8 @@ public class UserInfoController {
 			@RequestParam(value="contact3") String tempCon3,
 			@RequestParam(value="userNick") String userNick,
 			@RequestParam(value="userName") String userName,	
-			@RequestParam(value="pickGender") String gender
-			) {
+			@RequestParam(value="pickGender") String gender,
+			Model model) {
 		
 		UserInfoVo user = new UserInfoVo();
 		
@@ -86,8 +88,8 @@ public class UserInfoController {
 		user.setUserNick(userNick);
 		user.setUserName(userName);
 		user.setGender(gender);
-	
-		return userService.insertUserInfo(user);
+		this.userService.insertUserInfo(user);
+		return "views/main";
 		
 
 	}
@@ -115,7 +117,7 @@ public class UserInfoController {
 	@RequestMapping(value="/checkNick", method=RequestMethod.POST)
 	public @ResponseBody String checkNickAjax(@RequestParam("userNick") String reqNick) {
 		String inputId = reqNick.trim();
-		int isCheckNick = userService.isCheckNick(reqNick);
+		int isCheckNick = userService.isCheckNick(inputId);
 		String checkResult = "";
 		// 닉네임이 중복이 아니면 0 = 가입 가능
 		// 넥니엠이 중복이면 1 = 사용 불가

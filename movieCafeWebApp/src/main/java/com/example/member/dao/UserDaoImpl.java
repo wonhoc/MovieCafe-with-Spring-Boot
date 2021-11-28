@@ -27,7 +27,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public UserInfoVo registUserInfo(UserInfoVo user) {
-		System.out.println(user.toString());
 		return sqlSession.selectOne("Member.insertUser", user);
 	}
 
