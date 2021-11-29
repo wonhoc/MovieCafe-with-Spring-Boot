@@ -18,7 +18,7 @@ public interface MsgService {
 	SendMsgVO retrieveSendMsg(int sendMsgNo);
 	
 	//보낸 쪽지 삭제
-	void removeSendMsg(int sendMsgNo);
+	void removeSendMsg(int[] sendMsgNos);
 	
 	//보낸쪽지 갯수확인
 	int rerieveTotalSendMsg(String userId);

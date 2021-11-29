@@ -36,6 +36,7 @@ public class MsgServiceImpl implements MsgService {
 		HashMap<String, Object> addrMap = new HashMap<String, Object>();
 		addrMap.put("sendMsgNo", sendMsgNo);
 		
+		//주소록에 저장
 		for(AddressVO addr : addrs) {
 			
 			addrMap.put("receiveId", addr.getReceiveId()); 
@@ -43,6 +44,7 @@ public class MsgServiceImpl implements MsgService {
 			this.addressDao.insertAddr(addrMap);
 	
 		}//for end
+	
 		
 	}//registerMsg() end
 	
@@ -53,19 +55,24 @@ public class MsgServiceImpl implements MsgService {
 		return this.sendMsgDao.selectSendMsgList(userId);
 
 	}//retrieveSendMsgList() end
-
+	
+	//보낸 메세지 상세보기
 	@Override
 	public SendMsgVO retrieveSendMsg(int sendMsgNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+		
+		return this.sendMsgDao.selectSendMsg(sendMsgNo);
+		
+	}//retrieveSendMsg() end
+	
+	//보낸 메세지 삭제
 	@Override
-	public void removeSendMsg(int sendMsgNo) {
-		// TODO Auto-generated method stub
+	public void removeSendMsg(int[] sendMsgNos) {
+		
+		this.sendMsgDao.deleteSendMsg(sendMsgNos);
 
-	}
-
+	}//removeSendMsg() end
+	
+	
 	@Override
 	public int rerieveTotalSendMsg(String userId) {
 		// TODO Auto-generated method stub

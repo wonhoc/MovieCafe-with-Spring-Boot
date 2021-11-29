@@ -18,10 +18,9 @@
 	INSERT INTO address(sendMsgNo, receiveId)
 	VALUES (#{sendMsgNo}, #{receiveId})
 	
-	
 	</insert>
 	
-	<!-- 보낸 메세지 리스트 리턴형 -->
+	<!-- 보낸 메세지 resultmap -->
 	<resultMap type="sendMsgVo" id="SendMsgList" autoMapping="true">
 		<result property="sendMsgNo" javaType="int" column="sendMsgNo" jdbcType="INTEGER" />
 		<result property="sendMsgContent" javaType="string" column="sendMsgContent" jdbcType="VARCHAR" />
@@ -29,9 +28,8 @@
 		
 		<!--  주소록 -->
 		<collection property="addresses" ofType="addressVo">
-			<result property="receiveId" javaType="string" column="receiveId" jdbcType="VARCHAR" />
-			<result property="isRead" javaType="int" column="isRead" jdbcType="INTEGER"/>
-			
+			<result property="receiveId" javaType="string" column="receiveId" jdbcType="VARCHAR" />	
+			<result property="isRead" javaType="int" column="isRead" jdbcType="INTEGER" />			
 		</collection>
 		
 	</resultMap>
@@ -39,12 +37,28 @@
 	<!-- 모든 보낸 메세지 가져오기 -->
 	<select id="selectSendMsgList" parameterType="string" resultMap="SendMsgList">
 		
-	SELECT s.sendMsgNo, s.sendMsgContent, s.msgWdate, a.receiveId as receiveId, a.isRead as isRead
+	SELECT s.sendMsgNo, s.sendMsgContent, s.msgWdate, a.receiveId as receiveId
 	FROM send_msg s Inner JOIN address a USING(sendMsgNo)
 	WHERE writerId = #{userId}
 	ORDER BY msgWdate DESC
 	
 	</select>
 	
+	<!-- 보낸 메세지 삭제하기 -->
+	<delete id="deleteSendMsgNo" parameterType="int">
+		
+		DELETE FROM send_msg
+		WHERE sendMsgNo = #{sendMsgNo}
+	
+	</delete>
+
+	<!--  보낸 메세지 상세조회 -->
+	<select id="selectSendMsg" parameterType="int" resultMap="SendMsgList">
+	
+	SELECT s.sendMsgNo, s.sendMsgContent, s.msgWdate, a.receiveId as receiveId, a.isRead
+	FROM send_msg s Inner JOIN address a USING(sendMsgNo)
+	WHERE sendMsgno = #{sendMsgNo}
+	
+	</select>
 	
 </mapper>

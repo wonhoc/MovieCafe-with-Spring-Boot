@@ -4,7 +4,7 @@
         <meta charset='UTF-8'>
         <title>내가쓴 쪽지</title>
      <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-	 <script th:src="@{/js/message/sendMsgForm.js}"> </script>
+	 <script th:src="@{/js/message/sendMsgList.js}"> </script>
    	<style>
   	#removeSendMsgBtn,
  	#sendFormBtn,
@@ -80,17 +80,17 @@ margin-right: auto;
             <button type="button" id=sendMsglistBtn onclick="location='/sendMsgList'">보낸쪽지함</button>
             <button type="button" id="recieveMsglistBtn" onclick="location='/receiveMsgList'">받은쪽지함</button>
         </div>
-        <form action="/removeSendMsg" method="GET" id="removeSendMsgForm">
+        <form action="/removeSendMsg" method="POST" id="removeSendMsgForm">
 			<div id="content">
 				<div>
 					<table border="1" id="sendMsgList">
 						<thead>
-							<tr>		              	
-								<td style="text-align: center;">받는사람</td>
-								<td style="text-align: center; width: 100px">내용</td> 
-								<td>작성시간</td>
+							<tr>             	
+								<td style="text-align: center; width: 100px;">받는사람</td>
+								<td style="text-align: center; width: 100px;">내용</td> 
+								<td style="text-align: center; width: 200px;">작성시간</td>
 								<div th:if = "${sendMsgList != null}">		
-								<td><input type="checkbox" id="allChecked">삭제</td>
+								<td style="text-align: center; width: 200px; color: red; font-size: 12px"><input type="checkbox" id="allChecked">선택</td>
 								</div>
 							</tr>
 						</thead>
@@ -103,15 +103,28 @@ margin-right: auto;
 								<div th:if = "${sendMsgList != null}">		
 									<tr th:each="sendMsg : ${sendMsgList}">
 										<!-- 받는사람이 1명일때  -->
-										<span th:if="${#list.size(sendMsg.addresses[0]) < 2}">
-											<td>
+										<span th:if="${#lists.size(sendMsg.addresses) < 2}">
+											<td style="text-align: center;" >
 												<span th:text="${sendMsg.addresses[0].receiveId}" />
 											</td>
 										</span>
 										<!--  받는사람이 2명 이상일때 -->
-										<td th:text="${sendMsg.sendMsgContent}"></td>
-										<td th:text="${#strings.substring(sendMsg.msgWdate, 0, 10)}"></td>
-										<td><input type="checkbox" name="removeCheckBox" th:value="${sendMsg.sendMsgNo}"></td>
+											<span th:if="${#lists.size(sendMsg.addresses) >= 2}">
+											<td>
+												<span th:text="${sendMsg.addresses[0].receiveId} + ' 외 ' + ${#lists.size(sendMsg.addresses) - 1} + '명'  " />
+											</td>
+										</span>
+										<!-- 내용이 10글자가 넘으면 -->
+										<span th:if="${#strings.length(sendMsg.sendMsgContent) > 10 }">								
+											<td style="text-align: center; width: 400px"><a th:text="${#strings.substring(sendMsg.sendMsgContent, 0, 10) + '...'}" th:href="@{/sendMsgDetail/{sendMsgNo}(sendMsgNo=${sendMsg.sendMsgNo})}"></a></td>
+										</span>
+										
+										<!-- 내용이 10글자가 넘지 않으면 -->
+										<span th:if="${#strings.length(sendMsg.sendMsgContent) <= 10 }">								
+											<td style="text-align: center; width: 400px"><a th:text="${sendMsg.sendMsgContent}" th:href="@{/sendMsgDetail/{sendMsgNo}(sendMsgNo=${sendMsg.sendMsgNo})}"></a></td>
+										</span>
+										<td style="text-align: center; width: 300px;" th:text="${#strings.substring(sendMsg.msgWdate, 0, 10)}"></td>
+										<td style="text-align: center;" ><input type="checkbox" name="removeCheckBox" th:value="${sendMsg.sendMsgNo}"></td>
 									</tr>								
 								</div>
 							</tbody>

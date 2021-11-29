@@ -26,8 +26,8 @@ public class SendMsgDaoImpl implements SendMsgDao {
 		sendMsg.put("writerId", msgVo.getWriterId());
 		sendMsg.put("sendMsgContent", msgVo.getSendMsgContent());
 		
-		System.out.println("writerId : " + sendMsg.get("writerId"));
-		System.out.println("sendMsgContent : " + sendMsg.get("sendMsgContent"));
+		//System.out.println("writerId : " + sendMsg.get("writerId"));
+		//System.out.println("sendMsgContent : " + sendMsg.get("sendMsgContent"));
 		 
 		//DB에 insert
 		this.sqlSession.insert("Msg.insertSendMsg", sendMsg);
@@ -44,24 +44,33 @@ public class SendMsgDaoImpl implements SendMsgDao {
 		return sendMsgNo;
 			
 	}//insertMessage() end
-
+	
+	//전체 보낸 메세지 조회
 	@Override
 	public List<SendMsgVO> selectSendMsgList(String userId) {
 			
 		return this.sqlSession.selectList("Msg.selectSendMsgList", userId);
 		
 	}//selectSendMsgList() end
-
+	
+	//보낸메세지 삭제
 	@Override
-	public void deleteSendMsg(int SendMsgNo) {
-		// TODO Auto-generated method stub
+	public void deleteSendMsg(int[] SendMsgNos) {
+		
+		for(int sendMsgNo : SendMsgNos) {
+			
+			this.sqlSession.delete("Msg.deleteSendMsgNo", sendMsgNo);
+			
+		}//for end
+		
+	}//deleteSendMsg() end
 
-	}
-
+	//보낸 메세지 상세보기
 	@Override
 	public SendMsgVO selectSendMsg(int sendMsgNo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.sqlSession.selectOne("Msg.selectSendMsg", sendMsgNo);
+		
 	}
 
 	@Override

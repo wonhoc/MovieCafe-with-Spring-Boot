@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.message.service.MsgService;
@@ -99,8 +101,10 @@ public class MessageController {
 			
 			ArrayList<AddressVO> addrs = sendmsg.getAddresses();
 			
+			System.out.println(sendmsg.toString());
+			
 			for(AddressVO addr : addrs) {
-				
+			
 				System.out.println(addr.toString());
 				
 			}//for end
@@ -111,7 +115,42 @@ public class MessageController {
 		//sendMsgList로 이동
 		return this.path + "sendMsgList";
 		
-	}//sendMsgList() end 
+	}//sendMsgList() end
+	
+	@PostMapping("/removeSendMsg")
+	public String removeSendMsg(@RequestParam int[] removeCheckBox) {
+		
+		this.msgService.removeSendMsg(removeCheckBox);
+		
+		return "redirect:/sendMsgList";
+		
+	}//removeSendMsg() end
+	
+	//받은 메세지 상세보기 요청
+	@GetMapping("/sendMsgDetail/{sendMsgNo}")
+	public String sendMsgDetail(@PathVariable int sendMsgNo
+								,Model model) {
+		//DB에서 상세조회
+		SendMsgVO sendMsg = this.msgService.retrieveSendMsg(sendMsgNo);
+		
+		//model에 add
+		model.addAttribute("sendMsg", sendMsg);
+		
+		//sendMsgDetail로 이동
+		return this.path + "sendMsgDetail";
+		
+	}//sendMsgDetail() end
+	
+	//보낸메세지 상세보기 페이지에서 삭제
+	@PostMapping("/removeDetailSendMsg")
+	public String removeDetailSendMsg(@RequestParam int sendMsgNo) {
+		
+		int[] sendMsgnos = { sendMsgNo };
+		
+		this.msgService.removeSendMsg(sendMsgnos);
+		
+		return "redirect:/sendMsgList";
+	}
 	
 	
 	
