@@ -1,9 +1,13 @@
 package com.example.member.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +39,8 @@ public class UserInfoController {
 	public ModelAndView loginController(
 			@RequestParam(value = "userId") String userId,
 			@RequestParam(value = "userPwd") String userPwd, 
-			HttpServletRequest req, ModelAndView model) {
+			HttpServletRequest request, HttpServletResponse response,
+			ModelAndView model) throws IOException {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
 		map.put("userPwd", userPwd);
@@ -43,7 +48,9 @@ public class UserInfoController {
 		int isCheckUser = this.userService.isCheckUserCount(map);
 		//로그인에 성공했을 경우
 		if (isCheckUser == 1) {
-			HttpSession session = req.getSession();
+			HttpSession session = request.getSession();
+			// 세션 유지 시간 : 30분
+			session.setMaxInactiveInterval(1800);
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			session.setAttribute("userInfo", user);
 			model.setViewName("/views/main");
@@ -51,6 +58,10 @@ public class UserInfoController {
 			
 		} else {
 			// 리다이렉트로 로그인 페이지 다시
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인에 실패하였습니다. 입력한 내용을 확인해주세요.');</script>");
+			out.flush();
 			model.setViewName("/views/main");	
 		}
 	
@@ -142,16 +153,23 @@ public class UserInfoController {
 		model.addObject("userId",userInfo.getUserId());
 		model.addObject("userNick",userInfo.getUserNick());
 		model.addObject("joinDate",userInfo.getJoinDate());
-		
 
 		return model;
 	
 	}
 	
-	
- // @GetMapping("/mypage")
-//	public String mypage() {
-	//	return "views/member/mypage";
-	//}
+	// 로그아웃
+	@GetMapping(value="/Logout")
+	public String logoutAndReturn(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		out.println("<script>alert('로그아웃 되었습니다');</script>");
+		out.flush();
+		// 세션에 올라온 유저정보 삭제 후 세션 종료
+		session.removeAttribute("userInfo");
+		session.invalidate();
+		return "/views/main";
+	}
 
 }
