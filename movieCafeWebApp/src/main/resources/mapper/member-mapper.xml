@@ -35,7 +35,11 @@
 	
 	<!--  아이디 중복검사  -->
 	<select id="checkId" parameterType="string" resultType="int">
+		SELECT COUNT(*) + (
 		SELECT COUNT(*)
+		FROM exit_user
+		WHERE userId = #{userId}
+		)
 		FROM user_info
 		WHERE userId = #{userId}
 	</select>

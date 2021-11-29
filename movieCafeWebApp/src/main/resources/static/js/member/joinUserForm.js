@@ -56,7 +56,7 @@ $(document).ready(function() {
 				try {
 					const result = await getAjax2(url, userId);					
 					if(result == 'true') {
-	                	$('#resultId').text('이미 사용중인 아이디 입니다.');
+	                	$('#resultId').text('사용할 수 없는 아이디입니다.');
 	                	$('#resultId').css('color', 'red');
 	                	
 	                	$('#isSubmitBtn').attr("disabled",true);
