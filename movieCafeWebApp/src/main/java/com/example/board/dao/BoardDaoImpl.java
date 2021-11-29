@@ -12,80 +12,78 @@ import com.example.board.vo.BoardVO;
 @Repository("boardDao")
 public class BoardDaoImpl implements BoardDao {
 
-	@Autowired
-	private SqlSession sqlSession;
-	
-	@Override
-	public List<BoardVO> selectList(int cateNo) {
-		
-		return this.sqlSession.selectList("selectByCateNo", cateNo);
+   @Autowired
+   private SqlSession sqlSession;
 
-	}
-  @Override
-	public void insertBoard(BoardVO board) {
-		this.sqlSession.insert("insertBoardCall", board);
-	}
+   // 게시글 목록 조회
+   @Override
+   public List<BoardVO> selectList(int cateNo) {
 
-	@Override
-	public void insertBoardNewMem(BoardVO board) {
-		this.sqlSession.insert("insertNewMemBoardCall",board);
-		
-	}
+      return this.sqlSession.selectList("selectByCateNo", cateNo);
 
-	@Override
-	public void insertBoardFile(BoardFileVO file) {
-		this.sqlSession.insert("insertBoardFileCall",file);
-		
-	}
+   }
 
-	@Override
-	public int lastId() {
-		return this.sqlSession.selectOne("lastId");
-	}
+   // 인기글 조회
+   @Override
+   public List<BoardVO> selectRecomRevList() {
+      return this.sqlSession.selectList("Board.mainBestListSelect");
+   }
 
-	@Override
-	public void insertBoardTip(BoardVO board) {
-		this.sqlSession.insert("insertTipBoardCall", board);
-		
-	}
+   // 공지글 조회
+   @Override
+   public List<BoardVO> selectNoticeRevList() {
+      return this.sqlSession.selectList("Board.mainNoticeListSelect");
+   }
 
-	@Override
-	public void updateBoard(BoardVO board) {
-		this.sqlSession.update("updateBoardCall", board);
-		
-	}
+   // 게시글 상세보기
+   @Override
+   public BoardVO selectBoard(int boardNo) {
+      return this.sqlSession.selectOne("selectDetailBoard", boardNo);
+   }
 
+   // 게시글 작성
+   @Override
+   public void insertBoard(BoardVO board) {
+      this.sqlSession.insert("insertBoardCall", board);
+   }
 
-	@Override
-	public void updateBoardNewMem(BoardVO board) {
-		this.sqlSession.update("updateBoardNewMemCall", board);
-		
-	}
-  @Override
-	public List<BoardVO> selectRecomRevList() {
-		return this.sqlSession.selectList("Board.mainBestListSelect");
-	}
-	@Override
-	public List<BoardVO> selectNoticeRevList() {
-		return this.sqlSession.selectList("Board.mainNoticeListSelect");
+   // 팁 게시글 작성
+   @Override
+   public void insertBoardTip(BoardVO board) {
+      this.sqlSession.insert("insertTipBoardCall", board);
 
-	}
+   }
 
-	@Override
-	public BoardVO selectBoard(int boardNo) {
-		
-		return this.sqlSession.selectOne("selectDetailBoard", boardNo);
-	}
+   // 파일 등록
+   @Override
+   public void insertBoardFile(BoardFileVO file) {
+      this.sqlSession.insert("insertBoardFileCall", file);
 
-	@Override
-	public void deleteBoard(int boardNo) {
-		this.sqlSession.delete("deleteBoard", boardNo);
-	}
+   }
 
-	@Override
-	public void reportBoardDao(int bordNo) {
-		this.sqlSession.insert("reportBoard", bordNo);
-	}
+   // LAST_ID구하기
+   @Override
+   public int lastId() {
+      return this.sqlSession.selectOne("lastId");
+   }
 
-	
+   // 게시글 수정
+   @Override
+   public void updateBoard(BoardVO board) {
+      this.sqlSession.update("updateBoardCall", board);
+
+   }
+
+   // 게시글 삭제
+   @Override
+   public void deleteBoard(int boardNo) {
+      this.sqlSession.delete("deleteBoard", boardNo);
+   }
+
+   //게시글 신고
+   @Override
+   public void reportBoardDao(int bordNo) {
+      this.sqlSession.insert("reportBoard", bordNo);
+   }
+
 }

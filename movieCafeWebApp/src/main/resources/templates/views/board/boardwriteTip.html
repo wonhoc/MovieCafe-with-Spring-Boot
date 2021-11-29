@@ -9,57 +9,57 @@
 <head>
 </head>
 <section layout:fragment="content">
-	<article>
-		<div class="container" role="main">
-			<form name="form" id="form" role="form" method="post" th:action="@{/tipfileUpload}"
-				enctype="multipart/form-data">
-				<input type="hidden" name="userId" value="test_user03">
-				<h3 class="text-title" th:text="#{category.title4}"></h3>
-				<label>말머리</label> <select name="horseNo" id="horseNo">
-					<option value="10">영화관 추천</option>
-					<option value="11">할인 정보</option>
-				</select> 
-				<input type="hidden" id="cateNo" name="cateNo" value="3">
-				<div class="mb-3">
-					<input type="text" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요">
-				</div>
+   <article>
+      <div class="container" role="main">
+         <form name="form" id="form" role="form" method="post" th:action="@{/tipfileUpload}"
+            enctype="multipart/form-data">
+            <input type="hidden" name="userId" value="test_user03">
+            <h3 class="text-title" th:text="#{category.title1}"></h3>
+            <label>말머리</label> <select name="horseNo" id="horseNo">
+               <option value="10">영화관 추천</option>
+               <option value="11">할인 정보</option>
+            </select> 
+            <input type="hidden" id="cateNo" name="cateNo" value="3">
+            <div class="mb-3">
+               <input type="text" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요">
+            </div>
 
-				<div class="mb-3">
-					<input type="text" class="form-control" name="boardContent" id="boardContent"
-						placeholder="내용을 입력해주세요" style="height: 300px;">
-				</div>
+            <div class="mb-3">
+               <input type="text" class="form-control" name="boardContent" id="boardContent"
+                  placeholder="내용을 입력해주세요" style="height: 300px;">
+            </div>
 
 
-				<div class="mb-3">
-					<label>파일</label> <input type="file" class="form-control" name="fileList" multiple>
+            <div class="mb-3">
+               <label>파일</label> <input type="file" class="form-control" name="fileList" multiple>
 
-				</div>
+            </div>
 
-				<div>
-					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">글쓰기</button>
-					<button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
-				</div>
-				<input type="hidden"  id="apiX" name="apiX"> 
-				<input type="hidden" id="apiY" name="apiY">
-				<div th:if="${rankType.equals('A')}">
-					<input type="checkbox" var="1" value="1" name="boardNotice"><label>공지</label>
-				</div>
-			</form>
-			
-			<input type="text" id="sample5_address" placeholder="주소"> <input
-				type="button" id="address" onclick="sample5_execDaumPostcode()"
-				value="주소 검색"><br>
-			<div id="map"
-				style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+            <div>
+               <button type="button" class="btn btn-sm btn-primary" id="saveBtn">글쓰기</button>
+               <button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
+            </div>
+            <input type="hidden"  id="apiX" name="apiX"> 
+            <input type="hidden" id="apiY" name="apiY">
+            <div th:if="${rankType.equals('A')}">
+               <input type="checkbox" var="1" value="1" name="boardNotice"><label>공지</label>
+            </div>
+         </form>
+         
+         <input type="text" id="sample5_address" placeholder="주소"> <input
+            type="button" id="address" onclick="sample5_execDaumPostcode()"
+            value="주소 검색"><br>
+         <div id="map"
+            style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
 
  <th:block layout:fragment="apiscript">
  <script
-				src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-			<script
-				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806&libraries=services"></script>
-			<script th:src="@{/js/board/mapApi.js}"></script>
+            src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+         <script
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806&libraries=services"></script>
+         <script th:src="@{/js/board/mapApi.js}"></script>
 </th:block>       
-		</div>
-	</article>
+      </div>
+   </article>
 </section>
 </html>

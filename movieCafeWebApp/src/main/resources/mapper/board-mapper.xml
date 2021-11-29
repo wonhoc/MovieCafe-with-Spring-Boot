@@ -4,209 +4,77 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
 
-	<!-- 새싹게시판 게시글 작성 -->
-	<parameterMap type="boardVO" id="boardNewMemCreateMap">
-		<parameter property="userId" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardTitle" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardContent" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardNotice" javaType="int"
-			jdbcType="TINYINT" mode="IN" />
-	</parameterMap>
-
-	<insert id="insertNewMemBoardCall" parameterType="BoardVo"
-		statementType="CALLABLE" parameterMap="boardNewMemCreateMap">
-		{call
-		sp_write_NewMemboard(?,?,?,?) }
-	</insert>
-	<!-- 새싹 게시판 글 작성 끝 -->
-
-	<!-- 영화리뷰,시사회 정보 게시글 작성 -->
-	<parameterMap type="boardVO" id="boardCreateMap">
-		<parameter property="userId" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardTitle" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardContent" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="horseNo" javaType="int"
-			jdbcType="INTEGER" mode="IN" />
-		<parameter property="boardNotice" javaType="int"
-			jdbcType="TINYINT" mode="IN" />
-	</parameterMap>
-
-	<insert id="insertBoardCall" parameterType="BoardVo"
-		statementType="CALLABLE" parameterMap="boardCreateMap">
-		{call sp_write_board(?,?,?,?,?)
-		}
-	</insert>
-	<!-- 영화리뷰, 시사회 정보 게시글 작성 -->
-
-
-	<!-- 팁 게시판 게시글 작성 -->
-	<parameterMap type="boardVO" id="boardTipCreateMap">
-		<parameter property="userId" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardTitle" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardContent" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="horseNo" javaType="int"
-			jdbcType="INTEGER" mode="IN" />
-		<parameter property="boardNotice" javaType="int"
-			jdbcType="TINYINT" mode="IN" />
-		<parameter property="apiX" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="apiY" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-	</parameterMap>
-
-	<insert id="insertTipBoardCall" parameterType="BoardVo"
-		statementType="CALLABLE" parameterMap="boardTipCreateMap">
-		{call
-		sp_write_boardTip(?,?,?,?,?,?,?) }
-	</insert>
-	<!-- 팁게시판 글 작성 끝 -->
-
-
-
-	<!-- 파일 업로드(구현 못함) -->
-	<parameterMap type="boardFileVO" id="boardFileCreateMap">
-		<parameter property="boardfileOrigin" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardfileSys" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardfileSize" javaType="long"
-			jdbcType="INTEGER" mode="IN" />
-		<parameter property="boardNo" javaType="int"
-			jdbcType="TINYINT" mode="IN" />
-	</parameterMap>
-
-
-	<!--게시글 수정 -->
-	<parameterMap type="boardVO" id="boardUpdateMap">
-		<parameter property="boardTitle" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardContent" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="horseNo" javaType="int"
-			jdbcType="INTEGER" mode="IN" />
-		<parameter property="boardNotice" javaType="int"
-			jdbcType="TINYINT" mode="IN" />
-		<parameter property="apiX" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="apiY" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardNo" javaType="int"
-			jdbcType="INTEGER" mode="IN" />
-	</parameterMap>
-
-	<update id="updateBoardCall" parameterType="BoardVo"
-		statementType="CALLABLE" parameterMap="boardUpdateMap">
-		{call
-		sp_modify_board(?,?,?,?,?,?,?) }
-	</update>
-	<!-- 게시판 글 수정 끝 -->
-
-
-
-	<!--새싹 게시글 수정 -->
-	<parameterMap type="boardVO" id="boardNewMemUpdateMap">
-		<parameter property="boardTitle" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardContent" javaType="string"
-			jdbcType="VARCHAR" mode="IN" />
-		<parameter property="boardNotice" javaType="int"
-			jdbcType="TINYINT" mode="IN" />
-		<parameter property="boardNo" javaType="int"
-			jdbcType="INTEGER" mode="IN" />
-
-	</parameterMap>
-
-	<update id="updateBoardNewMemCall" parameterType="BoardVo"
-		statementType="CALLABLE" parameterMap="boardNewMemUpdateMap">
-		{call sp_modify_board_newMem(?,?,?,?) }	
-	</update>
-
-	
-
-	<resultMap type="boardVO" id="mainBestList">
-		<result property="boardNo" javaType="int" column="boardNo" jdbcType="INTEGER"/>
-		<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
-		<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
-		<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER"/>
-		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="DATE"/>
-		<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER"/>
+	<resultMap type="boardVO" id="resultMapSelectList">
+		<result property="cateNo" javaType="int" column="cateNo"
+			jdbcType="INTEGER" />
+		<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR" />
+		<result property="horse" javaType="string" column="horse"
+			jdbcType="VARCHAR" />
+		<result property="boardTitle" javaType="string"
+			column="boardTitle" jdbcType="VARCHAR" />
+		<result property="boardWdate" javaType="string"
+			column="boardWdate" jdbcType="VARCHAR" />
+		<result property="commentCount" javaType="int"
+			column="commentCount" jdbcType="INTEGER" />
 	</resultMap>
-	<select id="mainBestListSelect" resultType="boardVO" resultMap="mainBestList" statementType="CALLABLE">
-		{ call sp_select_hot_board() }
+
+	<parameterMap type="int" id="paramMapSelectList">
+		<parameter property="cateNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
+
+	<select id="selectByCateNo" statementType="CALLABLE"
+		resultMap="resultMapSelectList" parameterType="string"
+		parameterMap="paramMapSelectList">
+		{ call sp_list_board(?) }
 	</select>
 
-	<resultMap type="boardVO" id="mainNoticeList">
-		<result property="boardNo" javaType="int" column="boardNo" jdbcType="INTEGER"/>
-		<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
-		<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
-		<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER"/>
-		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="DATE"/>
-		<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER"/>
+
+	<resultMap type="boardVO" id="resultMapSelectDetail">
+		<result property="boardNo" javaType="int" column="boardNo"
+			jdbcType="INTEGER" />
+		<result property="horse" javaType="string" column="horse"
+			jdbcType="VARCHAR" />
+		<result property="boardTitle" javaType="string"
+			column="boardTitle" jdbcType="VARCHAR" />
+		<result property="cateNo" javaType="int" column="cateNo"
+			jdbcType="INTEGER" />
+		<result property="userNick" javaType="string" column="userNick"
+			jdbcType="VARCHAR" />
+		<result property="horseNo" javaType="int" column="horseNo"
+			jdbcType="INTEGER" />
+		<result property="boardCount" javaType="int"
+			column="boardCount" jdbcType="INTEGER" />
+		<result property="boardWdate" javaType="string"
+			column="boardWdate" jdbcType="VARCHAR" />
+		<result property="commentCount" javaType="int"
+			column="commentCount" jdbcType="INTEGER" />
+		<result property="boardContent" javaType="string"
+			column="boardContent" jdbcType="VARCHAR" />
 	</resultMap>
-	<select id="mainNoticeListSelect" resultType="boardVO" resultMap="mainNoticeList" statementType="CALLABLE">
-		{ call sp_select_new_notice() }
+
+	<parameterMap type="int" id="paramMapSelectDetail">
+		<parameter property="boardNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
+
+	<select id="selectDetailBoard" statementType="CALLABLE"
+		resultMap="resultMapSelectDetail" parameterType="int"
+		parameterMap="paramMapSelectDetail">
+		{ call sp_detail_board(?) }
 	</select>
 
-<resultMap type="boardVO" id="resultMapSelectList">
-	<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER"/>
-	<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
-	<result property="horse" javaType="string" column="horse" jdbcType="VARCHAR"/>
-	<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
-	<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR"/>
-	<result property="commentCount" javaType="int" column="commentCount" jdbcType="INTEGER"/>
-</resultMap>
-	
-<parameterMap type="int" id="paramMapSelectList">
-	<parameter property="cateNo" javaType="int" jdbcType="INTEGER" mode="IN"/>
-</parameterMap>	
-	
-<select id="selectByCateNo" statementType="CALLABLE" resultMap="resultMapSelectList"
-	parameterType="string" parameterMap="paramMapSelectList">
-	{ call sp_list_board(?) }
-</select>
-	
-		
-<resultMap type="boardVO" id="resultMapSelectDetail">
-	<result property="boardNo" javaType="int" column="boardNo" jdbcType="INTEGER"/>
-	<result property="horse" javaType="string" column="horse" jdbcType="VARCHAR"/>
-	<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
-	<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER"/>
-	<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
-	<result property="horseNo" javaType="int" column="horseNo" jdbcType="INTEGER"/>
-	<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER"/>
-	<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR"/>
-	<result property="commentCount" javaType="int" column="commentCount" jdbcType="INTEGER"/>
-	<result property="boardContent" javaType="string" column="boardContent" jdbcType="VARCHAR"/>
-</resultMap>
-	
-<parameterMap type="int" id="paramMapSelectDetail">
-	<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN"/>
-</parameterMap>
+	<delete id="deleteBoard" statementType="CALLABLE"
+		parameterType="int" parameterMap="paramMapSelectDetail">
+		{ call sp_delete_board(?) }
+	</delete>
 
-<select id="selectDetailBoard" statementType="CALLABLE" resultMap="resultMapSelectDetail"
-	parameterType="int" parameterMap="paramMapSelectDetail">
-	{ call sp_detail_board(?) }
-</select>
-	
-<delete id="deleteBoard" statementType="CALLABLE" parameterType="int" parameterMap="paramMapSelectDetail">
-	{ call sp_delete_board(?) }
-</delete>
-	
 
-	
-<insert id="reportBoard" statementType="CALLABLE" parameterType="int" parameterMap="paramMapSelectDetail">
-	{ call sp_report(?) }
-</insert>
-	
+
+	<insert id="reportBoard" statementType="CALLABLE"
+		parameterType="int" parameterMap="paramMapSelectDetail">
+		{ call sp_report(?) }
+	</insert>
+
 
 </mapper>
-
