@@ -1,6 +1,7 @@
 package com.example.message.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -42,9 +43,11 @@ public class AddressDaoImpl implements AddressDao {
 	}
 
 	@Override
-	public void Readed(int sendMsgNo, String receiveId) {
-		// TODO Auto-generated method stub
+	public void updateisRead(HashMap<String, Object> updateMap) {
+		
+		//DB에 업데이트
+		this.sqlSession.update("Msg.updateAddressIsread", updateMap);
 
-	}
+	}//updateisRead() end
 
 }//class end

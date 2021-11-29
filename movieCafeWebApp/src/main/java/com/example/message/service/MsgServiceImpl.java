@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.message.dao.AddressDao;
+import com.example.message.dao.ReceiveMsgDao;
 import com.example.message.dao.SendMsgDao;
 import com.example.message.vo.AddressVO;
 import com.example.message.vo.ReceiveMsgVO;
@@ -20,15 +21,17 @@ public class MsgServiceImpl implements MsgService {
 	private SendMsgDao sendMsgDao;
 	@Autowired
 	private AddressDao addressDao;
+	@Autowired
+	private ReceiveMsgDao receiveMsgDao;
 	
 	//쪽지 작성
 	@Override
-	public void registerMsg(SendMsgVO msgVo) {
+	public void registerMsg(SendMsgVO msgVo, ArrayList<ReceiveMsgVO> receiveMsgs) {
 		
 		//방금 insert된 보낸메세지의 pk값
 		int sendMsgNo =	this.sendMsgDao.insertMessage(msgVo);
 		
-		System.out.println("sendMsgNo :" + sendMsgNo);
+		//System.out.println("sendMsgNo :" + sendMsgNo);
 		
 		//받는 아이디 만큼 주소록에 저장
 		ArrayList<AddressVO> addrs = msgVo.getAddresses();
@@ -44,6 +47,9 @@ public class MsgServiceImpl implements MsgService {
 			this.addressDao.insertAddr(addrMap);
 	
 		}//for end
+		
+		//받을사람들 저장
+		this.receiveMsgDao.insertMessage(receiveMsgs, sendMsgNo);
 	
 		
 	}//registerMsg() end
@@ -79,17 +85,26 @@ public class MsgServiceImpl implements MsgService {
 		return 0;
 	}
 
-	
+	//받은 메세지 상세조회
 	@Override
 	public ReceiveMsgVO retrieveReceiveMsg(int receiveMsgNo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.receiveMsgDao.selectReceiveMsg(receiveMsgNo);
 	}
-
+	
+	//받은 메세지 전체 조회
+	@Override
+	public List<ReceiveMsgVO> retrieveReceiveMsgList(String userId) {
+		
+		return this.receiveMsgDao.selectReceiveMsgList(userId);
+		
+	}//retrieveReceiveMsgList() end
+	
+	//받은메세지 삭제
 	@Override
 	public void removeReceiveMsg(int receiveMsgNo) {
-		// TODO Auto-generated method stub
-
+		
+		
 	}
 
 	@Override
@@ -103,18 +118,27 @@ public class MsgServiceImpl implements MsgService {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	//클릭시 쪽지 수신확인
 	@Override
 	public void updateRead(int sendMsgNo, String receiveId) {
-		// TODO Auto-generated method stub
+		
+		//map
+		HashMap<String, Object> updateMap = new HashMap<String, Object>();
+		
+		System.out.println("receiveMsgNo : " + sendMsgNo);
+		System.out.println("receiveId : " + receiveId);
+		
+		//업데이트할 정보들 put
+		updateMap.put("receiveMsgNo", sendMsgNo);
+		updateMap.put("receiveId", receiveId);
+		
+		this.receiveMsgDao.updateIsread(updateMap);
+		this.addressDao.updateisRead(updateMap);
 
-	}
-
-	@Override
-	public ArrayList<ReceiveMsgVO> retrieveReceiveMsgList(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	}//updateRead() end
+	
+	
 
 
 }//class end

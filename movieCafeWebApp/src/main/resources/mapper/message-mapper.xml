@@ -61,4 +61,57 @@
 	
 	</select>
 	
+	<!-- 받은 메세지 저장 -->
+	<insert id="insertReceiveMsg" parameterType="receiveMsgVo" >
+	
+	INSERT INTO receive_msg(writer, receiveId, receiveMsgContent, receiveMsgNo)
+	VALUES(#{writer}, #{receiveId}, #{receiveMsgContent}, #{receiveMsgNo})
+	
+	</insert>
+	
+	<!-- 받은 메세지 resultMap -->
+	<resultMap type="receiveMsgVo" id="receiveMsgList">
+		<result property="writer" javaType="string" column="writer" jdbcType="VARCHAR" />
+		<result property="receiveMsgContent" javaType="string" column="receiveMsgContent" jdbcType="VARCHAR" />
+		<result property="receiveMsgNo" javaType="int" column="receiveMsgNo" jdbcType="INTEGER" />
+		<result property="isRead" javaType="int" column="isRead" jdbcType="INTEGER" />
+		<result property="msgWdate" javaType="string" column="msgWdate" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 받은 메세지 모두 조회 -->
+	<select id="selectReceiveMsgList" parameterType="String" resultMap="receiveMsgList">
+	
+	SELECT writer, receiveMsgContent, receiveMsgNo, isRead, msgWdate
+	FROM receive_msg
+	WHERE receiveId = #{receiveId}
+	
+	</select>
+	
+	<!-- 받은메세지 상세조회 -->
+	<select id="selectReceiveMsg" parameterType="int" resultType="receiveMsgVo">
+	
+	SELECT writer, receiveMsgContent, msgWdate, receiveMsgNo
+	FROM receive_msg
+	WHERE receiveMsgNo = #{receiveMsgNo}
+	
+	</select>
+	
+	<!-- receive_msg 읽음확인 업데이트 -->
+	<update id="updateReceiveIsread" parameterType="hashMap">
+	
+	UPDATE  receive_msg 
+	SET isRead = true
+	WHERE receiveMsgNo = #{receiveMsgNo} AND receiveId = #{receiveId}
+	
+	</update>
+	
+	<!-- receive_msg 읽음확인 업데이트 -->
+	<update id="updateAddressIsread" parameterType="hashMap">
+	
+	UPDATE address 
+	SET isRead = true
+	WHERE sendMsgNo = #{receiveMsgNo} AND receiveId = #{receiveId}
+	
+	</update>
+	
 </mapper>

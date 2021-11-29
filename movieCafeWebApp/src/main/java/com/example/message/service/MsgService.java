@@ -9,7 +9,7 @@ import com.example.message.vo.SendMsgVO;
 public interface MsgService {
 	
 	//쪽지 작성
-	public void registerMsg(SendMsgVO msgVo);
+	public void registerMsg(SendMsgVO msgVo, ArrayList<ReceiveMsgVO> receiveMsgs);
 	
 	//보낸쪽지 모두 조회
 	List<SendMsgVO> retrieveSendMsgList(String userId);
@@ -26,7 +26,7 @@ public interface MsgService {
 	
 	
 	//받은쪽지 모두 조회
-	ArrayList<ReceiveMsgVO> retrieveReceiveMsgList(String userId);
+	List<ReceiveMsgVO> retrieveReceiveMsgList(String userId);
 
 	//받은쪽지 상세조회
 	ReceiveMsgVO retrieveReceiveMsg(int receiveMsgNo);
@@ -42,8 +42,8 @@ public interface MsgService {
 	//삭제시 안읽은쪽지 읽음으로 전환
 	void ReadUpdateRemove(int receiveMsgNo, String receiveId);
 	
-	//쪽지 수신확인
-	void updateRead(int sendMsgNo, String receiveId);
+	//클릭시 쪽지 수신확인
+	void updateRead(int receiveMsgNo, String receiveId);
 	
 	
 	
