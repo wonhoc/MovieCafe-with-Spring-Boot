@@ -13,7 +13,7 @@ public interface SendMsgDao {
 	public List<SendMsgVO> selectSendMsgList(String userId);
 	
 	//보낸 쪽지 삭제
-	public void deleteSendMsg(int SendMsgNo);
+	public void deleteSendMsg(int[] SendMsgNos);
 	
 	//보낸 쪽지 상세조회
 	public SendMsgVO selectSendMsg(int sendMsgNo);
