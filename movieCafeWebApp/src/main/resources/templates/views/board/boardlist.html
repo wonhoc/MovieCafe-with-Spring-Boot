@@ -47,8 +47,9 @@
 				<tr>
 					<!-- 상세보기 합치면 나중에 링크로 넣기 -->
 					<td class="single-item" th:text="${board.userNick}"></td>
-					<td><span id="horse" th:text="${board.horse}" /><a
-						th:href="@{/detail/{boardNo}(boardNo=${board.boardNo})}"
+					
+					<td><span th:if="${cateNo != 1}" id="horse" th:text ="${board.horse}" />
+					<a th:href="@{/detail/{boardNo}(boardNo=${board.boardNo})}"
 						th:text="${board.boardTitle}"></a></td>
 					<td th:text="${board.boardWdate}"></td>
 					<td th:text="${board.boardCount}"></td>

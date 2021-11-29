@@ -18,6 +18,7 @@
 				enctype="multipart/form-data">
 				<input type="hidden" name="userId" value="test_user03">
 				<input type="hidden" name="boardNo" id="boardNo" th:value="${board.boardNo}">
+				<input type="hidden" name="horseNo" id="horseNo" value=12>
 				
 				
 				<div class="mb-3">
@@ -38,7 +39,7 @@
 
 				<div>
 					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
-					<button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
+					<a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${cateNo})}">목록</a>
 				</div>
 
 				<div th:if="${rankType.equals('A')}">
@@ -83,9 +84,9 @@
 
 				<div>
 					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
-					<button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
+					
 				</div>
-
+				<a th:href="@{/boardlist/{cateNo}(cateNo=${board.cateNo})}">목록</a>
 
 				<div th:if="${rankType.equals('A')}">
 					<input type="checkbox" var="1" value="1" name="boardNotice"><label>공지</label>
@@ -122,11 +123,9 @@
 
 				</div>
 
-				<div>
+				
 					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
-					<button type="button" class="btn btn-sm btn-primary" id="listBtn">목록</button>
-				</div>
-
+					<a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${board.cateNo})}">목록</a>
 
 				<div th:if="${rankType.equals('A')}">
 					<input type="checkbox" var="1" value="1" name="boardNotice"><label>공지</label>

@@ -31,23 +31,24 @@ public class boardController {
 		return "views/board/boardlist";
 	}
 
+	// 게시글 상세보기
+		@GetMapping("/detail/{boardNo}")
+		public String deltailboard(@PathVariable int boardNo, Model model) {
+
+			BoardVO board = boardServie.readOne(boardNo);
+
+			model.addAttribute("board", board);
+		
+
+			return "views/board/boardDetail";
+		}
 	
-	@GetMapping("/detail/{boardNo}")
-	public String deltailboard(@PathVariable int boardNo, Model model) {
-		
-		BoardVO board = boardServie.readOne(boardNo);
-		
-		model.addAttribute("board",board);
-		
-		return "views/board/boardDetail";
-	}
+	
 	 
 	@PostMapping("/detail/deleteBoard/{boardNo}")
 	public String deleteBoard(@PathVariable int boardNo, @RequestParam("cateNo") int cateNo) {
 		
-		System.out.println("카테고리 넘버 = " + cateNo);
-		
-		System.out.println("넘버 = "+ boardNo);
+		System.out.println("카테고리" + cateNo);
 		
 		this.boardServie.removeBoard(boardNo);
 		
@@ -73,9 +74,9 @@ public class boardController {
 	
 	
 	
-}
 
-	@GetMapping("/boardwrite/{cateNo}")
+
+	@GetMapping("/boardlist/boardwrite/{cateNo}")
 	public String boardwrite(@PathVariable int cateNo, HttpServletRequest request, Model model) {
 		/*
 		 * HttpSession session = request.getSession();
@@ -89,46 +90,41 @@ public class boardController {
 	}
 
 	@PostMapping("/fileUpload")
-	public String boardwrite(BoardVO board, int cateNo, HttpServletRequest request, Model model) {
+	public String boardwrite(BoardVO board, Model model) {
 		/*
 		 * HttpSession session = request.getSession();
 		 * model.addAttribute(session.getAttribute("userinfo"));
 		 */
-		this.boardServie.createBoard(board);
+		int cateNo = board.getCateNo();
+		
+		System.out.println("카테고리넘버 : " + cateNo);
 
-		return "redirect:/views/board/boardlist";
+		if (cateNo == 1) {
+			this.boardServie.createBoard(board);
+			return "redirect:/boardlist/1";
+		}else if(cateNo ==2){
+			this.boardServie.createBoard(board);
+			return "redirect:/boardlist/2";
+		}else if(cateNo ==3){
+			this.boardServie.createBoard(board);
+			return "redirect:/boardlist/3";
+		}else{
+			this.boardServie.createBoard(board);
+			return "redirect:/boardlist/4";
+	}
 	}
 
-	@PostMapping("/NewMemfileUpload")
-	public String boardwriteNewMem(BoardVO board, int cateNo, HttpServletRequest request, Model model) {
-		/*
-		 * HttpSession session = request.getSession();
-		 * model.addAttribute(session.getAttribute("userinfo"));
-		 */
-		this.boardServie.createNewMemBoard(board);
-
-		return "redirect:/views/board/boardlist";
-	}
+	
 
 	@PostMapping("/tipfileUpload")
 	public String boardwriteTip(int cateNo, BoardVO board, HttpServletRequest request, Model model) {
 
 		this.boardServie.createTipBoard(board);
 
-		return "redirect:/views/board/boardlist";
+		return "redirect:/boardlist/4";
 	}
 
-	// 게시글 상세보기
-	@GetMapping("/detail/{boardNo}")
-	public String deltailboard(@PathVariable int boardNo, Model model) {
-
-		BoardVO board = boardServie.readOne(boardNo);
-
-		model.addAttribute("board", board);
 	
-
-		return "views/board/boardDetail";
-	}
 
 	// 게시글 수정폼불러오기
 	@GetMapping("/modifyform/{boardNo}")
@@ -170,11 +166,7 @@ public class boardController {
 		 * model.addAttribute(session.getAttribute("userinfo"));
 		 */
 		
-		if (cateNo==1) this.boardServie.modifyBoardNewMem(board);
-		else
 		this.boardServie.modifyBoard(board);
-
-
 		
 	
 		return "redirect:/boardlist/{cateNo}";
