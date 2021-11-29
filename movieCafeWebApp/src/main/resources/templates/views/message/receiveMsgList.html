@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+ <head>
+        <meta charset='UTF-8'>
+        <title>보낸 쪽지 상세보기</title>
+        <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+		<script th:src="@{/js/message/receiveMsgList.js}"> </script>
+		 <style>
+ #removeSendMsgBtn,
+ #sendFormBtn,
+#sendMsglistBtn,
+#recieveMsglistBtn,
+#sendMsgBtn {
+
+  height: 2rem;
+  margin: 0 0.3em;
+  font-size: 18px;
+  color: #5b5b5b;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor: pointer;
+}
+
+#removeSendMsgBtn:hover,
+#sendFormBtn:hover,
+#sendMsglistBtn:hover,
+#recieveMsglistBtn:hover,
+#sendMsgBtn:hover {
+
+  background-color: #e2e2e2;
+}
+
+#sendMsgList {
+  border: #eab48a 4px solid;
+  border-radius: 0.5em;
+
+}
+
+.reciveId {
+  width: 60%;
+  height: 1.7rem;
+  line-height: 1.7rem;
+}
+#plusFrom {
+  cursor: pointer;
+}
+
+#recieveId,
+.content {
+
+  font-size: 16px;
+
+  padding: 0.5em;
+  border: 1px solid #b1b1b1;
+}
+#sendMsgContent {
+  width: 300px;
+  height: 200px;
+}
+
+#removeSendMsgBtn{
+	margin-left: 350px;
+	color: red;
+	
+}
+
+section{
+margin-left: auto;
+margin-right: auto;
+}
+
+
+.bottom {
+  text-align: end;
+}
+</style>
+    </head>
+    <body>
+        <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
+		<button type="button" id="sendFormBtn"
+			onclick="location='/sendMsgForm'">쪽지쓰기</button>
+		<button type="button" id="sendMsglistBtn"
+			onclick="location='/sendMsgList'">보낸쪽지함</button>
+		<button type="button" id="recieveMsglistBtn"
+			onclick="location='/receiveMsgList'">받은쪽지함</button>
+		</div>
+		<form action="/removeReceiveMsg" method="GET" id="removeReceiveMsgForm">
+		<div id="content">
+            <div>
+		        <table border="1" id="sendMsgList">
+		        	<thead>
+		              <tr>		              	
+		              	<td style="text-align: center;">보낸사람</td>
+		              	<td style="text-align: center; width: 100px">내용</td> 
+		              	<td style="text-align: center; width: 100px">작성시간</td>  
+		              	<span th:if="${#lists.size(receiveMsgList) > 0}"> 
+		              	<td style="color: red; font-size: 12px;"><input type="checkbox" id="allChecked" >선택</td>
+		              	</span>
+		              </tr>
+		             </thead>
+		             <tbody>
+					<tr th:if="${#lists.size(receiveMsgList) == 0}">
+						<td colspan="3">받은 쪽지가 없습니다.</td>
+					</tr>
+					
+					<tr th:if="${#lists.size(receiveMsgList) > 0}" th:each="receiveMsg : ${receiveMsgList}">
+						<td th:text="${receiveMsg.writer}"></td>
+						<!-- 내용이 10글자가 넘으면 -->
+					<span th:if="${#strings.length(receiveMsg.receiveMsgContent) > 10 }">								
+						<td style="text-align: center; width: 400px"><a th:text="${#strings.substring(receiveMsg.receiveMsgContent, 0, 10) + '...'}" th:href="@{/sendMsgDetail/{sendMsgNo}(sendMsgNo=${sendMsg.sendMsgNo})}"></a></td>
+					</span>
+					
+					<!-- 내용이 10글자가 넘지 않으면 -->
+					<span th:if="${#strings.length(receiveMsg.receiveMsgContent) <= 10 }">								
+						<td style="text-align: center; width: 400px"><a th:text="${receiveMsg.receiveMsgContent}" th:href="@{/receiveMsgDetail/{receiveMsgNo}/{isRead}(receiveMsgNo=${receiveMsg.receiveMsgNo}, (isRead=${receiveMsg.isRead}))}"></a></td>
+					</span>
+					<td style="text-align: center; width: 100px;" th:text="${#strings.substring(receiveMsg.msgWdate, 0, 10)}"></td>
+					<td style="text-align: center;" ><input type="checkbox" name="removeCheckBox" th:value="${receiveMsg.receiveMsgNo}"></td>
+					</tr>
+					
+			</tbody>
+		        </table>
+		        
+		     <div id="etc" th:if="${#lists.size(receiveMsgList) > 0}">
+       	 		<button type="submit" id="removeSendMsgBtn" style="margin-left: 300px">삭제</button>
+       	 	</div>
+       	 		
+       	 </div>	
+		</div>
+		</form>
+    </body>
+</html>
+       

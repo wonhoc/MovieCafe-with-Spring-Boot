@@ -1,7 +1,9 @@
 package com.example.message.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,38 +15,62 @@ import com.example.message.vo.SendMsgVO;
 public class SendMsgDaoImpl implements SendMsgDao {
 	
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	@Override
 	public int insertMessage(SendMsgVO msgVo) {
 		
 		//보낸 메세지 저장
-		HashMap<String, String> sendMsg = new HashMap<String, String>();
+		HashMap<String, Object> sendMsg = new HashMap<String, Object>();
 		
 		sendMsg.put("writerId", msgVo.getWriterId());
-		sendMsg.put("sendMsgContet", msgVo.getSendMsgContent());
+		sendMsg.put("sendMsgContent", msgVo.getSendMsgContent());
 		
+		//System.out.println("writerId : " + sendMsg.get("writerId"));
+		//System.out.println("sendMsgContent : " + sendMsg.get("sendMsgContent"));
+		 
+		//DB에 insert
+		this.sqlSession.insert("Msg.insertSendMsg", sendMsg);
 		//mapper에서 insert된 pk의 값을 가져온다.
-		return this.sqlSession.insert(null, sendMsg);
+		//BigInteger형으로 리턴되므로 형변환해주기
+		//System.out.println("class : " + sendMsg.get("sendMsgNo").getClass().getName()); 
+		
+		BigInteger tempNo = (BigInteger)sendMsg.get("sendMsgNo");
+
+		int sendMsgNo = tempNo.intValue();
+		
+		System.out.println("Dao sendMsgNo : " + sendMsgNo);
+		
+		return sendMsgNo;
 			
 	}//insertMessage() end
-
+	
+	//전체 보낸 메세지 조회
 	@Override
-	public ArrayList<SendMsgVO> selectSendmsg(String userId, int startRow, int postSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public List<SendMsgVO> selectSendMsgList(String userId) {
+			
+		return this.sqlSession.selectList("Msg.selectSendMsgList", userId);
+		
+	}//selectSendMsgList() end
+	
+	//보낸메세지 삭제
 	@Override
-	public void deleteSendMsg(int SendMsgNo) {
-		// TODO Auto-generated method stub
+	public void deleteSendMsg(int[] SendMsgNos) {
+		
+		for(int sendMsgNo : SendMsgNos) {
+			
+			this.sqlSession.delete("Msg.deleteSendMsgNo", sendMsgNo);
+			
+		}//for end
+		
+	}//deleteSendMsg() end
 
-	}
-
+	//보낸 메세지 상세보기
 	@Override
 	public SendMsgVO selectSendMsg(int sendMsgNo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.sqlSession.selectOne("Msg.selectSendMsg", sendMsgNo);
+		
 	}
 
 	@Override
@@ -52,5 +78,13 @@ public class SendMsgDaoImpl implements SendMsgDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int selectId(String userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 
 }//class end

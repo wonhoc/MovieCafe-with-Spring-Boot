@@ -2,11 +2,11 @@ package com.example.message.vo;
 
 import java.util.ArrayList;
 
-import groovy.transform.ToString;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +19,6 @@ public class SendMsgVO {
 	private String sendMsgContent;
 	private String msgWdate;
 	private String writerId;
-	private ArrayList<String> address;
-	private ArrayList<Integer>isRead;
+	private ArrayList<AddressVO> addresses;
 	
 }// class end

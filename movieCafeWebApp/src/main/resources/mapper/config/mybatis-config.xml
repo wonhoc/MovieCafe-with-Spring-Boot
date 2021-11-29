@@ -8,5 +8,14 @@
 		<typeAlias type="com.example.movie.vo.MovieGuanramVO" alias="guanramVo"/>
 		<typeAlias type="com.example.movie.vo.GuanramListVO" alias="guanramListVo"/>
 		<typeAlias type="com.example.board.vo.BoardVO" alias="boardVO"/>
+		
+		<typeAlias type="com.example.board.vo.BoardFileVO" alias="boardFileVO"/>
+
+		<typeAlias type="com.example.message.vo.SendMsgVO" alias="sendMsgVo"/>
+		<typeAlias type="com.example.message.vo.AddressVO" alias="addressVo"/>
+
+		<typeAlias type="com.example.message.vo.ReceiveMsgVO" alias="receiveMsgVo"/>
+
 	</typeAliases>
 </configuration>
+

@@ -3,6 +3,7 @@ package com.example.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -28,8 +29,8 @@ import com.example.member.vo.UserInfoVo;
 public class UserInfoController {
 	@Autowired
 	private UserService userService;
-	
-	//회원가입 버튼 클릭시 작성 폼으로 이동
+
+	// 회원가입 버튼 클릭시 작성 폼으로 이동
 	@GetMapping("/joinUser")
 	public String joinUser() {
 		return "/views/member/joinUserForm";
@@ -54,6 +55,7 @@ public class UserInfoController {
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
+
 			model.setViewName("/views/main");
 			model.addObject("userInfo", user);
 			
@@ -65,51 +67,45 @@ public class UserInfoController {
 			out.flush();
 			model.setViewName("/views/main");	
 		}
+
 	
 		return model;
 	
+
 	}
-	//회원 가입
-	@PostMapping(value="/joinUserRequest")
-	public String joinUserRequest(
-			@RequestParam(value="userId1") String userId,
-			@RequestParam(value="userPwd1") String userPwd,
-			@RequestParam(value="userEmail") String userEmail,
-			@RequestParam(value="birthYear") String tempYear,
-			@RequestParam(value="birthMonth") String tempMonth,
-			@RequestParam(value="birthDate") String tempDate,
-			@RequestParam(value="contact1") String tempCon1,
-			@RequestParam(value="contact2") String tempCon2,
-			@RequestParam(value="contact3") String tempCon3,
-			@RequestParam(value="userNick") String userNick,
-			@RequestParam(value="userName") String userName,	
-			@RequestParam(value="pickGender") String gender,
-			Model model) {
-		
+
+	// 회원 가입
+	@PostMapping(value = "/joinUserRequest")
+	public String joinUserRequest(@RequestParam(value = "userId1") String userId,
+			@RequestParam(value = "userPwd1") String userPwd, @RequestParam(value = "userEmail") String userEmail,
+			@RequestParam(value = "birthYear") String tempYear, @RequestParam(value = "birthMonth") String tempMonth,
+			@RequestParam(value = "birthDate") String tempDate, @RequestParam(value = "contact1") String tempCon1,
+			@RequestParam(value = "contact2") String tempCon2, @RequestParam(value = "contact3") String tempCon3,
+			@RequestParam(value = "userNick") String userNick, @RequestParam(value = "userName") String userName,
+			@RequestParam(value = "pickGender") String gender, Model model) {
+
 		UserInfoVo user = new UserInfoVo();
-		
+
 		user.setUserId(userId);
 		user.setUserPwd(userPwd);
 		user.setUserEmail(userEmail);
-		
+
 		String userBirth = tempYear + "-" + tempMonth + "-" + tempDate;
 		user.setUserBirth(userBirth);
-		
-		String userContact = tempCon1+"-"+ tempCon2 + "-" + tempCon3;
+
+		String userContact = tempCon1 + "-" + tempCon2 + "-" + tempCon3;
 		user.setUserContact(userContact);
-		
+
 		user.setUserNick(userNick);
 		user.setUserName(userName);
 		user.setGender(gender);
 		this.userService.insertUserInfo(user);
 		return "views/main";
-		
 
 	}
 
-	
 	// 회원가입 과정에서 아이디 중복 체크
-	@RequestMapping(value="/checkId", method=RequestMethod.POST)
+	@RequestMapping(value = "/checkId", method = RequestMethod.POST)
 	public @ResponseBody String checkIdAjax(@RequestParam("userId") String reqId) {
 		String inputId = reqId.trim();
 		int isCheckId = userService.isCheckId(inputId);
@@ -118,16 +114,16 @@ public class UserInfoController {
 		// 아이디가 중복이면 1 = 사용 불가
 		if (isCheckId == 0) {
 			checkResult = "false";
-			
-		} else if(isCheckId == 1) {
+
+		} else if (isCheckId == 1) {
 			checkResult = "true";
 		}
 		return checkResult;
-		
-		
+
 	}
+
 	// 회원가입 과정에서 닉네임 중복 체크
-	@RequestMapping(value="/checkNick", method=RequestMethod.POST)
+	@RequestMapping(value = "/checkNick", method = RequestMethod.POST)
 	public @ResponseBody String checkNickAjax(@RequestParam("userNick") String reqNick) {
 		String inputId = reqNick.trim();
 		int isCheckNick = userService.isCheckNick(inputId);
@@ -136,29 +132,103 @@ public class UserInfoController {
 		// 넥니엠이 중복이면 1 = 사용 불가
 		if (isCheckNick == 0) {
 			checkResult = "false";
-			
-		} else if(isCheckNick == 1) {
+
+		} else if (isCheckNick == 1) {
 			checkResult = "true";
 		}
 		return checkResult;
-		
-		
+
 	}
-	@GetMapping(value="/gomypage")
+
+	@GetMapping(value = "/gomypage")
 	public ModelAndView myPage(HttpServletRequest req, ModelAndView model) {
 		HttpSession session = req.getSession();
-		UserInfoVo userInfo = (UserInfoVo)session.getAttribute("userInfo");
+		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 		System.out.println("세션 정보 : " + userInfo.toString());
-		
+
 		model.setViewName("/views/member/mypage");
+
 		model.addObject("userId",userInfo.getUserId());
 		model.addObject("userNick",userInfo.getUserNick());
 		model.addObject("joinDate",userInfo.getJoinDate());
 
+
 		return model;
-	
+
+	}
+
+	@GetMapping("/listUser")
+	public String listUser(Model model) {
+		List<UserInfoVo> users = this.userService.retrieveUserList();
+		model.addAttribute("users", users);
+		return "views/member/listUser";
+	}
+
+	@GetMapping("/modifyUserForm")
+	public String modifyUserForm(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+		UserInfoVo user = this.userService.retrieveUser(userInfo.getUserId());
+		model.addAttribute("user", user);
+		return "views/member/modifyUser";
+	}
+
+	@PostMapping("/modifyUser")
+	public String modifyUser(@RequestParam("userId1") String userId, @RequestParam("userPwd1") String userPwd,
+			@RequestParam("userEmail") String userEmail, @RequestParam("birthYear") String tempYear,
+			@RequestParam("birthMonth") String tempMonth, @RequestParam("birthDate") String tempDate,
+			@RequestParam("contact1") String tempCon1, @RequestParam("contact2") String tempCon2,
+			@RequestParam("contact3") String tempCon3, @RequestParam("userNick") String userNick,
+			@RequestParam("userName") String userName, @RequestParam("gender") String gender, Model model) {
+
+		UserInfoVo user = new UserInfoVo();
+		user.setUserId(userId);
+		user.setUserPwd(userPwd);
+		user.setUserEmail(userEmail);
+
+		String userBirth = tempYear + "-" + tempMonth + "-" + tempDate;
+		user.setUserBirth(userBirth);
+
+		String userContact = tempCon1 + "-" + tempCon2 + "-" + tempCon3;
+		user.setUserContact(userContact);
+
+		user.setUserNick(userNick);
+		user.setUserName(userName);
+		user.setGender(gender);
+
+		System.out.println(user);
+
+		this.userService.modifyUser(user);
+		return "views/main";
+	}
+
+	// 패스워드 확인
+	@PostMapping("/pwdCheck")
+	public String pwdCheck(HttpServletRequest req, @RequestParam String userPwd) {
+		HttpSession session = req.getSession();
+		UserInfoVo userinfo = (UserInfoVo) session.getAttribute("userInfo");
+		System.out.println(userinfo.getUserPwd() + "88888888888888888");
+		boolean result = userinfo.getUserPwd().equals(userPwd);
+
+		if (result) {
+			return "redirect:/deleteUser";
+		} else {
+			return "redirect:/pwdCheck";
+		}
 	}
 	
+	@GetMapping("/deleteUser")
+	public String deleteUser() {
+		return "views/member/deleteUser";
+	}
+	
+
+	@GetMapping("/exitUser")
+	public String exitUser() {
+		return "views/member/pwdCheck";
+	}
+	
+
 	// 로그아웃
 	@GetMapping(value="/Logout")
 	public String logoutAndReturn(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -172,5 +242,16 @@ public class UserInfoController {
 		session.invalidate();
 		return "/views/main";
 	}
+
+	@PostMapping("/deleteUser")
+	public String deleteUser(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+		this.userService.removeUser(userInfo.getUserId());
+		
+		session.invalidate();
+		return "views/main";
+	}
+
 
 }

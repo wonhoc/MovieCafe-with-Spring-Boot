@@ -1,5 +1,7 @@
 package com.example.member.dao;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +14,36 @@ import com.example.member.vo.UserInfoVo;
 public class UserDaoImpl implements UserDao {
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Override
+	public List<UserInfoVo> selectUserList() {
+		return this.sqlSession.selectList("Member.selectAll");
+	}
+
+
+	@Override
+	public UserInfoVo selectUser(String userId) {
+		return this.sqlSession.selectOne("Member.selectOne", userId);
+		
+	}
+
+
+	@Override
+	public void update(UserInfoVo user) {
+		this.sqlSession.update("Member.update", user);
+		
+	}
+
+
+	
+
+
+	@Override
+	public void deleteUser(String userId) {
+		this.sqlSession.update("Member.selfDelete", userId);
+		
+	}
+
 	
 	@Override
 	public int checkIsUser(Map map) {
