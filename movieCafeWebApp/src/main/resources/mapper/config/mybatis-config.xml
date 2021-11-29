@@ -14,6 +14,8 @@
 		<typeAlias type="com.example.message.vo.SendMsgVO" alias="sendMsgVo"/>
 		<typeAlias type="com.example.message.vo.AddressVO" alias="addressVo"/>
 
+		<typeAlias type="com.example.message.vo.ReceiveMsgVO" alias="receiveMsgVo"/>
+
 	</typeAliases>
 </configuration>
 

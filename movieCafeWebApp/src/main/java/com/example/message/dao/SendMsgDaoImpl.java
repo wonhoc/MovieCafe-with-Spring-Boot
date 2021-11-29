@@ -79,4 +79,12 @@ public class SendMsgDaoImpl implements SendMsgDao {
 		return 0;
 	}
 
+	@Override
+	public int selectId(String userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+
 }//class end

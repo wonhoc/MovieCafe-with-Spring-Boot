@@ -1,6 +1,7 @@
 package com.example.message.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public interface AddressDao {
@@ -17,8 +18,8 @@ public interface AddressDao {
 	//수신확인 조회
 	ArrayList<Integer> selectIsread(int sendMsgNo);
 	
-	//읽음확인 확인
-	void Readed(int sendMsgNo, String receiveId);
+	//읽음확인 업데이트
+	void updateisRead(HashMap<String, Object> updateMap);
 	
 	
 }//interface end

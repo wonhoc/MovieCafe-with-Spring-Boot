@@ -21,4 +21,8 @@ public interface SendMsgDao {
 	//보낸 쪽지 갯수 조회
 	public int selectTotalSendMsg(String userId);
 	
+	//보낼사람 아이디가 있는지 없는지 확인
+	int selectId(String userId);
+	
+	
 }//interface end
