@@ -26,7 +26,15 @@ public class BoardDaoImpl implements BoardDao {
 		return this.sqlSession.selectOne("selectDetailBoard", boardNo);
 	}
 
-	
-	
+	@Override
+	public void deleteBoard(int boardNo) {
+		this.sqlSession.delete("deleteBoard", boardNo);
+	}
+
+	@Override
+	public void reportBoardDao(int bordNo) {
+		this.sqlSession.insert("reportBoard", bordNo);
+	}
+
 	
 }

@@ -12,4 +12,8 @@ public interface BoardDao {
 	
 	BoardVO selectBoard(int boardNo);
 	
+	void deleteBoard(int boardNo);
+	
+	void reportBoardDao(int bordNo);
+	
 }

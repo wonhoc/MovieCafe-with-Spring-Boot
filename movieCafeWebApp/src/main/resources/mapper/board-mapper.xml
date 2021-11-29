@@ -23,9 +23,13 @@
 	
 		
 <resultMap type="boardVO" id="resultMapSelectDetail">
+	<result property="boardNo" javaType="int" column="boardNo" jdbcType="INTEGER"/>
 	<result property="horse" javaType="string" column="horse" jdbcType="VARCHAR"/>
 	<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
+	<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER"/>
 	<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
+	<result property="horseNo" javaType="int" column="horseNo" jdbcType="INTEGER"/>
+	<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER"/>
 	<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR"/>
 	<result property="commentCount" javaType="int" column="commentCount" jdbcType="INTEGER"/>
 	<result property="boardContent" javaType="string" column="boardContent" jdbcType="VARCHAR"/>
@@ -39,5 +43,16 @@
 	parameterType="int" parameterMap="paramMapSelectDetail">
 	{ call sp_detail_board(?) }
 </select>
+	
+<delete id="deleteBoard" statementType="CALLABLE" parameterType="int" parameterMap="paramMapSelectDetail">
+	{ call sp_delete_board(?) }
+</delete>
+	
+
+	
+<insert id="reportBoard" statementType="CALLABLE" parameterType="int" parameterMap="paramMapSelectDetail">
+	{ call sp_report(?) }
+</insert>
+	
 	
 </mapper>
