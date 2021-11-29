@@ -131,10 +131,11 @@ $(document).ready(function () {
 	function appendYear() {
 		var date = new Date();
 		var year = date.getFullYear();
+		
 		for (var i = year - 50; i <= year; i++) {
 				$('#birthYear').append("<option value='" + i + "'>" + i+ "</option>");
 		}
-		$('#birthYear').val('${pageScope.year}').prop("selected", true);
+		$('#birthYear').val($("#year").val()).prop("selected", true);
 	}
 
 	function appendMonth() {
@@ -146,7 +147,8 @@ $(document).ready(function () {
 				}
 
 		}
-		$('#birthMonth').val('${pageScope.month}').prop("selected", true);
+		
+		$('#birthMonth').val($("#month").val()).prop("selected", true);
 	}
 
 	function appendDate() {
@@ -158,13 +160,14 @@ $(document).ready(function () {
 			}
 
 		}
-		$('#birthDate').val('${pageScope.date}').prop("selected", true);
+		$('#birthDate').val($("#date").val()).prop("selected", true);
 	}
 
 	appendYear();
 	appendMonth();
 	appendDate();
-
+	console.log($("#contact").val());
+	$('#contact1').val($("#contact").val()).prop("selected", true);
 
 	//입력한 비밀번호 재확인 
 	$('#userPwdCheck1').bind('keyup', function () {
@@ -180,7 +183,10 @@ $(document).ready(function () {
 			$('#isSubmitBtn').attr("disabled", false);
 		};
 	});
-
+console.log($("#gender").val());
+	const gender = $("#gender").val();
+	$(`input:radio[name=pickGender]:input[value=${gender}]`).attr("checked", true);
+	$('input:radio[name=pickGender]').attr("disabled", true);
 
 	//전체 유효성 검증
 	$('#isSubmitBtn').on('click', function () {

@@ -1,5 +1,6 @@
 package com.example.member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +40,30 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.isExistNick(isNick);
 	}
 
+	@Override
+	public List<UserInfoVo> retrieveUserList() {
+		return this.userDao.selectUserList();
+	}
+
+	@Override
+	public UserInfoVo retrieveUser(String userId) {
+		return this.userDao.selectUser(userId);
+		
+	}
+
+	@Override
+	public void modifyUser(UserInfoVo user) {
+		this.userDao.update(user);
+		
+	}
+
+	
+
+	@Override
+	public void removeUser(String userId) {
+		this.userDao.deleteUser(userId);
+		
+	}
+
+	
 }
