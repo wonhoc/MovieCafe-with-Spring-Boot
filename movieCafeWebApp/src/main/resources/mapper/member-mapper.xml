@@ -3,5 +3,127 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member">
+	<!-- 로그인이 가능하면 1, 아이디가 DB에 없으면 0 -->
+	<select id="checkIsUser" parameterType="hashMap" resultType="int" >
+		SELECT COUNT( * ) 
+		FROM user_info
+		WHERE userId = #{userId} AND userPwd = #{userPwd}
+	</select>
+	
+	<!-- 로그인을 위해 ID를 가지고 회원 정보를 가져온다. -->
+	<!-- 로그인 상태에서 하는 작업 중 추가로 필요한 데이터가 있을 경우 추가로 넣을 것. -->
+	<resultMap type="UserInfoVo" id="getUserInfo">
+		<id property="userId" javaType="string" jdbcType="VARCHAR"  column="userId"></id>
+		<id property="userPwd" javaType="string" jdbcType="VARCHAR"  column="userPwd"></id>
+		<id property="userNick" javaType="string" jdbcType="VARCHAR" column="userNick"></id>
+		<id property="rankType" javaType="string" jdbcType="VARCHAR" column="rankType"></id>
+		<id property="photoSys" javaType="string" jdbcType="VARCHAR" column="photoSys"></id>
+		<id property="joinDate" javaType="string" jdbcType="DATE" column="joinDate"></id>
+	</resultMap>
+	
+	<select id="loginUser" parameterType="string" resultType="UserInfoVo" resultMap="getUserInfo">
+		SELECT user_info.userId, user_info.userPwd, user_info.userNick, rank.rankType, 
+				user_info.photoSys, user_info.joinDate
+		FROM user_info INNER JOIN rank
+		ON (user_info.userId = rank.userId) AND user_info.userId = #{userId}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="UserInfoVo" >
+		INSERT INTO user_info (userId, userPwd, userNick, userEmail, userBirth, userContact, gender, userName, joinDate)
+			VALUES (#{userId}, #{userPwd}, #{userNick}, #{userEmail}, #{userBirth}, #{userContact}, #{gender}, #{userName}, NOW() )
+	</insert>
+	
+	<!--  아이디 중복검사  -->
+	<select id="checkId" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		FROM user_info
+		WHERE userId = #{userId}
+	</select>
+	
+	<!--  닉네임 중복 검사 -->
+	<select id="checkNick" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		FROM user_info
+		WHERE userNick = #{userNick}
+	</select>
+	
+	<!-- 관리자가 회원의 상세정보를 조회한다 -->
+	<resultMap type="UserInfoVo" id="userResultMap">
+		<id property="userId" javaType="string" column="userId"
+			jdbcType="VARCHAR" />
+		<result property="userName" javaType="string" column="userName"
+			jdbcType="VARCHAR" />
+		<result property="reportCount" javaType="int"
+			column="reportCount" jdbcType="INTEGER" />
+		<result property="rankType" javaType="string" column="rankType"
+			jdbcType="CHAR" />
+
+	</resultMap>
+	<select id="selectAll" statementType="CALLABLE"
+		resultMap="userResultMap">
+		SELECT u.userName, u.userId,
+		(SELECT COUNT(*) FROM report re
+		WHERE re.userId = u.userId )
+		as reportCount,rankType
+		FROM user_info u
+		JOIN rank r
+		ON u.userId =
+		r.userId;
+	</select>
+	
+	<!-- 회원정보를 상세조회한다 -->
+	
+		
+	<resultMap type="UserInfoVo" id="userOneResultMap">
+		<id property="userId" javaType="string" column="userId"
+			jdbcType="VARCHAR" />
+		<result property="userPwd" javaType="string" column="userPwd"
+			jdbcType="VARCHAR" />
+		<result property="userNick" javaType="string" column="userNick"
+			jdbcType="VARCHAR" />
+		<result property="userEmail" javaType="string"
+			column="userEmail" jdbcType="VARCHAR" />
+		<result property="userBirth" javaType="string"
+			column="userBirth" jdbcType="VARCHAR" />
+		<result property="userContact" javaType="string"
+			column="userContact" jdbcType="VARCHAR" />
+		<result property="gender" javaType="string" column="gender"
+			jdbcType="CHAR" />
+		<result property="userName" javaType="string" column="userName"
+			jdbcType="VARCHAR" />
+		<result property="photoOrigin" javaType="string"
+			column="photoOrigin" jdbcType="VARCHAR" />
+		<result property="photoSys" javaType="string" column="photoSys"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectOne" statementType="CALLABLE"
+		resultMap="userOneResultMap" parameterType="string">
+		SELECT userId, userPwd, userNick, userEmail, userBirth,
+		userContact, gender, userName, photoOrigin, photoSys
+		FROM user_info
+		WHERE userId = #{userId};
+	</select>
+	
+	<!-- 회원정보를 변경한다 -->
+	<update id="update" parameterType="UserInfoVo" >
+		UPDATE user_info
+		SET
+		userPwd = #{userPwd}, userNick = #{userNick}, userEmail =
+		#{userEmail},
+		userBirth = #{userBirth}, userContact = #{userContact},
+		userName = #{userName},
+		photoOrigin = #{photoOrigin}, photoSys = #{photoSys}
+		WHERE userId = #{userId}
+	</update>
+	
+	<!-- 자진탈퇴하면 탈퇴유형과 날짜를 변경한다 -->
+	<update id="selfDelete" parameterType="string">
+		UPDATE user_info
+		SET exitType = 'S', exitDate = NOW()
+		WHERE userId = #{userId}
+	</update>
+	
+	
 	
 </mapper>

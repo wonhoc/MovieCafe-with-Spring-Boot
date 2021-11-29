@@ -11,8 +11,9 @@
 				<img src="/images/login.png" alt="login_icon" class="login_icon" />
 				<span class="login_title">로그인</span>
 				<div class="login_divide"></div>
-				<form action="${pageContext.request.contextPath}/login.do"
-					method="POST">
+								
+				<form action="/requestlogin"
+					method="POST" >
 					<div class="login_input">
 						<span>아이디</span> <input class="login_inputBox" type="text"
 							name="userId" id="userId" />
@@ -22,11 +23,14 @@
 							name="userPwd" id="userPwd" />
 					</div>
 					<div class="login_btnBox">
-						<button type="submit" class="login_btn" value="submit">로그인</button>
-						<button type="button" class="login_btn">회원가입</button>
-						<button type="button" class="login_btn">ID / PWD 찾기</button>
+						<button type="submit" class="btn btn-light" value="submit">로그인</button>
+						<a th:href="@{/joinUser}">
+						<button type="button" class="btn btn-light" >회원가입</button>
+						</a>
+						<button type="button" class="btn btn-light">ID / PWD 찾기</button>
 					</div>
 				</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -36,42 +40,38 @@
 			<div class="category_whiteBox">
 				<div class="category_section">
 
-					<h2 class="categoty_title">새싹 게시판</h2>
+					<h2 class="categoty_title">
+					<a th:href="@{/boardlist/1}">새싹 게시판</a></h2>
 
 					<img src="/images/sprout.png" alt="category_icon"
 						class="category_icon" />
 				</div>
 				<div class="category_section">
 
-					<h2 class="categoty_title">영화리뷰</h2>
+					<h2 class="categoty_title">
+					<a th:href="@{/boardlist/2}">영화리뷰</a></h2>
+
 
 					<img src="/images/review.png" alt="category_icon"
 						class="category_icon" />
 				</div>
 				<div class="category_section">
 
-					<h2 class="categoty_title">시사회정보</h2>
+					<h2 class="categoty_title">
+					<a th:href="@{/boardlist/3}">시사회정보</a></h2>
+
 					<img src="/images/theater.png" alt="category_icon"
 						class="category_icon" />
 				</div>
 				<div class="category_section">
 
-					<h2 class="categoty_title">영화관람 팁</h2>
+					<h2 class="categoty_title">
+					<a th:href="@{/boardlist/4}">영화관람 팁</a></h2>
+
 					<img src="/images/tip.png" alt="category_icon" class="category_icon" />
 				</div>
-				<div class="category_section">
-
-					<h2 class="categoty_title">티켓마켓</h2>
-					<img src="/images/ticket.png" alt="category_icon"
-						class="category_icon" />
-				</div>
-				<div class="category_section">
-					<h2 class="categoty_title">이벤트</h2>
-					<img src="/images/party.png" alt="category_icon"
-						class="category_icon" />
-				</div>
+				
 			</div>
 		</div>
 	</div>
-</div>
 </html>

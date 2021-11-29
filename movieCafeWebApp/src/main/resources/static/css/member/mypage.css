@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.join_box {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.join_right{
+	width: 30em;
+}
+.join_left{
+	width: 45em;
+}
+
+.join_title {
+	font-size: 36px;
+	font-weight: bolder;
+	margin: 0.3em 0;
+}
+
+.join_notice {
+	padding: 3em 0 2em 5em;
+}
+
+.join_devide {
+	width: 30%;
+	height: 4px;
+	background-color: black;
+}
+
+.join_text {
+	margin: 0.25em;
+}
