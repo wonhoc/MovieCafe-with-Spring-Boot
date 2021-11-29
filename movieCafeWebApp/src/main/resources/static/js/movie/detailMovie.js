@@ -1,18 +1,21 @@
 const url = window.location.pathname.split('/');
 const movieId = url[2];
 
+const guanramList = $("#guanramList").val();
+
 function addRating() {
     let count = document.getElementById("rank").value;
     console.log(count);
     for(let i=0; i<count; i++){
         $(".rank").append(`
-        <i class="fas fa-star review_text"></i>
+            <i class="fas fa-star review_text"></i>
         `);
     }
 }
 
 $(document).ready(function () {
     //addRating();
+   console.log(guanramList);
 
     $(".like").on("click", function() {
         console.log("clicked");

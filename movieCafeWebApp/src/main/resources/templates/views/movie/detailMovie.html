@@ -28,7 +28,7 @@
 				</form>
 			</div>
 		</div>
-		<div th:each="guanram : ${guanramList}">
+		<div th:each="guanram : ${guanramList}" id="guanramList" th:value="${#lists.size(guanramList)}">
 			<div class="review_line" id="" th:value="${guanram.guanramNo}">
 				<img src="images/login.png" alt="profile" class="review_profile" />
 				<p class="review_text id" th:text="${guanram.userId}"></p>

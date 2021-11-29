@@ -15,6 +15,7 @@ $(document).ready(function () {
 				title: movie.title
 			}));
 
+			
 			$('#pagination-div').twbsPagination({
 				totalPages: 7,	// 총 페이지 번호 수
 				visiblePages: 3,	// 하단에서 한번에 보여지는 페이지 번호 수
@@ -36,6 +37,7 @@ $(document).ready(function () {
 				onPageClick: function (event, page) {
 					//클릭 이벤트
 					let startRow = (page - 1) * 3;
+				
 					$(".movieList").empty();
 					const movieList = data.data.movies;
 					for (let i = startRow; i < startRow + 3; i++) {
