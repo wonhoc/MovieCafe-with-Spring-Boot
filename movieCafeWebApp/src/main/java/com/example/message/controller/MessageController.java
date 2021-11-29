@@ -217,5 +217,17 @@ public class MessageController {
 		
 	}//receiveMsgDetail() end
 	
+	//받은메세지 목록에서 삭제 요청
+	@PostMapping("/removeReceiveMsg")
+	public String removeReceiveMsg(@RequestParam String[] removeCheckBox) {
+		
+		
+		
+		return "redirect:/receiveMsgList";
+		
+	}///removeReceiveMsg() end
+	
+	
+	
 	
 }//class end
