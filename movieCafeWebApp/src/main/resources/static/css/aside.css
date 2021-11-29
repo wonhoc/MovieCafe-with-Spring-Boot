@@ -1,20 +1,5 @@
 @charset "UTF-8";
 
-button {
-	font-size: 16px;
-	color: #888787;
-	background-color: #fdfdfd;
-	border: 2px solid #888787;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-	cursor: pointer;
-}
-
-
-button:hover {
-	background-color: #e2e2e2;
-}
-
 .aside_login {
 	padding: 1em;
 	font-weight: 400;

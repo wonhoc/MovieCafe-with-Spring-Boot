@@ -1,9 +1,9 @@
 package com.example.board.vo;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -24,7 +24,5 @@ public class BoardVO {
 	private String apiX;//
 	private String apiY;//
 
-	//private ArrayList<BoardFileVo> boardfileList = new ArrayList<BoardFileVo>();
-	//private ArrayList<BoardLocationVo> boardLocationList = new ArrayList<BoardLocationVo>();
-	//private ArrayList<CommentVo> commentList = new ArrayList<CommentVo>();
+	private ArrayList<BoardFileVO> boardfileList = new ArrayList<BoardFileVO>();
 }
