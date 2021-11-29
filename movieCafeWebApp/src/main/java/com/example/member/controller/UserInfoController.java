@@ -34,7 +34,7 @@ public class UserInfoController {
 	public String joinUser() {
 		return "/views/member/joinUserForm";
 	}
-
+	// 로그인
 	@RequestMapping(value = "/requestlogin", method = RequestMethod.POST)
 	public ModelAndView loginController(
 			@RequestParam(value = "userId") String userId,
@@ -52,6 +52,7 @@ public class UserInfoController {
 			// 세션 유지 시간 : 30분
 			session.setMaxInactiveInterval(1800);
 			UserInfoVo user = userService.uploadUserInfo(userId);
+			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
 			model.setViewName("/views/main");
 			model.addObject("userInfo", user);
