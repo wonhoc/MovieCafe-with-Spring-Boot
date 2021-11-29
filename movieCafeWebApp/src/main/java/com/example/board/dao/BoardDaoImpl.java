@@ -55,11 +55,6 @@ public class BoardDaoImpl implements BoardDao {
 		
 	}
 
-	@Override
-	public BoardVO selectBoard(int boardNo) {
-		
-		return this.sqlSession.selectOne("selectDetailBoard", boardNo);
-	}
 
 	@Override
 	public void updateBoardNewMem(BoardVO board) {

@@ -32,15 +32,6 @@ public class boardController {
 	}
 
 	
-	@GetMapping("/detail/{boardNo}")
-	public String deltailboard(@PathVariable int boardNo, Model model) {
-		
-		BoardVO board = boardServie.readOne(boardNo);
-		
-		model.addAttribute("board",board);
-		
-		return "views/board/boardDetail";
-	}
 	 
 	@PostMapping("/detail/deleteBoard/{boardNo}")
 	public String deleteBoard(@PathVariable int boardNo, @RequestParam("cateNo") int cateNo) {
@@ -73,7 +64,7 @@ public class boardController {
 	
 	
 	
-}
+
 
 	@GetMapping("/boardwrite/{cateNo}")
 	public String boardwrite(@PathVariable int cateNo, HttpServletRequest request, Model model) {

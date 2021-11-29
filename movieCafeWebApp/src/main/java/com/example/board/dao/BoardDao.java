@@ -9,7 +9,6 @@ public interface BoardDao {
 
 	List<BoardVO> selectList(int cateNo);
 	
-	BoardVO selectBoard(int boardNo);
 	
 	void deleteBoard(int boardNo);
 	

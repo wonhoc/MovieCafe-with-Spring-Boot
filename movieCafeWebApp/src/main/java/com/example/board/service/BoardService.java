@@ -21,7 +21,6 @@ public interface BoardService {
 	void createTipBoard(BoardVO board);
 	void modifyBoard(BoardVO board);
 	void modifyBoardNewMem(BoardVO board);
-	BoardVO readOne(int boardNo);
 
 	List<BoardVO> readRecomRevList();
 	List<BoardVO> readNoticeRevList();
