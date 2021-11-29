@@ -1,67 +1,65 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/defaultLayout}">
+   xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layout/defaultLayout}">
 <head>
-
 <th:block layout:fragment="script">
-	<script th:src="@{/js/board/boardlist.js}"></script>
+   <script th:src="@{/js/board/boardlist.js}"></script>
 </th:block>
 <style type="text/css">
 .paging-div {
-	padding: 15px 0 5px 10px;
-	display: table;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
+   padding: 15px 0 5px 10px;
+   display: table;
+   margin-left: auto;
+   margin-right: auto;
+   text-align: center;
 }
 </style>
 
 </head>
 <section layout:fragment="content">
-		
-	
+      
+   
 <form name="form" th:action="@{boardwrite/{cateNo}(cateNo=${cateNo})}" method="get">
-	<div class="container">
-		<table class="table table-hover">
-			<thead class="thead-dark" id=thead>
-				<tr>
-					<th scope="col">작성자</th>
-					<th colspan="2" scope="col">제목</th>
-					<th scope="col">작성일자</th>
-					<th scope="col">조회</th>
-					<th scope="col">추천</th>
-					<th scope="col">댓글</th>
-				</tr>
-			</thead>
-			<tbody>
-				<p th:if="${list==null}">
-				<tr>
-					<td colspan="7">등록된 게시글이 없습니다.</td>
-				</tr>
-				</p>
+   <div class="container">
+      <table class="table table-hover">
+         <thead class="thead-dark" id=thead>
+            <tr>
+               <th scope="col">작성자</th>
+               <th colspan="2" scope="col">제목</th>
+               <th scope="col">작성일자</th>
+               <th scope="col">조회</th>
+               <th scope="col">추천</th>
+               <th scope="col">댓글</th>
+            </tr>
+         </thead>
+         <tbody>
+            <p th:if="${list==null}">
+            <tr>
+               <td colspan="7">등록된 게시글이 없습니다.</td>
+            </tr>
+            </p>
 
-				<p th:if="${list!=null}">
-				<p th:each="board : ${list}">
-				<tr>
-					<!-- 상세보기 합치면 나중에 링크로 넣기 -->
-					<td class="single-item" th:text="${board.userNick}"></td>
-					<td><span id="horse" th:text="${board.horse}" /><a
-						th:href="@{/detail/{boardNo}(boardNo=${board.boardNo})}"
-						th:text="${board.boardTitle}"></a></td>
-					<td th:text="${board.boardWdate}"></td>
-					<td th:text="${board.boardCount}"></td>
-					<td th:text="${board.boardCount}"></td>
-					<td th:text="${board.boardCount}"></td>
-				</tr>
-				</p>
-				</p>
-			</tbody>
-		</table>
-		<button type="submit" class="btn btn-primary waves-effect waves-light">글작성</button>
-	</div>
-	</form>
-
+            <p th:if="${list!=null}">
+            <p th:each="board : ${list}">
+            <tr>
+               <!-- 상세보기 합치면 나중에 링크로 넣기 -->
+               <td class="single-item" th:text="${board.userNick}"></td>
+               <td><span id="horse" th:text="${board.horse}" /><a
+                  th:href="@{/detail/{boardNo}(boardNo=${board.boardNo})}"
+                  th:text="${board.boardTitle}"></a></td>
+               <td th:text="${board.boardWdate}"></td>
+               <td th:text="${board.boardCount}"></td>
+               <td th:text="${board.boardCount}"></td>
+               <td th:text="${board.boardCount}"></td>
+            </tr>
+            </p>
+            </p>
+         </tbody>
+      </table>
+      <button type="submit" class="btn btn-primary waves-effect waves-light">글작성</button>
+   </div>
+   </form>
 </section>
 </html>
