@@ -18,6 +18,7 @@ public class UserInfoVo {
 	private String exitdate;
 	private String userName;
 	private String photoOrigin;
+	private String photoSys;
 	private int boardCount;
 	private int comCount;
 	private String exitType;
