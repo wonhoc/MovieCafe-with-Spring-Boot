@@ -8,6 +8,13 @@ import com.example.board.vo.BoardVO;
 public interface BoardDao {
 
 	List<BoardVO> selectList(int cateNo);
+	
+	BoardVO selectBoard(int boardNo);
+	
+	void deleteBoard(int boardNo);
+	
+	void reportBoardDao(int bordNo);
+
 	void insertBoard(BoardVO board);
 	void insertBoardFile(BoardFileVO file);
 	void insertBoardNewMem(BoardVO board);

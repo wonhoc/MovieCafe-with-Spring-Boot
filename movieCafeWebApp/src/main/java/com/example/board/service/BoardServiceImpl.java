@@ -22,6 +22,21 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
+	public BoardVO readOne(int boardNo) {
+		return this.boardDao.selectBoard(boardNo);
+	}
+
+	@Override
+	public void removeBoard(int boardNo) {
+		this.boardDao.deleteBoard(boardNo);
+	}
+
+	@Override
+	public void reportBoard(int boardNo) {
+		this.boardDao.reportBoardDao(boardNo);
+	}
+	
+  @Override
 	public void createBoard(BoardVO board) {
 		/*int no = boardDao.lastId();
 		
@@ -73,4 +88,5 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> readNoticeRevList() {
 		return this.boardDao.selectNoticeRevList();
 	}
+
 }

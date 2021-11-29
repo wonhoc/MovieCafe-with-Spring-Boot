@@ -19,8 +19,9 @@ public class BoardDaoImpl implements BoardDao {
 	public List<BoardVO> selectList(int cateNo) {
 		
 		return this.sqlSession.selectList("selectByCateNo", cateNo);
-	}
 
+	}
+  @Override
 	public void insertBoard(BoardVO board) {
 		this.sqlSession.insert("insertBoardCall", board);
 	}
@@ -65,13 +66,31 @@ public class BoardDaoImpl implements BoardDao {
 		this.sqlSession.update("updateBoardNewMemCall", board);
 		
 	}
-
+  @Override
 	public List<BoardVO> selectRecomRevList() {
 		return this.sqlSession.selectList("Board.mainBestListSelect");
 	}
 	@Override
 	public List<BoardVO> selectNoticeRevList() {
 		return this.sqlSession.selectList("Board.mainNoticeListSelect");
+
 	}
 
+	@Override
+	public BoardVO selectBoard(int boardNo) {
+		
+		return this.sqlSession.selectOne("selectDetailBoard", boardNo);
+	}
+
+	@Override
+	public void deleteBoard(int boardNo) {
+		this.sqlSession.delete("deleteBoard", boardNo);
+	}
+
+	@Override
+	public void reportBoardDao(int bordNo) {
+		this.sqlSession.insert("reportBoard", bordNo);
+	}
+
+	
 }

@@ -25,6 +25,7 @@ public class UserInfoController {
 	@Autowired
 	private UserService userService;
 	
+
 	//회원가입 버튼 클릭시 작성 폼으로 이동
 	@GetMapping("/joinUser")
 	public String joinUser() {
