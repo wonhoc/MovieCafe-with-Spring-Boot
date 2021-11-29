@@ -5,6 +5,7 @@
 <mapper namespace="Board">
 	
 <resultMap type="boardVO" id="resultMapSelectList">
+	<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER"/>
 	<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR"/>
 	<result property="horse" javaType="string" column="horse" jdbcType="VARCHAR"/>
 	<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR"/>
