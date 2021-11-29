@@ -32,30 +32,29 @@ public class UserInfoController {
 	}
 
 	@RequestMapping(value = "/requestlogin", method = RequestMethod.POST)
-	public String loginController(@RequestParam(value = "userId") String userId,
-			@RequestParam(value = "userPwd") String userPwd, HttpServletRequest req) {
+	public ModelAndView loginController(
+			@RequestParam(value = "userId") String userId,
+			@RequestParam(value = "userPwd") String userPwd, 
+			HttpServletRequest req, ModelAndView model) {
 		Map<String, String> map = new HashMap<String, String>();
-		String url = "";
 		map.put("userId", userId);
 		map.put("userPwd", userPwd);
-		
 
 		int isCheckUser = this.userService.isCheckUserCount(map);
+		//로그인에 성공했을 경우
 		if (isCheckUser == 1) {
 			HttpSession session = req.getSession();
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			session.setAttribute("userInfo", user);
-			// 로그인한 상태로 메인페이지
-			url = "/views/main";
+			model.setViewName("/views/main");
+			model.addObject("userInfo", user);
 			
-			UserInfoVo user1 = (UserInfoVo) session.getAttribute("userInfo");
 		} else {
 			// 리다이렉트로 로그인 페이지 다시
-			url = "/redirect:/views/main";
+			model.setViewName("/views/main");	
 		}
 	
-		return 
-				url;
+		return model;
 	
 	}
 	//회원 가입
