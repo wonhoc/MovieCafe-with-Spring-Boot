@@ -3,25 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/aside.css" />
-<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 <script th:src="@{/js/aside.js}"></script>
 </head>
 <div th:fragment="aside">
 	<div class="aside_login">
 		<div class="login_orangeBox">
 			<div class="login_whiteBox">
-				<form action="/requestlogin" method="POST" th:if="${session.userInfo == null}">
+				<form method="POST" th:if="${session.userInfo == null}">
 				<img src="/images/login.png" alt="login_icon" class="login_icon" />
 				<span class="login_title">로그인</span>
 				<div class="login_divide"></div>
 				
 					<div class="login_input">
-						<span>아이디</span> <input class="login_inputBox" type="text"
-							name="userId" id="userId" />
+						<span>아이디</span> 
+						<input class="login_inputBox" type="text" name="username" id="username" />
 					</div>
 					<div class="login_input">
 						<span>비밀번호</span> <input class="login_inputBox" type="password"
-							name="userPwd" id="userPwd" />
+							name="password" id="password" />
 					</div>
 					<div class="login_btnBox">
 						<button type="submit" class="btn btn-light" value="submit">로그인</button>
@@ -30,7 +29,10 @@
 						</a>
 						<button type="button" class="btn btn-light">ID / PWD 찾기</button>
 					</div>
-				</form>
+					<div sec:authorize="isAuthenticated()">
+						로그인 됨
+					</div>
+				</form>	
 				<form th:unless="${session.userInfo == null}">
 					<span class="login_title">회원정보</span>
 						<div class="login_divide"></div>
@@ -44,9 +46,10 @@
 					<a th:href="@{/Logout}">
 					<button type="button" class= "btn btn-light">로그아웃</button>
 					</a>
-					
-					
 				</form>
+
+				
+				
 			</div>
 		</div>
 	</div>

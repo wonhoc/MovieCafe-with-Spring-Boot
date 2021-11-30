@@ -146,7 +146,7 @@
 	<select id="mainBestListSelect" resultType="boardVO"
 		resultMap="mainBestList" statementType="CALLABLE">
 		{ call sp_select_hot_board() }
-	</select>
+	</select> 
 
 	<!-- 공지글 조회 -->
 	<select id="mainNoticeListSelect" resultType="boardVO"

@@ -252,6 +252,23 @@ public class UserInfoController {
 		session.invalidate();
 		return "views/main";
 	}
+	
+	
+	@GetMapping("/dologin")
+	public String doLogin (HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		// 세션 유지 시간 : 30분
+		session.setMaxInactiveInterval(1800);
+		UserInfoVo user1 = userService.uploadUserInfo();
+		// 세션에 가져온 유저정보 등록
+		session.setAttribute("userInfo", user1);
+		System.out.println(user1.toString());
+		
+		return "redirect:/";
+	}
+	
+	
+	
 
 
 }

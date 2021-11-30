@@ -1,6 +1,6 @@
 package com.example.member.dao;
 
-import java.util.HashMap;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +73,16 @@ public class UserDaoImpl implements UserDao {
 	public int isExistNick(String isNick) {
 		return sqlSession.selectOne("Member.checkNick", isNick);
 
+	}
+	
+	// 권한 설정을 위해 유저 정보 가져옴
+	// DAO는 기존거 활용
+	@Override
+	public UserInfoVo getUserByID(String userId) {		
+		System.out.println("DAO 아이디 출력값 : "+userId);
+
+		return sqlSession.selectOne("Member.loginUser", userId);
+		
 	}
 
 }

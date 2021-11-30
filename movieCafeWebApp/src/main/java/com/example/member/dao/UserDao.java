@@ -29,5 +29,7 @@ public interface UserDao {
 
 	// 자진탈퇴처리
 	void deleteUser(String userId);
+	
+	public UserInfoVo getUserByID(String userId);
 
 }

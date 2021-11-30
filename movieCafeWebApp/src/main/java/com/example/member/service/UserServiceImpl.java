@@ -1,16 +1,23 @@
 package com.example.member.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.member.dao.UserDao;
 import com.example.member.vo.UserInfoVo;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService,UserDetailsService {
 	@Autowired
 	private UserDao userDao;
 
@@ -63,6 +70,16 @@ public class UserServiceImpl implements UserService {
 	public void removeUser(String userId) {
 		this.userDao.deleteUser(userId);
 		
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserInfoVo user = this.userDao.getUserByID(username);
+		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
+		roles.add(new SimpleGrantedAuthority(user.getRankType()));
+		
+		UserDetails userRankType = new User(username, user.getUserPwd(), roles);
+		return userRankType;
 	}
 
 	
