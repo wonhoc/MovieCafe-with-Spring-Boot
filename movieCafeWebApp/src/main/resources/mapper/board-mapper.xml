@@ -47,7 +47,7 @@
 		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="DATE" />
 		<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER" />
 	</resultMap>
-	
+
 	
 <!-- .............................................................................................. -->
 
@@ -104,6 +104,11 @@
 		<parameter property="boardNo" javaType="int" jdbcType="TINYINT" mode="IN" />
 	</parameterMap>
 
+<!-- 게시글 추천 -->
+	<parameterMap type="recomVO" id="recomCreateMap">
+		<parameter property="userId" javaType="string" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
 
 <!-- ............................................................................................................. -->
 
@@ -140,8 +145,21 @@
 		{call sp_modify_board(?,?,?,?,?,?,?) }
 	</update>
 
-	
-	
+	<!-- 게시글 추천 -->
+	<insert id="insertRecomCall" parameterType="recomVo"
+		statementType="CALLABLE" parameterMap="recomCreateMap">
+		{call sp_insert_recommend(?,?)}
+	</insert>
+	<!-- 게시글 추천 이력 조회 -->
+	<select id="selectIsRecomCall" resultType="boolean"
+		statementType="CALLABLE"  parameterMap="recomCreateMap">
+		{ call sp_select_isrecom(?, ?) }
+	</select>
+	<!-- 게시글 추천 취소 -->
+	<delete id="deleteRecomCall" statementType="CALLABLE"
+		parameterType="recomVo" parameterMap="recomCreateMap">
+		{ call sp_delete_recommend(?, ?) }
+	</delete>
 	<!-- 인기글 조회 -->
 	<select id="mainBestListSelect" resultType="boardVO"
 		resultMap="mainBestList" statementType="CALLABLE">

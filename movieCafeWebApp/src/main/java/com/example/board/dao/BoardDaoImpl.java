@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.RecomVO;
 
 @Repository("boardDao")
 public class BoardDaoImpl implements BoardDao {
@@ -86,4 +87,24 @@ public class BoardDaoImpl implements BoardDao {
 		this.sqlSession.insert("reportBoard", bordNo);
 	}
 
+	//게시글 추천
+	@Override
+	public void insertRecommend(RecomVO recommend) {
+		this.sqlSession.insert("insertRecomCall", recommend);
+		
+	}
+
+	//추천 취소
+	@Override
+	public void deleteRecommend(RecomVO recommend) {
+		this.sqlSession.delete("deleteRecomCall",recommend);
+	}
+
+	//추천 이력 조회
+	@Override
+	public boolean selectIsRecom(RecomVO recommend) {
+		return this.sqlSession.selectOne("selectIsRecomCall",recommend);
+	}
+
+	
 }

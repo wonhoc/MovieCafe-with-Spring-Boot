@@ -1,8 +1,10 @@
 package com.example.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.RecomVO;
 
 public interface BoardService {
 
@@ -17,4 +19,9 @@ public interface BoardService {
 	List<BoardVO> readRecomRevList();
 	List<BoardVO> readNoticeRevList();
 
+	//추천
+	void createRecommend(RecomVO recommend);
+	void dropRecommend(RecomVO recommend);
+	boolean readIsRecom(RecomVO recommend);
+	
 }

@@ -3,37 +3,97 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/defaultLayout}">
-
+<th:block layout:fragment="script">
+        <script th:src="@{/js/board/recomBoard.js}"></script>
+        
+    </th:block>
 <head>
+
+
 
 </head>
 <section layout:fragment="content">
 
-<form th:action="@{deleteBoard/{boardNo}(boardNo=${board.boardNo})}" method="post">
-		
-	<input type="hidden" name="cateNo" th:value="${board.cateNo}">
+	<form th:action="@{deleteBoard/{boardNo}(boardNo=${board.boardNo})}"
+		method="post">
 
-	<div class="container">
-		<table class="table">
-			<tr>
-				<td colspan="5" th:text="${board.boardTitle}"></td>
-			</tr>
-			<tr>
-				<td th:text="${board.userNick}"></td>
-				<td th:text="${board.boardWdate}"></td>
-				<td th:text="${board.boardCount}"></td>
-				<td th:text="${board.recomCount}"></td>
-				<td th:text="${board.commentCount}"></td>
-			</tr>
-			<tr>
-				<td colspan="5" th:text="${board.boardContent}"></td>
-			</tr>
+		<input type="hidden" name="cateNo" th:value="${board.cateNo}">
+
+		<div class="container">
+			<table class="table">
+				<tr>
+					<td colspan="5" th:text="${board.boardTitle}"></td>
+				</tr>
+				<tr>
+					<td th:text="${board.userNick}"></td>
+					<td th:text="${board.boardWdate}"></td>
+					<td th:text="${board.boardCount}"></td>
+					<td th:text="${board.recomCount}"></td>
+					<td th:text="${board.commentCount}"></td>
+				</tr>
+				<tr>
+					<td colspan="5" th:text="${board.boardContent}"></td>
+				</tr>
+			</table>
+
+			<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
+			<a class="btn btn-default waves-effect waves-light"
+				th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>
+		</div>
+
+
+		<button type="button" class="btn btn-success" id="recomBtn">
+			추천해요</button>
+		<table>
+			<thead>
+				<tr>
+					<td>작성자</td>
+					<td>날짜</td>
+				</tr>
+			</thead>
+			<tbody>
+				<p th:each="comment : ${list}">
+				<tr>
+					<td th:text="${comment.userNick}"></td>
+					<td th:text="${comment.comWdate}"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="comContent" th:text="${comment.comContent}"></td>
+				</tr>
+				</p>
+				<p id="cococo"></p>
+			</tbody>
 		</table>
 
-	<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
-		<a class="btn btn-default waves-effect waves-light" th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>
-	</div>
-	</form>
+		<!-- 댓글 달기 -->
+		<form method="get">
+
+			<div id="addComment">
+				<input type="hidden" id="boardNo" name="boardNo"
+					th:value="${board.boardNo}">
+				<div>
+					<textarea id="addComContent" rows="5" cols="50"
+						placeholder="댓글을 입력해주세오 ."></textarea>
+				</div>
+				<div>
+					<button id="addComBtn">댓글 달기</button>
+				</div>
+			</div>
+
+			<!-- 댓글 수정 -->
+			<div id="modifyComment" style="display: none;">
+				<div>
+					<input type="hidden" id="comNo" />
+					<textarea id="modifyComContent" rows="5" cols="50"
+						placeholder="댓글을 입력해주세오 ."></textarea>
+				</div>
+
+				<div>
+					<button id="cancel">취소</button>
+					<button id="modifyComBtn">수정하기</button>
+				</div>
+			</div>
+		</form>
 </section>
 </html>
 

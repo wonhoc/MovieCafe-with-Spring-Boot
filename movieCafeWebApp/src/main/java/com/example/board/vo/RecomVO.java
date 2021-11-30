@@ -1,4 +1,4 @@
-package com.example.domain.board;
+package com.example.board.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecomVO {
-	private int boardNo;
 	private String userId;
-	private boolean isRecom;
+	private int boardNo;
+	
+	//private boolean isRecom;
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.board.dao.BoardDao;
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.RecomVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService{
@@ -71,6 +72,25 @@ public class BoardServiceImpl implements BoardService{
 	public void reportBoard(int boardNo) {
 		this.boardDao.reportBoardDao(boardNo);
 	}
-	
 
+	//게시글 추천
+	@Override
+	public void createRecommend(RecomVO recommend) {
+		this.boardDao.insertRecommend(recommend);
+		
+	}
+
+	//게시글 추천 취소
+	@Override
+	public void dropRecommend(RecomVO recommend) {
+		this.boardDao.deleteRecommend(recommend);		
+	}
+
+	//게시글 추천 이력 조회
+	@Override
+	public boolean readIsRecom(RecomVO recommend) {
+		return this.boardDao.selectIsRecom(recommend);
+	}
+	
+	
 }
