@@ -78,12 +78,14 @@ public class SendMsgDaoImpl implements SendMsgDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	//보낼 사람 검증
 	@Override
 	public int selectId(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		
+		return this.sqlSession.selectOne("Msg.selectUserId", userId);
+		
+	}//selectId() end
 	
 	
 

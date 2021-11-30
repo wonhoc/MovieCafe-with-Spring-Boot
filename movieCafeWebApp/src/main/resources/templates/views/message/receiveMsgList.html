@@ -102,7 +102,7 @@ margin-right: auto;
 		             </thead>
 		             <tbody>
 					<tr th:if="${#lists.size(receiveMsgList) == 0}">
-						<td colspan="3">받은 쪽지가 없습니다.</td>
+						<td colspan="4">받은 쪽지가 없습니다.</td>
 					</tr>
 					
 					<tr th:if="${#lists.size(receiveMsgList) > 0}" th:each="receiveMsg : ${receiveMsgList}">

@@ -84,13 +84,14 @@
 	SELECT writer, receiveMsgContent, receiveMsgNo, isRead, msgWdate
 	FROM receive_msg
 	WHERE receiveId = #{receiveId}
+	ORDER BY msgWdate DESC
 	
 	</select>
 	
 	<!-- 받은메세지 상세조회 -->
 	<select id="selectReceiveMsg" parameterType="int" resultType="receiveMsgVo">
 	
-	SELECT writer, receiveMsgContent, msgWdate, receiveMsgNo
+	SELECT writer, receiveMsgContent, msgWdate, receiveMsgNo, isRead
 	FROM receive_msg
 	WHERE receiveMsgNo = #{receiveMsgNo}
 	
@@ -113,5 +114,26 @@
 	WHERE sendMsgNo = #{receiveMsgNo} AND receiveId = #{receiveId}
 	
 	</update>
+	
+	<!-- 받은 메세지 삭제 -->
+	<delete id="deleteReceiveMsg" parameterType="hashMap">
+	
+	DELETE FROM receive_msg
+	WHERE receiveId = #{receiveId} AND receiveMsgNo = #{receiveMsgNo}
+	
+	</delete>
+	
+	<!-- 쪽지를 보낼 사람이 있는지 검증하기 -->
+	<select id="selectUserId" parameterType="string" resultType="int">
+	
+	SELECT count(userId)
+	FROM user_info
+	WHERE userId = #{userId}
+	
+	</select>
+	
+	
+	
+	
 	
 </mapper>

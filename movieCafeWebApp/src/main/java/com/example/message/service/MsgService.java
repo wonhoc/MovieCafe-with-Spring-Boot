@@ -1,6 +1,7 @@
 package com.example.message.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.message.vo.ReceiveMsgVO;
@@ -23,6 +24,9 @@ public interface MsgService {
 	//보낸쪽지 갯수확인
 	int rerieveTotalSendMsg(String userId);
 	
+	//보낼사람 아이디가 있는지 확인
+	int searchUser(String userId);
+	
 	
 	
 	//받은쪽지 모두 조회
@@ -32,7 +36,7 @@ public interface MsgService {
 	ReceiveMsgVO retrieveReceiveMsg(int receiveMsgNo);
 	
 	//받은쪽지 삭제
-	void removeReceiveMsg(int receiveMsgNo);
+	void removeReceiveMsg(HashMap<String, Object> map);
 	
 	//받은쪽지 갯수 조회
 	int rerieveTotalReceiveMsg(String userId);

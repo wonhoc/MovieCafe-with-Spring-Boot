@@ -15,7 +15,7 @@ public interface ReceiveMsgDao {
 	List<ReceiveMsgVO> selectReceiveMsgList(String userId);
 	
 	//받은 쪽지 삭제
-	void deleteReceiveMsg(int receiveMsgNo);
+	void deleteReceiveMsg(HashMap<String, Object> map);
 	
 	//받은쪽지 상세 조회
 	public ReceiveMsgVO selectReceiveMsg(int receiveMsgNo);

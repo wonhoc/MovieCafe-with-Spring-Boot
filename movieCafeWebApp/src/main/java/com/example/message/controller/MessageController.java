@@ -1,9 +1,12 @@
 package com.example.message.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.member.vo.UserInfoVo;
 import com.example.message.service.MsgService;
 import com.example.message.vo.AddressVO;
 import com.example.message.vo.ReceiveMsgVO;
@@ -42,17 +49,15 @@ public class MessageController {
 						  HttpServletRequest req) {
 		
 		//세션에 올라온 사용자 ID
-		//HttpSession session = req.getSession();
-		//UserInfoVo user = session.getAttribute("userInfo");
-		//String userid = user.getuserId();
+		HttpSession session = req.getSession();
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		String userid = user.getUserId();
 		
 		SendMsgVO sendMsg = new SendMsgVO();	//insert할 객체
 		
 		//session에있는 userId set
 		//sendMsg.setWriterId(userid);
-		
-		//로컬에서 테스트할 아이디 지정하기
-		String userid = "test_user01";
+
 		sendMsg.setWriterId(userid);
 		
 		//보낼 쪽지 메세지 set
@@ -93,15 +98,11 @@ public class MessageController {
 	
 	//내가 쓴 쪽지 전체 목록 페이지 요청
 	@GetMapping("/sendMsgList")
-	public String sendMsgList(Model model) {
+	public String sendMsgList(Model model, HttpServletRequest req) {
 		
-		//세션에 올라온 사용자 ID
-		//HttpSession session = req.getSession();
-		//UserInfoVo user = session.getAttribute("userInfo");
-		//String userid = user.getuserId();
-		
-		//로컬에서 테스트할 userid
-		String userid = "test_user01";
+		HttpSession session = req.getSession();
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		String userid = user.getUserId();
 		
 		//보낸 메세지들 받기
 		ArrayList<SendMsgVO> sendMsgList = (ArrayList<SendMsgVO>)this.msgService.retrieveSendMsgList(userid);
@@ -113,11 +114,11 @@ public class MessageController {
 			
 			ArrayList<AddressVO> addrs = sendmsg.getAddresses();
 			
-			System.out.println(sendmsg.toString());
+			//System.out.println(sendmsg.toString());
 			
 			for(AddressVO addr : addrs) {
 			
-				System.out.println(addr.toString());
+				//System.out.println(addr.toString());
 				
 			}//for end
 	
@@ -166,16 +167,13 @@ public class MessageController {
 	
 	//받은 메세지 목록 요청
 	@GetMapping("/receiveMsgList")
-	public String receiveMsgList(Model model) {
+	public String receiveMsgList(Model model, HttpServletRequest req) {
 		
-		//세션에 올라온 사용자 ID
-		//HttpSession session = req.getSession();
-		//UserInfoVo user = session.getAttribute("userInfo");
-		//String userid = user.getuserId();
 		
-		//로컬에서 테스트할 userid
-		String userid = "test_user01";
-		
+		HttpSession session = req.getSession();
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		String userid = user.getUserId();
+	
 		//DB에서 받은메세지 조회
 		List<ReceiveMsgVO> receiveMsgList = this.msgService.retrieveReceiveMsgList(userid);
 		
@@ -197,10 +195,12 @@ public class MessageController {
 	@GetMapping("/receiveMsgDetail/{receiveMsgNo}/{isRead}")
 	public String receiveMsgDetail(@PathVariable int receiveMsgNo,
 								   @PathVariable int isRead,
-									Model model) {
+									Model model, 
+									HttpServletRequest req) {
 		
-		//local에서 테스트할 userId
-		String userid = "test_user01";
+		HttpSession session = req.getSession();
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		String userid = user.getUserId();
 		
 		ReceiveMsgVO receiveMsg = this.msgService.retrieveReceiveMsg(receiveMsgNo);
 		
@@ -219,13 +219,92 @@ public class MessageController {
 	
 	//받은메세지 목록에서 삭제 요청
 	@PostMapping("/removeReceiveMsg")
-	public String removeReceiveMsg(@RequestParam String[] removeCheckBox) {
+	public String removeReceiveMsg(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		String userid = user.getUserId();
+		
+		//선택한 checkBox의 value 배열
+		String[] removeCheckBox = req.getParameterValues("removeCheckBox");
+		
+		HashMap<String, Object> deleteMap = new HashMap<String, Object>();
+		
+		deleteMap.put("receiveId", userid);
+		
+		System.out.println("removeCheckBox.length() : " + removeCheckBox.length);
 		
 		
-		
+		for(String nos : removeCheckBox) {
+			//receiveMsgNo값
+			int no = Integer.parseInt(nos.substring(0, nos.indexOf(",")));
+			//isRead값
+			int isRead = Integer.parseInt(nos.substring(nos.indexOf(",") + 1, nos.length()));
+			
+			//System.out.println("nos : " + nos);
+			//System.out.println("no" + no);
+			//System.out.println("isRead" + isRead);
+			
+			deleteMap.put("receiveMsgNo", no);
+
+			//1일경우 이미 읽었으므로 업데이트하지 않고 바로 삭제
+			if(isRead == 1) {
+				
+				this.msgService.removeReceiveMsg(deleteMap);
+				
+			}else {
+				//db에 업데이트하고
+				this.msgService.updateRead(no, userid);
+				//삭제
+				this.msgService.removeReceiveMsg(deleteMap);
+				
+			}//if end
+	
+	
+		}//for end
+			
 		return "redirect:/receiveMsgList";
 		
 	}///removeReceiveMsg() end
+	
+	
+	//받은메세지 상세보기에서 삭제 요청
+	@PostMapping("/removeDetailReceiveMsg")
+	public String removeDetailReceiveMsg(@RequestParam int receiveMsgNo, HttpServletRequest req) {
+	
+		HttpSession session = req.getSession();
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		String userid = user.getUserId();
+		
+		HashMap<String, Object> deleteMap = new HashMap<String, Object>();
+		
+		deleteMap.put("receiveId", userid);
+			
+		deleteMap.put("receiveMsgNo", receiveMsgNo);
+
+		//삭제
+		this.msgService.removeReceiveMsg(deleteMap);
+
+		return "redirect:/receiveMsgList";
+		
+	}//removeDetailReceiveMsg() end
+	
+	//Ajax 보낼 사람 검증
+	@RequestMapping(value = "/checkReceiveId", method = RequestMethod.POST)
+	public @ResponseBody String CheckReceiveId(@RequestParam("userId") String inputId) {
+		
+		System.out.println("inputId : " + inputId);
+		
+		int resultCount =  this.msgService.searchUser(inputId);
+		
+		System.out.println("resultCount : " + resultCount);
+		
+		return Integer.toString(resultCount);
+		
+		
+		
+		
+	}//CheckReceiveId() end
 	
 	
 	
