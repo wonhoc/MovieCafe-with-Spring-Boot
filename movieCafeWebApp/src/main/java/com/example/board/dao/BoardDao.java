@@ -1,9 +1,11 @@
 package com.example.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
 
 public interface BoardDao {
 
@@ -18,5 +20,7 @@ public interface BoardDao {
 	int lastId();
 	List<BoardVO> selectRecomRevList();
 	List<BoardVO> selectNoticeRevList();
-
+	List selectComList(int boardNo);
+	void insertComment(CommentVO comment);
+	void selectMap(Map map);
 }

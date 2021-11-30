@@ -1,6 +1,7 @@
 package com.example.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
 
 @Repository("boardDao")
 public class BoardDaoImpl implements BoardDao {
@@ -86,4 +88,21 @@ public class BoardDaoImpl implements BoardDao {
 		this.sqlSession.insert("reportBoard", bordNo);
 	}
 
+	@Override
+	public List selectComList(int boardNo) {
+		return this.sqlSession.selectList("selectCommentList", boardNo);
+	}
+
+	@Override
+	public void insertComment(CommentVO comment) {
+		this.sqlSession.insert("commmentInsert", comment);
+	}
+
+	@Override
+	public void selectMap(Map map) {
+		List<CommentVO> list = this.sqlSession.selectList("Board.selectCommentList", map.get("boardNo"));
+		map.put("result", list);
+	}
+	
+	
 }

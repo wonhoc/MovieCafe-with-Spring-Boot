@@ -25,4 +25,5 @@ public class BoardVO {
 	private String apiY;//
 
 	private ArrayList<BoardFileVO> boardfileList = new ArrayList<BoardFileVO>();
+	private ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
 }

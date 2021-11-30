@@ -1,8 +1,11 @@
 package com.example.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
 
 public interface BoardService {
 
@@ -17,4 +20,7 @@ public interface BoardService {
 	List<BoardVO> readRecomRevList();
 	List<BoardVO> readNoticeRevList();
 
+	List<CommentVO> readCommentList(int boardNo);
+	void createComment(CommentVO comment);
+	void readMapCommentList(Map map);
 }

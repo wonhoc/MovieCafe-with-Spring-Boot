@@ -1,14 +1,14 @@
 package com.example.board.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.board.dao.BoardDao;
-import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService{
@@ -72,5 +72,20 @@ public class BoardServiceImpl implements BoardService{
 		this.boardDao.reportBoardDao(boardNo);
 	}
 	
+	
+	@Override
+	public List readCommentList(int boardNo) {
+		return this.boardDao.selectComList(boardNo);
+	}
+
+	@Override
+	public void createComment(CommentVO comment) {
+		this.boardDao.insertComment(comment);
+	}
+
+	@Override
+	public void readMapCommentList(Map map) {
+		this.boardDao.selectMap(map);
+	}
 
 }

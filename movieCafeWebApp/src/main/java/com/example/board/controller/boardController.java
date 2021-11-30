@@ -1,5 +1,6 @@
 package com.example.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.board.service.BoardService;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
 
 @Controller
 public class boardController {
 
 	@Autowired
 	private BoardService boardServie;
+	
 
 	@GetMapping("/boardlist/{cateNo}")
 	public String boardlist(@PathVariable int cateNo, Model model) {
@@ -36,9 +39,11 @@ public class boardController {
 		public String deltailboard(@PathVariable int boardNo, Model model) {
 
 			BoardVO board = boardServie.readOne(boardNo);
-
+			
+			List<CommentVO> list = this.boardServie.readCommentList(boardNo);
+			
 			model.addAttribute("board", board);
-		
+			model.addAttribute("list", list);
 
 			return "views/board/boardDetail";
 		}
