@@ -1,6 +1,7 @@
-// 추천 처리
+
 $(document).ready(function() {
-        const recomAjax = function(url, boardNo) {
+    // 추천 처리   
+    const recomAjax = function(url, boardNo) {
             return new Promise( (resolve, reject) => {
                 $.ajax({                        
                     url: url,
@@ -42,7 +43,7 @@ $(document).ready(function() {
 	    			
 	    			const boardNo = $('#boardNo').val();
 	    			
-                    console.log(boardNo);
+                   
 	    			
 		    		requestRecomProcess('/insertRecom', boardNo);
 
@@ -50,5 +51,61 @@ $(document).ready(function() {
 				
             }
 	    );
+
+
+
+
+        // *****************************신고 처리
+              
+    const reportAjax = function(url, boardNo, userId) {
+        return new Promise( (resolve, reject) => {
+            $.ajax({                        
+                url: url,
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    url: url,
+                    boardNo: boardNo,
+                    userId : userId
+                    
+                },
+                success: function(data) {                    	
+                    alert(data.result);
+                    resolve(data);
+                }, 
+                error: function(e) {                    	
+                    reject(e);
+                }
+            });
+        });
+    }   
+    
+    
+    //신고등록용 함수
+    async function requestReportProcess(url, boardNo, userId) {
+        try {
+            await reportAjax(url,boardNo, userId);
+    
+            }         
+              catch (error) {
+            console.log("error : ", error);   
+        }
+    }
+    
+    
+    //신고 버튼 이벤트
+    $("#reportBtn").click(	    		
+        function() {
+                
+                console.log($('#userId').val());
+                const boardNo = $('#boardNo').val();
+               // const userId = "test_user08";
+                const userId = $('#userId').val();
+                requestReportProcess('/insertReport', boardNo, userId);
+
+            
+            
+        }
+    ); 
 });
 	  

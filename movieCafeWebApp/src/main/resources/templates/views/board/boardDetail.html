@@ -18,7 +18,11 @@
 		method="post">
 
 		<input type="hidden" name="cateNo" th:value="${board.cateNo}">
-
+		<!-- !!신고 때매 추가한 코드!! -->
+		<input type="hidden" id="userId" name="userId" th:value="${board.userId}">
+		<input type="hidden" id="boardNo" name="boardNo"	th:value="${board.boardNo}">
+<!-- 댓글 코드 중복이므로 위코드는 지워도 됌 -->
+				
 		<div class="container">
 			<table class="table">
 				<tr>
@@ -43,57 +47,10 @@
 
 
 		<button type="button" class="btn btn-success" id="recomBtn">
-			추천해요</button>
-		<table>
-			<thead>
-				<tr>
-					<td>작성자</td>
-					<td>날짜</td>
-				</tr>
-			</thead>
-			<tbody>
-				<p th:each="comment : ${list}">
-				<tr>
-					<td th:text="${comment.userNick}"></td>
-					<td th:text="${comment.comWdate}"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="comContent" th:text="${comment.comContent}"></td>
-				</tr>
-				</p>
-				<p id="cococo"></p>
-			</tbody>
-		</table>
-
-		<!-- 댓글 달기 -->
-		<form method="get">
-
-			<div id="addComment">
-				<input type="hidden" id="boardNo" name="boardNo"
-					th:value="${board.boardNo}">
-				<div>
-					<textarea id="addComContent" rows="5" cols="50"
-						placeholder="댓글을 입력해주세오 ."></textarea>
-				</div>
-				<div>
-					<button id="addComBtn">댓글 달기</button>
-				</div>
-			</div>
-
-			<!-- 댓글 수정 -->
-			<div id="modifyComment" style="display: none;">
-				<div>
-					<input type="hidden" id="comNo" />
-					<textarea id="modifyComContent" rows="5" cols="50"
-						placeholder="댓글을 입력해주세오 ."></textarea>
-				</div>
-
-				<div>
-					<button id="cancel">취소</button>
-					<button id="modifyComBtn">수정하기</button>
-				</div>
-			</div>
-		</form>
+			추천</button>
+			
+		<button type="button" class="btn btn-warning" id="reportBtn">
+			신고</button>
 </section>
 </html>
 

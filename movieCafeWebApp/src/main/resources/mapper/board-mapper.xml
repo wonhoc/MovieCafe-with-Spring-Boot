@@ -21,6 +21,7 @@
 		<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR" />
 		<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER" />
 		<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR" />
+		<result property="userId" javaType="string" column="userId" jdbcType="VARCHAR" />
 		<result property="horseNo" javaType="int" column="horseNo" jdbcType="INTEGER" />
 		<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER" />
 		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR" />
@@ -109,7 +110,19 @@
 		<parameter property="userId" javaType="string" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN" />
 	</parameterMap>
+	
+	<!-- 게시글 신고 등록-->
+	<parameterMap type="reportVO" id="reportCreateMap">
+		<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+		<parameter property="userId" javaType="string" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="repoter" javaType="string" jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
 
+<!-- 게시글 신고 삭제, 신고 여부 조회-->
+	<parameterMap type="reportVO" id="reportDropMap">
+		<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+		<parameter property="repoter" javaType="string" jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
 <!-- ............................................................................................................. -->
 
 
@@ -158,7 +171,23 @@
 	<!-- 게시글 추천 취소 -->
 	<delete id="deleteRecomCall" statementType="CALLABLE"
 		parameterType="recomVo" parameterMap="recomCreateMap">
-		{ call sp_delete_recommend(?, ?) }
+		{ call sp_deleteRecommend(?, ?) }
+	</delete>
+	
+	<!-- 게시글 신고 -->
+	<insert id="insertReportCall" parameterType="reportVo"
+		statementType="CALLABLE" parameterMap="reportCreateMap">
+		{call sp_insert_report(?,?,?)}
+	</insert>
+	<!-- 게시글 신고 이력 조회 -->
+	<select id="selectIsReportCall" resultType="boolean"
+		statementType="CALLABLE"  parameterMap="reportDropMap">
+		{ call sp_select_isreport(?, ?) }
+	</select>
+	<!-- 게시글 신고 취소 -->
+	<delete id="deleteReportCall" statementType="CALLABLE"
+		parameterType="reportVo" parameterMap="reportDropMap">
+		{ call sp_delete_report(?, ?) }
 	</delete>
 	<!-- 인기글 조회 -->
 	<select id="mainBestListSelect" resultType="boardVO"
@@ -186,10 +215,5 @@
 		{ call sp_delete_board(?) }
 	</delete>
 
-	<!-- 게시글 신고 -->
-	<insert id="reportBoard" statementType="CALLABLE"
-		parameterType="int" parameterMap="paramMapSelectDetail">
-		{ call sp_report(?) }
-	</insert>
 	
 	</mapper>

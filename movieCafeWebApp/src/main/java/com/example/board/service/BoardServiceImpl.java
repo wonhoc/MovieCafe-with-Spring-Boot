@@ -10,6 +10,7 @@ import com.example.board.dao.BoardDao;
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
 import com.example.board.vo.RecomVO;
+import com.example.board.vo.ReportVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService{
@@ -67,12 +68,6 @@ public class BoardServiceImpl implements BoardService{
 		this.boardDao.deleteBoard(boardNo);
 	}
 
-	//게시글 신고
-	@Override
-	public void reportBoard(int boardNo) {
-		this.boardDao.reportBoardDao(boardNo);
-	}
-
 	//게시글 추천
 	@Override
 	public void createRecommend(RecomVO recommend) {
@@ -90,6 +85,27 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public boolean readIsRecom(RecomVO recommend) {
 		return this.boardDao.selectIsRecom(recommend);
+	}
+
+	//게시글 신고 등록
+	@Override
+	public void createReport(ReportVO report) {
+		this.boardDao.insertReport(report);
+		
+	}
+
+	//게시글 신고 취소
+	@Override
+	public void dropReport(ReportVO report) {
+		this.boardDao.deleteReport(report);
+		
+	}
+
+	//게시글 신고 여부
+	@Override
+	public boolean readIsReport(ReportVO report) {
+		
+		return this.boardDao.selectIsReport(report);
 	}
 	
 	

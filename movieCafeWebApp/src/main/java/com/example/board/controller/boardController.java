@@ -64,13 +64,6 @@ public class boardController {
 
 	}
 	
-	@GetMapping("/detail/report/{boardNo}")
-	public String report(@PathVariable int boardNo) {
-		
-		this.boardServie.reportBoard(boardNo);
-		
-		return "redirect://detail/{boardNo}";
-	}
 	
 	
 	

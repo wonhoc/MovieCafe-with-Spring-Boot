@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
 import com.example.board.vo.RecomVO;
+import com.example.board.vo.ReportVO;
 
 public interface BoardDao {
 
@@ -15,10 +16,14 @@ public interface BoardDao {
 	void insertBoardTip(BoardVO board);
 	void updateBoard(BoardVO board);
 	void deleteBoard(int boardNo);	
-	void reportBoardDao(int bordNo);	
+	
 	void insertRecommend(RecomVO recommend);
 	void deleteRecommend(RecomVO recommend);
 	boolean selectIsRecom(RecomVO recommend);
+	
+	void insertReport(ReportVO report);
+	void deleteReport(ReportVO report);
+	boolean selectIsReport(ReportVO report);
 	int lastId();
 	List<BoardVO> selectRecomRevList();
 	List<BoardVO> selectNoticeRevList();

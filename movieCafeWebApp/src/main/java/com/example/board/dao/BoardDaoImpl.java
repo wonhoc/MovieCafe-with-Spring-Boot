@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
 import com.example.board.vo.RecomVO;
+import com.example.board.vo.ReportVO;
 
 @Repository("boardDao")
 public class BoardDaoImpl implements BoardDao {
@@ -81,12 +82,6 @@ public class BoardDaoImpl implements BoardDao {
 		this.sqlSession.delete("deleteBoard", boardNo);
 	}
 
-	//게시글 신고
-	@Override
-	public void reportBoardDao(int bordNo) {
-		this.sqlSession.insert("reportBoard", bordNo);
-	}
-
 	//게시글 추천
 	@Override
 	public void insertRecommend(RecomVO recommend) {
@@ -104,6 +99,26 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public boolean selectIsRecom(RecomVO recommend) {
 		return this.sqlSession.selectOne("selectIsRecomCall",recommend);
+	}
+
+	//게시글 신고 등록
+	@Override
+	public void insertReport(ReportVO report) {
+		this.sqlSession.insert("insertReportCall", report);
+		
+	}
+	
+	//게시글 신고 삭제
+	@Override
+	public void deleteReport(ReportVO report) {
+		this.sqlSession.delete("deleteReportCall",report);
+		
+	}
+
+	//신고 여부 조회
+	@Override
+	public boolean selectIsReport(ReportVO report) {
+		return this.sqlSession.selectOne("selectIsReportCall",report);
 	}
 
 	
