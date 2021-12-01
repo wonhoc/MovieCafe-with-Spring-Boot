@@ -1,8 +1,10 @@
 package com.example.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
 import com.example.board.vo.RecomVO;
 import com.example.board.vo.ReportVO;
 
@@ -28,4 +30,10 @@ public interface BoardService {
 		void dropReport(ReportVO report);
 		boolean readIsReport(ReportVO report);
 		
+		//댓글
+		List<CommentVO> readCommentList(int boardNo);
+		void createComment(CommentVO comment);
+		void readMapCommentList(Map map);
+		void removeComment(int comNo);
+		void modifyComment(CommentVO comment);
 }

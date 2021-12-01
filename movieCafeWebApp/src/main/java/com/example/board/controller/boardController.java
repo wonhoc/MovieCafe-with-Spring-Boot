@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import com.example.board.service.BoardService;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
 
 @Controller
 public class boardController {
@@ -32,17 +32,37 @@ public class boardController {
 	}
 
 	// 게시글 상세보기
-		@GetMapping("/detail/{boardNo}")
-		public String deltailboard(@PathVariable int boardNo, Model model) {
+			@GetMapping("/detail/{boardNo}")
+			public String deltailboard(@PathVariable int boardNo, Model model) {
 
-			BoardVO board = boardServie.readOne(boardNo);
-
-			model.addAttribute("board", board);
-		
-
-			return "views/board/boardDetail";
-		}
-	
+				BoardVO board = boardServie.readOne(boardNo);
+				
+				List<CommentVO> list = this.boardServie.readCommentList(boardNo);
+				
+				int cateNo = board.getCateNo();
+				System.out.println("api :x : "+board.getApiX());
+				
+				model.addAttribute("board", board);
+				model.addAttribute("list", list);
+				
+				if (cateNo == 4) {
+					return "views/board/boardTipDetail";
+				} else {
+					return "views/board/boardDetail";
+			}
+			}
+			
+			@GetMapping("/detail/detailTipboard{boardNo}")
+			public String detailTipboard(@PathVariable int boardNo, Model model) {
+				
+				BoardVO board = boardServie.readOne(boardNo);
+				
+				List<CommentVO> list = this.boardServie.readCommentList(boardNo);
+				model.addAttribute("board", board);
+				model.addAttribute("list", list);
+				
+				return "views/board/boardTipDetail";
+			}
 	
 	 
 	@PostMapping("/detail/deleteBoard/{boardNo}")

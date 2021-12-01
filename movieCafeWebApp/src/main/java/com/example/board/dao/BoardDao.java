@@ -1,9 +1,11 @@
 package com.example.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
 import com.example.board.vo.RecomVO;
 import com.example.board.vo.ReportVO;
 
@@ -28,5 +30,11 @@ public interface BoardDao {
 	List<BoardVO> selectRecomRevList();
 	List<BoardVO> selectNoticeRevList();
 
+	
+	List selectComList(int boardNo);
+	void insertComment(CommentVO comment);
+	void selectMap(Map map);
+	void deleteComment(int comNo);
+	void updateComment(CommentVO comment);
 
 }

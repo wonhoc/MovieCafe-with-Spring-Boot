@@ -10,7 +10,7 @@
 		<typeAlias type="com.example.board.vo.BoardVO" alias="boardVO"/>
 		<typeAlias type="com.example.board.vo.RecomVO" alias="recomVO"/>
 		<typeAlias type="com.example.board.vo.ReportVO" alias="reportVO"/>
-		
+		<typeAlias type="com.example.board.vo.CommentVO" alias="commentVO"/>
 		<typeAlias type="com.example.board.vo.BoardFileVO" alias="boardFileVO"/>
 
 		<typeAlias type="com.example.message.vo.SendMsgVO" alias="sendMsgVo"/>

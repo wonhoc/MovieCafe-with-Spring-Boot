@@ -100,7 +100,7 @@ $(document).ready(function() {
                 console.log($('#userId').val());
                 const boardNo = $('#boardNo').val();
                // const userId = "test_user08";
-                const userId = $('#userId').val();
+                const userId = $('#writer').val();
                 requestReportProcess('/insertReport', boardNo, userId);
 
             
