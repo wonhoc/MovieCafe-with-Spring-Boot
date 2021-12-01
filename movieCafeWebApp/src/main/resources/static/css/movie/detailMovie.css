@@ -64,11 +64,14 @@ section {
 	font-size: 26px;
 }
 
-.review_line {
+.guanram {
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
 	padding: 0 5em;
+}
+#pagination-div{
+	text-align: center;	
 }
 
 .review_profile {
@@ -104,39 +107,6 @@ section {
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 4em;
-}
-
-.review_btn {
-	height: 2rem;
-	margin: 0 0.5em;
-	color: #b1b1b1;
-	background-color: #fdfdfd;
-	border: 2px solid #b1b1b1;
-	border-bottom-color: #b1b1b1;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-	cursor: pointer;
-}
-
-.review_btn:hover {
-	background-color: #e2e2e2;
-}
-
-.delete_btn {
-	width: 3rem;
-	height: 2rem;
-	margin: 0 0.5em;
-	color: #a7a6a6;
-	background-color: #fdfdfd;
-	border: 2px solid #b1b1b1;
-	border-bottom-color: #b1b1b1;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-	cursor: pointer;
-}
-
-.delete_btn:hover {
-	background-color: #e2e2e2;
 }
 
 .hidden {
