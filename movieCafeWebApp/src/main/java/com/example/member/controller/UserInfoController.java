@@ -20,16 +20,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.member.service.UserService;
 import com.example.member.vo.UserInfoVo;
+import com.example.util.FileUploadService;
 
 @Controller
 public class UserInfoController {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+    private FileUploadService fileUploadService;
 
 	// 회원가입 버튼 클릭시 작성 폼으로 이동
 	@GetMapping("/joinUser")
@@ -157,78 +163,92 @@ public class UserInfoController {
 		return model;
 
 	}
-
-	@GetMapping("/listUser")
-	public String listUser(Model model) {
-		List<UserInfoVo> users = this.userService.retrieveUserList();
-		model.addAttribute("users", users);
-		return "views/member/listUser";
-	}
-
-	@GetMapping("/modifyUserForm")
-	public String modifyUserForm(HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession();
-		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
-		UserInfoVo user = this.userService.retrieveUser(userInfo.getUserId());
-		model.addAttribute("user", user);
-		return "views/member/modifyUser";
-	}
-
-	@PostMapping("/modifyUser")
-	public String modifyUser(@RequestParam("userId1") String userId, @RequestParam("userPwd1") String userPwd,
-			@RequestParam("userEmail") String userEmail, @RequestParam("birthYear") String tempYear,
-			@RequestParam("birthMonth") String tempMonth, @RequestParam("birthDate") String tempDate,
-			@RequestParam("contact1") String tempCon1, @RequestParam("contact2") String tempCon2,
-			@RequestParam("contact3") String tempCon3, @RequestParam("userNick") String userNick,
-			@RequestParam("userName") String userName, @RequestParam("gender") String gender, Model model) {
-
-		UserInfoVo user = new UserInfoVo();
-		user.setUserId(userId);
-		user.setUserPwd(userPwd);
-		user.setUserEmail(userEmail);
-
-		String userBirth = tempYear + "-" + tempMonth + "-" + tempDate;
-		user.setUserBirth(userBirth);
-
-		String userContact = tempCon1 + "-" + tempCon2 + "-" + tempCon3;
-		user.setUserContact(userContact);
-
-		user.setUserNick(userNick);
-		user.setUserName(userName);
-		user.setGender(gender);
-
-		System.out.println(user);
-
-		this.userService.modifyUser(user);
-		return "views/main";
-	}
-
-	// 패스워드 확인
-	@PostMapping("/pwdCheck")
-	public String pwdCheck(HttpServletRequest req, @RequestParam String userPwd) {
-		HttpSession session = req.getSession();
-		UserInfoVo userinfo = (UserInfoVo) session.getAttribute("userInfo");
-		System.out.println(userinfo.getUserPwd() + "88888888888888888");
-		boolean result = userinfo.getUserPwd().equals(userPwd);
-
-		if (result) {
-			return "redirect:/deleteUser";
-		} else {
-			return "redirect:/pwdCheck";   
-		}
-	}
 	
-	@GetMapping("/deleteUser")
-	public String deleteUser() {
-		return "views/member/deleteUser";
-	}
-	
+	// 관리자의 사용자 정보 조회
+	   @GetMapping("/listUser")
+	   public String listUser(Model model) {
+	      List<UserInfoVo> users = this.userService.retrieveUserList();
+	      model.addAttribute("userList", users);
+	      return "views/member/listUser";
+	   }
 
-	@GetMapping("/exitUser")
-	public String exitUser() {
-		return "views/member/pwdCheck";
-	}
-	
+	   // 사용자 정보 조회 ajax
+	   @GetMapping("/getList")
+	   public @ResponseBody List<UserInfoVo> userList() {
+	      List<UserInfoVo> users = this.userService.retrieveUserList();
+	      return users;
+	   }
+
+	   // 회원정보상세조회
+	   @GetMapping("/modifyUserForm")
+	   public String modifyUserForm(HttpServletRequest req, Model model) {
+	      HttpSession session = req.getSession();
+	      UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+	      UserInfoVo user = this.userService.retrieveUser(userInfo.getUserId());
+	      model.addAttribute("user", user);
+	      return "views/member/modifyUser";
+	   }
+
+	   // 회원정보수정
+	   @PostMapping("/modifyUser")
+	   public String modifyUser(HttpServletRequest request,@RequestParam("userId1") String userId, @RequestParam("userPwd1") String userPwd,
+	         @RequestParam("userEmail") String userEmail, @RequestParam("birthYear") String tempYear,
+	         @RequestParam("birthMonth") String tempMonth, @RequestParam("birthDate") String tempDate,
+	         @RequestParam("contact1") String tempCon1, @RequestParam("contact2") String tempCon2,
+	         @RequestParam("contact3") String tempCon3, @RequestParam("userNick") String userNick,
+	         @RequestParam("userName") String userName, @RequestParam("gender") String gender,
+	         @RequestPart(value = "imgInput",required = false) MultipartFile photoSys, 
+	          Model model) {
+
+	      UserInfoVo user = new UserInfoVo();
+	      user.setUserId(userId);
+	      user.setUserPwd(userPwd);
+	      user.setUserEmail(userEmail);
+
+	      String userBirth = tempYear + "-" + tempMonth + "-" + tempDate;
+	      user.setUserBirth(userBirth);
+
+	      String userContact = tempCon1 + "-" + tempCon2 + "-" + tempCon3;
+	      user.setUserContact(userContact);
+
+	      user.setUserNick(userNick);
+	      user.setUserName(userName);
+	      user.setGender(gender);
+	      user.setPhotoOrigin(photoSys.getOriginalFilename());
+	      String imgname = null;
+	         if(!photoSys.getOriginalFilename().isEmpty()) {
+	            imgname = fileUploadService.restore(photoSys, request);
+	         }else {
+	            imgname = "default.png";
+	         }
+	      user.setPhotoSys(imgname);
+	      this.userService.modifyUser(user);
+	      return "views/main";
+	   }
+
+	   // 패스워드 확인
+	   @PostMapping("/pwdCheck")
+	   public String pwdCheck(HttpServletRequest req, @RequestParam String userPwd) {
+	      HttpSession session = req.getSession();
+	      UserInfoVo userinfo = (UserInfoVo) session.getAttribute("userInfo");
+	      boolean result = userinfo.getUserPwd().equals(userPwd);
+
+	      if (result) {
+	         return "redirect:/deleteUser";
+	      } else {
+	         return "views/member/pwdCheck";
+	      }
+	   }
+
+	   @GetMapping("/deleteUser")
+	   public String deleteUser() {
+	      return "views/member/deleteUser";
+	   }
+
+	   @GetMapping("/exitUser")
+	   public String exitUser() {
+	      return "views/member/pwdCheck";
+	   }
 
 	// 로그아웃
 	@GetMapping("/Logout")
@@ -295,6 +315,4 @@ public class UserInfoController {
 		
 }
 	
-
-
 

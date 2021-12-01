@@ -301,9 +301,6 @@ public class MessageController {
 		
 		return Integer.toString(resultCount);
 		
-		
-		
-		
 	}//CheckReceiveId() end
 	
 	

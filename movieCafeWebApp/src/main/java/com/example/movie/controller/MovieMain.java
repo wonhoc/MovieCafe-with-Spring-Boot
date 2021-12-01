@@ -25,14 +25,14 @@ public class MovieMain {
 	@Autowired
 	private BoardService boardServie;
 	
-	@GetMapping("/")
-	public String home(Model model) {
-		List<BoardVO> recomList = this.boardServie.readRecomRevList();
-		List<BoardVO> noticeList = this.boardServie.readNoticeRevList();
-		model.addAttribute("recomList", recomList);
-		model.addAttribute("noticeList", noticeList);
-		return "views/main";
-	}
+//	@GetMapping("/")
+//	public String home(Model model) {
+//		List<BoardVO> recomList = this.boardServie.readRecomRevList();
+//		List<BoardVO> noticeList = this.boardServie.readNoticeRevList();
+//		model.addAttribute("recomList", recomList);
+//		model.addAttribute("noticeList", noticeList);
+//		return "views/main";
+//	}
 
 	@GetMapping("/detailMovie/{movieId}")
 	public String detailMovie(@PathVariable String movieId, Model model) {
@@ -40,6 +40,12 @@ public class MovieMain {
 		model.addAttribute("guanramList", guanramList);
 		return "views/movie/detailMovie";
 	}
+
+	@GetMapping("/guanramList")
+	public @ResponseBody List<GuanramListVO> guanramList(@RequestParam("movieId") String movieId) {
+		return this.guanramService.selectGuanramList(Integer.parseInt(movieId));
+	}
+	
 
 	@PostMapping("/guanramForm")
 	public String guanramForm(@RequestParam("movieId") String movieId, @RequestParam("imgUrl") String imgUrl,
