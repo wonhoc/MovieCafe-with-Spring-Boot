@@ -56,7 +56,7 @@ public class UserInfoController {
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
-			model.setViewName("redirect:/");
+			model.setViewName("views/main");
 			model.addObject("userInfo", user);
 			
 		} else {
@@ -239,10 +239,9 @@ public class UserInfoController {
 		out.println("<script>alert('로그아웃 되었습니다');</script>");
 		out.flush();
 		// 세션에 올라온 유저정보 삭제 후 세션 종료
-		session.removeAttribute("userInfo");
 		session.invalidate();
 		
-		return "view/main";
+		return "/views/main";
 	}
 
 	@PostMapping("/deleteUser")
@@ -255,7 +254,7 @@ public class UserInfoController {
 		return "views/main";
 	
 	}
-	
+	 
 	@GetMapping("/searchIdPwd")
 	public String goSearch() {
 		return "views/Member/searchIdPwd";
