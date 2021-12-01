@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/aside.css" />
-<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-<script th:src="@{/js/aside.js}"></script>
+<script th:src="@{/js/member/aside.js}"></script>
 </head>
 <div th:fragment="aside">
 	<div class="aside_login">
@@ -28,7 +27,9 @@
 						<a th:href="@{/joinUser}">
 							<button type="button" class="btn btn-light">회원가입</button>
 						</a>
+						<a th:href="@{/searchIdPwd}">
 						<button type="button" class="btn btn-light">ID / PWD 찾기</button>
+						</a>
 					</div>
 				</form>
 				<form th:unless="${session.userInfo == null}">
@@ -38,9 +39,16 @@
 					닉네임 : <th:block th:text ="${session.userInfo.userNick}"/><br>
 					가입일 : <th:block th:text = "${session.userInfo.joinDate}"/><br>
 					<button type="button" class= "btn btn-primary-warn" id="MsgHomeBtn">쪽지</button>
-					<a th:href="@{/gomypage}">
-					<button type="button" class= "btn btn-light">마이페이지</button>
-					</a>
+					<div th:if="${session.userInfo.rankType == 'A'}">
+						<a th:href="@{/listUser}">
+						<button type="button" class= "btn btn-light">회원 목록 조회</button>
+						</a>
+					</div>
+					<div th:unless="${session.userInfo.rankType == 'A'}">
+						<a th:href="@{/gomypage}">
+						<button type="button" class= "btn btn-light">마이페이지</button>
+						</a>
+					</div>
 					<a th:href="@{/Logout}">
 					<button type="button" class= "btn btn-light">로그아웃</button>
 					</a>
