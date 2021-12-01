@@ -100,8 +100,13 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public void selectMap(Map map) {
-		List<CommentVO> list = this.sqlSession.selectList("Board.selectCommentList", map.get("boardNo"));
-		map.put("result", list);
+		List<CommentVO> list = this.sqlSession.selectList("selectCommentList", map.get("boardNo"));
+		map.put("results", list);
+	}
+
+	@Override
+	public void deleteComment(int comNo) {
+		this.sqlSession.delete("deleteComment", comNo);
 	}
 	
 	

@@ -23,4 +23,6 @@ public interface BoardDao {
 	List selectComList(int boardNo);
 	void insertComment(CommentVO comment);
 	void selectMap(Map map);
+	void deleteComment(int comNo);
+	
 }

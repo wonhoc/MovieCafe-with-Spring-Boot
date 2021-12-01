@@ -23,4 +23,5 @@ public interface BoardService {
 	List<CommentVO> readCommentList(int boardNo);
 	void createComment(CommentVO comment);
 	void readMapCommentList(Map map);
+	void removeComment(int comNo);
 }

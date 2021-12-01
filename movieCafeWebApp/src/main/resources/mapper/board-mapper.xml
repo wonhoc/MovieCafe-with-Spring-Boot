@@ -26,7 +26,11 @@
 		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR" />
 		<result property="commentCount" javaType="int" column="commentCount" jdbcType="INTEGER" />
 		<result property="boardContent" javaType="string" column="boardContent" jdbcType="VARCHAR" />
+		<result property="apiX" javaType="string" column="apiX" jdbcType="VARCHAR" />
+		<result property="apiY" javaType="string" column="apiY" jdbcType="VARCHAR" />
 	</resultMap>
+
+	
 
 	<!-- 인기글 조회 -->
 	<resultMap type="boardVO" id="mainBestList">
@@ -104,6 +108,10 @@
 		<parameter property="boardNo" javaType="int" jdbcType="TINYINT" mode="IN" />
 	</parameterMap>
 
+	<!-- 추천글 삭제 -->
+	<parameterMap type="commentVO" id="deleteCommentMap">
+		<parameter property="comNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
 
 <!-- ............................................................................................................. -->
 
@@ -210,8 +218,13 @@
 	</parameterMap>
 
 	<select id="selectCommentList" statementType="CALLABLE" resultMap="resultMapComList"
-		 parameterType="int" parameterMap="paramMapComList">
+		parameterType="int" parameterMap="paramMapComList"> 
 		
 		{ call sp_list_comment(?) }
 	</select>
+	
+	<delete id="deleteComment" statementType="CALLABLE" parameterType="int" parameterMap="paramMapComList">
+		{ call sp_deleteComment(?) }
+	</delete>
+	
 </mapper>

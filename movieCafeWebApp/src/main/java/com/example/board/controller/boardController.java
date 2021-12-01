@@ -42,10 +42,29 @@ public class boardController {
 			
 			List<CommentVO> list = this.boardServie.readCommentList(boardNo);
 			
+			int cateNo = board.getCateNo();
+			System.out.println("api :x : "+board.getApiX());
+			
 			model.addAttribute("board", board);
 			model.addAttribute("list", list);
-
-			return "views/board/boardDetail";
+			
+			if (cateNo == 4) {
+				return "views/board/boardTipDetail";
+			} else {
+				return "views/board/boardwrite";
+		}
+		}
+		
+		@GetMapping("/detail/detailTipboard{boardNo}")
+		public String detailTipboard(@PathVariable int boardNo, Model model) {
+			
+			BoardVO board = boardServie.readOne(boardNo);
+			
+			List<CommentVO> list = this.boardServie.readCommentList(boardNo);
+			model.addAttribute("board", board);
+			model.addAttribute("list", list);
+			
+			return "views/board/boardTipDetail";
 		}
 	
 	
@@ -67,6 +86,9 @@ public class boardController {
 			return "redirect:/boardlist/4";
 	}
 
+		
+		
+		
 	}
 	
 	@GetMapping("/detail/report/{boardNo}")

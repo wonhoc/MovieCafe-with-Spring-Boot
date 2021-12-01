@@ -88,4 +88,9 @@ public class BoardServiceImpl implements BoardService{
 		this.boardDao.selectMap(map);
 	}
 
+	@Override
+	public void removeComment(int comNo) {
+		this.boardDao.deleteComment(comNo);;
+	}
+	
 }
