@@ -102,10 +102,11 @@ public class MsgServiceImpl implements MsgService {
 	
 	//받은메세지 삭제
 	@Override
-	public void removeReceiveMsg(int receiveMsgNo) {
+	public void removeReceiveMsg(HashMap<String, Object> map) {
 		
+		this.receiveMsgDao.deleteReceiveMsg(map);
 		
-	}
+	}//removeReceiveMsg() end
 
 	@Override
 	public int rerieveTotalReceiveMsg(String userId) {
@@ -138,6 +139,13 @@ public class MsgServiceImpl implements MsgService {
 
 	}//updateRead() end
 	
+	//보낼사람 검증
+	@Override
+	public int searchUser(String userId) {
+		
+		return this.sendMsgDao.selectId(userId);
+		
+	}//searchUser() end
 	
 
 

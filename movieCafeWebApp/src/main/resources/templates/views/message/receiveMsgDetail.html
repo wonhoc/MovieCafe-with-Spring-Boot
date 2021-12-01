@@ -35,7 +35,7 @@
          	</table>
          	<div>
          	<form action="/removeDetailReceiveMsg" method="POST" id="removeForm">
-         	<input type="hidden" id="receiveMsgNo" name="receiveMsgNo" value="${receiveMsg.receiveMsgNo }">
+         	<input type="hidden" id="receiveMsgNo" name="receiveMsgNo" th:value="${receiveMsg.receiveMsgNo}">
          	</form>
 		    <button type="button" id="removeDetailMsgBtn" style="color: red">삭제</button>
 		    </div>       

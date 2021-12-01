@@ -89,18 +89,18 @@ margin-right: auto;
 								<td style="text-align: center; width: 100px;">받는사람</td>
 								<td style="text-align: center; width: 100px;">내용</td> 
 								<td style="text-align: center; width: 200px;">작성시간</td>
-								<div th:if = "${sendMsgList != null}">		
+								<div th:if = "${#lists.size(sendMsgList) > 0}">		
 								<td style="text-align: center; width: 200px; color: red; font-size: 12px;"><input type="checkbox" id="allChecked">선택</td>
 								</div>
 							</tr>
 						</thead>
 							<tbody>
-								<div th:if = "${sendMsgList == null}">	
+								<div th:if = "${#lists.size(sendMsgList) == 0}">	
 									<tr>
 										<td colspan="4">보낸 쪽지가 없습니다.</td>
 									</tr>
 								</div>							
-								<div th:if = "${sendMsgList != null}">		
+								<div th:if = "${#lists.size(sendMsgList) > 0}">		
 									<tr th:each="sendMsg : ${sendMsgList}">
 										<!-- 받는사람이 1명일때  -->
 										<span th:if="${#lists.size(sendMsg.addresses) < 2}">

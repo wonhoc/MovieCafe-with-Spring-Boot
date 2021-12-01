@@ -56,7 +56,7 @@ public class UserInfoController {
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
 
-			model.setViewName("/views/main");
+			model.setViewName("redirect:/");
 			model.addObject("userInfo", user);
 			
 		} else {
@@ -65,7 +65,7 @@ public class UserInfoController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('로그인에 실패하였습니다. 입력한 내용을 확인해주세요.');</script>");
 			out.flush();
-			model.setViewName("/views/main");	
+			model.setViewName("views/main");	
 		}
 
 	

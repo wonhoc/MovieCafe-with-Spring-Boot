@@ -12,4 +12,14 @@ $(document).ready(function() {
 		
 		
 	});
+
+blink();
+
 });
+
+//반짝이
+	function blink (){
+	$('.newMessage').fadeOut("slow",0,function(){
+		$('.newMessage').fadeToggle("slow",blink());
+	});
+}

@@ -102,19 +102,23 @@ margin-right: auto;
 		             </thead>
 		             <tbody>
 					<tr th:if="${#lists.size(receiveMsgList) == 0}">
-						<td colspan="3">받은 쪽지가 없습니다.</td>
+						<td colspan="4">받은 쪽지가 없습니다.</td>
 					</tr>
 					
 					<tr th:if="${#lists.size(receiveMsgList) > 0}" th:each="receiveMsg : ${receiveMsgList}">
 						<td th:text="${receiveMsg.writer}"></td>
 						<!-- 내용이 10글자가 넘으면 -->
-					<span th:if="${#strings.length(receiveMsg.receiveMsgContent) > 10 }">								
-						<td style="text-align: center; width: 400px"><a th:text="${#strings.substring(receiveMsg.receiveMsgContent, 0, 10) + '...'}" th:href="@{/receiveMsgDetail/{receiveMsgNo}(receiveMsgNo=${receiveMsg.receiveMsgNo})}"></a></td>
+					<span th:if="${#strings.length(receiveMsg.receiveMsgContent) > 10 }">							
+						<td style="text-align: center; width: 400px">
+						<span th:if="${receiveMsg.isRead} == 0" class="newMessage" style="color: orange;">&nbsp;new&nbsp;</span>
+						<a th:text="${#strings.substring(receiveMsg.receiveMsgContent, 0, 10) + '...'}" th:href="@{/receiveMsgDetail/{receiveMsgNo}(receiveMsgNo=${receiveMsg.receiveMsgNo})}"></a></td>
 					</span>
 					
 					<!-- 내용이 10글자가 넘지 않으면 -->
 					<span th:if="${#strings.length(receiveMsg.receiveMsgContent) <= 10 }">								
-						<td style="text-align: center; width: 400px"><a th:text="${receiveMsg.receiveMsgContent}" th:href="@{/receiveMsgDetail/{receiveMsgNo}/{isRead}(receiveMsgNo=${receiveMsg.receiveMsgNo}, (isRead=${receiveMsg.isRead}))}"></a></td>
+						<td style="text-align: center; width: 400px">
+						<span th:if="${receiveMsg.isRead} == 0" class="newMessage" style="color: orange;">&nbsp;new&nbsp;</span>
+						<a th:text="${receiveMsg.receiveMsgContent}" th:href="@{/receiveMsgDetail/{receiveMsgNo}/{isRead}(receiveMsgNo=${receiveMsg.receiveMsgNo}, (isRead=${receiveMsg.isRead}))}"></a></td>
 					</span>
 					<td style="text-align: center; width: 100px;" th:text="${#strings.substring(receiveMsg.msgWdate, 0, 10)}"></td>
 					<td style="text-align: center;" ><input type="checkbox" name="removeCheckBox" th:value="${receiveMsg.receiveMsgNo + ',' + receiveMsg.isRead}"></td>

@@ -38,10 +38,11 @@ public class ReceiveMsgDaoImpl implements ReceiveMsgDao {
 	}//selectReceiveMsgList() end
 
 	@Override
-	public void deleteReceiveMsg(int receiveMsgNo) {
-		// TODO Auto-generated method stub
+	public void deleteReceiveMsg(HashMap<String, Object> map) {
+		
+		this.sqlSession.delete("Msg.deleteReceiveMsg", map);
 
-	}
+	}//deleteReceiveMsg() end
 	
 	//받은 메세지 상세조회
 	@Override
