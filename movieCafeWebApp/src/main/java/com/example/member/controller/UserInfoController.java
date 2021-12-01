@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,8 +62,7 @@ public class UserInfoController {
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
-
-			model.setViewName("redirect:/");
+			model.setViewName("views/main");
 			model.addObject("userInfo", user);
 			
 		} else {
@@ -71,6 +71,7 @@ public class UserInfoController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('로그인에 실패하였습니다. 입력한 내용을 확인해주세요.');</script>");
 			out.flush();
+			
 			model.setViewName("views/main");	
 		}
 
@@ -162,7 +163,6 @@ public class UserInfoController {
 		return model;
 
 	}
-
 	
 	// 관리자의 사용자 정보 조회
 	   @GetMapping("/listUser")
@@ -251,7 +251,7 @@ public class UserInfoController {
 	   }
 
 	// 로그아웃
-	@GetMapping(value="/Logout")
+	@GetMapping("/Logout")
 	public String logoutAndReturn(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		res.setContentType("text/html; charset=UTF-8");
@@ -259,8 +259,8 @@ public class UserInfoController {
 		out.println("<script>alert('로그아웃 되었습니다');</script>");
 		out.flush();
 		// 세션에 올라온 유저정보 삭제 후 세션 종료
-		session.removeAttribute("userInfo");
 		session.invalidate();
+		
 		return "/views/main";
 	}
 
@@ -270,9 +270,49 @@ public class UserInfoController {
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 		this.userService.removeUser(userInfo.getUserId());
 		
-		session.invalidate();
+		session.invalidate(); 
 		return "views/main";
+	
 	}
-
-
+	 
+	@GetMapping("/searchIdPwd")
+	public String goSearch() {
+		return "views/Member/searchIdPwd";
+	}
+	
+	// 아이디 찾기
+	@RequestMapping(value="/returnId", method=RequestMethod.POST)
+	public @ResponseBody String checkId(@RequestParam ("sendUserName1") String name, 
+									@RequestParam ("sendUserContact1") String userContact
+									) {
+	
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name",name);
+		map.put("userContact", userContact);   
+		
+		String getReturnId = this.userService.researchId(map);
+		System.out.println("리턴ID : "+ getReturnId);
+		return getReturnId;      
+		
+		
+ 		}
+	
+	//비밀번호 찾기
+	@RequestMapping(value="/returnPwd", method=RequestMethod.POST)
+	public @ResponseBody String checkPwd(@RequestParam("inputUserId2") String userId,
+							@RequestParam("inputUserCon2") String userContact,
+							@RequestParam("inputUserBir2") String userBirth)  {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("userContact", userContact);
+		map.put("userBirth", userBirth);
+		
+		
+		String getReturnPwd = this.userService.researchPwd(map);
+		System.out.println("리턴PWD : " + getReturnPwd); 
+		return getReturnPwd;  
+	}
+		
 }
+	
+

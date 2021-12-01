@@ -65,5 +65,15 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public String researchId(Map map) {
+		return this.userDao.searchId(map);
+	}
+
+	@Override
+	public String researchPwd(Map map) {
+		return this.userDao.searchPwd(map);
+	}
+
 	
 }

@@ -128,6 +128,19 @@
 		WHERE userId = #{userId}
 	</update>
 	
+	<!--  아이디 찾기 : 이름, 연락처를 넘겨주고 아이디를 받아온다. -->
+	<select id="forgetId" parameterType="hashMap"  resultType="string">
+		SELECT userId 
+		FROM user_info
+		WHERE userName = #{name} AND userContact = #{userContact}   	
+	</select>
+	
+	<!--  비밀번호 찾기 :  아이디, 연락처, 생년월일을 가지고 비밀번호를 받아온다.-->
+	<select id="forgetPwd" parameterType="hashMap" resultType="string">
+		SELECT userPwd
+		FROM user_info
+		WHERE userId = #{userId} AND userContact=#{userContact} AND userBirth=#{userBirth}
+	</select>
 	
 	
 </mapper>
