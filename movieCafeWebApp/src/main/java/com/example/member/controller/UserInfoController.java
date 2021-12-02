@@ -176,44 +176,52 @@ public class UserInfoController {
 	      return "views/member/modifyUser";
 	   }
 
-	   // 회원정보수정
-	   @PostMapping("/modifyUser")
-	   public String modifyUser(HttpSession session, HttpServletRequest request,@RequestParam("userId1") String userId, @RequestParam("userPwd1") String userPwd,
-	         @RequestParam("userEmail") String userEmail, @RequestParam("birthYear") String tempYear,
-	         @RequestParam("birthMonth") String tempMonth, @RequestParam("birthDate") String tempDate,
-	         @RequestParam("contact1") String tempCon1, @RequestParam("contact2") String tempCon2,
-	         @RequestParam("contact3") String tempCon3, @RequestParam("userNick") String userNick,
-	         @RequestParam("userName") String userName, @RequestParam("gender") String gender,
-	         @RequestPart(value = "imgInput",required = false) MultipartFile photoSys, 
-	          Model model) {
+	// 회원정보수정
+	      @PostMapping("/modifyUser")
+	      public String modifyUser(HttpServletRequest request,@RequestParam("userId1") String userId, @RequestParam("userPwd1") String userPwd,
+	            @RequestParam("userEmail") String userEmail, @RequestParam("birthYear") String tempYear,
+	            @RequestParam("birthMonth") String tempMonth, @RequestParam("birthDate") String tempDate,
+	            @RequestParam("contact1") String tempCon1, @RequestParam("contact2") String tempCon2,
+	            @RequestParam("contact3") String tempCon3, @RequestParam("userNick") String userNick,
+	            @RequestParam("userName") String userName, @RequestParam("gender") String gender,
+	            @RequestPart(value = "imgInput",required = false) MultipartFile photoSys, 
+	             Model model) {
 
-	      UserInfoVo user = new UserInfoVo();
-	      user.setUserId(userId);
-	      user.setUserPwd(userPwd);
-	      user.setUserEmail(userEmail);
+	         UserInfoVo user = new UserInfoVo();
+	         user.setUserId(userId);
+	         user.setUserPwd(userPwd);
+	         user.setUserEmail(userEmail);
 
-	      String userBirth = tempYear + "-" + tempMonth + "-" + tempDate;
-	      user.setUserBirth(userBirth);
+	         String userBirth = tempYear + "-" + tempMonth + "-" + tempDate;
+	         user.setUserBirth(userBirth);
 
-	      String userContact = tempCon1 + "-" + tempCon2 + "-" + tempCon3;
-	      user.setUserContact(userContact);
+	         String userContact = tempCon1 + "-" + tempCon2 + "-" + tempCon3;
+	         user.setUserContact(userContact);
 
-	      user.setUserNick(userNick);
-	      user.setUserName(userName);
-	      user.setGender(gender);
-	      user.setPhotoOrigin(photoSys.getOriginalFilename());
-	      String imgname = null;
-	         if(!photoSys.getOriginalFilename().isEmpty()) {
-	            imgname = fileUploadService.restore(photoSys, request);
-	         }else {
-	            imgname = "default.png";
-	         }
-	      user.setPhotoSys(imgname);
-	      this.userService.modifyUser(user);
-	      
-	      //session.setAttribute("userInfo", user);
-	      return "redirect:/main";
-	   }
+	         user.setUserNick(userNick);
+	         user.setUserName(userName);
+	         user.setGender(gender);
+	         user.setPhotoOrigin(photoSys.getOriginalFilename());
+	         String imgname = null;
+	            if(!photoSys.getOriginalFilename().isEmpty()) {
+	               imgname = fileUploadService.restore(photoSys, request);
+	            }else {
+	               imgname = "default.png";
+	            }
+	         user.setPhotoSys(imgname);
+	         HttpSession session = request.getSession();
+	         UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+	         user.setBoardCount(userInfo.getBoardCount());
+	         user.setComCount(userInfo.getComCount());
+	         user.setExitdate(userInfo.getExitdate());
+	         user.setExitType(userInfo.getExitType());
+	         user.setJoinDate(userInfo.getJoinDate());
+	         user.setRankType(userInfo.getRankType());
+	         user.setReportCount(userInfo.getReportCount());
+	         System.out.println(user);
+	         this.userService.modifyUser(user);
+	         return "redirect:/";
+	      }
 
 	   // 패스워드 확인
 	   @PostMapping("/pwdCheck")
