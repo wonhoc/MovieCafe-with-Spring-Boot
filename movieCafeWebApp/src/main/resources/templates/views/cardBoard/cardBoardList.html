@@ -13,8 +13,36 @@
 	</div>
 	<hr style="border: 0px; height: 3px; background: coral;">
 	
-	<div id="searchBar">
-	검색상자	<p align="right" th:if="${session.userInfo != null }"><button type="button" id="boardWrite" class="btn-primary btn-sm">글쓰기</button></p>
+	<div>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<form th:action="@{boardsearch/2}" th:method="get">
+					<select name="keyfield" id="keyfield">
+						<option value="all">전체</option>
+						<option value="boardTitle">제목</option>
+						<option value="boardContent">내용</option>
+						<option  value="로맨스">로맨스</option>
+						<option  value="스릴러">스릴러</option>
+						<option  value="공포">공포</option>
+						<option  value="SF판타지">SF판타지</option>
+						<option  value="액션">액션</option>
+						<option  value="코미디">코미디</option>
+						<option  value="기타">기타</option>
+						<option  value="시사회 후기">시사회 후기</option>
+						<option  value="예정 시사회">예정 시사회</option>
+						
+					</select> <input type="search" name="keyword" id="keyword"
+						class="form-control" style="width: 300px; display: inline-block;">
+					<button class="btn btn-success" type="submit" id="searchBtn"><i class="fas fa-search"></i></button>
+				</form>
+
+			</div>
+</div>
+			
+	</nav>
+	<p align="right" th:if="${session.userInfo != null }"><button type="button" id="boardWrite" class="btn-primary btn-sm">글쓰기</button></p>
 	
 	</div>
 	
@@ -47,9 +75,11 @@
 		</span>	
 	</div>
 	<hr style="border: 0px; height: 3px; background: coral;">
-	<div>
-		페이징처리
-	</div>
+	
+	 <div id="pagination-div"  align="center">
+         <div id="page-content"></div>
+      </div>
+      
 	<hr style="border: 0px; height: 3px; background: coral;">
 </section>
 </html>

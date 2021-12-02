@@ -39,6 +39,30 @@ public class CardBoardServiceImpl implements CardBoardService {
 		
 	}//writeBoard() end
 	
+	//조회수 증가
+	@Override
+	public void upBoardCount(int boarNo) {
+		
+		this.cardBoardDao.updateBoardCount(boarNo);
+		
+	}//upBoardCount() end
+
+	//게시글 삭제
+	@Override
+	public void removeCardBoard(int boarNo) {
+		
+		this.cardBoardDao.deleteCardBoard(boarNo);
+		
+	}
+	
+	//게시글 수정
+	@Override
+	public void modifyCardBoard(HashMap<String, Object> modifyBoard) {
+		
+		this.cardBoardDao.updateCardBoard(modifyBoard);
+		
+	}//modifyCardBoard() end
+	
 	
 	
 	

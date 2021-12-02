@@ -49,7 +49,8 @@ public class CardBoardController {
 	public String cardBoardDetail(Model model, @PathVariable int cardboardNo) {
 		
 		BoardVO cardBoard =  this.cardBoardService.getCardBoardDetail(cardboardNo);
-		
+		//조회수 증가
+		this.cardBoardService.upBoardCount(cardboardNo);
 		model.addAttribute("cardBoard", cardBoard);
 		
 		return path + "cardBoardDetail";
@@ -105,6 +106,75 @@ public class CardBoardController {
 		return "redirect:/cardBoardList";
 		
 	}//cardBoardWrite() end
+	
+	//리뷰게시판 게시글 삭제 요청
+	@GetMapping("/deleteCardBoard/{boardNo}/{userNick}")
+	public String deleteCardBoard(@PathVariable(value = "boardNo") int boardNo,
+								  @PathVariable(value = "userNick") String userNick,
+								HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		
+		//System.out.println("session : " + user.getUserNick());
+		//System.out.println("path boardNo : " +  boardNo);
+		//System.out.println("path userNick : " +  userNick);
+		
+		//아무나 못지우게 설정
+		if(userNick.equals(user.getUserNick())) {
+			
+			this.cardBoardService.removeCardBoard(boardNo);
+			
+		}//if end
+		
+		return "redirect:/cardBoardList";
+		
+	}//class end
+	
+	//게시글 수정 요청
+	@GetMapping("/modifyCardBoardForm/{boardNo}/{userNick}")
+	public String modifyCardBoardForm (@PathVariable(value = "boardNo") int boardNo,
+										@PathVariable(value = "userNick") String userNick,
+										HttpServletRequest req, 
+										Model model) 
+	{
+		
+		HttpSession session = req.getSession();
+		
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		
+		
+		
+	
+		//수정폼 요청
+		if(userNick.equals(user.getUserNick())) {
+			
+			BoardVO cardBoard = this.cardBoardService.getCardBoardDetail(boardNo);
+			
+			model.addAttribute("cardBoard", cardBoard);
+			
+			return  path + "modifyCardBoardForm";
+			
+		}//if end
+		
+		
+		return "redirect:/cardBoardList";
+		
+	}//modifyCardBoardForm() end
+	
+	//게시글 수정
+	@PostMapping("/modifyCardBoard")
+	public String modifyCardBoard(Model model) {
+		
+		HashMap<String, Object> modifyBoard = new HashMap<String, Object>();
+		
+		//this.cardBoardService.modifyCardBoard(modifyBoard);
+		
+		
+		return "redirect:/cardBoardList";
+		
+	}//modifyCardBoard() end
 	
 	
 	
