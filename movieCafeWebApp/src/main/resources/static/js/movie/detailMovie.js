@@ -113,7 +113,7 @@ $(document).ready(function () {
 
                         guanramLike = data[i].guanramLike;
 
-                        html += '<div class="guanram"><img src="images/login.png" alt="profile" class="review_profile" />';
+                        html += '<div class="guanram"><img src="' + data[i].photoSys + '" alt="profile" class="review_profile" />';
                         html += '<p class="review_text id" >' + data[i].userId + '</p>';
                         html += '<p class="review_text content">' + data[i].guanramReview + '</p>';
                         html += '<p class="review_text date">' + data[i].guanramWdate.substring(0, 11) + '</p>';
