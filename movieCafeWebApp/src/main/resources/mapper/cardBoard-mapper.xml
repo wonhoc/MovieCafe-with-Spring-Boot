@@ -24,7 +24,38 @@
 		ORDER BY b.boardWdate DESC;
 		
 	</select>
-
-
 	
+	<!-- 게시글 상세조회 -->
+	<select id="selectCardBoard" parameterType="int" resultMap="cardBoardSelectList">
+	
+		SELECT b.boardNo, b.boardTitle,b.boardContent, b.userId,  h.horse, u.userNick, DATE_FORMAT(b.boardWdate, '%Y-%m-%d') as boardWdate, b.boardCount
+		FROM board as b left join user_info as u using(userId) left join horse as h using(horseNo)
+		where b.boardNo = #{boardNo}
+
+	</select>
+	
+	
+	<insert id="insertCardBoard" parameterType="hashMap" useGeneratedKeys="true" keyProperty="boardNo">
+		
+		INSERT INTO board (userId, boardTitle, boardContent, horseNo)
+		VALUES (#{userId}, #{boardTitle}, #{boardContent}, #{horseNo})
+	
+	</insert>
+	
+	<update id="updateBoardCount" parameterType="int">
+	
+	UPDATE board
+	SET boardCount = boardCount + 1
+	WHERE boardNo = #{boardNo};
+	
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteCardBoard" parameterType="int">
+	
+	DELETE FROM board
+	WHERE boardNo = ${boardNo}
+	
+	</delete>
+		
 	</mapper>
