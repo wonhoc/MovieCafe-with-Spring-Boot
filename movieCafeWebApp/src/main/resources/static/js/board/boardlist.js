@@ -1,119 +1,75 @@
-(function($) {
-	var pagify = {
-		items: {},
-		container: null,
-		totalPages: 1,
-		perPage: 3,
-		currentPage: 0,
-		createNavigation: function() {
-			this.totalPages = Math.ceil(this.items.length / this.perPage);
+$(document).ready(function () {
+      var cateNo = document.getElementById("cateNo").value;
+      
+      $.ajax({ 
+         url : '/getBoardList/'+cateNo,
+         method: 'GET',
+         dataType: 'json',
+         success: function (data) {  
+            console.log(data); 
+            $('#pagination-div').twbsPagination({
+               totalPages: Math.ceil(data.length / 10),   // 총 페이지 번호 수
+               visiblePages: 5,   // 하단에서 한번에 보여지는 페이지 번호 수
+               startPage: 1, // 시작시 표시되는 현재 페이지
+               initiateStartPageClick: true,   // 플러그인이 시작시 페이지 버튼 클릭 여부 (default : true)
+               first: "<<",   // 페이지네이션 버튼중 처음으로 돌아가는 버튼에 쓰여 있는 텍스트
+               prev: "<",   // 이전 페이지 버튼에 쓰여있는 텍스트
+               next: ">",   // 다음 페이지 버튼에 쓰여있는 텍스트
+               last: ">>",   // 페이지네이션 버튼중 마지막으로 가는 버튼에 쓰여있는 텍스트
+               nextClass: "page-item next",   // 이전 페이지 CSS class
+               prevClass: "page-item prev",   // 다음 페이지 CSS class
+               lastClass: "page-item last",   // 마지막 페이지 CSS calss
+               firstClass: "page-item first",   // 첫 페이지 CSS class
+               pageClass: "page-item",   // 페이지 버튼의 CSS class
+               activeClass: "active",   // 클릭된 페이지 버튼의 CSS class
+               disabledClass: "disabled",   // 클릭 안된 페이지 버튼의 CSS class
+               anchorClass: "page-link",   //버튼 안의 앵커에 대한 CSS class
+         
+               onPageClick: function (event, page) {
+                  //클릭 이벤트
+                  let html = "<tr>";
+                  let startRow = (page - 1) * 10 ;
+                  let endRow = page * 10;
+                  let totalCount = data.length
+                  if (endRow > totalCount) 
+                  {
+                     endRow = totalCount;
+                  }
+                  let totalPages = Math.ceil(totalCount/10);
+                  if (totalCount%10 > 0) {
+                     totalPages++;
+                  }
+                  let startPage = ((page - 1)/5) * 5 + 1;
+                  let endPage = startPage + 5 - 1;
+                  if(endPage > totalPages) {    //
+                       endPage = totalPages;
+                  }
+                  if(data == null){
+                    html +=  '<td colspan="7">' + "등록된 게시글이 없습니다." + '</td>';
+                   }else{
+                  for (let i = startRow; i < endRow ; i++) {
+         
+                      //html += '<p each="board : ${list}">';
+                     html += '<td class="single-item">' + data[i].userNick + '</td>';
+                     html += '<td><span th:if="${cateNo != 1}" id="horse">' + data[i].horse +'</span>';
+                     html += '<a href= "/detail/' + data[i].boardNo  + '">' +  data[i].boardTitle + '</a></td>';
+                      html += '<td>' + data[i].boardWdate + '</td>';                 
+                     html += '<td>' + data[i].boardCount + '</td>';
+                     html += '<td>' + data[i].boardCount + '</td>';
+                     html += '<td>' + data[i].boardCount + '</td></tr></p></p>';
+                    
+                  }
+               //}
+                  $("#boardList").empty();   
+                   $("tbody").html(html);
+               }
+               }
+            });
+         },
+         error: function (error) {
+            console.log(error);
 
-			$('.pagination', this.container.parent()).remove();
-			var pagination = $('<div class="pagination"></div>').append('<a class="nav prev disabled" data-next="false"><</a>');
+         }
+      });
 
-			for (var i = 0; i < this.totalPages; i++) {
-				var pageElClass = "page";
-				if (!i)
-					pageElClass = "page current";
-				var pageEl = '<a class="' + pageElClass + '" data-page="' + (
-				i + 1) + '">' + (
-				i + 1) + "</a>";
-				pagination.append(pageEl);
-			}
-			pagination.append('<a class="nav next" data-next="true">></a>');
-
-			this.container.after(pagination);
-
-			var that = this;
-			$("body").off("click", ".nav");
-			this.navigator = $("body").on("click", ".nav", function() {
-				var el = $(this);
-				that.navigate(el.data("next"));
-			});
-
-			$("body").off("click", ".page");
-			this.pageNavigator = $("body").on("click", ".page", function() {
-				var el = $(this);
-				that.goToPage(el.data("page"));
-			});
-		},
-		navigate: function(next) {
-			// default perPage to 5
-			if (isNaN(next) || next === undefined) {
-				next = true;
-			}
-			$(".pagination .nav").removeClass("disabled");
-			if (next) {
-				this.currentPage++;
-				if (this.currentPage > (this.totalPages - 1))
-					this.currentPage = (this.totalPages - 1);
-				if (this.currentPage == (this.totalPages - 1))
-					$(".pagination .nav.next").addClass("disabled");
-				}
-			else {
-				this.currentPage--;
-				if (this.currentPage < 0)
-					this.currentPage = 0;
-				if (this.currentPage == 0)
-					$(".pagination .nav.prev").addClass("disabled");
-				}
-
-			this.showItems();
-		},
-		updateNavigation: function() {
-
-			var pages = $(".pagination .page");
-			pages.removeClass("current");
-			$('.pagination .page[data-page="' + (
-			this.currentPage + 1) + '"]').addClass("current");
-		},
-		goToPage: function(page) {
-
-			this.currentPage = page - 1;
-
-			$(".pagination .nav").removeClass("disabled");
-			if (this.currentPage == (this.totalPages - 1))
-				$(".pagination .nav.next").addClass("disabled");
-
-			if (this.currentPage == 0)
-				$(".pagination .nav.prev").addClass("disabled");
-			this.showItems();
-		},
-		showItems: function() {
-			this.items.hide();
-			var base = this.perPage * this.currentPage;
-			this.items.slice(base, base + this.perPage).show();
-
-			this.updateNavigation();
-		},
-		init: function(container, items, perPage) {
-			this.container = container;
-			this.currentPage = 0;
-			this.totalPages = 1;
-			this.perPage = perPage;
-			this.items = items;
-			this.createNavigation();
-			this.showItems();
-		}
-	};
-
-	// stuff it all into a jQuery method!
-	$.fn.pagify = function(perPage, itemSelector) {
-		var el = $(this);
-		var items = $(itemSelector, el);
-
-		// default perPage to 5
-		if (isNaN(perPage) || perPage === undefined) {
-			perPage = 3;
-		}
-
-		// don't fire if fewer items than perPage
-		if (items.length <= perPage) {
-			return true;
-		}
-
-		pagify.init(el, items, perPage);
-	};
-})(jQuery);
-
-$(".container").pagify(6, ".single-item");
+   });

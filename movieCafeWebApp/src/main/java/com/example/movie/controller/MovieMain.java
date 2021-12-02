@@ -27,12 +27,12 @@ public class MovieMain {
 	@Autowired
 	private BoardService boardServie;
 	
-	@GetMapping("/main")
+	@GetMapping("/")
 	public String home(HttpSession session) {
 		return "views/index";
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/main")
 	public String main(Model model) {
 		List<BoardVO> recomList = this.boardServie.readRecomRevList();
 		List<BoardVO> noticeList = this.boardServie.readNoticeRevList();

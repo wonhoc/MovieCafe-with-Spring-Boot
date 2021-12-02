@@ -1,14 +1,10 @@
 package com.example.member.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,14 +48,19 @@ public class UserInfoController {
 		map.put("userPwd", userPwd);
 
 		int isCheckUser = this.userService.isCheckUserCount(map);
+		
+		System.out.println("isCheckUser = " + isCheckUser);
+		
 		//로그인에 성공했을 경우
 		if (isCheckUser == 1) {
 			// 세션 유지 시간 : 30분
 			session.setMaxInactiveInterval(1800);
 			UserInfoVo user = userService.uploadUserInfo(userId);
+			System.out.println("안녕하세요 : "+user.toString());
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
-			return "redirect:/";
+			System.out.println(user + "000000000000000000");
+			return "redirect:/main";
 		} else {
 			// 리다이렉트로 로그인 페이지 다시
 			return "redirect:/loginFail";
@@ -182,7 +182,7 @@ public class UserInfoController {
 
 	   // 회원정보수정
 	   @PostMapping("/modifyUser")
-	   public String modifyUser(HttpServletRequest request,@RequestParam("userId1") String userId, @RequestParam("userPwd1") String userPwd,
+	   public String modifyUser(HttpSession session, HttpServletRequest request,@RequestParam("userId1") String userId, @RequestParam("userPwd1") String userPwd,
 	         @RequestParam("userEmail") String userEmail, @RequestParam("birthYear") String tempYear,
 	         @RequestParam("birthMonth") String tempMonth, @RequestParam("birthDate") String tempDate,
 	         @RequestParam("contact1") String tempCon1, @RequestParam("contact2") String tempCon2,
@@ -214,7 +214,9 @@ public class UserInfoController {
 	         }
 	      user.setPhotoSys(imgname);
 	      this.userService.modifyUser(user);
-	      return "redirect:/";
+	      
+	      //session.setAttribute("userInfo", user);
+	      return "redirect:/main";
 	   }
 
 	   // 패스워드 확인
@@ -247,7 +249,7 @@ public class UserInfoController {
 		// 세션에 올라온 유저정보 삭제 후 세션 종료
 		session.invalidate();
 		
-		return "redirect:/";
+		return "redirect:/main";
 	}
 
 	@PostMapping("/deleteUser")
@@ -256,7 +258,7 @@ public class UserInfoController {
 		this.userService.removeUser(userInfo.getUserId());
 		
 		session.invalidate(); 
-		return "redirect:/";
+		return "redirect:/main";
 	
 	}
 	 

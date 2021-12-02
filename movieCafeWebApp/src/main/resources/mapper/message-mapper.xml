@@ -89,11 +89,11 @@
 	</select>
 	
 	<!-- 받은메세지 상세조회 -->
-	<select id="selectReceiveMsg" parameterType="int" resultType="receiveMsgVo">
+	<select id="selectReceiveMsg" parameterType="hashMap" resultType="receiveMsgVo">
 	
 	SELECT writer, receiveMsgContent, msgWdate, receiveMsgNo, isRead
 	FROM receive_msg
-	WHERE receiveMsgNo = #{receiveMsgNo}
+	WHERE receiveMsgNo = #{receiveMsgNo} AND receiveId = #{receiveId}
 	
 	</select>
 	

@@ -75,29 +75,27 @@
 }
 
 /* Board */
-.review_title {
-	margin: 1em 0.2em;
-	font-size: 28px;
-}
-
-
-
-th, td {
-	height: 35px;
-}
 
 th {
 	border-top: 3px solid #ed7c31;
 	border-bottom: 3px solid #ed7c31;
-	font-size: 18px;
+	font-size: 14px;
 	padding-bottom: 0.4em;
 	background-color: blanchedalmond;
 }
 
+td {
+	font-size: 12px;
+}
+
 tbody>tr {
 	background-color: #ffffe08f;
-	font-size: 14px;
 	border-bottom: 5px solid white;
+}
+
+.review_title {
+	margin: 1em 0.2em;
+	font-size: 20px;
 }
 
 .list_title {
@@ -119,6 +117,3 @@ tbody>tr {
 	width: 500px;
 }
 
-.highlight {
-	background-color: yellow;
-}
