@@ -19,12 +19,13 @@
 	<div class="detail_bottom">
 		<div class="bottom_top">
 			<h1 class="review_title">관람평</h1>
+			<div th:text="${session.userInfo}"></div>
 			<div class="review_lett">
 				<form action="/guanramForm" method="POST">
 					<input type="hidden" id="movieId" name="movieId" th:value="${movieId}" /> 
 					<input type="hidden" id="imgUrl" name="imgUrl" /> 
 					<input type="hidden" id="title" name="title" />
-					<button type="submit" class="btn btn-light">평점 작성</button>
+					<button th:if="${session.userInfo == null}" type="submit" class="btn btn-light">평점 작성</button>
 				</form>
 			</div>
 		</div>
