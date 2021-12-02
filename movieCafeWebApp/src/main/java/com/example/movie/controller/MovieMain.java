@@ -2,6 +2,8 @@ package com.example.movie.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +27,13 @@ public class MovieMain {
 	@Autowired
 	private BoardService boardServie;
 	
+	@GetMapping("/main")
+	public String home(HttpSession session) {
+		return "views/index";
+	}
+	
 	@GetMapping("/")
-	public String home(Model model) {
+	public String main(Model model) {
 		List<BoardVO> recomList = this.boardServie.readRecomRevList();
 		List<BoardVO> noticeList = this.boardServie.readNoticeRevList();
 		model.addAttribute("recomList", recomList);
@@ -40,6 +47,12 @@ public class MovieMain {
 		model.addAttribute("guanramList", guanramList);
 		return "views/movie/detailMovie";
 	}
+
+	@GetMapping("/guanramList")
+	public @ResponseBody List<GuanramListVO> guanramList(@RequestParam("movieId") String movieId) {
+		return this.guanramService.selectGuanramList(Integer.parseInt(movieId));
+	}
+	
 
 	@PostMapping("/guanramForm")
 	public String guanramForm(@RequestParam("movieId") String movieId, @RequestParam("imgUrl") String imgUrl,

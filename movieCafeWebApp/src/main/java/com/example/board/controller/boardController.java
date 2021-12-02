@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.board.service.BoardService;
 import com.example.board.vo.BoardVO;
@@ -214,8 +215,7 @@ public class boardController {
 		board.setBoardNotice(boardNotice);
 		board.setBoardNo(boardNo);
 		
-		this.boardServie.modifyBoard(board);
-		
+		this.boardServie.modifyBoard(board);		
 		if (cateNo == 1) {
 			return "redirect:/boardlist/1";
 		}else if(cateNo == 2){
@@ -242,6 +242,6 @@ public class boardController {
 		
 		
 			return "redirect:/boardlist/4";
-		
+
 	}
 }

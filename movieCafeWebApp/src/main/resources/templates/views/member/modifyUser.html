@@ -1,134 +1,135 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/defaultLayout}">
+   xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layout/defaultLayout}">
 <th:block layout:fragment="css">
-	<link rel="stylesheet" th:href="@{/css/member/joinUserForm.css}">
+   <link rel="stylesheet" th:href="@{/css/member/joinUserForm.css}">
 </th:block>
 <th:block layout:fragment="script">
-	<script th:src="@{/js/member/modifyUserForm.js}"></script>
+   <script th:src="@{/js/member/modifyUserForm.js}"></script>
 </th:block>
 <head>
 <meta charset="UTF-8">
 <title>회원 가입 폼</title>
 </head>
 <section layout:fragment="content">
-	<div class="join_notice">
-		<h1 class="join_title">회원 정보 수정</h1>
-		<div class="join_devide"></div>
-		<p class="join_text">회원정보를 수정할 수 있습니다.</p>
-	</div>
-	
-	<form th:action="@{/modifyUser}" method="POST" enctype="multipart/form-data" >
-		<div class="join_box" >
-			<div class="join_left">
-				<div class="input_section">
-					<h3 class="input_title">ID</h3>
-					<input class="input_box" type="text" name="userId1" id="userId1"
-					th:value="${user.userId}" readonly>
-					
-				</div>
-				<div id="resultId"></div>
-				<div class="input_section">
-					<h3 class="input_title">Password</h3>
-					<input class="input_box" type="password" name="userPwd1"
-						id="userPwd1" th:value="${user.userPwd}">
-				</div>
-				<div>
-					<span id="pwdcheck0"></span>
-				</div>
-				<div class="input_section">
-					<h3 class="input_title">Password 확인</h3>
-					<input class="input_box" type="password" name="userPwdCheck"
-						id="userPwdCheck1">
-					
-				</div>
-				<div>
-					<span id="pwdcheck"></span>
-				</div>
-				<div>
-					<span class="pwdformchk"></span>
-				</div>
-				<div class="input_section">
-					<h3 class="input_title">E-mail</h3>
-					<input class="input_box" type="text" name="userEmail"
-						id="userEmail" th:value="${user.userEmail}">
-				</div>
-				<div>
-					<span id="emailcheck"></span>
-				</div>
-				<div class="input_section">
-					<h3 class="input_title">생년월일</h3>
-					<div class="input_box input_select">
-					<input type="hidden" id="year" th:value="${#strings.substring(user.userBirth,0,4)}" />
-					<input type="hidden" id="month" th:value="${#strings.substring(user.userBirth,5,7)}" />
-					<input type="hidden" id="date" th:value="${#strings.substring(user.userBirth,8,10)}" />
-					
-						<select id="birthYear" name="birthYear" ></select> <select
-							id="birthMonth" name="birthMonth"></select> <select
-							id="birthDate" name="birthDate"></select>
-					</div>
-				</div> 
-				<div class="input_section">
-					<h3 class="input_title">연락처</h3>
-					<div class="input_box input_select">
-					<input type="hidden" id="contact" th:value="${#strings.substring(user.userContact,0,3)}" />
-					
-						<select id="contact1" name="contact1">
-							<option value="010">010</option>
-							<option value="011">011</option>
-							<option value="017">017</option>
-							<option value="018">018</option>
-							<option value="019">019</option>
-						</select> 
-						<input type="text" id="contact2" name="contact2" th:value="${#strings.substring(user.userContact,4,8)}" > 
-						<input type="text" id="contact3" name="contact3" th:value="${#strings.substring(user.userContact,9,13)}">
-					</div>
+   <div class="join_notice">
+      <h1 class="join_title">회원 정보 수정</h1>
+      <div class="join_devide"></div>
+      <p class="join_text">회원정보를 수정할 수 있습니다.</p>
+   </div>
+   
+   <form th:action="@{/modifyUser}" method="POST" enctype="multipart/form-data" >
+      <div class="join_box" >
+         <div class="join_left">
+            <div class="input_section">
+               <h3 class="input_title">ID</h3>
+               <input class="form-control input_info" type="text" name="userId1" id="userId1"
+               th:value="${user.userId}" readonly>
+               
+            </div>
+            <div id="resultId"></div>
+            <div class="input_section">
+               <h3 class="input_title">Password</h3>
+               <input class="form-control input_info" type="password" name="userPwd1"
+                  id="userPwd1" th:value="${user.userPwd}">
+            </div>
+            <div>
+               <span id="pwdcheck0"></span>
+            </div>
+            <div class="input_section">
+               <h3 class="input_title">Password 확인</h3>
+               <input class="form-control input_info" type="password" name="userPwdCheck"
+                  id="userPwdCheck1">
+               
+            </div>
+            <div>
+               <span id="pwdcheck"></span>
+            </div>
+            <div>
+               <span class="pwdformchk"></span>
+            </div>
+            <div class="input_section">
+               <h3 class="input_title">E-mail</h3>
+               <input class="form-control input_info" type="text" name="userEmail"
+                  id="userEmail" th:value="${user.userEmail}">
+            </div>
+            <div>
+               <span id="emailcheck"></span>
+            </div>
+            <div class="input_section">
+               <h3 class="input_title">생년월일</h3>
+               <div class="input_box input_select">
+               <input type="hidden" id="year" th:value="${#strings.substring(user.userBirth,0,4)}" />
+               <input type="hidden" id="month" th:value="${#strings.substring(user.userBirth,5,7)}" />
+               <input type="hidden" id="date" th:value="${#strings.substring(user.userBirth,8,10)}" />
+               
+                  <select id="birthYear" name="birthYear" ></select> <select
+                     id="birthMonth" name="birthMonth"></select> <select
+                     id="birthDate" name="birthDate"></select>
+               </div>
+            </div> 
+            <div class="input_section">
+               <h3 class="input_title">연락처</h3>
+               <div class="input_box input_select">
+               <input type="hidden" id="contact" th:value="${#strings.substring(user.userContact,0,3)}" />
+               
+                  <select id="contact1" name="contact1">
+                     <option value="010">010</option>
+                     <option value="011">011</option>
+                     <option value="017">017</option>
+                     <option value="018">018</option>
+                     <option value="019">019</option>
+                  </select> 
+                  <input type="text" id="contact2" name="contact2" th:value="${#strings.substring(user.userContact,4,8)}" > 
+                  <input type="text" id="contact3" name="contact3" th:value="${#strings.substring(user.userContact,9,13)}">
+               </div>
 
-				</div>
-				<div class="input_section">
-					<h3 class="input_title">닉네임 설정</h3>
-					<input class="input_box" type="text" name="userNick" id="userNick"
-					th:value="${user.userNick}">
-					
-				</div>
-				<div>
-					<span id="result"></span>
-				</div>
-			</div>
-			<div class="join_right">
-				<div class="input_profile">
-					<img id="img">
-					<div class="form_imgBtn">
-						<label for="imgInput">이미지 등록</label> <input type="file"
-							class="form_imgInput" id="imgInput" name="imgInput" th:value="${user.photoSys}"/>
-					</div>
-				</div>
+            </div>
+            <div class="input_section">
+               <h3 class="input_title">닉네임 설정</h3>
+               <input class="form-control input_info" type="text" name="userNick" id="userNick"
+               th:value="${user.userNick}">
+               
+            </div>
+            <div>
+               <span id="result"></span>
+            </div>
+         </div>
+         <div class="join_right">
+            <div class="input_profile">
+              <img id="img" th:src="@{'/upload/' + ${user.photoSys}}"> 
+               <!-- <img id="img" th:src="${'upload/' + user.photoSys}"> -->
+               <div class="form_imgBtn">
+                  <label for="imgInput">이미지 등록</label> <input type="file"
+                     class="form_imgInput" id="imgInput" name="imgInput"/>
+               </div>
+            </div>
 
-				<div class="input_section">
-					<h3 class="input_title">이름</h3>
-					<input class="input_box" type="text" name="userName" id="userName" th:value="${user.userName}">
-				</div>
-				
-				<div class="input_section">
-				<input type="hidden" id="gender" name="gender" th:value="${user.gender}" >
-					<h3 class="input_title">성별</h3>
-					<div class="input_radio">
-						<label for="pickGender">남</label> 
-						<input type="radio" name="pickGender" id="pickMale" value="M" checked> 
-						<label for="pickFemale">여</label> 
-						<input type="radio" name="pickGender" id="pickfeMale" value="F">
-					</div>
-				</div>
-				<div class="btn_box">
-					<button class="cancleBtn" type="button">취소</button>
-					<button class="submitBtn" type="submit">확인</button>
-				</div> 
-			</div> 
-		</div>  
+            <div class="input_section">
+               <h3 class="input_title">이름</h3>
+               <input class="form-control input_info" type="text" name="userName" id="userName" th:value="${user.userName}">
+            </div>
+            
+            <div class="input_section">
+            <input type="hidden" id="gender" name="gender" th:value="${user.gender}" >
+               <h3 class="input_title">성별</h3>
+               <div class="input_radio">
+                  <label for="pickGender">남</label> 
+                  <input type="radio" name="pickGender" id="pickMale" value="M" checked> 
+                  <label for="pickFemale">여</label> 
+                  <input type="radio" name="pickGender" id="pickfeMale" value="F">
+               </div>
+            </div>
+            <div class="btn_box">
+               <button class="cancleBtn" type="button">취소</button>
+               <button class="submitBtn" type="submit">확인</button>
+            </div> 
+         </div> 
+      </div>  
 
-	</form>  
+   </form>  
 
 
 

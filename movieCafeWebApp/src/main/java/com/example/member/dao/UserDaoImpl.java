@@ -1,6 +1,5 @@
 package com.example.member.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,6 +69,18 @@ public class UserDaoImpl implements UserDao {
 	public int isExistNick(String isNick) {
 		return sqlSession.selectOne("Member.checkNick", isNick);
 
+	}
+
+
+	@Override
+	public String searchId(Map map) {
+		return sqlSession.selectOne("Member.forgetId", map);
+	}
+
+
+	@Override
+	public String searchPwd(Map map) {
+		return sqlSession.selectOne("Member.forgetPwd",map);
 	}
 
 }

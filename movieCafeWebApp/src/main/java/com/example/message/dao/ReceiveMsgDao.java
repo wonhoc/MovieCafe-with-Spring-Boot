@@ -3,6 +3,7 @@ package com.example.message.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.example.message.vo.ReceiveMsgVO;
 
@@ -15,10 +16,10 @@ public interface ReceiveMsgDao {
 	List<ReceiveMsgVO> selectReceiveMsgList(String userId);
 	
 	//받은 쪽지 삭제
-	void deleteReceiveMsg(int receiveMsgNo);
+	void deleteReceiveMsg(HashMap<String, Object> map);
 	
 	//받은쪽지 상세 조회
-	public ReceiveMsgVO selectReceiveMsg(int receiveMsgNo);
+	public ReceiveMsgVO selectReceiveMsg(HashMap<String, Object> receiveMsgMap);
 	
 	//클릭시 읽음확인 업데이트
 	public void updateIsread(HashMap<String, Object> updateMap);
