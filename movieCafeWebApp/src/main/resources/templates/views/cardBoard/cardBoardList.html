@@ -5,13 +5,17 @@
 	layout:decorate="~{layout/defaultLayout}">
 <head>
 <section layout:fragment="content">
+	<th:block layout:fragment="script">
+	<script th:src="@{/js/cardBoard/cardBoardList.js}"></script>
+	</th:block>
 	<div>
 	<h1 style="text-align: center; padding-bottom: 10px; ">영화리뷰 게시판</h1>
 	</div>
 	<hr style="border: 0px; height: 3px; background: coral;">
 	
 	<div id="searchBar">
-	검색상자
+	검색상자	<p align="right" th:if="${session.userInfo != null }"><button type="button" id="boardWrite" class="btn-primary btn-sm">글쓰기</button></p>
+	
 	</div>
 	
 	<hr style="border: 0px; height: 3px; background: coral;">
@@ -33,8 +37,9 @@
 				        <div class="thumbnail">
 				        <a th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}">
 				        <img src="/images/noPicture.png" width="200px" height="100px"></a></div>
-				         <p><a th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}"><strong th:text="${cardBoard.boardTitle}"></strong></a></p> 
-			          	 <p th:text="${cardBoard.boardContent}"></p> 
+				        <div th:text="${cardBoard.horse}"></div>
+				         <p><a th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}"><strong th:text="${cardBoard.boardTitle}"></strong></a></p>
+			          	 <img src="/images/writer.png" width="20px" height="20px"> <span th:text="${cardBoard.userNick}"></span><br>
 			          	 <img src="/images/commentCount.png" width="20px" height="20px"><span th:text="${cardBoard.commentCount}"></span>
 			    		<img src="/images/readIcon.png" width="20px" height="20px"><span th:text="${cardBoard.boardCount}"></span>
 			     </div>     	     
