@@ -177,6 +177,8 @@ public class MessageController {
 		//DB에서 받은메세지 조회
 		List<ReceiveMsgVO> receiveMsgList = this.msgService.retrieveReceiveMsgList(userid);
 		
+		System.out.println("receiveMsgList" + receiveMsgList.toString());
+		
 		//model에 add
 		model.addAttribute("receiveMsgList", receiveMsgList);
 		//System.out.println("길이" + receiveMsgList.size());

@@ -21,6 +21,12 @@ public class CardBoardServiceImpl implements CardBoardService {
 	return this.cardBoardDao.selectCardBoardList();
 		
 	}//getCardBoardList() end
+
+	@Override
+	public BoardVO getCardBoardDetail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

@@ -7,5 +7,6 @@ import com.example.board.vo.BoardVO;
 public interface CardBoardService {
 
 	public List<BoardVO> getCardBoardList();
+	public BoardVO getCardBoardDetail();
 	
 }//interface end
