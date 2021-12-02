@@ -28,3 +28,8 @@
 .joinButton {
 	margin-bottom: 10px;
 }
+.join_devide {
+	width: 30%;
+	height: 4px;
+	background-color: black;
+}

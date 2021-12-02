@@ -86,7 +86,7 @@ public class boardController {
 				}
 				// UserInfo가 없을 경우
 			} else {
-				return "views/member/loginFail";
+				return "redirect:/loginFailCaseTwo";
 			}
 			
 		}

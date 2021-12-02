@@ -11,9 +11,6 @@
 	<script th:src="@{/js/member/joinUserForm.js}"></script>
 </th:block>	 -->
 <head>
-<script>
-	alert("로그인 정보가 필요합니다. 로그인 페이지로 이동합니다.");
-</script>
 <meta charset="UTF-8">
 <title>로그인</title>
 </head>
@@ -27,11 +24,12 @@
       <form class="form-signin" action="/requestlogin" method="POST">
       	<div>
         	<h1 class="form-signin-heading"><strong>로그인</strong></h1>
+        	<div class="join_devide"></div>
         	<h3><small>철수와 영화를 즐기기 위해서는 <br> 로그인이 필요합니다. </small></h3>
         </div>
         <div class="idDiv">
             <label for="inputEmail" class="sr-only">ID를 입력하세요</label>
-        	<input type="text" id="userId" name="userId" class="form-control" autofocus>	
+        	<input type="text" id="userId" name="userId" class="form-control" placeholder="ID" autofocus>	
         </div>
         
         
