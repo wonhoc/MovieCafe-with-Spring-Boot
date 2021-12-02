@@ -87,9 +87,9 @@ public class MsgServiceImpl implements MsgService {
 
 	//받은 메세지 상세조회
 	@Override
-	public ReceiveMsgVO retrieveReceiveMsg(int receiveMsgNo) {
+	public ReceiveMsgVO retrieveReceiveMsg(HashMap<String, Object> receiveMsgMap) {
 		
-		return this.receiveMsgDao.selectReceiveMsg(receiveMsgNo);
+		return this.receiveMsgDao.selectReceiveMsg(receiveMsgMap);
 	}
 	
 	//받은 메세지 전체 조회
