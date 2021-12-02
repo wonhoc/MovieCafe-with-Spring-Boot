@@ -12,7 +12,7 @@ function uplike(t) {
     console.log(t.querySelector('p').getAttribute('id'));
 
     $.ajax({
-        url: 'http://localhost:8080/upLike',
+        url: '/upLike',
         method: 'GET',
         dataType: 'json',
         data: {
@@ -78,7 +78,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: 'http://localhost:8080/guanramList',
+        url: '/guanramList',
         method: 'GET',
         dataType: 'json',
         data: {

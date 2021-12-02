@@ -24,7 +24,7 @@
 					<input type="hidden" id="movieId" name="movieId" th:value="${movieId}" /> 
 					<input type="hidden" id="imgUrl" name="imgUrl" /> 
 					<input type="hidden" id="title" name="title" />
-					<button th:if="${session.userInfo == null}" type="submit" class="btn btn-light">평점 작성</button>
+					<button th:unless="${session.userInfo == null}" type="submit" class="btn btn-light">평점 작성</button>
 				</form>
 			</div>
 		</div>
