@@ -65,10 +65,8 @@ $(document).ready(function() {
                 method: 'GET',
                 dataType: 'json',
                 data: {
-                    url: url,
                     boardNo: boardNo,
                     userId : userId
-                    
                 },
                 success: function(data) {                       
                     alert(data.result);

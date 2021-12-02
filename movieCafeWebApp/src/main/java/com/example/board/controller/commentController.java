@@ -32,9 +32,6 @@ public class commentController {
 	   public Map comCreate(@RequestBody CommentVO comment, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
-	      
-		
-		System.out.println("userInfo = "+userInfo.getUserId());	
 		
 		
 		
@@ -48,7 +45,7 @@ public class commentController {
 	      Map<String, Object> map = new HashMap<String, Object>();
 	      this.boardService.createComment(comment);
 	      List<CommentVO> list = boardService.readCommentList(boardNo);
-	      
+	      map.put("comCnt", this.boardService.readCommCount(boardNo));
 	      System.out.println(list.toString());
 	      
 	      map.put("results", list);
@@ -67,6 +64,7 @@ public class commentController {
 		map.put(boardNo, boardNo);
 		this.boardService.removeComment(comNo);
 		List<CommentVO> list = boardService.readCommentList(boardNo);
+		map.put("comCnt", this.boardService.readCommCount(boardNo));
 		map.put("results", list);
 		return map;
 	}
