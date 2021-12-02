@@ -67,7 +67,7 @@ public class boardController {
 			UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 
 			BoardVO board = boardServie.readOne(boardNo);
-    	board.setCommentCount(this.boardServie.readCommCount(boardNo));
+			board.setCommentCount(this.boardServie.readCommCount(boardNo));
 			board.setRecomCount(this.boardServie.readRecomCount(boardNo));
 			List<CommentVO> list = this.boardServie.readCommentList(boardNo);
 			
