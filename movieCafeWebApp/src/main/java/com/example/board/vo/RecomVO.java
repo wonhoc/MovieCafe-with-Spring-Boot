@@ -10,6 +10,4 @@ import lombok.NoArgsConstructor;
 public class RecomVO {
 	private String userId;
 	private int boardNo;
-	
-	//private boolean isRecom;
 }

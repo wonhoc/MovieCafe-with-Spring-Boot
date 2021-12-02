@@ -89,15 +89,16 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public void insertRecommend(RecomVO recommend) {
 		this.sqlSession.insert("insertRecomCall", recommend);
-		
+			
 	}
 
 	//추천 취소
 	@Override
 	public void deleteRecommend(RecomVO recommend) {
 		this.sqlSession.delete("deleteRecomCall",recommend);
-	}
-
+		}
+	
+	
 	//추천 이력 조회
 	@Override
 	public boolean selectIsRecom(RecomVO recommend) {
@@ -108,14 +109,13 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public void insertReport(ReportVO report) {
 		this.sqlSession.insert("insertReportCall", report);
-		
+			
 	}
-	
 	//게시글 신고 삭제
 	@Override
 	public void deleteReport(ReportVO report) {
 		this.sqlSession.delete("deleteReportCall",report);
-		
+			
 	}
 
 	//신고 여부 조회
@@ -124,7 +124,6 @@ public class BoardDaoImpl implements BoardDao {
 		return this.sqlSession.selectOne("selectIsReportCall",report);
 	}
 
-	
 	@Override
 	public List selectComList(int boardNo) {
 		return this.sqlSession.selectList("selectCommentList", boardNo);
@@ -145,7 +144,7 @@ public class BoardDaoImpl implements BoardDao {
 	public void deleteComment(int comNo) {
 		this.sqlSession.delete("deleteComment", comNo);
 	}
-
+	
 	@Override
 	public void updateComment(CommentVO comment) {
 		this.sqlSession.update("updateCommentCall", comment);
@@ -193,6 +192,5 @@ public class BoardDaoImpl implements BoardDao {
 		return this.sqlSession.selectOne("commentCntCall", boardNo);
 	}
 
-	
 	
 }

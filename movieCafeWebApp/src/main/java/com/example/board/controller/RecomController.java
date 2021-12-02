@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.board.service.BoardService;
@@ -15,20 +17,19 @@ import com.example.board.vo.RecomVO;
 import com.example.board.vo.ReportVO;
 import com.example.member.vo.UserInfoVo;
 
-import lombok.extern.slf4j.Slf4j;
-
 @RestController
-@Slf4j
 public class RecomController {
 
 	@Autowired
 	private BoardService boardService;
 
 	@GetMapping("/insertRecom")
-	public Map insertRecom(RecomVO recommend, HttpServletRequest req) {
-
+	public Map insertRecom(RecomVO recommend, HttpServletRequest req, Model model) {
+ 
 		HttpSession session = req.getSession();
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+		model.addAttribute("userInfo", userInfo);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		String userId = userInfo.getUserId();
 
@@ -49,10 +50,11 @@ public class RecomController {
 	}
 	
 	@GetMapping("/insertReport")
-	public Map insertReport(ReportVO report, HttpServletRequest req) {
+	public Map insertReport(ReportVO report, HttpServletRequest req, Model model) {
 
 		HttpSession session = req.getSession();
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+		model.addAttribute("userInfo", userInfo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String repoter = userInfo.getUserId();
 		

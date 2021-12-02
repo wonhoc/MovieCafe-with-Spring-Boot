@@ -41,14 +41,15 @@ public interface BoardDao {
 	void deleteReport(ReportVO report);
 	boolean selectIsReport(ReportVO report);
 	int lastId();
+	
 	List<BoardVO> selectRecomRevList();
 	List<BoardVO> selectNoticeRevList();
-
+	
+	
 	
 	List selectComList(int boardNo);
 	void insertComment(CommentVO comment);
 	void selectMap(Map map);
 	void deleteComment(int comNo);
 	void updateComment(CommentVO comment);
-
 }

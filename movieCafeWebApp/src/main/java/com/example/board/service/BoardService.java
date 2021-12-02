@@ -26,22 +26,24 @@ public interface BoardService {
 	
 	List<BoardVO> readRecomRevList();
 	List<BoardVO> readNoticeRevList();
-	
 
+	List<BoardVO> readRecomRevList();
+	List<BoardVO> readNoticeRevList();
+	
 	//추천
 	void createRecommend(RecomVO recommend);
 	void dropRecommend(RecomVO recommend);
 	boolean readIsRecom(RecomVO recommend);
-	
+
 	//신고
-		void createReport(ReportVO report);
-		void dropReport(ReportVO report);
-		boolean readIsReport(ReportVO report);
-		
-		//댓글
-		List<CommentVO> readCommentList(int boardNo);
-		void createComment(CommentVO comment);
-		void readMapCommentList(Map map);
-		void removeComment(int comNo);
-		void modifyComment(CommentVO comment);
+	void createReport(ReportVO report);
+	void dropReport(ReportVO report);
+	boolean readIsReport(ReportVO report);
+	
+
+	List<CommentVO> readCommentList(int boardNo);
+	void createComment(CommentVO comment);
+	void readMapCommentList(Map map);
+	void removeComment(int comNo);
+	void modifyComment(CommentVO comment);
 }

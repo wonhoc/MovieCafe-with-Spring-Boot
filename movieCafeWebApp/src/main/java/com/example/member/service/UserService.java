@@ -25,5 +25,9 @@ public interface UserService {
 
 
 	void removeUser(String userId);
+	
+	String researchId(Map map);
+	
+	String researchPwd(Map map);
 
 }

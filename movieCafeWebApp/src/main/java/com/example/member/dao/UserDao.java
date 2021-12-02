@@ -29,5 +29,10 @@ public interface UserDao {
 
 	// 자진탈퇴처리
 	void deleteUser(String userId);
+	
+	// 아이디 찾기
+	String searchId(Map map);
+	//비밀번호 찾기
+	String searchPwd(Map map);
 
 }

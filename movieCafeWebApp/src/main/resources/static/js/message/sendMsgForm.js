@@ -7,7 +7,7 @@ $(document).ready(function() {
     $('#content').on('blur', 'input[name=reciveId]', function() {
         
         let inputId = $(this).val();
-        receivechkProcess('${pageContext.request.contextPath}/CheckReceiveId.do',inputId);
+        receivechkProcess('/checkReceiveId',inputId);
         
         
     });
@@ -60,8 +60,8 @@ $(document).ready(function() {
             console.log('name = ' , userId);
             try {
                 const result = await getAjax(url, userId);
-                console.log("result : ", result.resultCount);
-                if(result.resultCount == 0 ) {
+                console.log("result : ", result);
+                if(result == '0' ) {
                     alert(userId +  '에게는 쪽지를 보낼 수 없습니다.\n아이디를 다시확인 해주세요.');
                     $('#sendMsgBtn').attr("disabled", true);
                     $('#infoSendtext').html('<div>아이디를 다시 확인해주세요</div>');

@@ -21,33 +21,18 @@
 			<h1 class="review_title">관람평</h1>
 			<div class="review_lett">
 				<form action="/guanramForm" method="POST">
-					<input type="hidden" id="movieId" name="movieId"
-						th:value="${movieId}" /> <input type="hidden" id="imgUrl"
-						name="imgUrl" /> <input type="hidden" id="title" name="title" />
-					<button type="submit" class="btn btn-light">평점 작성</button>
+					<input type="hidden" id="movieId" name="movieId" th:value="${movieId}" /> 
+					<input type="hidden" id="imgUrl" name="imgUrl" /> 
+					<input type="hidden" id="title" name="title" />
+					<button th:if="${session.userInfo == null}" type="submit" class="btn btn-light">평점 작성</button>
 				</form>
 			</div>
 		</div>
-		<div th:each="guanram : ${guanramList}">
-			<div class="review_line" id="" th:value="${guanram.guanramNo}">
-				<img src="images/login.png" alt="profile" class="review_profile" />
-				<p class="review_text id" th:text="${guanram.userId}"></p>
-				<p class="review_text content" th:text="${guanram.guanramReview}"></p>
-				<p class="review_text date" th:text=${#strings.substring(guanram.guanramWdate,0,11)}></p>
-				<div class="like">
-					<i class="far fa-heart review_text heart"></i>
-					<p class="review_text" id="review" th:text="${guanram.guanramLike}"></p>
-				</div>
-				<div class="rank">
-					<input type="hidden" id="rank" th:value="${guanram.guanramRating}" />
-				</div>
-				<form th:action="@{/deleteGuanram/{movieId}(movieId=${movieId})}"
-					method="POST">
-					<input type="hidden" name="guanramNo" id="guanramNo"
-						th:value="${guanram.guanramNo}" />
-					<button type="submit" class="btn btn-light">삭제</button>
-				</form>
-			</div>
+		<div class="guanramList">
+			
+		</div>
+		<div id="pagination-div">
+			<div id="page-content"></div>
 		</div>
 	</div>
 </section>

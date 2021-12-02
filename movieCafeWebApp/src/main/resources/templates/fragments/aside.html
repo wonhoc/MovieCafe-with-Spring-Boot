@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/aside.css" />
-<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-<script th:src="@{/js/aside.js}"></script>
+<script th:src="@{/js/member/aside.js}"></script>
 </head>
 <div th:fragment="aside">
 	<div class="aside_login">
 		<div class="login_orangeBox">
 			<div class="login_whiteBox">
-				<form action="/requestlogin" method="POST" th:if="${session.userInfo == null}">
-				<img src="/images/login.png" alt="login_icon" class="login_icon" />
-				<span class="login_title">로그인</span>
-				<div class="login_divide"></div>
-				
+				<form action="/requestlogin" method="POST"
+					th:if="${session.userInfo == null}">
+					<img src="/images/login.png" alt="login_icon" class="login_icon" />
+					<span class="login_title">로그인</span>
+					<div class="login_divide"></div>
+
 					<div class="login_input">
 						<span>아이디</span> <input class="login_inputBox" type="text"
 							name="userId" id="userId" />
@@ -23,29 +23,53 @@
 						<span>비밀번호</span> <input class="login_inputBox" type="password"
 							name="userPwd" id="userPwd" />
 					</div>
-					<div class="login_btnBox">
+					<div class="usertext">
 						<button type="submit" class="btn btn-light" value="submit">로그인</button>
 						<a th:href="@{/joinUser}">
 							<button type="button" class="btn btn-light">회원가입</button>
+						</a> <a th:href="@{/searchIdPwd}">
+							<button type="button" class="btn btn-light">ID / PWD 찾기</button>
 						</a>
-						<button type="button" class="btn btn-light">ID / PWD 찾기</button>
 					</div>
 				</form>
 				<form th:unless="${session.userInfo == null}">
 					<span class="login_title">회원정보</span>
-						<div class="login_divide"></div>
-					아이디 : <th:block th:text ="${session.userInfo.userId}"/><br>
-					닉네임 : <th:block th:text ="${session.userInfo.userNick}"/><br>
-					가입일 : <th:block th:text = "${session.userInfo.joinDate}"/><br>
-					<button type="button" class= "btn btn-primary-warn" id="MsgHomeBtn">쪽지</button>
-					<a th:href="@{/gomypage}">
-					<button type="button" class= "btn btn-light">마이페이지</button>
-					</a>
-					<a th:href="@{/Logout}">
-					<button type="button" class= "btn btn-light">로그아웃</button>
-					</a>
-					
-					
+					<div class="login_divide"></div>
+					<div>
+						<img th:if="${#strings.isEmpty(session.userInfo.photoSys)}" id="profile"
+							th:src="@{upload/default.png}">
+						<img th:unless="${#strings.isEmpty(session.userInfo.photoSys)}" id="profile"
+							th:src="@{'/upload/' + ${session.userInfo.photoSys}}">
+						<div class="usertext">
+							<p>아이디 :</p>
+							<p th:text="${session.userInfo.userId}"></p>
+						</div>
+						<div class="usertext">
+							<p>닉네임 :</p>
+							<p th:text="${session.userInfo.userNick}"></p>
+						</div>
+						<div class="usertext">
+							<p>가입일 :</p>
+							<p
+								th:text="${#strings.substring(session.userInfo.joinDate,0,11)}"></p>
+						</div>
+					</div>
+					<div class="usertext">
+						<button type="button" class="btn btn-light" id="MsgHomeBtn">쪽지</button>
+						<div th:if="${session.userInfo.rankType == 'A'}">
+							<a th:href="@{/listUser}">
+								<button type="button" class="btn btn-light">회원 목록 조회</button>
+							</a>
+						</div>
+						<div th:unless="${session.userInfo.rankType == 'A'}">
+							<a th:href="@{/gomypage}">
+								<button type="button" class="btn btn-light">마이페이지</button>
+							</a>
+						</div>
+						<a th:href="@{/Logout}">
+							<button type="button" class="btn btn-light">로그아웃</button>
+						</a>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -57,8 +81,9 @@
 		<div class="category_whiteBox">
 			<div class="category_section">
 
-					<h2 class="categoty_title">
-					<a th:href="@{/boardlist/1}">새싹 게시판</a></h2>
+				<h2 class="categoty_title">
+					<a th:href="@{/boardlist/1}">새싹 게시판</a>
+				</h2>
 
 				<img src="/images/sprout.png" alt="category_icon"
 					class="category_icon" />
@@ -66,29 +91,32 @@
 			<div class="category_section">
 
 
-					<h2 class="categoty_title">
-					<a th:href="@{/boardlist/2}">영화리뷰</a></h2>
+				<h2 class="categoty_title">
+					<a th:href="@{/boardlist/2}">영화리뷰</a>
+				</h2>
 
 				<img src="/images/review.png" alt="category_icon"
 					class="category_icon" />
 			</div>
 			<div class="category_section">
 
-					<h2 class="categoty_title">
-					<a th:href="@{/boardlist/3}">시사회정보</a></h2>
-					<img src="/images/theater.png" alt="category_icon"
-						class="category_icon" />
-				</div>
-				<div class="category_section">
-
-					<h2 class="categoty_title">
-					<a th:href="@{/boardlist/4}">영화관람 팁</a></h2>
-
-					<img src="/images/tip.png" alt="category_icon" class="category_icon" />
-				</div>
-
+				<h2 class="categoty_title">
+					<a th:href="@{/boardlist/3}">시사회정보</a>
+				</h2>
+				<img src="/images/theater.png" alt="category_icon"
+					class="category_icon" />
 			</div>
+			<div class="category_section">
+
+				<h2 class="categoty_title">
+					<a th:href="@{/boardlist/4}">영화관람 팁</a>
+				</h2>
+
+				<img src="/images/tip.png" alt="category_icon" class="category_icon" />
+			</div>
+
 		</div>
 	</div>
+</div>
 </div>
 </html>
