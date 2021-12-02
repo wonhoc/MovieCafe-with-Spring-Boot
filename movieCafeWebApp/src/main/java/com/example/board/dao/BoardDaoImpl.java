@@ -63,7 +63,13 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public void insertBoardFile(BoardFileVO file) {
 		this.sqlSession.insert("insertBoardFileCall", file);
+		
+	}
 
+	
+	@Override
+	public BoardFileVO selectBoardFile(int boardNo) {
+		return this.sqlSession.selectOne("selectBoardFileCall", boardNo);
 	}
 
 	// LAST_ID구하기

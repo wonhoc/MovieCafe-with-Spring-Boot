@@ -194,6 +194,29 @@ error : function(err){
 				<td colspan="5" th:text="${board.boardContent}"></td>
 			</tr>
 		</table>
+		<table th:if="${board.boardfile != null}">
+			<tr>
+				<th colspan="6">파일명</th>
+				<th colspan="6">파일크기</th>
+				<th colspan="6">파일타입</th>
+			</tr>
+				<tr>
+					<td colspan="6" th:text="${board.boardfile.boardfileOrigin }"></td>
+					<td colspan="6" th:text="${board.boardfile.boardfileSize}">bytes</td>
+					<td colspan="6" th:text="${board.boardfile.boardfileType}"></td>
+				</tr>
+
+		</table>
+	
+
+
+		<table th:if="${board.boardfile == null}">
+			<tr>
+				<td colspan="3">파일 없음</td>
+			</tr>
+		</table>
+	
+
 		
 		<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
 		<a class="btn btn-default waves-effect waves-light" th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>

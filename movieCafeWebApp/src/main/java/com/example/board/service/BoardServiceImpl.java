@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.board.dao.BoardDao;
+import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
 import com.example.board.vo.RecomVO;
@@ -49,6 +50,12 @@ public class BoardServiceImpl implements BoardService{
 		this.boardDao.insertBoard(board);
 	}
 
+	
+	@Override
+	public int lastId() {
+		return this.boardDao.lastId();
+	}
+
 	//팁 게시글 작성
 	@Override
 	public void createTipBoard(BoardVO board) {
@@ -56,6 +63,24 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 	
+	//파일 등록
+	@Override
+	public void createFile(BoardFileVO file) {
+		this.boardDao.insertBoardFile(file);
+		
+	}
+	
+	
+	
+	
+	@Override
+	public BoardFileVO readBoardFile(int boardNo) {
+		return this.boardDao.selectBoardFile(boardNo);
+	}
+	
+	
+	
+
 	//게시글 수정
 	@Override
 	public void modifyBoard(BoardVO board) {
@@ -63,6 +88,7 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 	
+
 	//게시글 삭제
 	@Override
 	public void removeBoard(int boardNo) {

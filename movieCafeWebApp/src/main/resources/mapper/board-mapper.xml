@@ -33,7 +33,15 @@
 	</resultMap>
 
 	
-
+<!-- 게시글 파일조회 -->
+	<resultMap type="boardFileVO" id="resultMapSelectBoardFile">
+		<result property="boardfileNo" javaType="int" column="boardfileNo" jdbcType="INTEGER" />
+		<result property="boardfileOrigin" javaType="string" column="boardfileOrigin" jdbcType="VARCHAR" />
+		<result property="boardfileSys" javaType="string" column="boardfileSys" jdbcType="VARCHAR" />
+		<result property="boardfileSize" javaType="int" column="boardfileSize" jdbcType="INTEGER" />
+		<result property="boardfileType" javaType="string" column="boardfileType" jdbcType="VARCHAR" />
+	</resultMap>
+	
 	<!-- 인기글 조회 -->
 	<resultMap type="boardVO" id="mainBestList">
 		<result property="boardNo" javaType="int" column="boardNo" jdbcType="INTEGER" />
@@ -68,6 +76,12 @@
 	
 	<!-- 댓글수 조회 -->
 	<parameterMap type="int" id="commentCnt">
+		<parameter property="boardNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
+
+<!-- 파일조회 -->
+<parameterMap type="int" id="boardfileSelect">
 		<parameter property="boardNo" javaType="int"
 			jdbcType="INTEGER" mode="IN" />
 	</parameterMap>
@@ -129,6 +143,7 @@
 		<parameter property="boardfileOrigin" javaType="string" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="boardfileSys" javaType="string" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="boardfileSize" javaType="long" jdbcType="INTEGER" mode="IN" />
+		<parameter property="boardfileType" javaType="string" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="boardNo" javaType="int" jdbcType="TINYINT" mode="IN" />
 	</parameterMap>
 
@@ -236,6 +251,17 @@
 		{call
 		sp_write_boardTip(?,?,?,?,?,?,?) }
 	</insert>
+	
+	<!-- 게시글 파일 등록 -->
+	<insert id="insertBoardFileCall" parameterType="BoardFileVo"
+		statementType="CALLABLE" parameterMap="boardFileCreateMap">
+		{call sp_insert_boardfile(?,?,?,?,?)		}
+	</insert>
+	<!-- 게시글 파일 조회 -->
+	<select id="selectBoardFileCall" parameterType="int" resultMap="resultMapSelectBoardFile"
+		statementType="CALLABLE" parameterMap="boardfileSelect">
+		{call sp_select_boardfile(?)		}
+	</select>
 	
 	<!--게시글 수정 -->
 	<update id="updateBoardCall" parameterType="BoardVo" statementType="CALLABLE" parameterMap="boardUpdateMap">
