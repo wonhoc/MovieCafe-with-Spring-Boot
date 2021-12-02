@@ -38,7 +38,8 @@
 					<th>댓글</th>
 				</thead>
 				<tr th:each="list : ${recomList}" >
-					<td class="list_title" th:text="${list.boardTitle}"></td>
+					<td th:if="${#strings.length(list.boardTitle) < 15}" class="list_title" th:text="${list.boardTitle}"></td>
+					<td th:if="${#strings.length(list.boardTitle) >= 15}" class="list_title" th:text="${#strings.substring(list.boardTitle,0,14)} + ..."></td>
 					<td th:text="${list.userNick}"></td>
 					<td th:text=${#strings.substring(list.boardWdate,0,11)}></td>
 					<td th:text="${list.boardCount}"></td>
@@ -60,7 +61,8 @@
 				</thead>
 				<tr th:each="list : ${noticeList}">
 					<td class="list_notice">필독!!</td>
-					<td class="list_title" th:text="${list.boardTitle}"></td>
+					<td th:if="${#strings.length(list.boardTitle) < 15}" class="list_title" th:text="${list.boardTitle}"></td>
+					<td th:if="${#strings.length(list.boardTitle) >= 15}" class="list_title" th:text="${#strings.substring(list.boardTitle,0,14)} + ..."></td> 
 					<td th:text="${list.userNick}"></td>
 					<td th:text=${#strings.substring(list.boardWdate,0,11)}></td>
 					<td th:text="${list.boardCount}"></td>
