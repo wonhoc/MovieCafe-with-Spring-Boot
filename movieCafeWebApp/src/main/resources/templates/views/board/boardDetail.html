@@ -179,7 +179,10 @@ error : function(err){
 				<td th:text="${board.userNick}"></td>
 				<td th:text="${board.boardWdate}"></td>
 				<td th:text="${board.boardCount}"></td>
-				<td th:text="${board.recomCount}"></td>
+				
+				<td>추천</td>
+				<td id="originRecom" th:text="${board.recomCount}"><td><div id="recomAction"></div></td></td>
+				
 				<td th:text="${board.commentCount}"></td>
 			</tr>
 			<tr>

@@ -55,8 +55,8 @@ $(document).ready(function () {
                      html += '<a href= "/detail/' + data[i].boardNo  + '">' +  data[i].boardTitle + '</a></td>';
                       html += '<td>' + data[i].boardWdate + '</td>';                 
                      html += '<td>' + data[i].boardCount + '</td>';
-                     html += '<td>' + data[i].boardCount + '</td>';
-                     html += '<td>' + data[i].boardCount + '</td></tr></p></p>';
+                     html += '<td>' + data[i].recomCount + '</td>';
+                     html += '<td>' + data[i].commentCount + '</td></tr></p></p>';
                     
                   }
                //}
