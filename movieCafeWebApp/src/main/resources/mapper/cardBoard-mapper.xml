@@ -57,5 +57,13 @@
 	WHERE boardNo = ${boardNo}
 	
 	</delete>
+	
+	<update id="modifyCardBoard" parameterType="hashMap">
+	
+	UPDATE board
+	SET boardTitle = #{boardTitle}, boardContent = #{boardContent}, horseNo = #{horseNo}
+	WHERE boardNo = #{boardNo}
+	
+	</update>
 		
 	</mapper>

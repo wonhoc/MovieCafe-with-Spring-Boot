@@ -7,15 +7,15 @@
 <section layout:fragment="content">
 
 <th:block layout:fragment="script">
-	<script th:src="@{/js/cardBoard/cardBoardWriterForm.js}"></script>
+	<script th:src="@{/js/cardBoard/modifyCardBoardForm.js}"></script>
 </th:block>
 	
 	<hr style="border: 0px; height: 3px; background: coral;">
 	 <h1 style="text-align: center;">게시판 글 수정</h1>
 	 <hr style="border: 0px; height: 3px; background: coral;">	
 	
-	 <form action="/cardBoardWrite" id="FormCardBoardWrite" method="post" enctype="multipart/form-data">
-	 <input type="hidden" value="${cardBoard.boardNo}">
+	 <form action="/modifyCardBoard" id="FormCardBoardWrite" method="post" enctype="multipart/form-data">
+	 <input type="hidden" id="boardNo" name="boardNo" th:value="${cardBoard.boardNo}">
 	 <div>
 	 <label>말머리</label>
 	 <select name="horseNo" id="horseNo" class="form-control" style="width: 300px;">

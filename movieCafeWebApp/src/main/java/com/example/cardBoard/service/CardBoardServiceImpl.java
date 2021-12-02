@@ -37,6 +37,12 @@ public class CardBoardServiceImpl implements CardBoardService {
 		//게시글 입력
 		int BoardNo = this.cardBoardDao.insertBoard(boardMap);
 		
+		//게시글 파일 업로드
+		HashMap<String, Object> boardFileMap = (HashMap<String, Object>)boardMap.get("boardFileMap");
+		
+		
+		
+		
 	}//writeBoard() end
 	
 	//조회수 증가
@@ -60,6 +66,8 @@ public class CardBoardServiceImpl implements CardBoardService {
 	public void modifyCardBoard(HashMap<String, Object> modifyBoard) {
 		
 		this.cardBoardDao.updateCardBoard(modifyBoard);
+		
+		
 		
 	}//modifyCardBoard() end
 	

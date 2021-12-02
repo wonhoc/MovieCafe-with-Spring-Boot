@@ -6,7 +6,7 @@ $(document).ready(function() {
 	});	
 	//목록 이동 끝
 	
-	//게시글 수정 유효성검사
+	//게시글 작성 유효성검사
 	$('#btnWriteFormSubmit').click(function(){
 	
 		let isSuccees = true;
@@ -32,7 +32,7 @@ $(document).ready(function() {
 		
 	
 	});
-	//게시글 수정 유효성검사 끝
+	//게시글 작성 유효성검사 끝
 	
 	
 	

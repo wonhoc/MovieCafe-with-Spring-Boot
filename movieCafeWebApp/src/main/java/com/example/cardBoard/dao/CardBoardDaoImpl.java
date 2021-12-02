@@ -66,7 +66,7 @@ public class CardBoardDaoImpl implements CardBoardDao {
 	@Override
 	public void deleteCardBoard(int boarNo) {
 		
-		this.sqlSession.delete("deleteCardBoard", boarNo);
+		this.sqlSession.delete("cardBoard.deleteCardBoard", boarNo);
 		
 	}//deleteCardBoard() end
 	
@@ -74,7 +74,7 @@ public class CardBoardDaoImpl implements CardBoardDao {
 	@Override
 	public void updateCardBoard(HashMap<String, Object> modifyBoard) {
 		
-		this.sqlSession.update("", modifyBoard);
+		this.sqlSession.update("cardBoard.modifyCardBoard", modifyBoard);
 		
 	}//updateCardBoard() end
 	 
