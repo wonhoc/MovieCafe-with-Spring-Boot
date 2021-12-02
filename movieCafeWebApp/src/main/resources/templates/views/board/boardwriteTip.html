@@ -54,10 +54,16 @@ window.addEventListener('load', function() {
 });
 </script>
 <style>
+#boardTitle{
+width: 700px;
+}
 #boardContent{
 	height: 350px;
 	width: 700px;
 	float:left;
+}
+#file{
+width: 700px;
 }
 
 </style>
@@ -85,8 +91,12 @@ window.addEventListener('load', function() {
             </div>
 			<div id="map"
 				style="width: 350px; height: 350px; margin-top: 10px; display: none"></div>
+				
+				<div> .</div>
+				
+				
             <div class="mb-3">
-               <label>파일</label> <input type="file" class="form-control" name="fileList" multiple>
+                <input type="file" id="file" class="form-control" name="fileList" multiple>
 
             </div>
 
