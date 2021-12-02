@@ -250,4 +250,7 @@ public class boardController {
 			return "redirect:/boardlist/4";
 
 	}
+	
+	
+			
 }
