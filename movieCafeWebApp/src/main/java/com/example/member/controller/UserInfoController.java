@@ -27,7 +27,7 @@ import com.example.util.FileUploadService;
 @Controller
 public class UserInfoController {
 	@Autowired
-	private UserService userService;
+	private UserService userService; 
 	
 	@Autowired
     private FileUploadService fileUploadService;
@@ -38,13 +38,13 @@ public class UserInfoController {
 		return "/views/member/joinUserForm";
 	}
 	// 로그인
-	@PostMapping("/requestlogin")
+	@PostMapping("/requestlogin") 
 	public String loginController(
 			@RequestParam(value = "userId") String userId,
-			@RequestParam(value = "userPwd") String userPwd, 
+			@RequestParam(value = "userPwd") String userPwd,
 			HttpSession session, Model model){
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("userId", userId);
+		map.put("userId", userId); 
 		map.put("userPwd", userPwd);
 
 		int isCheckUser = this.userService.isCheckUserCount(map);
@@ -53,19 +53,29 @@ public class UserInfoController {
 		if (isCheckUser == 1) {
 			// 세션 유지 시간 : 30분
 			session.setMaxInactiveInterval(60*60);
+
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
 			return "redirect:/main";
-		} else {
+		} else { 
 			// 리다이렉트로 로그인 페이지 다시
-			return "redirect:/loginFail";
+			return "redirect:/loginFailCaseOne";
 		}
 	}
-	
-	@GetMapping("/loginFail")
-	public String loginFail() {
-		return "views/member/loginFail";
+	@GetMapping("/loginFail") 
+		public String loginFail() {
+			return "views/member/loginFail";
+	}
+	// ID, PW를 정확하게 입력하지 않았을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
+	@GetMapping("/loginFailCaseOne")
+	public String loginFailOne() {
+		return "views/member/loginFailCaseOne";
+	}
+	// 비로그인 상태로 게시판의 상세 보기를 시도했을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
+	@GetMapping("/loginFailCaseTwo")
+	public String loginFailTwo() {
+		return "views/member/loginFailCaseTwo";
 	}
 
 	// 회원 가입
@@ -279,12 +289,12 @@ public class UserInfoController {
 	
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("name",name);
-		map.put("userContact", userContact);   
-		
+		map.put("userContact", userContact);    
+	
 		String getReturnId = this.userService.researchId(map);
-		System.out.println("리턴ID : "+ getReturnId);
-		return getReturnId;      
-		
+		System.out.println("리턴ID : "+ getReturnId); 
+		return getReturnId;  
+		   
 		
  		}
 	
