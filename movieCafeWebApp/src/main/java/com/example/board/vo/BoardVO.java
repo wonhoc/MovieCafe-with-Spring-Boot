@@ -23,6 +23,5 @@ public class BoardVO {
 	private String userNick;//
 	private String apiX;//
 	private String apiY;//
-
 	private ArrayList<BoardFileVO> boardfileList = new ArrayList<BoardFileVO>();
 }

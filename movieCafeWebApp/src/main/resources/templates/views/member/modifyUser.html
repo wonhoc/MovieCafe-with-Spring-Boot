@@ -25,14 +25,14 @@
          <div class="join_left">
             <div class="input_section">
                <h3 class="input_title">ID</h3>
-               <input class="input_box" type="text" name="userId1" id="userId1"
+               <input class="form-control input_info" type="text" name="userId1" id="userId1"
                th:value="${user.userId}" readonly>
                
             </div>
             <div id="resultId"></div>
             <div class="input_section">
                <h3 class="input_title">Password</h3>
-               <input class="input_box" type="password" name="userPwd1"
+               <input class="form-control input_info" type="password" name="userPwd1"
                   id="userPwd1" th:value="${user.userPwd}">
             </div>
             <div>
@@ -40,7 +40,7 @@
             </div>
             <div class="input_section">
                <h3 class="input_title">Password 확인</h3>
-               <input class="input_box" type="password" name="userPwdCheck"
+               <input class="form-control input_info" type="password" name="userPwdCheck"
                   id="userPwdCheck1">
                
             </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="input_section">
                <h3 class="input_title">E-mail</h3>
-               <input class="input_box" type="text" name="userEmail"
+               <input class="form-control input_info" type="text" name="userEmail"
                   id="userEmail" th:value="${user.userEmail}">
             </div>
             <div>
@@ -89,7 +89,7 @@
             </div>
             <div class="input_section">
                <h3 class="input_title">닉네임 설정</h3>
-               <input class="input_box" type="text" name="userNick" id="userNick"
+               <input class="form-control input_info" type="text" name="userNick" id="userNick"
                th:value="${user.userNick}">
                
             </div>
@@ -99,7 +99,7 @@
          </div>
          <div class="join_right">
             <div class="input_profile">
-              <img id="img" th:src="@{'/images/' + ${user.photoSys}}"> 
+              <img id="img" th:src="@{'/upload/' + ${user.photoSys}}"> 
                <!-- <img id="img" th:src="${'upload/' + user.photoSys}"> -->
                <div class="form_imgBtn">
                   <label for="imgInput">이미지 등록</label> <input type="file"
@@ -109,7 +109,7 @@
 
             <div class="input_section">
                <h3 class="input_title">이름</h3>
-               <input class="input_box" type="text" name="userName" id="userName" th:value="${user.userName}">
+               <input class="form-control input_info" type="text" name="userName" id="userName" th:value="${user.userName}">
             </div>
             
             <div class="input_section">

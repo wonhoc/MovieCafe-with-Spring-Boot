@@ -1,7 +1,7 @@
 const movieList = [];
 
 $(document).ready(function () {
-
+	
 	$.ajax({
 		url: 'https://yts.mx/api/v2/list_movies.json?sort_by=like_count',
 		method: 'GET',
@@ -14,7 +14,7 @@ $(document).ready(function () {
 				image: movie.medium_cover_image,
 				title: movie.title
 			}));
-
+			
 			$('#pagination-div').twbsPagination({
 				totalPages: 7,	// 총 페이지 번호 수
 				visiblePages: 3,	// 하단에서 한번에 보여지는 페이지 번호 수

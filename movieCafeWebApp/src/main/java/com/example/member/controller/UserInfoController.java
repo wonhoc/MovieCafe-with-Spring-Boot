@@ -43,12 +43,11 @@ public class UserInfoController {
 		return "/views/member/joinUserForm";
 	}
 	// 로그인
-	@RequestMapping(value = "/requestlogin", method = RequestMethod.POST)
-	public ModelAndView loginController(
+	@PostMapping("/requestlogin")
+	public String loginController(
 			@RequestParam(value = "userId") String userId,
 			@RequestParam(value = "userPwd") String userPwd, 
-			HttpServletRequest request, HttpServletResponse response,
-			ModelAndView model) throws IOException {
+			HttpSession session, Model model){
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
 		map.put("userPwd", userPwd);
@@ -56,29 +55,21 @@ public class UserInfoController {
 		int isCheckUser = this.userService.isCheckUserCount(map);
 		//로그인에 성공했을 경우
 		if (isCheckUser == 1) {
-			HttpSession session = request.getSession();
 			// 세션 유지 시간 : 30분
 			session.setMaxInactiveInterval(1800);
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
-			model.setViewName("views/main");
-			model.addObject("userInfo", user);
-			
+			return "redirect:/";
 		} else {
 			// 리다이렉트로 로그인 페이지 다시
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('로그인에 실패하였습니다. 입력한 내용을 확인해주세요.');</script>");
-			out.flush();
-			
-			model.setViewName("views/main");	
+			return "redirect:/loginFail";
 		}
-
+	}
 	
-		return model;
-	
-
+	@GetMapping("/loginFail")
+	public String loginFail() {
+		return "views/member/loginFail";
 	}
 
 	// 회원 가입
@@ -223,7 +214,7 @@ public class UserInfoController {
 	         }
 	      user.setPhotoSys(imgname);
 	      this.userService.modifyUser(user);
-	      return "views/main";
+	      return "redirect:/";
 	   }
 
 	   // 패스워드 확인
@@ -252,26 +243,20 @@ public class UserInfoController {
 
 	// 로그아웃
 	@GetMapping("/Logout")
-	public String logoutAndReturn(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		res.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = res.getWriter();
-		out.println("<script>alert('로그아웃 되었습니다');</script>");
-		out.flush();
+	public String logoutAndReturn(HttpSession session) {
 		// 세션에 올라온 유저정보 삭제 후 세션 종료
 		session.invalidate();
 		
-		return "/views/main";
+		return "redirect:/";
 	}
 
 	@PostMapping("/deleteUser")
-	public String deleteUser(HttpServletRequest req) {
-		HttpSession session = req.getSession();
+	public String deleteUser(HttpSession session) {
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 		this.userService.removeUser(userInfo.getUserId());
 		
 		session.invalidate(); 
-		return "views/main";
+		return "redirect:/";
 	
 	}
 	 
