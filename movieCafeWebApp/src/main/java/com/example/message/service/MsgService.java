@@ -33,7 +33,7 @@ public interface MsgService {
 	List<ReceiveMsgVO> retrieveReceiveMsgList(String userId);
 
 	//받은쪽지 상세조회
-	ReceiveMsgVO retrieveReceiveMsg(int receiveMsgNo);
+	ReceiveMsgVO retrieveReceiveMsg(HashMap<String, Object> receiveMsgMap);
 	
 	//받은쪽지 삭제
 	void removeReceiveMsg(HashMap<String, Object> map);

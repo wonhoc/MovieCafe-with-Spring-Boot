@@ -3,6 +3,7 @@ package com.example.message.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,9 @@ public class ReceiveMsgDaoImpl implements ReceiveMsgDao {
 	
 	//받은 메세지 상세조회
 	@Override
-	public ReceiveMsgVO selectReceiveMsg(int receiveMsgNo) {
+	public ReceiveMsgVO selectReceiveMsg(HashMap<String, Object> receiveMsgMap) {
 		
-		return this.sqlSession.selectOne("Msg.selectReceiveMsg", receiveMsgNo);
+		return this.sqlSession.selectOne("Msg.selectReceiveMsg", receiveMsgMap);
 	}
 
 	@Override

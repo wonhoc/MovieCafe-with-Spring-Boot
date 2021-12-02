@@ -48,7 +48,7 @@ public class MessageController {
 						  @RequestParam String[] reciveId,
 						  HttpServletRequest req) {
 		
-		System.out.println(reciveId.length);
+		
 		//세션에 올라온 사용자 ID
 		HttpSession session = req.getSession();
 		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
@@ -69,17 +69,21 @@ public class MessageController {
 		
 		//수신함에 저장
 		ArrayList<ReceiveMsgVO> receiveMsgs = new ArrayList<ReceiveMsgVO>();
-		//수신자 정보 저장
-		ReceiveMsgVO receiveMsg = new ReceiveMsgVO();
-		receiveMsg.setWriter(userid);	//보낸사람
-		receiveMsg.setReceiveMsgContent(sendMsgContent); //수신 메세지
+		
 		
 		//reciveId배열에서 받을 id값 꺼내서 addr에 add
 		for(String id : reciveId) {
 			
+			System.out.println("sendid : " + id);
+			
 			AddressVO addr = new AddressVO(); //addrs에 넣을 객체
 			addr.setReceiveId(id);	//객체에 받을id 바인딩
 			addrs.add(addr);	//addrs에 addr 바인딩
+			
+			//수신자 정보 저장
+			ReceiveMsgVO receiveMsg = new ReceiveMsgVO();
+			receiveMsg.setWriter(userid);	//보낸사람
+			receiveMsg.setReceiveMsgContent(sendMsgContent); //수신 메세지
 			
 			receiveMsg.setReceiveId(id); //받을사람 바인딩
 			receiveMsgs.add(receiveMsg); //수신자정보 배열에 저장
@@ -203,7 +207,15 @@ public class MessageController {
 		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
 		String userid = user.getUserId();
 		
-		ReceiveMsgVO receiveMsg = this.msgService.retrieveReceiveMsg(receiveMsgNo);
+		//조회할 메세지의 정보
+		HashMap<String, Object> receiveMsgMap = new HashMap<String, Object>();
+		
+		receiveMsgMap.put("receiveId", userid);
+		receiveMsgMap.put("receiveMsgNo", receiveMsgNo);
+		
+		ReceiveMsgVO receiveMsg = this.msgService.retrieveReceiveMsg(receiveMsgMap);
+		
+		
 		
 		//읽음상태가 0이라면 1로 업데이트해주기
 		if(isRead == 0) {
