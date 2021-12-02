@@ -78,6 +78,7 @@ public class CardBoardController {
 		
 	}//boardWrite() end
 	
+	//글 작성
 	@PostMapping("/cardBoardWrite")
 	public String cardBoardWrite(@RequestParam String boardTitle,
 								 @RequestParam String boardContent,
