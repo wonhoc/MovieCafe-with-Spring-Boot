@@ -1,7 +1,14 @@
-$(document).ready(function () {
-      var cateNo = document.getElementById("cateNo").value;
-      
-      $.ajax({ 
+$(document).ready(function() {
+
+	//목록 버튼 클릭시 작성폼 으로 이동
+	
+	$('#boardWrite').click(function(){
+		location.href="/cardBoardWriterForm"
+	});	
+	//작성폼 이동 끝
+	let cateNo = 2;
+	//페이징처리
+	 $.ajax({ 
          url : '/getBoardList/'+cateNo,
          method: 'GET',
          dataType: 'json',
@@ -55,8 +62,8 @@ $(document).ready(function () {
                      html += '<a href= "/detail/' + data[i].boardNo  + '">' +  data[i].boardTitle + '</a></td>';
                       html += '<td>' + data[i].boardWdate + '</td>';                 
                      html += '<td>' + data[i].boardCount + '</td>';
-                     html += '<td>' + data[i].recomCount + '</td>';
-                     html += '<td>' + data[i].commentCount + '</td></tr></p></p>';
+                     html += '<td>' + data[i].boardCount + '</td>';
+                     html += '<td>' + data[i].boardCount + '</td></tr></p></p>';
                     
                   }
                //}
@@ -71,5 +78,7 @@ $(document).ready(function () {
 
          }
       });
-
-   });
+      //페이징 처리 끝
+	
+	
+});

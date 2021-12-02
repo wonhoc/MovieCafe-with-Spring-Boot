@@ -49,17 +49,14 @@ public class UserInfoController {
 
 		int isCheckUser = this.userService.isCheckUserCount(map);
 		
-		System.out.println("isCheckUser = " + isCheckUser);  
-		
 		//로그인에 성공했을 경우
-		if (isCheckUser == 1) { 
-			// 세션 유지 시간 : 30분 
-			session.setMaxInactiveInterval(60*30); 
+		if (isCheckUser == 1) {
+			// 세션 유지 시간 : 30분
+			session.setMaxInactiveInterval(60*60);
+
 			UserInfoVo user = userService.uploadUserInfo(userId);
-			System.out.println("안녕하세요 : "+user.toString());
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
-			System.out.println(user + "000000000000000000");
 			return "redirect:/main";
 		} else { 
 			// 리다이렉트로 로그인 페이지 다시

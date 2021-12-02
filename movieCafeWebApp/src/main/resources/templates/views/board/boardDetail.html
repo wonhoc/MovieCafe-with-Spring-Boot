@@ -25,6 +25,9 @@ $("#addComBtn").click(function(){
     }),
     success : function(data){
        const comment = data.results;
+       $('#origincom').hide();
+       $('#comAction').text(data.comCnt);
+      
        $("#listComment").html("");
        let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
        for(let i = 0 ; i < comment.length ; i++){
@@ -65,7 +68,9 @@ $.ajax({
  dataType : 'json',
  success : function(data){
        const comment = data.results;
-       
+       $('#origincom').hide();
+       $('#comAction').text(data.comCnt);
+      
        $("#listComment").html("");
        let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
        for(let i = 0 ; i < comment.length ; i++){
@@ -179,8 +184,11 @@ error : function(err){
 				<td th:text="${board.userNick}"></td>
 				<td th:text="${board.boardWdate}"></td>
 				<td th:text="${board.boardCount}"></td>
-				<td th:text="${board.recomCount}"></td>
-				<td th:text="${board.commentCount}"></td>
+				
+				<td>추천</td>
+				<td id="originRecom" th:text="${board.recomCount}"><td><div id="recomAction"></div></td></td>
+				<td>댓글</td>
+				<td  id="origincom" th:text="${board.commentCount}"><td><div id="comAction"></div></td></td>
 			</tr>
 			<tr>
 				<td colspan="5" th:text="${board.boardContent}"></td>

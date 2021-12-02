@@ -2,6 +2,7 @@ package com.example.movie.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.board.service.BoardService;
 import com.example.board.vo.BoardVO;
+import com.example.member.vo.UserInfoVo;
 import com.example.movie.service.GuanramService;
 import com.example.movie.vo.GuanramListVO;
 import com.example.movie.vo.MovieGuanramVO;
@@ -36,15 +38,30 @@ public class MovieMain {
 	public String main(Model model) {
 		List<BoardVO> recomList = this.boardServie.readRecomRevList();
 		List<BoardVO> noticeList = this.boardServie.readNoticeRevList();
+
+		for(BoardVO board : recomList) {
+			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
+			board.setCommentCount(this.boardServie.readCommCount(board.getBoardNo()));
+		}		
+		for(BoardVO board : noticeList) {
+			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
+		}		
+		
+		
 		model.addAttribute("recomList", recomList);
 		model.addAttribute("noticeList", noticeList);
 		return "views/main";
 	}
 
 	@GetMapping("/detailMovie/{movieId}")
-	public String detailMovie(@PathVariable String movieId, Model model) {
+	public String detailMovie(@PathVariable String movieId, Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		
 		List<GuanramListVO> guanramList = this.guanramService.selectGuanramList(Integer.parseInt(movieId));
+		UserInfoVo userInfo = (UserInfoVo)session.getAttribute("userInfo");
+		
 		model.addAttribute("guanramList", guanramList);
+		model.addAttribute("userInfo", userInfo);
 		return "views/movie/detailMovie";
 	}
 
