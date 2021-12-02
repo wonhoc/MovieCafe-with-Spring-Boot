@@ -126,3 +126,15 @@ i {
 	height: 6rem;
 	justify-content: space-around;
 }
+
+#profile{
+	border-radius: 50%;
+	width: 5em;
+	padding-bottom: 1em;
+}
+
+.usertext{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}

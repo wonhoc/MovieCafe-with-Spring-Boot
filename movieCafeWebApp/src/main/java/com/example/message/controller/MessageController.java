@@ -48,6 +48,7 @@ public class MessageController {
 						  @RequestParam String[] reciveId,
 						  HttpServletRequest req) {
 		
+		System.out.println(reciveId.length);
 		//세션에 올라온 사용자 ID
 		HttpSession session = req.getSession();
 		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");

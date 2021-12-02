@@ -13,9 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadService {
 	
 	private String savePath = "/upload";
-	 //private String savePath = "C:\\Users\\MZC\\git\\MovieCafe-with-Spring-Boot\\movieCafeWebApp\\src\\main\\resources\\static\\upload";
-	
-	private static final String PREFIX_URL = "/upload/";
 	
 	public String restore(MultipartFile multipartFile, HttpServletRequest req) {
 		

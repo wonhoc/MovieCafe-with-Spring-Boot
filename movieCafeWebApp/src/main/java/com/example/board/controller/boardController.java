@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.board.service.BoardService;
 import com.example.board.vo.BoardVO;
@@ -167,8 +167,6 @@ public class boardController {
 		 */
 		
 		this.boardServie.modifyBoard(board);
-		
-	
 		return "redirect:/boardlist/{cateNo}";
 	}
 

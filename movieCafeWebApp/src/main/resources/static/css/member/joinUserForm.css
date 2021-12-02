@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 content {
 	width: 100%;
 }
@@ -6,7 +7,7 @@ content {
 .join_box {
 	display: flex;
 	width: 100%;
-	justify-content: center;
+	justify-content: space-around;
 }
 
 .join_right {
@@ -14,11 +15,11 @@ content {
 }
 
 .join_left {
-	width: 45em;
+	width: 35em;
 }
 
 .join_title {
-	font-size: 36px;
+	font-size: 20px;
 	font-weight: bolder;
 	margin: 0.3em 0;
 }
@@ -47,10 +48,7 @@ content {
 	width: 10em;
 }
 
-.input_box {
-	height: 1.5rem;
-	outline: auto;
-	border-radius: 0.25em;
+.input_info {
 	width: 15em;
 }
 
@@ -79,22 +77,6 @@ content {
 
 #contact2, #contact3, #birthYear, #birthMonth, #birthDate {
 	width: 6em;
-}
-
-button {
-	cursor: pointer;
-	height: 2rem;
-	margin: 0 0.3em;
-	font-size: 18px;
-	color: #454545;
-	background-color: #fdfdfd;
-	border: 2px solid #454545;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-}
-
-button:hover {
-	background-color: #e2e2e2;
 }
 
 #profilePhoto {
