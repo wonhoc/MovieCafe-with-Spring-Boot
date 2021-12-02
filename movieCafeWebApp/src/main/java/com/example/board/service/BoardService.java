@@ -29,6 +29,8 @@ public interface BoardService {
 
 	
 	
+	
+	
 	//추천
 	void createRecommend(RecomVO recommend);
 	void dropRecommend(RecomVO recommend);
