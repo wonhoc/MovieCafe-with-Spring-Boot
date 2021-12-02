@@ -32,12 +32,6 @@ public class boardController {
 	@Autowired
 	private BoardService boardServie;
 	
-	// 게시글 조회 ajax  
-    @GetMapping("/getBoardList/{cateNo}")
-    public @ResponseBody List<BoardVO> listBoard(@PathVariable int cateNo) {
-       List<BoardVO> list= boardServie.readAllByCateNo(cateNo);
-       return list;
-    }
 
 	@GetMapping("/boardlist/{cateNo}")
 	public String boardlist(@PathVariable int cateNo, Model model, HttpServletRequest request) {
@@ -269,7 +263,7 @@ public class boardController {
 		
 		
 			return "redirect:/boardlist/4";
-
+	}
 	// ***********************검색 추가 코드************************ 
 	//게시글 검색
 	@GetMapping("/boardlist/boardsearch/{cateNo}")
@@ -309,10 +303,10 @@ public class boardController {
 		
 		// ***********************검색 추가 코드 끝************************ 
 		
-}
+
 
 	}
 	
 	
 			
-}
+

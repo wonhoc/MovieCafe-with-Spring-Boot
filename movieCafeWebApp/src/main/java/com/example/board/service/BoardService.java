@@ -27,8 +27,7 @@ public interface BoardService {
 	List<BoardVO> readRecomRevList();
 	List<BoardVO> readNoticeRevList();
 
-	List<BoardVO> readRecomRevList();
-	List<BoardVO> readNoticeRevList();
+	
 	
 	//추천
 	void createRecommend(RecomVO recommend);
