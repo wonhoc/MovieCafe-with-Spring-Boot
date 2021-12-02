@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+
    xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="~{layout/defaultLayout}">
  <th:block layout:fragment="script">
 	<script th:src="@{/js/board/boardlist.js}"></script>
 </th:block>
+
 <head>
 
 <style type="text/css">
@@ -19,7 +21,11 @@
 #pagination-div{
    text-align: center;   
 }
+#pagination-div{
+   text-align: center;   
+}
 </style>
+
 </head>
 <section layout:fragment="content">
 
@@ -62,6 +68,7 @@
 
 
 <form name="form" th:action="@{boardwrite/{cateNo}(cateNo=${cateNo})}" method="get">
+
    
    <div class="container">
       <table class="table table-hover">

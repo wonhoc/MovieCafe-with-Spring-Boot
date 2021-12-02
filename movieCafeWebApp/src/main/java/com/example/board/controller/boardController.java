@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.board.service.BoardService;
@@ -53,14 +55,23 @@ public class boardController {
 		
 		return "views/board/boardlist";
 	}
+	
+	// 게시글 조회 ajax  
+	   @GetMapping("/getBoardList/{cateNo}")
+	   public @ResponseBody List<BoardVO> listBoard(@PathVariable int cateNo) {
+	      List<BoardVO> list= boardServie.readAllByCateNo(cateNo);
+	      return list;
+	   }
 
 	// 게시글 상세보기
 
 		@GetMapping("/detail/{boardNo}")
+
 		public String deltailboard(@PathVariable int boardNo, Model model, HttpServletRequest request) {
 
 			HttpSession session = request.getSession();
 			UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+
 			BoardVO board = boardServie.readOne(boardNo);
     	board.setCommentCount(this.boardServie.readCommCount(boardNo));
 			board.setRecomCount(this.boardServie.readRecomCount(boardNo));
