@@ -49,7 +49,7 @@
 							<span
 								th:if="${#strings.length(receiveMsg.receiveMsgContent) > 10 }">
 								<td><span
-									th:if="${receiveMsg.isRead} == 0" class="newMessage"
+									th:if="${receiveMsg.isRead} == 0" class="newMessage" style="color: orange;"
 									>&nbsp;new&nbsp;</span> <a
 									th:text="${#strings.substring(receiveMsg.receiveMsgContent, 0, 10) + '...'}"
 									th:href="@{/receiveMsgDetail/{receiveMsgNo}/{isRead}(receiveMsgNo=${receiveMsg.receiveMsgNo}, (isRead=${receiveMsg.isRead}))}"></a></td>

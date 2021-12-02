@@ -28,6 +28,9 @@
 				</form>
 			</div>
 		</div>
+		<div th:unless="${session.userInfo == null}">
+			<input type="hidden" id="userId" name="userId" th:value="${session.userInfo.userId}" /> 
+		</div>
 		<div class="guanramList">
 			
 		</div>
