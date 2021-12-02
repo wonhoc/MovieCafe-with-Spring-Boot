@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.board.service.BoardService;
 import com.example.board.vo.BoardVO;
@@ -28,6 +28,12 @@ public class boardController {
 	@Autowired
 	private BoardService boardServie;
 	
+	// 게시글 조회 ajax  
+    @GetMapping("/getBoardList/{cateNo}")
+    public @ResponseBody List<BoardVO> listBoard(@PathVariable int cateNo) {
+       List<BoardVO> list= boardServie.readAllByCateNo(cateNo);
+       return list;
+    }
 
 	@GetMapping("/boardlist/{cateNo}")
 	public String boardlist(@PathVariable int cateNo, Model model, HttpServletRequest request) {

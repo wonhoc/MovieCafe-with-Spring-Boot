@@ -36,7 +36,9 @@
 					<span class="login_title">회원정보</span>
 					<div class="login_divide"></div>
 					<div>
-						<img id="profile"
+						<img th:if="${#strings.isEmpty(session.userInfo.photoSys)}" id="profile"
+							th:src="@{upload/default.png}">
+						<img th:unless="${#strings.isEmpty(session.userInfo.photoSys)}" id="profile"
 							th:src="@{'/upload/' + ${session.userInfo.photoSys}}">
 						<div class="usertext">
 							<p>아이디 :</p>
@@ -67,9 +69,7 @@
 						<a th:href="@{/Logout}">
 							<button type="button" class="btn btn-light">로그아웃</button>
 						</a>
-
 					</div>
-
 				</form>
 			</div>
 		</div>
