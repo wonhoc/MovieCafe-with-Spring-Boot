@@ -1,6 +1,9 @@
 $(document).ready(function () {
       var cateNo = document.getElementById("cateNo").value;
       
+
+      
+      
       $.ajax({ 
          url : '/getBoardList/'+cateNo,
          method: 'GET',
@@ -50,13 +53,13 @@ $(document).ready(function () {
                   for (let i = startRow; i < endRow ; i++) {
          
                       //html += '<p each="board : ${list}">';
-                     html += '<td class="single-item">' + data[i].userNick + '</td>';
-                     html += '<td><span th:if="${cateNo != 1}" id="horse">' + data[i].horse +'</span>';
+                     html += '<td id="UK" class="single-item">' + data[i].userNick + '</td>';
+                     html += '<td class="text-center"><span class="td" th:if="${cateNo != 1}" id="horse">' + data[i].horse +'</span>';
                      html += '<a href= "/detail/' + data[i].boardNo  + '">' +  data[i].boardTitle + '</a></td>';
-                      html += '<td>' + data[i].boardWdate + '</td>';                 
-                     html += '<td>' + data[i].boardCount + '</td>';
-                     html += '<td>' + data[i].boardCount + '</td>';
-                     html += '<td>' + data[i].boardCount + '</td></tr></p></p>';
+                      html += '<td id="wdate">' + data[i].boardWdate + '</td>';                 
+                     html += '<td id="bc">' + data[i].boardCount + '</td>';
+                     html += '<td id="rc">' + data[i].recomCount + '</td>';
+                     html += '<td id="cc">' + data[i].commentCount + '</td></tr></p></p>';
                     
                   }
                //}

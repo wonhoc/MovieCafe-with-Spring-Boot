@@ -16,6 +16,43 @@
 	margin-right: auto;
 	text-align: center;
 }
+
+thead{
+text-align: center;
+}
+
+#horse{
+	color: gray;
+}
+
+#UK{
+	width: 150px;
+	line-height: 3.5em;
+}
+
+#keyfield{
+	width:100px; height: 40px; float:left;
+}
+
+#keyword{
+	height: 40px; width: 750px; float:left;
+}
+#searchBtn{
+	height: 40px;
+}
+#thead{
+	background-color: burlywood;
+	
+}
+#boardList{
+	background-color : antiquewhite;
+	
+}
+#wdate,#bc,#rc,#cc,#title{
+	line-height: 3.5em;
+}
+
+
 </style>
 
 </head>
@@ -55,17 +92,17 @@
 		
 		<div class="container">
 			<table class="table table-hover">
-				<thead class="thead-dark" id=thead>
+				<thead id="thead">
 					<tr>
 						<th scope="col">작성자</th>
-						<th colspan="2" scope="col">제목</th>
+						<th class="text-center" scope="col">제목</th>
 						<th scope="col">작성일자</th>
 						<th scope="col">조회</th>
 						<th scope="col">추천</th>
 						<th scope="col">댓글</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id = "boardList">
 					<p th:if="${list==null}">
 					<tr>
 						<td colspan="7">등록된 게시글이 없습니다.</td>
@@ -76,23 +113,21 @@
 					<p th:each="board : ${list}">
 					<tr>
 						<!-- 상세보기 합치면 나중에 링크로 넣기 -->
-						<td class="single-item" th:text="${board.userNick}"></td>
-
-						<td><span th:if="${cateNo != 1}" id="horse"
-							th:text="${board.horse}" /> <a
+						<td id="UK" class="single-item" th:text="${board.userNick}"></td>
+						<td id="title"><span th:if="${cateNo != 1}" id="horse"
+							th:text="${board.horse}"/><a
 							th:href="@{/detail/{boardNo}(boardNo=${board.boardNo})}"
 							th:text="${board.boardTitle}"></a></td>
-						<td th:text="${board.boardWdate}"></td>
-						<td th:text="${board.boardCount}"></td>
-						<td th:text="${board.boardCount}"></td>
-						<td th:text="${board.boardCount}"></td>
+						<td id="wdate" th:text="${board.boardWdate}"></td>
+						<td id="bc" th:text="${board.boardCount}"></td>
+						<td id="rc" th:text="${board.boardCount}"></td>
+						<td id="cc" th:text="${board.boardCount}"></td>
 					</tr>
 					</p>
 					</p>
 				</tbody>
 			</table>
-			<button type="submit"
-				class="btn btn-primary waves-effect waves-light">글작성</button>
+			 <button th:unless="${session.userInfo == null}" type="submit" class="btn btn-primary waves-effect waves-light">글작성</button>
 		</div>
 	</form>
 
