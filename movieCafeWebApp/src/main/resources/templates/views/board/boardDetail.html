@@ -162,13 +162,47 @@ error : function(err){
 });
 });
 </script>
+<style>
+
+table{
+	border-collapse: collapse;
+  border-radius: 20px;
+	border-style: hidden;
+}
+.board { 
+border-top: 1px solid black; border-bottom: 1px solid black; 
+}
+#boarddiv{
+border: 1px solid #ffebb5; 
+  border-radius: 16px;
+  box-shadow: inset 0 0 3px #e7cf8d;
+  width: 1100px; height: 265px;
+}
+#boardTitle{
+	background-color: #fcf4de;
+}
+#boardContent{
+   background-color: rgb(255, 255, 240);
+
+}
+</style>
+
 </head>
 <section layout:fragment="content">
 
 	<div class="container">
+	<div id="boarddiv">
 	<form th:action="@{/deleteBoard/{boardNo}(boardNo=${board.boardNo})}"
 		method="post">
 		
+		<div th:if="${userInfo.rankType == 'A'}">
+			<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
+			<a class="btn btn-default waves-effect waves-light" th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>
+		</div>
+		<div th:if="${userInfo.userId == board.userId}">
+			<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
+			<a class="btn btn-default waves-effect waves-light" th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>
+		</div>
 		
 		<input type="hidden" name="cateNo" th:value="${board.cateNo}">
 		
@@ -177,26 +211,33 @@ error : function(err){
 		<input type="hidden" id="boardNo" name="boardNo" th:value="${board.boardNo}">
 		
 		<table class="table">
-			<tr>
-				<td colspan="5" th:text="${board.boardTitle}"></td>
+			<tr id="boardTitle" class="board">
+				<td width="600px;"   th:text="${board.boardTitle}"></td>
+				<td align="center">작성일<img height="30px;" width="30px;" src="/images/writer.png"></td>
+				<td align="center">조회수</td>
+				<td align="center">추천<img height="30px;" width="30px;" src="/images/참잘함ㅇㅇㅇㅇ.png"></td>
+				<td align="center">신고<img height="30px;" width="30px;" src="/images/참못했어요.png"></td>
 			</tr>
-			<tr>
-				<td th:text="${board.userNick}"></td>
-				<td th:text="${board.boardWdate}"></td>
-				<td th:text="${board.boardCount}"></td>
-				
+
+			<tr class="board">
+				<td width="600px;" th:text="${board.userNick}"></td>
+				<td align="center" th:text="${board.boardWdate}"></td>
+				<td align="center" th:text="${board.boardCount}"></td>
+				<td align="center" th:text="${board.recomCount}"></td>
+				<td align="center" th:text="${board.commentCount}"></td>
+
 				<td>추천</td>
 				<td id="originRecom" th:text="${board.recomCount}"><td><div id="recomAction"></div></td></td>
 				<td>댓글</td>
 				<td  id="origincom" th:text="${board.commentCount}"><td><div id="comAction"></div></td></td>
+
 			</tr>
-			<tr>
-				<td colspan="5" th:text="${board.boardContent}"></td>
+			<tr class="board">
+				<td id="boardContent" height="150px;" colspan="5" th:text="${board.boardContent}"></td>
 			</tr>
 		</table>
 		
-		<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
-		<a class="btn btn-default waves-effect waves-light" th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>
+	</div>	
 		
 </form>	
 	
@@ -205,6 +246,9 @@ error : function(err){
          
       <button type="button" class="btn btn-warning" id="reportBtn">
          신고</button>
+	
+		<a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${board.cateNo})}">목록</a>
+	
 	
 	<table id="listComment">
 		<thead>
@@ -223,7 +267,7 @@ error : function(err){
 				</tr>
 				 <tr>
                   <td colspan="2">
-                     <button class="modifyComReqBtn" type="button">수정</button>
+                     <button id="updateComBtn" class="modifyComReqBtn" type="button">수정</button>
                      <button id="removeBtn">삭제</button>
                   </td>
                </tr>

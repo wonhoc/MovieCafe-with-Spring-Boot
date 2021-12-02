@@ -6,6 +6,13 @@
         <script th:src="@{/js/board/boardwrite.js}"></script>
     </th:block>
 <head>
+<style>
+#boardContent{
+	height: 300px; 
+}
+
+</style>
+
 </head>
 <section layout:fragment="content">
 	<article>
@@ -17,6 +24,8 @@
 			<form name="form" id="form" role="form" method="post" th:action="@{/fileUpload}"
 				enctype="multipart/form-data">
 				<input type="hidden" id="writer" name="userId" th:value="${userInfo.userId}">
+				
+				
 				<input type="hidden" id="cateNo" name="cateNo" th:value="${cateNo}">
 				
 				<div th:if="${cateNo==1}" role="main">
@@ -42,23 +51,22 @@
 				</select>
 				</div>
 				
-				<div class="mb-3">
+				
 					<h3 class="text-title" th:text="#{category.title1}"></h3>
 					<input type="text" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요">
-				</div>
-
-				<div class="mb-3">
+				
+			<div class="mb-3">
 					<input type="text" class="form-control" name="boardContent" id="boardContent"
-						placeholder="내용을 입력해주세요" style="height: 300px;">
-				</div>
-
-
+							placeholder="내용을 입력해주세요">
+			</div>
+				
+				
 				<div class="mb-3">
 					<label>파일</label> <input type="file" class="form-control" name="fileList" multiple>
 				</div>
 
 				
-					<button type="button" class="btn btn-sm btn-primary" id="saveBtn">글쓰기</button>
+					<button  type="button" class="btn btn-sm btn-primary" id="saveBtn">글쓰기</button>
 					<a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${cateNo})}">목록</a>
 				
 

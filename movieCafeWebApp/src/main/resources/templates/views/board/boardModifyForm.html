@@ -2,15 +2,32 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{layout/defaultLayout}">
- <th:block layout:fragment="script">
-        <script th:src="@{/js/board/boardwrite.js}"></script>
-    </th:block>
-    
-    
+
 <head>
 <script>
-if(document.getElementById("input_check").checked) {
-    document.getElementById("input_check_hidden").disabled = true;
+window.addEventListener('load', function() {
+    const saveBtn = document.getElementById('saveBtn');
+   
+    saveBtn.addEventListener('click', function() {
+    
+    const boardTitle = $('#boardTitle').val();
+    const boardContent = $('#boardContent').val();
+        if(boardTitle == ""){
+            alert("제목을 입력해주세요.");
+        }else if(boardContent == ""){
+            alert("내용을 입력해주세요.");
+        }else{
+        	
+        	if(document.getElementById("input_check").checked) {
+        	    document.getElementById("input_check_hidden").disabled = true;
+        const form = document.getElementById('form');
+        form.submit();
+    }
+    }); 
+})
+
+
+
 }
 </script>
 </head>

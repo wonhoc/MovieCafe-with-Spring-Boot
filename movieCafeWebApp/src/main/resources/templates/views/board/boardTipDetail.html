@@ -3,123 +3,246 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/defaultLayout}">
+	<th:block layout:fragment="script">
+        <script th:src="@{/js/board/recomBoard.js}"></script>
+</th:block>
+	
 <head>
 <script>
 $(document).ready(function(){
-	const comNo = $(this).parents('tbody').attr('id');
+
 	$("#addComBtn").click(function(){
-			$.ajax({
-				url : encodeURI('/createCom'),
-				type : 'POST',
-				contentType : 'application/json;charset=utf-8',
-				data : JSON.stringify({
-					"boardNo" : $('#boardNo').val(),
-					"userId" : $('#userId').val(),
-					"comContent" : $('#comContent').val()
-				}),
-				success : function(data){
-					const comment = data.results;
-					$('#ListComment').html("");
-					let str = "";
-					for(let i = 0 ; i < comment.length ; i++){
-						str += '<tr>' + 
-			 						'<td>' + comment[i].userNick + '</td>' + 
-			 						'<td>' + comment[i].comWdate + '</td>' + 
-			 					'</tr>' + 		
-			 					'<tr>' + 
-			 						'<td colspan="2" class="comContent">' + comment[i].comContent + '</td>' + 
-			 					'</tr>' +
-			 					'<tr>' +	
-			 						'<td colspan="2">' + 
-			 							'<button class="modifyFormBtn" type="button">수정</button>&nbsp;' + 		
-			 							'<button id="removeBtn">삭제</button>' +
-			 						'</td>'	+ 				
-			 					'</tr>'
-					}
-						$('#listComment').html(str);
+	 $.ajax({
+	    url : "/createcom",
+	    type : 'POST',
+	    contentType : 'application/json;charset=utf-8',
+	    dataType : 'json',
+	    data : JSON.stringify({
+	       "boardNo" : $('#boardNo').val(),
+	       "comContent" : $('#comContent').val()
+	    }),
+	    success : function(data){
+	       const comment = data.results;
+	       $("#listComment").html("");
+	       let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
+	       for(let i = 0 ; i < comment.length ; i++){
+	          str +='<tbody id = "' + comment[i].comNo + '">' +
+	                   '<tr>' + 
+	                    '<td>' + comment[i].userNick + '</td>' + 
+	                    '<td>' + comment[i].comWdate + '</td>' + 
+	                 '</tr>' +       
+	                 '<tr>' + 
+	                    '<td colspan="2" class="comContent">' + comment[i].comContent + '</td>' + 
+	                 '</tr>' +
+	                 '<tr>' +   
+	                    '<td colspan="2">' + 
+	                       '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;' +       
+	                       '<button id="removeBtn">삭제</button>' +   
+	                    '</td>'   +    
+	                 '</tr></tbody>'
+	       }
+	          $("#listComment").html(str);
+	 
+	    },
+	    error : function(err){
+	       console.log(err);
+	    }
 
-				},
-				error : function(err){
-					console.log(err);
-				}
 
-
-			});
+	 });
 	});
-	
+
 
 	$(document).on("click", "#removeBtn", function(){
-		const comNo = $(this).parents('tbody').attr('id');
-		const boardNo = $('#boardNo').val();
-		$.ajax({
-			url : '/remove/'+ comNo + "/" + boardNo,
-			type : 'post',
-			dataType : 'json',
-			success : function(data){
-					const comment = data.results;
-					$('#ListComment').html("");
-					let str = "";
-					for(let i = 0 ; i < comment.length ; i++){
-						str += '<tbody id=' + comment[i].comNo + '>' +
-									'<tr>' + 
-			 						'<td>' + comment[i].userNick + '</td>' + 
-			 						'<td>' + comment[i].comWdate + '</td>' + 
-			 					'</tr>' + 		
-			 					'<tr>' + 
-			 						'<td colspan="2" class="comContent">' + comment[i].comContent + '</td>' + 
-			 					'</tr>' +
-			 					'<tr>' +	
-			 						'<td colspan="2">' + 
-			 							'<button class="modifyFormBtn" type="button">수정</button>&nbsp;' + 		
-			 							'<button id="removeBtn" type="button">삭제</button>' +	
-			 						'</td>'	+ 				
-			 					'</tr></tbody>'
-					}
-						$('#listComment').html(str);
+	const comNo = $(this).parents('tbody').attr('id');
+	const boardNo = $('#boardNo').val();
 
-				},
-				error : function(err){
-					console.log(err);
-				}
-		});
+	$.ajax({
+	 url : '/remove/'+ comNo + "/" + boardNo,
+	 type : 'POST',
+	 dataType : 'json',
+	 success : function(data){
+	       const comment = data.results;
+	       
+	       $("#listComment").html("");
+	       let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
+	       for(let i = 0 ; i < comment.length ; i++){
+	          str +='<tbody id = "' + comment[i].comNo + '">' +
+	                   '<tr>' + 
+	                    '<td>' + comment[i].userNick + '</td>' + 
+	                    '<td>' + comment[i].comWdate + '</td>' + 
+	                 '</tr>' +       
+	                 '<tr>' + 
+	                    '<td colspan="2" class="comContent">' + comment[i].comContent + '</td>' + 
+	                 '</tr>' +
+	                 '<tr>' +   
+	                    '<td colspan="2">' + 
+	                       '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;' +       
+	                       '<button id="removeBtn">삭제</button>' +   
+	                    '</td>'   +    
+	                 '</tr></tbody>'
+	       }
+	          $("#listComment").html(str);
+
+	    },
+	    error : function(err){
+	       console.log(err);
+	    }
+
+	 });
 	});
-	
-});
+
+
+	//댓글 수정용 함수
+	$('#listComment').on('click', '.modifyComReqBtn', function() {                
+	const comNo = $(this).parents('tbody').attr('id');
+	$('#modifyComment').insertAfter('#' + comNo);                   
+	const comContent = $(this).parents('tbody').find('.comContent').text();                
+	$('#modifyComContent').val(comContent);
+	$('#comNo').val(comNo);
+	$('#modifyComment').show();
+	$('#' + comNo).hide();                          
+	});
+	//댓글 취소
+	$('#cancel').on('click', function() {
+	const comNo = $('#comNo').val();
+	$('#' + comNo).show();    
+	$('#modifyComment').hide();
+	$('#modifyComment').insertAfter('#addComment');
+	});
+
+
+	$("#modifyComBtn").click(function(){
+	$.ajax({   
+	url : '/modifycom' ,
+	type : 'POST',
+	contentType : 'application/json;charset=utf-8',
+	data : JSON.stringify({
+	 "boardNo" : $('#boardNo').val(),
+	 "comNo" : $('#comNo').val(),
+	 "comContent" : $('#modifyComContent').val(),
+	 "userId" : $('#userId').val()
+	}),
+	success : function(data){
+	 const comment = data.results;
+	 $("#listComment").html("");
+	 let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
+	 for(let i = 0 ; i < comment.length ; i++){
+	    str += '<tbody id = "' + comment[i].comNo + '">' +
+	          '<tr>' + 
+	              '<td>' + comment[i].userNick + '</td>' + 
+	              '<td>' + comment[i].comWdate + '</td>' + 
+	           '</tr>' +    
+	           '<tr>' + 
+	              '<td colspan="2" class="comContent">' + comment[i].comContent + '</td>' + 
+	           '</tr>' +
+	           '<tr>' +   
+	              '<td colspan="2">' + 
+	                 '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;' +       
+	                 '<button id="removeBtn">삭제</button>' +
+	              '</td>'   +             
+	           '</tr>'+
+	           '</tbody>'
+	 }
+	    $("#listComment").html(str);
+
+	},
+	error : function(err){
+	 console.log(err);
+	}
+
+	});
+	});
+	});
 </script>
+<style>
+table{
+	border-collapse: collapse;
+  border-radius: 20px;
+	border-style: hidden;
+}
+.board { 
+border-top: 1px solid black; border-bottom: 1px solid black; 
+}
+
+#boardTitle{
+	background-color: #fcf4de;
+}
+#boardContent{
+   background-color: rgb(255, 255, 240);
+
+}
+#Contentbo{
+	width: 750px; height: 350px;float:left;
+	border-collapse: collapse;
+	background-color: rgb(255, 255, 240);
+}
+#Contentbo2{
+	width: 1100px; height: 350px;
+	border-collapse: collapse;
+	background-color: rgb(255, 255, 240);
+}
+
+</style>
 </head>
 
 <section layout:fragment="content">
 <form th:action="@{/deleteBoard/{boardNo}(boardNo=${board.boardNo})}"
 		method="post">
-	<p id="idid" th:text="${board.boardNo}">
 	<div class="container">
-	<input type="hidden" id="writer" name="userId" th:value="${userInfo.userId}">
-		<table class="table">
-			<tr>
-				<td colspan="5" th:text="${board.boardTitle}"></td>
-			</tr>
-			<tr>
-				<td th:text="${board.userNick}"></td>
-				<td th:text="${board.boardWdate}"></td>
-				<td th:text="${board.boardCount}"></td>
-				<td th:text="${board.recomCount}"></td>
-				<td th:text="${board.commentCount}"></td>
-			</tr>
-			<tr>
-				<td colspan="5" th:text="${board.boardContent}"></td>
-			</tr>
-		</table>
-
-	<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
-		<a class="btn btn-default waves-effect waves-light" th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>
+	
+	<div th:if="${userInfo.userId == board.userId}">
+			<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
+			<a class="btn btn-default waves-effect waves-light" th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>
 	</div>
+	
+	
+	
+	<input type="hidden" name="cateNo" th:value="${board.cateNo}">
+
+	<input type="hidden" id="writer" name="userId" th:value="${board.userId}">
+		
+	<input type="hidden" id="boardNo" name="boardNo" th:value="${board.boardNo}">
+	
+	
+	<div id="boarddiv">
+		<table class="table">
+			<tr id="boardTitle" class="board">
+				<td width="600px;" th:text="${board.boardTitle}"></td>
+				<td align="center">작성일<img height="30px;" width="30px;" src="/images/writer.png"></td>
+				<td align="center">조회수</td>
+				<td align="center">추천<img height="30px;" width="30px;" src="/images/참잘함ㅇㅇㅇㅇ.png"></td>
+				<td align="center">신고<img height="30px;" width="30px;" src="/images/참못했어요.png"></td>
+			</tr>
+			<tr>
+				<td width="600px;" th:text="${board.userNick}"></td>
+				<td align="center" th:text="${board.boardWdate}"></td>
+				<td align="center" th:text="${board.boardCount}"></td>
+				<td align="center" th:text="${board.recomCount}"></td>
+				<td align="center" th:text="${board.commentCount}"></td>
+			</tr>
+			</table>
+			
+				<div th:if="${board.apiX != 'null'}" id="Contentbo" cate th:text="${board.boardContent}"></div>
+				<div th:unless="${board.apiX != 'null'}" id="Contentbo" cate th:text="${board.boardContent}"></div>
+				<div th:unless="${board.apiX != 'null'}" id="Contentbo2"></div>
+				
 </form>	
+
+<div th:if="${board.apiX != 'null'}">
+		<div id="map" style="width:350px;height:350px;"></div>  
+	</div>
+
+<button type="button" class="btn btn-success" id="recomBtn">추천</button>
+         
+      <button type="button" class="btn btn-warning" id="reportBtn">신고</button>
+        
+<a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${board.cateNo})}">목록</a>
+	
 	<input id="apiX" type="hidden" th:value="${board.apiX}">
 	<input id="apiY" type="hidden" th:value="${board.apiY}">
 	
-	<div th:if="${board.apiX != 'null'}">
-		<div id="map" style="width:350px;height:350px;"></div>  
-	</div>
+	
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806"></script>
 <script>
 // 이미지 지도에서 마커가 표시될 위치입니다 
