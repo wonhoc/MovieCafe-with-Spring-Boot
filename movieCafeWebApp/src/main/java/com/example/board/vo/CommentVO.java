@@ -8,13 +8,12 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @RequiredArgsConstructor
 public class CommentVO {
-	@NonNull private int comNo;
-	@NonNull private String comContent;
+	private @NonNull int comNo;
+	private @NonNull String comContent;
 	private String comWdate;
-	private String userId;
+	private @NonNull String userId;
 	private String userNick;
 	private int boardNo;
 }

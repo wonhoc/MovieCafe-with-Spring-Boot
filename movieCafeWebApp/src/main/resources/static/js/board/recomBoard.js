@@ -8,49 +8,49 @@ $(document).ready(function() {
                     method: 'GET',
                     dataType: 'json',
                     data: {
-                    	url: url,
-                     	boardNo: boardNo
-                     	
+                       url: url,
+                        boardNo: boardNo
+                        
                     },
-                    success: function(data) {                    	
+                    success: function(data) {                       
                         alert(data.result);
                         resolve(data);
                     }, 
-                    error: function(e) {                    	
+                    error: function(e) {                       
                         reject(e);
                     }
                 });
             });
-        }   
+        };   
         
         
         //추천등록용 함수
         async function requestRecomProcess(url, boardNo) {
             try {
-            	await recomAjax(url,boardNo);
+               await recomAjax(url,boardNo);
         
-            	}         
-			 	 catch (error) {
+               }         
+              catch (error) {
                 console.log("error : ", error);   
             }
         }
         
         
         //추천 insert
-	    $("#recomBtn").click(	    		
-	    	function() {
-	    			
-	    			
-	    			const boardNo = $('#boardNo').val();
-	    			
+       $("#recomBtn").click(             
+          function() {
+                
+                
+                const boardNo = $('#boardNo').val();
+                
                    
-	    			
-		    		requestRecomProcess('/insertRecom', boardNo);
+                
+                requestRecomProcess('/insertRecom', boardNo);
 
-	    		
-				
+             
+            
             }
-	    );
+       );
 
 
 
@@ -69,11 +69,11 @@ $(document).ready(function() {
                     userId : userId
                     
                 },
-                success: function(data) {                    	
+                success: function(data) {                       
                     alert(data.result);
                     resolve(data);
                 }, 
-                error: function(e) {                    	
+                error: function(e) {                       
                     reject(e);
                 }
             });
@@ -94,7 +94,7 @@ $(document).ready(function() {
     
     
     //신고 버튼 이벤트
-    $("#reportBtn").click(	    		
+    $("#reportBtn").click(             
         function() {
                 
                 console.log($('#userId').val());
@@ -108,4 +108,4 @@ $(document).ready(function() {
         }
     ); 
 });
-	  
+     

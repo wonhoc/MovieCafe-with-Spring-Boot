@@ -72,8 +72,8 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void createRecommend(RecomVO recommend) {
 		this.boardDao.insertRecommend(recommend);
-		
-	}
+			
+		}
 
 	//게시글 추천 취소
 	@Override
@@ -91,7 +91,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void createReport(ReportVO report) {
 		this.boardDao.insertReport(report);
-		
+			
 	}
 
 	//게시글 신고 취소
@@ -104,10 +104,10 @@ public class BoardServiceImpl implements BoardService{
 	//게시글 신고 여부
 	@Override
 	public boolean readIsReport(ReportVO report) {
-		
 		return this.boardDao.selectIsReport(report);
 	}
-	
+
+		
 	@Override
 	public List readCommentList(int boardNo) {
 		return this.boardDao.selectComList(boardNo);
@@ -125,11 +125,14 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void removeComment(int comNo) {
-		this.boardDao.deleteComment(comNo);
+		this.boardDao.deleteComment(comNo);;
 	}
 	
 	@Override
 	public void modifyComment(CommentVO comment) {
 		this.boardDao.updateComment(comment);
 	}
+
+	
+	
 }
