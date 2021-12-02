@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.board.service.BoardService;
 import com.example.board.vo.BoardVO;
@@ -30,11 +30,17 @@ public class boardController {
 		
 		return "views/board/boardlist";
 	}
+	
+	// 게시글 조회 ajax  
+	   @GetMapping("/getBoardList/{cateNo}")
+	   public @ResponseBody List<BoardVO> listBoard(@PathVariable int cateNo) {
+	      List<BoardVO> list= boardServie.readAllByCateNo(cateNo);
+	      return list;
+	   }
 
 	// 게시글 상세보기
 		@GetMapping("/detail/{boardNo}")
 		public String deltailboard(@PathVariable int boardNo, Model model) {
-
 			BoardVO board = boardServie.readOne(boardNo);
 
 			model.addAttribute("board", board);
