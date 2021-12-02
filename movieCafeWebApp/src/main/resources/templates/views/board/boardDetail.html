@@ -18,7 +18,6 @@ $(document).ready(function(){
 				contentType : 'application/json;charset=utf-8',
 				data : JSON.stringify({
 					"boardNo" : $('#boardNo').val(),
-					"userId" : $('#userId').val(),
 					"comContent" : $('#comContent').val()
 				}),
 				success : function(data){
@@ -168,7 +167,8 @@ $("#modifyComBtn").click(function(){
 		<!-- !!신고 때매 추가한 코드!! -->
 		<input type="hidden" id="writer" name="userId" th:value="${board.userId}">
 		<input type="hidden" id="boardNo" name="boardNo"	th:value="${board.boardNo}">
-
+	
+		
 				
 		<div class="container">
 			<table class="table">
@@ -179,8 +179,10 @@ $("#modifyComBtn").click(function(){
 					<td th:text="${board.userNick}"></td>
 					<td th:text="${board.boardWdate}"></td>
 					<td th:text="${board.boardCount}"></td>
-					<td th:text="${board.recomCount}"></td>
-					<td th:text="${board.commentCount}"></td>
+					<div id=cnt>
+					<td id="recomCnt" th:text="${board.recomCount}"></td>
+					<td id="comCnt" th:text="${board.commentCount}"></td>
+				</div>
 				</tr>
 				<tr>
 					<td colspan="5" th:text="${board.boardContent}"></td>

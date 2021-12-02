@@ -11,6 +11,7 @@ import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
 import com.example.board.vo.RecomVO;
 import com.example.board.vo.ReportVO;
+import com.example.board.vo.SearchVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService{
@@ -132,4 +133,40 @@ public class BoardServiceImpl implements BoardService{
 	public void modifyComment(CommentVO comment) {
 		this.boardDao.updateComment(comment);
 	}
+
+	// **********검색 추가 코드**********
+	@Override
+	public List<BoardVO> searchBoard(SearchVO search) {
+		
+		SearchVO searchKeyWord = new SearchVO();
+		searchKeyWord.setCateNo(search.getCateNo());
+		searchKeyWord.setKeyword(search.getKeyword());
+		
+		if(search.getKeyfield().equals("boardTitle")) {
+		return this.boardDao.selectSearchByTitle(searchKeyWord);
+		} else if(search.getKeyfield().equals("boardContent")) {
+			return this.boardDao.selectSearchByContent(searchKeyWord);
+		} else if(search.getKeyfield().equals("userId")){
+			return this.boardDao.selectSearchByUser(searchKeyWord);
+			
+		} else if(search.getKeyfield().equals("all")) {return this.boardDao.selectSearchByAll(searchKeyWord);}
+		else 
+			{
+				return this.boardDao.selctSearchByHorse(search);
+			}
+	
+	}
+	// **********검색 추가 코드**********
+
+	@Override
+	public int readRecomCount(int boardNo) {
+		return this.boardDao.selectRecomCount(boardNo);
+	}
+
+	@Override
+	public int readCommCount(int boardNo) {
+		return this.boardDao.selectCommCount(boardNo);
+	}
+	
+	
 }

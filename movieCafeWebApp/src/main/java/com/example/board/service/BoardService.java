@@ -7,6 +7,7 @@ import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
 import com.example.board.vo.RecomVO;
 import com.example.board.vo.ReportVO;
+import com.example.board.vo.SearchVO;
 
 public interface BoardService {
 
@@ -16,9 +17,16 @@ public interface BoardService {
 	void createTipBoard(BoardVO board);
 	void modifyBoard(BoardVO board);
 	void removeBoard(int boardNo);
+	int readRecomCount(int boardNo);
+	int readCommCount(int boardNo);
+
+	//검색추가 코드
+	List<BoardVO> searchBoard(SearchVO search);
+	
 	
 	List<BoardVO> readRecomRevList();
 	List<BoardVO> readNoticeRevList();
+	
 
 	//추천
 	void createRecommend(RecomVO recommend);

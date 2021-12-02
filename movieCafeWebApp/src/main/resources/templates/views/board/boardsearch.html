@@ -20,9 +20,9 @@
 
 </head>
 <section layout:fragment="content">
-	<!-- ****************************검색 추가 코드  시작-->
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
+			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<form th:action="@{boardsearch/{cateNo}(cateNo=${cateNo})}"
@@ -47,14 +47,12 @@
 					<button class="btn btn-success" type="submit" id="searchBtn">
 						검색</button>
 				</form>
-
-			</div>
+	</div>
 </div>
-			
 	</nav>
-<!-- *********************검색 추가 코드 끝************************** -->
-	<form name="form" th:action="@{boardwrite/{cateNo}(cateNo=${cateNo})}"
-		method="get">
+
+	<form name="form" th:action="@{boardsearch/{cateNo}(cateNo=${cateNo})}">
+		
 		<div class="container">
 			<table class="table table-hover">
 				<thead class="thead-dark" id=thead>
@@ -80,15 +78,14 @@
 						<!-- 상세보기 합치면 나중에 링크로 넣기 -->
 						<td class="single-item" th:text="${board.userNick}"></td>
 
-						<td colspan="2"><span th:if="${cateNo != 1}" id="horse"
-							th:text="${board.horse}" /> 
-							<a 
+						<td><span th:if="${cateNo != 1}" id="horse"
+							th:text="${board.horse}" /> <a
 							th:href="@{/detail/{boardNo}(boardNo=${board.boardNo})}"
 							th:text="${board.boardTitle}"></a></td>
 						<td th:text="${board.boardWdate}"></td>
 						<td th:text="${board.boardCount}"></td>
-						<td th:text="${board.recomCount}"></td>
-						<td th:text="${board.commentCount}"></td>
+						<td th:text="${board.boardCount}"></td>
+						<td th:text="${board.boardCount}"></td>
 					</tr>
 					</p>
 					</p>
