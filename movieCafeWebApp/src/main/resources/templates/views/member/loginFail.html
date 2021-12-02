@@ -12,7 +12,7 @@
 </th:block>	 -->
 <head>
 <script>
-	alert("로그인에 실패하였습니다. 입력한 내용을 확인해주세요.");
+	alert("로그인 정보가 필요합니다. 로그인 페이지로 이동합니다.");
 </script>
 <meta charset="UTF-8">
 <title>로그인</title>
@@ -39,23 +39,32 @@
         <label for="inputPassword" class="sr-only">Password를 입력하세요</label>
         <input type="password" id="userPwd" name="userPwd" class="form-control" placeholder="Password">
         <div>
-      	
-        	<button class="btn btn-lg btn btn-light" type="submit">로그인</button>
-        <a th:href="@{redirect:/main}">
-        	<button class="btn btn-lg btn btn-light">취소</button>
-        </a>
-        	
-         </div>
-         <div>
-         <Strong>아직 회원이 아니라면? : </Strong>
+      		<button class="btn btn-lg btn btn-light" type="submit">로그인</button>
+        	<a th:href="@{redirect:/views/main}">
+        		<button class="btn btn-lg btn btn-light">취소</button>
+        	</a>
+        </div>
+        </form>
+        <div class="joinSearchDIV">
+         <div class = "joinButton" align="right">
+         <strong>아직 회원이 아니라면? : </strong>
          	<a th:href="@{/joinUser}">
          		<button class="btn btn-lg btn btn-light">회원가입</button>
          	</a>
-         	
+         </div>
+         <div align ="right">
+         <strong>ID, Password를 잊어버렸다면? : </strong>
+    	     <a th:href="@{/searchIdPwd}">
+    	     	<button class="btn btn-lg btn btn-light">ID/Password 찾기</button>
+	    	     
+         	</a>		
+         </div>
          </div>
          
+         
+         
        
-      </form>
+      
 
     </div> <!-- /container -->
 

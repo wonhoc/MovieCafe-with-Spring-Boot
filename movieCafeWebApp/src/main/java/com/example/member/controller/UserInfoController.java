@@ -283,12 +283,12 @@ public class UserInfoController {
 	
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("name",name);
-		map.put("userContact", userContact);   
-		
+		map.put("userContact", userContact);    
+	
 		String getReturnId = this.userService.researchId(map);
-		System.out.println("리턴ID : "+ getReturnId);
-		return getReturnId;      
-		
+		System.out.println("리턴ID : "+ getReturnId); 
+		return getReturnId;  
+		   
 		
  		}
 	
