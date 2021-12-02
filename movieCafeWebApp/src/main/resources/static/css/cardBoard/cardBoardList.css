@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.cardBox {
+	align-content: center;
+    display: flex;
+    flex-flow: wrap;
+}
+
+.card {
+	border: 1px solid lightgrey;
+    box-shadow: 3px 3px 5px 0px rgb(99 99 99 / 52%);
+    border-radius: 1em;
+    width: 30em;
+    margin: 1.5em;
+    flex-direction: row;
+}
+
+.cardThumnail {
+	margin: 0;
+	height: 10em;
+    width: 15em;
+}
+
+.cardRight{
+	padding-top: 1.5em;
+}
