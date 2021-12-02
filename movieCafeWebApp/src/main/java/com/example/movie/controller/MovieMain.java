@@ -36,6 +36,16 @@ public class MovieMain {
 	public String main(Model model) {
 		List<BoardVO> recomList = this.boardServie.readRecomRevList();
 		List<BoardVO> noticeList = this.boardServie.readNoticeRevList();
+
+		for(BoardVO board : recomList) {
+			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
+			board.setCommentCount(this.boardServie.readCommCount(board.getBoardNo()));
+		}		
+		for(BoardVO board : noticeList) {
+			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
+		}		
+		
+		
 		model.addAttribute("recomList", recomList);
 		model.addAttribute("noticeList", noticeList);
 		return "views/main";
