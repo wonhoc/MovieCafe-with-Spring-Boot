@@ -52,7 +52,7 @@ public class UserInfoController {
 		//로그인에 성공했을 경우
 		if (isCheckUser == 1) {
 			// 세션 유지 시간 : 30분
-			session.setMaxInactiveInterval(1800);
+			session.setMaxInactiveInterval(60*60);
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
