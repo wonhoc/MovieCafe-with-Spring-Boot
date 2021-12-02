@@ -12,7 +12,19 @@ if(document.getElementById("input_check").checked) {
     document.getElementById("input_check_hidden").disabled = true;
 }
 </script>
-
+<style>
+#boardTitle{
+width: 700px;
+}
+#boardContent{
+	height: 350px;
+	width: 700px;
+	float:left;
+}
+#file{
+width: 700px;
+}
+</style>
 </head>
 <section layout:fragment="content">
 	
@@ -55,16 +67,17 @@ if(document.getElementById("input_check").checked) {
 
 				<div class="mb-3">
 					<input type="text" class="form-control" name="boardContent"
-						id="boardContent" th:value="${board.boardContent}" style="height: 300px;">
+						id="boardContent" th:value="${board.boardContent}">
 				</div>
 
 				<input type="hidden" id="apiX" name="apiX">
 				<input type="hidden" id="apiY" name="apiY">
 
-
+<div id="map"
+				style="width: 350px; height: 350px; margin-top: 10px; display: none"></div>
 
 				<div class="mb-3">
-					<label>파일</label> <input type="file" class="form-control"
+					<label>파일</label> <input  type="file" id="file" class="form-control"
 						name="fileList" multiple>
 
 				</div>
@@ -85,9 +98,6 @@ if(document.getElementById("input_check").checked) {
 				type="button" id="address" onclick="sample5_execDaumPostcode()"
 				value="주소 검색"><br>
 				
-				
-			<div id="map"
-				style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
 
 			<script
 				src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
