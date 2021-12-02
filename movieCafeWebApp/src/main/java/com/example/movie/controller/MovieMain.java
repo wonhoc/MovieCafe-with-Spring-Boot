@@ -59,7 +59,6 @@ public class MovieMain {
 		
 		List<GuanramListVO> guanramList = this.guanramService.selectGuanramList(Integer.parseInt(movieId));
 		UserInfoVo userInfo = (UserInfoVo)session.getAttribute("userInfo");
-		
 		model.addAttribute("guanramList", guanramList);
 		model.addAttribute("userInfo", userInfo);
 		return "views/movie/detailMovie";
@@ -72,11 +71,14 @@ public class MovieMain {
 	
 
 	@PostMapping("/guanramForm")
-	public String guanramForm(@RequestParam("movieId") String movieId, @RequestParam("imgUrl") String imgUrl,
+	public String guanramForm(HttpServletRequest req, @RequestParam("movieId") String movieId, @RequestParam("imgUrl") String imgUrl,
 			@RequestParam("title") String title, Model model) {
+		HttpSession session = req.getSession();
+		UserInfoVo userInfo = (UserInfoVo)session.getAttribute("userInfo");
 		model.addAttribute("movieId", movieId);
 		model.addAttribute("imgUrl", imgUrl);
 		model.addAttribute("title", title);
+		model.addAttribute("userInfo", userInfo);
 		return "views/movie/registerGuanram";
 	}
 

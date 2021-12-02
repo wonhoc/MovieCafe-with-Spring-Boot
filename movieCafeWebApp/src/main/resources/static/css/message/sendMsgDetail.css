@@ -5,6 +5,7 @@ th {
 	font-size: 14px;
 	padding-bottom: 0.4em;
 	background-color: blanchedalmond;
+	line-height: 4em;
 }
 
 #navibox {
@@ -23,4 +24,10 @@ th {
 
 .deleteBtn:hover {
 	background-color: #ccc;
+}
+
+.title{
+	font-weight: 600;
+	background-color: #ffffe08f;
+	text-align: center;
 }
