@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<head>
+<section layout:fragment="content">
+
+<th:block layout:fragment="script">
+	<script th:src="@{/js/cardBoard/cardBoardDetail.js}"></script>
+</th:block>
+	
+	<hr style="border: 0px; height: 3px; background: coral;">
+	 <h1 style="text-align: center;" th:text="${cardBoard.boardTitle}"></h1>
+	 <hr style="border: 0px; height: 3px; background: coral;">	
+	 <p align="right">
+	 	<img src="/images/writer.png" width="20px" height="20px"> <span th:text="${cardBoard.userNick}"></span>
+		 <img src="/images/commentCount.png" width="20px" height="20px"><span th:text="${cardBoard.commentCount}"></span> 
+		<img src="/images/readIcon.png" width="20px" height="20px"><span th:text="${cardBoard.boardCount}"></span>  
+	</p>
+	<hr style="border: 0px; height: 3px; background: coral;">
+	<p style="font-size: 20px; text-align: center" th:text="${cardBoard.boardContent}"></p>
+	<hr style="border: 0px; height: 3px; background: coral;">
+	
+	<div th:if="${#lists.size(cardBoard.boardfileList) > 0}" th:each="boardfile : ${cardBoard.boardfileList}">
+		<div>
+		<img src="/upload + ${boardfile.boardfileOrigin}">
+		</div>
+	</div>
+	
+	<div align="right">
+		<span th:if="${session.userInfo != null}">
+		<button type="button" id="btn" class="btn-success btn-sm">추천</button>
+		<button type="button" id="btnDelete" class="btn-danger btn-sm">신고</button>
+		<button type="button" id="btnDelete" class="btn-warning btn-sm" th:if="${cardBoard.userId == session.userInfo.userId}">삭제</button>
+		</span>
+		<button type="button" id="btnGoList" class="btn-primary btn-sm">목록</button>
+	</div>
+</section>
+</html>
