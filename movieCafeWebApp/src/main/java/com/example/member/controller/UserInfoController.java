@@ -278,7 +278,8 @@ public class UserInfoController {
 	 
 	@GetMapping("/searchIdPwd")
 	public String goSearch() {
-		return "views/Member/searchIdPwd";
+		System.out.println("00000000000000000000000");
+		return "views/member/searchIdPwd";
 	}
 	
 	// 아이디 찾기

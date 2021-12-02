@@ -43,7 +43,7 @@ text-align: center;
 }
 
 #keyword{
-	height: 40px; width: 750px; float:left;
+	height: 40px; width: 700px; float:left;
 }
 #searchBtn{
 	height: 40px;
@@ -59,15 +59,17 @@ text-align: center;
 #wdate,#bc,#rc,#cc,span{
 	line-height: 3.5em;
 }
-
+.navBox {
+	margin-top: 1em;
+}
 
 </style>
 
 </head>
-<section layout:fragment="content">
+<section class="container" layout:fragment="content">
 
 	<!-- ****************************검색 추가 코드  시작-->
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default navBox">
 		<div class="container-fluid">
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
@@ -107,7 +109,7 @@ text-align: center;
 <form name="form" th:action="@{boardwrite/{cateNo}(cateNo=${cateNo})}" method="get">
 
    
-   <div class="container">
+   <div>
       <table id="table" class="table table-hover">
          <thead id="thead">
             <tr>
