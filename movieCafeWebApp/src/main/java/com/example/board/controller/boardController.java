@@ -54,6 +54,10 @@ public class boardController {
 	   @GetMapping("/getBoardList/{cateNo}")
 	   public @ResponseBody List<BoardVO> listBoard(@PathVariable int cateNo) {
 	      List<BoardVO> list= boardServie.readAllByCateNo(cateNo);
+	  	for(BoardVO board : list) {
+			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
+			board.setCommentCount(this.boardServie.readCommCount(board.getBoardNo()));
+		}
 	      return list;
 	   }
 

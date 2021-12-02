@@ -14,6 +14,9 @@ $(document).ready(function() {
                     },
                     success: function(data) {                       
                         alert(data.result);
+                        $('#originRecom').hide();
+                        $('#recomAction').text(data.recomCnt);
+                        
                         resolve(data);
                     }, 
                     error: function(e) {                       
