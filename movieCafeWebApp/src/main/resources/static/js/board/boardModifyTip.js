@@ -1,4 +1,6 @@
 $(document).ready(function() {
+        	
+        	
         		
     $('#horseNo').on('change', function() {
         const result = $(this).find('option:selected').val();
@@ -21,6 +23,10 @@ $(document).ready(function() {
         
 window.addEventListener('load', function() {
     const saveBtn = document.getElementById('saveBtn');
+    
+    if(document.getElementById("input_check").checked) {
+    document.getElementById("input_check_hidden").disabled = true;
+}
     
     saveBtn.addEventListener('click', function() {
     const form = document.getElementById('form');

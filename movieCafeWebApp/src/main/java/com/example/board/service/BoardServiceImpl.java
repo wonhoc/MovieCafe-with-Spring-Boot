@@ -1,14 +1,16 @@
 package com.example.board.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.board.dao.BoardDao;
-import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
+import com.example.board.vo.RecomVO;
+import com.example.board.vo.ReportVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService{
@@ -66,11 +68,71 @@ public class BoardServiceImpl implements BoardService{
 		this.boardDao.deleteBoard(boardNo);
 	}
 
-	//게시글 신고
+	//게시글 추천
 	@Override
-	public void reportBoard(int boardNo) {
-		this.boardDao.reportBoardDao(boardNo);
+	public void createRecommend(RecomVO recommend) {
+		this.boardDao.insertRecommend(recommend);
+			
+		}
+
+	//게시글 추천 취소
+	@Override
+	public void dropRecommend(RecomVO recommend) {
+		this.boardDao.deleteRecommend(recommend);		
+	}
+
+	//게시글 추천 이력 조회
+	@Override
+	public boolean readIsRecom(RecomVO recommend) {
+		return this.boardDao.selectIsRecom(recommend);
+	}
+
+	//게시글 신고 등록
+	@Override
+	public void createReport(ReportVO report) {
+		this.boardDao.insertReport(report);
+			
+	}
+
+	//게시글 신고 취소
+	@Override
+	public void dropReport(ReportVO report) {
+		this.boardDao.deleteReport(report);
+		
+	}
+
+	//게시글 신고 여부
+	@Override
+	public boolean readIsReport(ReportVO report) {
+		return this.boardDao.selectIsReport(report);
+	}
+
+		
+	@Override
+	public List readCommentList(int boardNo) {
+		return this.boardDao.selectComList(boardNo);
+	}
+
+	@Override
+	public void createComment(CommentVO comment) {
+		this.boardDao.insertComment(comment);
+	}
+
+	@Override
+	public void readMapCommentList(Map map) {
+		this.boardDao.selectMap(map);
+	}
+
+	@Override
+	public void removeComment(int comNo) {
+		this.boardDao.deleteComment(comNo);;
 	}
 	
+	@Override
+	public void modifyComment(CommentVO comment) {
+		this.boardDao.updateComment(comment);
+	}
 
+	
+	
 }

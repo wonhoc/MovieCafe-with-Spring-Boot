@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<head>
+<script>
+$(document).ready(function(){
+	const comNo = $(this).parents('tbody').attr('id');
+	$("#addComBtn").click(function(){
+			$.ajax({
+				url : encodeURI('/createCom'),
+				type : 'POST',
+				contentType : 'application/json;charset=utf-8',
+				data : JSON.stringify({
+					"boardNo" : $('#boardNo').val(),
+					"userId" : $('#userId').val(),
+					"comContent" : $('#comContent').val()
+				}),
+				success : function(data){
+					const comment = data.results;
+					$('#ListComment').html("");
+					let str = "";
+					for(let i = 0 ; i < comment.length ; i++){
+						str += '<tr>' + 
+			 						'<td>' + comment[i].userNick + '</td>' + 
+			 						'<td>' + comment[i].comWdate + '</td>' + 
+			 					'</tr>' + 		
+			 					'<tr>' + 
+			 						'<td colspan="2" class="comContent">' + comment[i].comContent + '</td>' + 
+			 					'</tr>' +
+			 					'<tr>' +	
+			 						'<td colspan="2">' + 
+			 							'<button class="modifyFormBtn" type="button">수정</button>&nbsp;' + 		
+			 							'<button id="removeBtn">삭제</button>' +
+			 						'</td>'	+ 				
+			 					'</tr>'
+					}
+						$('#listComment').html(str);
+
+				},
+				error : function(err){
+					console.log(err);
+				}
+
+
+			});
+	});
+	
+
+	$(document).on("click", "#removeBtn", function(){
+		const comNo = $(this).parents('tbody').attr('id');
+		const boardNo = $('#boardNo').val();
+		$.ajax({
+			url : '/remove/'+ comNo + "/" + boardNo,
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+					const comment = data.results;
+					$('#ListComment').html("");
+					let str = "";
+					for(let i = 0 ; i < comment.length ; i++){
+						str += '<tbody id=' + comment[i].comNo + '>' +
+									'<tr>' + 
+			 						'<td>' + comment[i].userNick + '</td>' + 
+			 						'<td>' + comment[i].comWdate + '</td>' + 
+			 					'</tr>' + 		
+			 					'<tr>' + 
+			 						'<td colspan="2" class="comContent">' + comment[i].comContent + '</td>' + 
+			 					'</tr>' +
+			 					'<tr>' +	
+			 						'<td colspan="2">' + 
+			 							'<button class="modifyFormBtn" type="button">수정</button>&nbsp;' + 		
+			 							'<button id="removeBtn" type="button">삭제</button>' +	
+			 						'</td>'	+ 				
+			 					'</tr></tbody>'
+					}
+						$('#listComment').html(str);
+
+				},
+				error : function(err){
+					console.log(err);
+				}
+		});
+	});
+	
+});
+</script>
+</head>
+
+<section layout:fragment="content">
+<form th:action="@{/deleteBoard/{boardNo}(boardNo=${board.boardNo})}"
+		method="post">
+	<p id="idid" th:text="${board.boardNo}">
+	<div class="container">
+	<input type="hidden" id="writer" name="userId" th:value="${userInfo.userId}">
+		<table class="table">
+			<tr>
+				<td colspan="5" th:text="${board.boardTitle}"></td>
+			</tr>
+			<tr>
+				<td th:text="${board.userNick}"></td>
+				<td th:text="${board.boardWdate}"></td>
+				<td th:text="${board.boardCount}"></td>
+				<td th:text="${board.recomCount}"></td>
+				<td th:text="${board.commentCount}"></td>
+			</tr>
+			<tr>
+				<td colspan="5" th:text="${board.boardContent}"></td>
+			</tr>
+		</table>
+
+	<button type="submit" class="btn btn-danger waves-effect waves-light">삭제</button>
+		<a class="btn btn-default waves-effect waves-light" th:href="@{/modifyform/{boardNo}(boardNo=${boardNo})}">수정</a>
+	</div>
+</form>	
+	<input id="apiX" type="hidden" th:value="${board.apiX}">
+	<input id="apiY" type="hidden" th:value="${board.apiY}">
+	
+	<div th:if="${board.apiX != 'null'}">
+		<div id="map" style="width:350px;height:350px;"></div>  
+	</div>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806"></script>
+<script>
+// 이미지 지도에서 마커가 표시될 위치입니다 
+
+var mapX = document.getElementById('apiX').value;
+var mapY = document.getElementById('apiY').value;
+
+
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(mapY, mapX), // 지도의 중심좌표
+    level: 3, // 지도의 확대 레벨
+    mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+}; 
+
+// 지도를 생성한다 
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 지도에 마커를 생성하고 표시한다
+var marker = new kakao.maps.Marker({
+position: new kakao.maps.LatLng(mapY, mapX), // 마커의 좌표
+map: map // 마커를 표시할 지도 객체
+});
+</script>
+	
+	<table>
+		<thead>
+			<tr>
+				<td>작성자</td>
+				<td>날짜</td>
+			</tr>
+		</thead>
+		<div id="listComment">
+			<p th:each="comment : ${list}">
+				<tbody th:id="${comment.comNo}">
+				<tr>
+					<td th:text="${comment.userNick}"></td>
+					<td th:text="${comment.comWdate}"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="comContent" th:text="${comment.comContent}"></td>
+				</tr>
+				 <tr>
+                  <td colspan="2">
+                     <button class="modifyFormBtn" type="button">수정</button>
+                     <button id="removeBtn">삭제</button>
+                  </td>
+               </tr>
+               </tbody>
+			</p>
+		</div>
+	</table>
+
+
+	<!-- 댓글 달기 -->
+<form method="get">
+	
+	<div id="addComment">
+			<div>
+				<textarea name="comContent" id="comContent" rows="5" cols="50"
+				placeholder="댓글을 입력해주세요 ."></textarea>
+			</div>
+			<button id="addComBtn">댓글 달기</button>
+			
+			</div>
+	<!-- 댓글 수정 -->
+	<div id="modifyComment" style="display: none;">
+		<div>
+			<input type="hidden" id="comNo" >
+			<textarea id="modifyComContent" rows="5" cols="50"
+				placeholder="댓글을 입력해주세오 ."></textarea>
+		</div>
+
+			<div>
+				<button id="cancel">취소</button>
+				<button id="modifyComBtn">수정하기</button>
+			</div>
+	</div>
+</form>
+</section>
+</html>

@@ -1,6 +1,7 @@
 package com.example.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
+import com.example.board.vo.CommentVO;
+import com.example.board.vo.RecomVO;
+import com.example.board.vo.ReportVO;
 
 @Repository("boardDao")
 public class BoardDaoImpl implements BoardDao {
@@ -80,10 +84,70 @@ public class BoardDaoImpl implements BoardDao {
 		this.sqlSession.delete("deleteBoard", boardNo);
 	}
 
-	//게시글 신고
+	//게시글 추천
 	@Override
-	public void reportBoardDao(int bordNo) {
-		this.sqlSession.insert("reportBoard", bordNo);
+	public void insertRecommend(RecomVO recommend) {
+		this.sqlSession.insert("insertRecomCall", recommend);
+			
 	}
 
+	//추천 취소
+	@Override
+	public void deleteRecommend(RecomVO recommend) {
+		this.sqlSession.delete("deleteRecomCall",recommend);
+		}
+	
+	
+	//추천 이력 조회
+	@Override
+	public boolean selectIsRecom(RecomVO recommend) {
+		return this.sqlSession.selectOne("selectIsRecomCall",recommend);
+	}
+
+	//게시글 신고 등록
+	@Override
+	public void insertReport(ReportVO report) {
+		this.sqlSession.insert("insertReportCall", report);
+			
+	}
+	//게시글 신고 삭제
+	@Override
+	public void deleteReport(ReportVO report) {
+		this.sqlSession.delete("deleteReportCall",report);
+			
+	}
+
+	//신고 여부 조회
+	@Override
+	public boolean selectIsReport(ReportVO report) {
+		return this.sqlSession.selectOne("selectIsReportCall",report);
+	}
+
+	@Override
+	public List selectComList(int boardNo) {
+		return this.sqlSession.selectList("selectCommentList", boardNo);
+	}
+
+	@Override
+	public void insertComment(CommentVO comment) {
+		this.sqlSession.insert("commmentInsert", comment);
+	}
+
+	@Override
+	public void selectMap(Map map) {
+		List<CommentVO> list = this.sqlSession.selectList("selectCommentList", map.get("boardNo"));
+		map.put("results", list);
+	}
+
+	@Override
+	public void deleteComment(int comNo) {
+		this.sqlSession.delete("deleteComment", comNo);
+	}
+	
+	@Override
+	public void updateComment(CommentVO comment) {
+		this.sqlSession.update("updateCommentCall", comment);
+		
+	}
+	
 }

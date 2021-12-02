@@ -34,9 +34,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 
-	
-
-
 	@Override
 	public void deleteUser(String userId) {
 		this.sqlSession.update("Member.selfDelete", userId);

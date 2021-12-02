@@ -2,23 +2,52 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{layout/defaultLayout}">
- <th:block layout:fragment="script">
-        <script th:src="@{/js/board/boardwriteTip.js}"></script>
-        
-    </th:block>
+
 <head>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+    $('#horseNo').on('change', function() {
+        const result = $(this).find('option:selected').val();
+                
+          if(result == 10) {
+               $('#map').show();
+            $('#sample5_address').show();
+            $('#address').show();            			
+        } else {
+            $('#map').hide();
+            $('#sample5_address').hide();
+            $('#address').hide();
+        }
+    });       		
+            
+});
+        
+        
+window.addEventListener('load', function() {
+    const saveBtn = document.getElementById('saveBtn');
+    
+    saveBtn.addEventListener('click', function() {
+    	const form = document.getElementById('form');
+    	form.submit();
+    }); 
+});
+</script>
+
 </head>
 <section layout:fragment="content">
    <article>
       <div class="container" role="main">
          <form name="form" id="form" role="form" method="post" th:action="@{/tipfileUpload}"
             enctype="multipart/form-data">
-            <input type="hidden" name="userId" value="test_user03">
             <h3 class="text-title" th:text="#{category.title1}"></h3>
             <label>말머리</label> <select name="horseNo" id="horseNo">
                <option value="10">영화관 추천</option>
                <option value="11">할인 정보</option>
             </select> 
+            
+            <input type="hidden" id="writer" name="userId" th:value="${userInfo.userId}">
+            
             <input type="hidden" id="cateNo" name="cateNo" value="3">
             <div class="mb-3">
                <input type="text" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요">
@@ -41,24 +70,76 @@
             </div>
             <input type="hidden"  id="apiX" name="apiX"> 
             <input type="hidden" id="apiY" name="apiY">
-            <div th:if="${rankType.equals('A')}">
+            <div th:if="${userInfo.rankType.equals('A')}">
                <input type="checkbox" var="1" value="1" name="boardNotice"><label>공지</label>
             </div>
          </form>
-         
          <input type="text" id="sample5_address" placeholder="주소"> <input
-            type="button" id="address" onclick="sample5_execDaumPostcode()"
-            value="주소 검색"><br>
-         <div id="map"
-            style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+				type="button" id="address" onclick="sample5_execDaumPostcode()"
+				value="주소 검색"><br>
+			<div id="map"
+				style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
 
- <th:block layout:fragment="apiscript">
- <script
-            src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-         <script
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806&libraries=services"></script>
-         <script th:src="@{/js/board/mapApi.js}"></script>
-</th:block>       
+			<script
+				src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+			<script
+				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806&libraries=services"></script>
+			<script>
+			
+		    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		        mapOption = {
+		            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+		            level: 5 // 지도의 확대 레벨
+		        };
+		
+		    //지도를 미리 생성
+		    var map = new daum.maps.Map(mapContainer, mapOption);
+		    //주소-좌표 변환 객체를 생성
+		    var geocoder = new daum.maps.services.Geocoder();
+		    //마커를 미리 생성
+		    var marker = new daum.maps.Marker({
+		        position: new daum.maps.LatLng(37.537187, 127.005476),
+		        map: map
+		    });
+		
+		
+		    function sample5_execDaumPostcode() {
+		       new daum.Postcode({
+		            oncomplete: function(data) {
+		                var addr = data.address; // 최종 주소 변수
+		
+		                // 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById("sample5_address").value = addr;
+		                // 주소로 상세 정보를 검색
+		                geocoder.addressSearch(data.address, function(results, status) {
+		                    // 정상적으로 검색이 완료됐으면
+		                    if (status === daum.maps.services.Status.OK) {
+		
+		                        var result = results[0]; //첫번째 결과의 값을 활용
+								
+		                        // 해당 주소에 대한 좌표를 받아서
+		                        var coords = new daum.maps.LatLng(result.y, result.x);
+		                        // 지도를 보여준다.
+		                        mapContainer.style.display = "block";
+		                        map.relayout();
+		                        // 지도 중심을 변경한다.
+		                        map.setCenter(coords);
+		                        // 마커를 결과값으로 받은 위치로 옮긴다.
+		                        marker.setPosition(coords);
+		                        
+								
+									document.getElementById("apiX").value = result.x;
+									document.getElementById("apiY").value = result.y;
+		                        
+		                    }
+		                });
+		                
+		            }
+		        }).open();   	
+		    	
+    		}
+		</script>
+
       </div>
    </article>
 </section>

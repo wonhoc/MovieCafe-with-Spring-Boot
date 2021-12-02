@@ -9,6 +9,7 @@
 		<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR" />
 		<result property="horse" javaType="string" column="horse" jdbcType="VARCHAR" />
 		<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR" />
+		<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER" />
 		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR" />
 		<result property="commentCount" javaType="int" column="commentCount" jdbcType="INTEGER" />
 	</resultMap>
@@ -21,12 +22,17 @@
 		<result property="boardTitle" javaType="string" column="boardTitle" jdbcType="VARCHAR" />
 		<result property="cateNo" javaType="int" column="cateNo" jdbcType="INTEGER" />
 		<result property="userNick" javaType="string" column="userNick" jdbcType="VARCHAR" />
+		<result property="userId" javaType="string" column="userId" jdbcType="VARCHAR" />
 		<result property="horseNo" javaType="int" column="horseNo" jdbcType="INTEGER" />
 		<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER" />
 		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="VARCHAR" />
 		<result property="commentCount" javaType="int" column="commentCount" jdbcType="INTEGER" />
 		<result property="boardContent" javaType="string" column="boardContent" jdbcType="VARCHAR" />
+		<result property="apiX" javaType="string" column="apiX" jdbcType="VARCHAR" />
+		<result property="apiY" javaType="string" column="apiY" jdbcType="VARCHAR" />
 	</resultMap>
+
+	
 
 	<!-- 인기글 조회 -->
 	<resultMap type="boardVO" id="mainBestList">
@@ -89,7 +95,7 @@
 		<parameter property="boardTitle" javaType="string" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="boardContent" javaType="string" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="horseNo" javaType="int" jdbcType="INTEGER" mode="IN" />
-		<parameter property="boardNotice" javaType="int" jdbcType="TINYINT" mode="IN" />
+		<parameter property="boardNotice" javaType="int" jdbcType="INTEGER" mode="IN" />
 		<parameter property="apiX" javaType="string" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="apiY" javaType="string" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN" />
@@ -104,6 +110,37 @@
 		<parameter property="boardNo" javaType="int" jdbcType="TINYINT" mode="IN" />
 	</parameterMap>
 
+<!-- 게시글 추천 -->
+	<parameterMap type="recomVO" id="recomCreateMap">
+		<parameter property="userId" javaType="string"
+			jdbcType="VARCHAR" mode="IN" />
+		<parameter property="boardNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
+
+	<!-- 게시글 신고 등록 -->
+	<parameterMap type="reportVO" id="reportCreateMap">
+		<parameter property="boardNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+		<parameter property="userId" javaType="string"
+			jdbcType="VARCHAR" mode="IN" />
+		<parameter property="repoter" javaType="string"
+			jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+
+	<!-- 게시글 신고 삭제, 신고 여부 조회 -->
+	<parameterMap type="reportVO" id="reportDropMap">
+		<parameter property="boardNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+		<parameter property="repoter" javaType="string"
+			jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+
+
+	<!-- 댓글삭제 -->
+	<parameterMap type="commentVO" id="deleteCommentMap">
+		<parameter property="comNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
 
 <!-- ............................................................................................................. -->
 
@@ -140,6 +177,41 @@
 		{call sp_modify_board(?,?,?,?,?,?,?) }
 	</update>
 
+	<!-- 게시글 추천 -->
+	<insert id="insertRecomCall" parameterType="recomVo"
+		statementType="CALLABLE" parameterMap="recomCreateMap">
+		{call sp_insert_recommend(?,?)}
+	</insert>
+	
+	<!-- 게시글 추천 이력 조회 -->
+	<select id="selectIsRecomCall" resultType="boolean"
+		statementType="CALLABLE" parameterMap="recomCreateMap">
+		{ call sp_select_isrecom(?, ?) }
+	</select>
+	
+	<!-- 게시글 추천 취소 -->
+	<delete id="deleteRecomCall" statementType="CALLABLE"
+		parameterType="recomVo" parameterMap="recomCreateMap">
+		{ call sp_deleteRecommend(?, ?) }
+	</delete>
+
+	<!-- 게시글 신고 -->
+	<insert id="insertReportCall" parameterType="reportVo"
+		statementType="CALLABLE" parameterMap="reportCreateMap">
+		{call sp_insert_report(?,?,?)}
+	</insert>
+	
+	<!-- 게시글 신고 이력 조회 -->
+	<select id="selectIsReportCall" resultType="boolean"
+		statementType="CALLABLE" parameterMap="reportDropMap">
+		{ call sp_select_isreport(?, ?)}
+	</select>
+	
+	<!-- 게시글 신고 취소 -->
+	<delete id="deleteReportCall" statementType="CALLABLE"
+		parameterType="reportVo" parameterMap="reportDropMap">
+		{ call sp_delete_report(?, ?) }
+	</delete>
 	
 	
 	<!-- 인기글 조회 -->
@@ -168,10 +240,62 @@
 		{ call sp_delete_board(?) }
 	</delete>
 
-	<!-- 게시글 신고 -->
-	<insert id="reportBoard" statementType="CALLABLE"
-		parameterType="int" parameterMap="paramMapSelectDetail">
-		{ call sp_report(?) }
-	</insert>
 	
-	</mapper>
+	<!-- 댓글작성 -->
+	<parameterMap type="commentVO" id="commentCreateMap">
+		<parameter property="boardNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+		<parameter property="userId" javaType="string"
+			jdbcType="VARCHAR" mode="IN" />
+		<parameter property="comContent" javaType="string"
+			jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+	
+	<!-- 댓글작성 -->
+	<insert id="commmentInsert" parameterType="commentVO"
+		statementType="CALLABLE" parameterMap="commentCreateMap">
+		{call sp_write_comment(?,?,?) }
+	</insert> 
+
+<resultMap type="commentVO" id="resultMapComList">
+		<result property="comNo" javaType="int" column="comNo"
+			jdbcType="INTEGER" />
+		<result property="boardNo" javaType="int" column="boardNo"
+			jdbcType="INTEGER" />
+		<result property="userNick" javaType="string" column="userNick"
+			jdbcType="VARCHAR" />
+		<result property="comContent" javaType="string"
+			column="comContent" jdbcType="VARCHAR" />
+		<result property="comWdate" javaType="string"
+			column="comWdate" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<parameterMap type="int" id="paramMapComList">
+		<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
+
+<parameterMap type="commentVO" id="paramMapComModify">
+		<parameter property="comNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+		<parameter property="comContent" javaType="string"
+			jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+	
+
+
+	<select id="selectCommentList" statementType="CALLABLE" resultMap="resultMapComList"
+		parameterType="int" parameterMap="paramMapComList"> 
+		
+		{ call sp_list_comment(?) }
+	</select>
+	
+	<delete id="deleteComment" statementType="CALLABLE" parameterType="int" parameterMap="paramMapComList">
+		{ call sp_deleteComment(?) }
+	</delete>
+	
+	<update id="updateCommentCall" statementType="CALLABLE"
+		parameterType="commentVO" parameterMap="paramMapComModify">
+		{ call sp_modify_comment(?, ?)}
+	</update>
+	
+</mapper>

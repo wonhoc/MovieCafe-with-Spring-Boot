@@ -16,8 +16,7 @@
 		
 			<form name="form" id="form" role="form" method="post" th:action="@{/fileUpload}"
 				enctype="multipart/form-data">
-				
-				<input type="hidden" name="userId" value="test_user03">
+				<input type="hidden" id="writer" name="userId" th:value="${userInfo.userId}">
 				<input type="hidden" id="cateNo" name="cateNo" th:value="${cateNo}">
 				
 				<div th:if="${cateNo==1}" role="main">
@@ -63,9 +62,10 @@
 					<a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${cateNo})}">목록</a>
 				
 
-				<div th:if="${rankType.equals('A')}">
+				<div th:if="${userInfo.rankType.equals('A')}">
 					<input type="checkbox" var="1" value="1" name="boardNotice"><label>공지</label>
 				</div>
+				
 				
 				
 			</form>
