@@ -3,23 +3,24 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/defaultLayout}">
+
 <th:block layout:fragment="script">
         <script th:src="@{/js/board/recomBoard.js}"></script>
 </th:block>
 
 <head>
 <script>
-
+   
 $(document).ready(function(){
 
 $("#addComBtn").click(function(){
  $.ajax({
-    url : encodeURI('/createCom'),
+    url : "/createcom",
     type : 'POST',
     contentType : 'application/json;charset=utf-8',
+    dataType : 'json',
     data : JSON.stringify({
        "boardNo" : $('#boardNo').val(),
-       "userId" : $('#userId').val(),
        "comContent" : $('#comContent').val()
     }),
     success : function(data){
@@ -27,8 +28,8 @@ $("#addComBtn").click(function(){
        $("#listComment").html("");
        let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
        for(let i = 0 ; i < comment.length ; i++){
-          str += '<tbody id = "' + comment[i].comNo + '">' +
-                '<tr>' + 
+          str +='<tbody id = "' + comment[i].comNo + '">' +
+                   '<tr>' + 
                     '<td>' + comment[i].userNick + '</td>' + 
                     '<td>' + comment[i].comWdate + '</td>' + 
                  '</tr>' +       
@@ -38,13 +39,12 @@ $("#addComBtn").click(function(){
                  '<tr>' +   
                     '<td colspan="2">' + 
                        '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;' +       
-                       '<button id="removeBtn">삭제</button>' +
-                    '</td>'   +             
-                 '</tr>'+
-                 '</tbody>'
+                       '<button id="removeBtn">삭제</button>' +   
+                    '</td>'   +    
+                 '</tr></tbody>'
        }
           $("#listComment").html(str);
-
+ 
     },
     error : function(err){
        console.log(err);
@@ -167,7 +167,7 @@ error : function(err){
 		
 		<input type="hidden" name="cateNo" th:value="${board.cateNo}">
 		
-		<input type="hidden" id="userId" name="userId" th:value="${userInfo.userId}">
+		<input type="hidden" id="writer" name="userId" th:value="${board.userId}">
 		
 		<input type="hidden" id="boardNo" name="boardNo" th:value="${board.boardNo}">
 		
@@ -228,7 +228,7 @@ error : function(err){
 	
 	<div id="addComment">
 			<div>
-				<textarea name="comContent" id="comContent" rows="5" cols="50"
+				<textarea id="comContent" rows="5" cols="50"
 				placeholder="댓글을 입력해주세요 ."></textarea>
 			</div>
 			<button id="addComBtn">댓글 달기</button>

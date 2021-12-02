@@ -28,31 +28,33 @@ public class commentController {
 	private BoardService boardService;
 	
 	
-	@PostMapping("/createCom")
-	public Map comCreate(@RequestBody CommentVO comment, HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession();
+	@PostMapping("/createcom")
+	   public Map comCreate(@RequestBody CommentVO comment, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
-		Map<String, Object> map = new HashMap<String, Object>();
+	      
+		
+		System.out.println("userInfo = "+userInfo.getUserId());	
 		
 		
 		
-		CommentVO creCom = new CommentVO();
 		
-		creCom.setBoardNo(comment.getBoardNo());
-		creCom.setUserId(comment.getUserId());
-		creCom.setComContent(comment.getComContent());
-		
-		int boardNo = comment.getBoardNo();
-		
-		System.out.println(comment.toString());
-		
-		model.addAttribute("userInfo", userInfo);
-		
-		this.boardService.createComment(creCom);
-		List<CommentVO> list  = boardService.readCommentList(boardNo);
-		map.put("results", list);
-		return map;
-	}
+	      int boardNo = comment.getBoardNo();
+	      System.out.println("boardNo"+boardNo);
+	      System.out.println("userInfo.getUserId() = "+userInfo.getUserId());
+	      
+	      comment.setUserId(userInfo.getUserId());
+	      
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      this.boardService.createComment(comment);
+	      List<CommentVO> list = boardService.readCommentList(boardNo);
+	      
+	      System.out.println(list.toString());
+	      
+	      map.put("results", list);
+	      
+	      return map;
+	   }
 	
 	
 	@PostMapping("/remove/{comNo}/{boardNo}")
@@ -71,16 +73,15 @@ public class commentController {
 	
 
 	@PostMapping("/modifycom")
-	public Map modifyMap(@RequestBody CommentVO comment, HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession();
-		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
-		Map<String, Object> map = new HashMap<String, Object>();
-		CommentVO modiCom = new CommentVO(comment.getComNo(), comment.getComContent(), comment.getUserId());
-		model.addAttribute("userInfo", userInfo);
-		this.boardService.modifyComment(modiCom);
-		List<CommentVO> list = boardService.readCommentList(comment.getBoardNo());
-		map.put("results", list);
-		return map;
-	}
+	   public Map modifyMap(@RequestBody CommentVO comment, HttpServletRequest req) {
+	      HttpSession session = req.getSession();
+	      UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      CommentVO modiCom = new CommentVO(comment.getComNo(), comment.getComContent());
+	      this.boardService.modifyComment(modiCom);
+	      List<CommentVO> list = boardService.readCommentList(comment.getBoardNo());
+	      map.put("results", list);
+	      return map;
+	   }
 }
  

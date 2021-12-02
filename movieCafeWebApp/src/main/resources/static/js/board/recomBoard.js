@@ -40,9 +40,7 @@ $(document).ready(function() {
        $("#recomBtn").click(             
           function() {
                 
-                
                 const boardNo = $('#boardNo').val();
-                
                    
                 
                 requestRecomProcess('/insertRecom', boardNo);

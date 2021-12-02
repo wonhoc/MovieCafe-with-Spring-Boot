@@ -13,7 +13,7 @@ public class CommentVO {
 	private @NonNull int comNo;
 	private @NonNull String comContent;
 	private String comWdate;
-	private @NonNull String userId;
+	private String userId;
 	private String userNick;
 	private int boardNo;
 }
