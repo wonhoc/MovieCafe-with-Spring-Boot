@@ -1,53 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
- <head>
-        <meta charset='UTF-8'>
-        <title>보낸 쪽지 상세보기</title>
-       <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-		<script th:src="@{/js/message/sendMsgDetail.js}">
-			
-		</script>
-    </head>
-    <body>
-        <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
-            <button type="button" id="sendFormBtn" onclick="location='/sendMsgForm'">쪽지쓰기</button>
-            <button type="button" id="sendMsglistBtn" onclick="location='/sendMsgList'">보낸쪽지함</button>
-            <button type="button" id="recieveMsglistBtn" onclick="location='/receiveMsgList'">받은쪽지함</button>
-        </div>
-        <div id="content">
-         	<table border="1" id="tbSendMsg">
-         		<thead>
-         			<tr>
-         				<td>수신자</td>
-         				<td>
-         				<div th:each="addr : ${sendMsg.addresses}">   
-         					<span th:text="${addr.receiveId}"></span> 		       			        	
-							<span th:if="${addr.isRead == 0}">[읽지않음]</span>
-							<span th:if="${addr.isRead == 1}">[읽음]</span>
-         				</div>
-         				</td>
-         				<td>작성시간</td>
-         				<td th:text="${sendMsg.msgWdate }"></td>
-         			</tr>
-         		</thead>
-         		<tbody>
-         			<tr>
-         				<td colspan="4" style="text-align: center;">내용</td>
-         			</tr>
-         			<tr>
-         				<td colspan="4" style="text-align: center;" th:text="${sendMsg.sendMsgContent }"></td>
-         			</tr>
-         		</tbody>
-         	</table>
-         	<div>
-         	<form action="/removeDetailSendMsg" method="POST" id="removeForm">
-         	<input type="hidden" id="sendMsgNo" name="sendMsgNo" th:value="${sendMsg.sendMsgNo }">
-         	</form>    	
-		    <button type="button" id="removeDetailMsgBtn" style="color: red; margin-left: 385px;">삭제</button>
-		     </div>
-        	</div>
-			
-			
-
-    </body>
+<head>
+<meta charset='UTF-8'>
+<title>보낸 쪽지 상세보기</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+	type="text/css" />
+<link rel="stylesheet" th:href="@{/css/message/sendMsgDetail.css}" />
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/message/sendMsgDetail.js}">
+	
+</script>
+</head>
+<body>
+<section class="container">
+	<div id="navibox">
+		<button class="btn btn-secondary messageBtn" type="button" id="sendMsglistBtn"
+			onclick="location='/sendMsgList'">보낸쪽지함</button>
+		<button class="btn btn-secondary messageBtn" type="button" id="recieveMsglistBtn"
+			onclick="location='/receiveMsgList'">받은쪽지함</button>
+		<button class="btn btn-secondary messageBtn" type="button" id="sendFormBtn"
+			onclick="location='/sendMsgForm'">쪽지쓰기</button>
+	</div>
+	<div id="content">
+		<table class="table table-bordered" border="1" id="tbSendMsg">
+			<thead>
+				<tr>
+					<th>수신자</th>
+					<td>
+						<div th:each="addr : ${sendMsg.addresses}">
+							<span th:text="${addr.receiveId}"></span> <span
+								th:if="${addr.isRead == 0}">[읽지않음]</span> <span
+								th:if="${addr.isRead == 1}">[읽음]</span>
+						</div>
+					</td>
+					<th>작성시간</th>
+					<td th:text="${sendMsg.msgWdate }"></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="title" colspan="4">내용</td>
+				</tr>
+				<tr>
+					<td colspan="4" style="text-align: center;"
+						th:text="${sendMsg.sendMsgContent }"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<form action="/removeDetailSendMsg" method="POST" id="removeForm">
+				<input type="hidden" id="sendMsgNo" name="sendMsgNo"
+					th:value="${sendMsg.sendMsgNo }">
+			</form>
+			<button class="btn btn-secondary deleteBtn" type="button" id="removeDetailMsgBtn"
+				style="color: red;">삭제</button>
+		</div>
+	</div>
+</section>
+</body>
 </html>

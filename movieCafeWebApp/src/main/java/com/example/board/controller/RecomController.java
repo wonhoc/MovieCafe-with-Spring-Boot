@@ -41,9 +41,11 @@ public class RecomController {
 		if (isRecomed) {
 			this.boardService.dropRecommend(recom);
 			map.put("result", "추천 취소");
+			map.put("recomCnt", this.boardService.readRecomCount(boardNo));
 		} else {
 			this.boardService.createRecommend(recom);
 			map.put("result", "추천 완료");
+			map.put("recomCnt", this.boardService.readRecomCount(boardNo));
 		}
 
 		return map;

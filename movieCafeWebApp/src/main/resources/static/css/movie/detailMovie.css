@@ -31,23 +31,6 @@
 	margin: 0.3em;
 }
 
-.modify_btn {
-	padding: 0.5em 0.5em;
-	color: #b1b1b1;
-	font-size: 18px;
-	background-color: #fdfdfd;
-	border: 2px solid #b1b1b1;
-	border-bottom-color: #b1b1b1;
-	border-radius: 0.25em;
-	transition: all 150ms ease-in;
-	margin-bottom: 15em;
-	cursor: pointer;
-}
-
-.modify_btn:hover {
-	background-color: #e2e2e2;
-}
-
 .detail_divide {
 	margin-left: 5%;
 	width: 90%;
@@ -104,9 +87,10 @@
 	padding: 0 4em;
 }
 
-.hidden {
-	width: 3rem;
+.hiddenBox {
+	width: 4.1rem;
 	margin: 0 0.5em;
+	color: white;
 }
 
 .fa-heart {

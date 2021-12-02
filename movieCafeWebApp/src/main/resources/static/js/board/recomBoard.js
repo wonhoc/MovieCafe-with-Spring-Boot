@@ -14,6 +14,9 @@ $(document).ready(function() {
                     },
                     success: function(data) {                       
                         alert(data.result);
+                        $('#originRecom').hide();
+                        $('#recomAction').text(data.recomCnt);
+                        
                         resolve(data);
                     }, 
                     error: function(e) {                       
@@ -62,10 +65,8 @@ $(document).ready(function() {
                 method: 'GET',
                 dataType: 'json',
                 data: {
-                    url: url,
                     boardNo: boardNo,
                     userId : userId
-                    
                 },
                 success: function(data) {                       
                     alert(data.result);

@@ -54,6 +54,29 @@ public class CardBoardDaoImpl implements CardBoardDao {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void updateBoardCount(int boarNo) {
+		
+		this.sqlSession.update("cardBoard.updateBoardCount", boarNo);
+		
+	}//updateBoardCount() end
+	
+	//게시글 삭제
+	@Override
+	public void deleteCardBoard(int boarNo) {
+		
+		this.sqlSession.delete("deleteCardBoard", boarNo);
+		
+	}//deleteCardBoard() end
+	
+	//게시글 수정
+	@Override
+	public void updateCardBoard(HashMap<String, Object> modifyBoard) {
+		
+		this.sqlSession.update("", modifyBoard);
+		
+	}//updateCardBoard() end
 	 
 	 
 	

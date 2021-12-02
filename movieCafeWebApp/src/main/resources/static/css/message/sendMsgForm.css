@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+th {
+	text-align: center;
+	font-size: 14px;
+	padding-bottom: 0.4em;
+	background-color: blanchedalmond;
+}
+
+td {
+	font-size: 18px;
+}
+
+#navibox {
+	padding: 1em;
+    text-align: center;
+}
+
+.messageBtn {
+	font-size: 18px;
+    width: 7em;
+    
+}
+.messageBtn:hover {
+	background-color: blanchedalmond;
+}
+
+.deleteBtn:hover {
+	background-color: #ccc;
+}

@@ -12,7 +12,7 @@ function uplike(t) {
     console.log(t.querySelector('p').getAttribute('id'));
 
     $.ajax({
-        url: 'http://localhost:8080/upLike',
+        url: '/upLike',
         method: 'GET',
         dataType: 'json',
         data: {
@@ -31,6 +31,9 @@ function uplike(t) {
 }
 
 $(document).ready(function () {
+    let userId = $('#userId').val();
+    if(userId == "") console.log("ppppppppppppp");
+    console.log(userId);
     $('.heart').click(function () {
         alert("000");
     });
@@ -78,7 +81,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: 'http://localhost:8080/guanramList',
+        url: '/guanramList',
         method: 'GET',
         dataType: 'json',
         data: {
@@ -124,9 +127,12 @@ $(document).ready(function () {
                             html += '<i class="fas fa-star review_text"></i>';
                         }
                         html += '</div>';
-
-                        html += '<button type="submit" class="btn btn-light" onclick="location.href=\'/deleteGuanram/' + movieId + '?guanramNo=' + data[i].guanramNo + '\';">삭제</button></div>';
-
+                        if(userId != "" && userId == data[i].userId){
+                            html += '<button type="submit" class="btn btn-light" onclick="location.href=\'/deleteGuanram/' + movieId + '?guanramNo=' + data[i].guanramNo + '\';">삭제</button>';
+                        } else {
+                            html += '<div class="hiddenBox"></div>'
+                        }
+                        html += '</div>';
                         $(".guanramList").html(html);
                     }
 

@@ -54,6 +54,10 @@ public class boardController {
 	   @GetMapping("/getBoardList/{cateNo}")
 	   public @ResponseBody List<BoardVO> listBoard(@PathVariable int cateNo) {
 	      List<BoardVO> list= boardServie.readAllByCateNo(cateNo);
+	  	for(BoardVO board : list) {
+			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
+			board.setCommentCount(this.boardServie.readCommCount(board.getBoardNo()));
+		}
 	      return list;
 	   }
 
@@ -65,7 +69,7 @@ public class boardController {
 
 			HttpSession session = request.getSession();
 			UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
-
+			
 			BoardVO board = boardServie.readOne(boardNo);
 			board.setCommentCount(this.boardServie.readCommCount(boardNo));
 			board.setRecomCount(this.boardServie.readRecomCount(boardNo));
@@ -77,11 +81,18 @@ public class boardController {
 			model.addAttribute("board", board);
 			model.addAttribute("list", list);
 			model.addAttribute("userInfo", userInfo);
-			if (cateNo == 4) {
-				return "views/board/boardTipDetail";
+			// UserInfo 가 있을 경우
+			if (userInfo != null) {
+				if (cateNo == 4) {
+					return "views/board/boardTipDetail";
+				} else {
+					return "views/board/boardDetail";
+				}
+				// UserInfo가 없을 경우
 			} else {
-				return "views/board/boardDetail";
-		}
+				return "redirect:/loginFailCaseTwo";
+			}
+			
 		}
 		
 		@GetMapping("/detail/detailTipboard{boardNo}")

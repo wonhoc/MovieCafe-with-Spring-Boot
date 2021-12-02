@@ -18,7 +18,7 @@
 		</div>
 		<form class="review_right" id="form" th:action="@{/detailMovie/{movieId}(movieId=${movieId})}" method="POST">
 			<input type="hidden" name="movieId" th:value="${movieId}" /> 
-			<input type="hidden" name="userId" value="test_user02" />
+			<input type="hidden" name="userId" th:value="${session.userInfo.userId}" />
 			<h1 class="review_title" th:text="${title}"></h1>
 			<div class="review_input">
 				<h3 class="input_title">평가 한 줄</h3>

@@ -1,10 +1,14 @@
-$(document).ready(function () {
-      var cateNo = document.getElementById("cateNo").value;
-      
+$(document).ready(function() {
 
-      
-      
-      $.ajax({ 
+	//목록 버튼 클릭시 작성폼 으로 이동
+	
+	$('#boardWrite').click(function(){
+		location.href="/cardBoardWriterForm"
+	});	
+	//작성폼 이동 끝
+	let cateNo = 2;
+	//페이징처리
+	 $.ajax({ 
          url : '/getBoardList/'+cateNo,
          method: 'GET',
          dataType: 'json',
@@ -53,14 +57,13 @@ $(document).ready(function () {
                   for (let i = startRow; i < endRow ; i++) {
          
                       //html += '<p each="board : ${list}">';
-                     html += '<td id="UK" class="single-item">' + data[i].userNick + '</td>';
-                     html += '<td class="text-center"><span class="td" th:if="${cateNo != 1}" id="horse">' + data[i].horse +'</span>';
+                     html += '<td class="single-item">' + data[i].userNick + '</td>';
+                     html += '<td><span th:if="${cateNo != 1}" id="horse">' + data[i].horse +'</span>';
                      html += '<a href= "/detail/' + data[i].boardNo  + '">' +  data[i].boardTitle + '</a></td>';
-
-                      html += '<td id="wdate">' + data[i].boardWdate + '</td>';                 
-                     html += '<td id="bc">' + data[i].boardCount + '</td>';
-                     html += '<td id="rc">' + data[i].recomCount + '</td>';
-                     html += '<td id="cc">' + data[i].commentCount + '</td></tr></p></p>';
+                      html += '<td>' + data[i].boardWdate + '</td>';                 
+                     html += '<td>' + data[i].boardCount + '</td>';
+                     html += '<td>' + data[i].boardCount + '</td>';
+                     html += '<td>' + data[i].boardCount + '</td></tr></p></p>';
                     
                   }
                //}
@@ -75,5 +78,7 @@ $(document).ready(function () {
 
          }
       });
-
-   });
+      //페이징 처리 끝
+	
+	
+});
