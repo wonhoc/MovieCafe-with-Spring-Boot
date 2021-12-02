@@ -12,6 +12,7 @@ import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
 import com.example.board.vo.RecomVO;
 import com.example.board.vo.ReportVO;
+import com.example.board.vo.SearchVO;
 
 @Repository("boardDao")
 public class BoardDaoImpl implements BoardDao {
@@ -149,5 +150,47 @@ public class BoardDaoImpl implements BoardDao {
 		this.sqlSession.update("updateCommentCall", comment);
 		
 	}
+
+	
+	// ***********검색 추가 코드 시작 ************//
+	@Override
+	public List<BoardVO> selectSearchByTitle(SearchVO search) {
+		return this.sqlSession.selectList("searchByTitle", search);
+	}
+
+	@Override
+	public List<BoardVO> selectSearchByContent(SearchVO search) {
+		
+		return this.sqlSession.selectList("searchByContent", search);
+	}
+
+	@Override
+	public List<BoardVO> selectSearchByUser(SearchVO search) {
+		return this.sqlSession.selectList("searchByUser", search);
+	}
+
+	@Override
+	public List<BoardVO> selectSearchByAll(SearchVO search) {
+		return this.sqlSession.selectList("searchByAll",search);
+	}
+
+	@Override
+	public List<BoardVO> selctSearchByHorse(SearchVO search) {
+		
+		return this.sqlSession.selectList("searchByHorse",search);
+	}
+
+	//*********검색 추가코드 끝**********
+	
+	@Override
+	public int selectRecomCount(int boardNo) {
+		return this.sqlSession.selectOne("recomCntCall", boardNo);
+	}
+
+	@Override
+	public int selectCommCount(int boardNo) {
+		return this.sqlSession.selectOne("commentCntCall", boardNo);
+	}
+
 	
 }

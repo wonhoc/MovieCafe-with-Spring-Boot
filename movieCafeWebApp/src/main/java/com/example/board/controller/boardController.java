@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.board.service.BoardService;
 import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
+import com.example.board.vo.SearchVO;
 import com.example.member.vo.UserInfoVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,18 +44,26 @@ public class boardController {
 		
 		model.addAttribute("userInfo", userInfo);
 		List<BoardVO> list = boardServie.readAllByCateNo(cateNo);
+		
+		for(BoardVO board : list) {
+			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
+			board.setCommentCount(this.boardServie.readCommCount(board.getBoardNo()));
+		}
 		model.addAttribute("list",list);
 		
 		return "views/board/boardlist";
 	}
 
 	// 게시글 상세보기
+
 		@GetMapping("/detail/{boardNo}")
 		public String deltailboard(@PathVariable int boardNo, Model model, HttpServletRequest request) {
 
 			HttpSession session = request.getSession();
 			UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 			BoardVO board = boardServie.readOne(boardNo);
+    	board.setCommentCount(this.boardServie.readCommCount(boardNo));
+			board.setRecomCount(this.boardServie.readRecomCount(boardNo));
 			List<CommentVO> list = this.boardServie.readCommentList(boardNo);
 			
 			int cateNo = board.getCateNo();
@@ -248,6 +258,47 @@ public class boardController {
 		
 		
 			return "redirect:/boardlist/4";
+
+	// ***********************검색 추가 코드************************ 
+	//게시글 검색
+	@GetMapping("/boardlist/boardsearch/{cateNo}")
+	public String boardSearch(@PathVariable int cateNo, @RequestParam String keyfield, 
+			@RequestParam String keyword, Model model) {
+		SearchVO search = new SearchVO();
+		
+			search.setCateNo(cateNo);
+			search.setKeyfield(keyfield);
+			search.setKeyword(keyword);
+		
+		List<BoardVO> list = this.boardServie.searchBoard(search);
+		model.addAttribute("list",list);
+		model.addAttribute("cateNo",cateNo);
+		return "views/board/boardsearch";
+	}
+	
+	//게시글 검색
+		@GetMapping("/boardlist/boardsearch/boardsearch/{cateNo}")
+		public String boardSearchSeq(@PathVariable int cateNo, String keyfield, String keyword,  Model model,
+				RedirectAttributes redirect) {
+			SearchVO search = new SearchVO();
+			
+				search.setCateNo(cateNo);
+				search.setKeyfield(keyfield);
+				search.setKeyword(keyword);
+			
+			List<BoardVO> list = this.boardServie.searchBoard(search);
+			model.addAttribute("list",list);
+			redirect.addAttribute("cateNo",cateNo);
+			redirect.addAttribute("keyfield",keyfield);
+			redirect.addAttribute("keyword",keyword);
+		//	redirect.addAttribute("horse",horse);
+			return "redirect:/boardlist/boardsearch/"+cateNo ;
+			
+		}
+		
+		// ***********************검색 추가 코드 끝************************ 
+		
+}
 
 	}
 	

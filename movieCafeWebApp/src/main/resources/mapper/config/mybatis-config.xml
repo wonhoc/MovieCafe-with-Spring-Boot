@@ -12,6 +12,9 @@
 		<typeAlias type="com.example.board.vo.ReportVO" alias="reportVO"/>
 		<typeAlias type="com.example.board.vo.CommentVO" alias="commentVO"/>
 		<typeAlias type="com.example.board.vo.BoardFileVO" alias="boardFileVO"/>
+		
+		<!-- 검색 추가 코드 -->
+		<typeAlias type="com.example.board.vo.SearchVO" alias="searchVO"/>
 
 		<typeAlias type="com.example.message.vo.SendMsgVO" alias="sendMsgVo"/>
 		<typeAlias type="com.example.message.vo.AddressVO" alias="addressVo"/>

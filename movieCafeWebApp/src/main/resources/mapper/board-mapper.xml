@@ -53,9 +53,6 @@
 		<result property="boardWdate" javaType="string" column="boardWdate" jdbcType="DATE" />
 		<result property="boardCount" javaType="int" column="boardCount" jdbcType="INTEGER" />
 	</resultMap>
-	
-	
-<!-- .............................................................................................. -->
 
 
 	<!-- 게시글 리스트 -->
@@ -63,6 +60,31 @@
 		<parameter property="cateNo" javaType="int" jdbcType="INTEGER" mode="IN" />
 	</parameterMap>
 
+	<!-- 추천수 조회 -->
+	<parameterMap type="int" id="recomCnt">
+		<parameter property="boardNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
+	
+	<!-- 댓글수 조회 -->
+	<parameterMap type="int" id="commentCnt">
+		<parameter property="boardNo" javaType="int"
+			jdbcType="INTEGER" mode="IN" />
+	</parameterMap>
+
+<!-- 게시글 검색  -->
+<parameterMap type="searchVO" id="paramMapSearch">
+		<parameter property="cateNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+		<parameter property="keyword" javaType="String" jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+	
+	<!-- 게시글 말머리 검색  -->
+<parameterMap type="searchVO" id="paramMapSearchHorse">
+		<parameter property="cateNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+		<parameter property="keyword" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="keyfield" javaType="String" jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+	
 	<!-- 게시글 조회 -->
 	<parameterMap type="int" id="paramMapSelectDetail">
 		<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN" />
@@ -151,7 +173,50 @@
 		{ call sp_list_board(?) }
 	</select>
 
+	<select id="recomCntCall" statementType="CALLABLE" resultType="int" parameterType="int" parameterMap="recomCnt">
+		{	call sp_count_recom(?) 	}
+	</select>
+	
+	<select id="commentCntCall" statementType="CALLABLE" resultType="int" parameterType="int" parameterMap="commentCnt">
+		{	call sp_count_comment(?) 	}
+	</select>
+	
+<!-- 게시글 제목 검색 -->
+	<select id="searchByTitle" statementType="CALLABLE"
+		resultMap="resultMapSelectList" parameterType="searchVO"
+		parameterMap="paramMapSearch">
+		{ call sp_search_byTitle(?, ?) }
+	</select>
 
+
+<!-- 게시글 내용 검색 -->
+	<select id="searchByContent" statementType="CALLABLE"
+		resultMap="resultMapSelectList" parameterType="searchVO"
+		parameterMap="paramMapSearch">
+		{ call sp_search_byContent(?, ?) }
+	</select>
+	
+	<!-- 게시글 작성자 검색 -->
+	<select id="searchByUser" statementType="CALLABLE"
+		resultMap="resultMapSelectList" parameterType="searchVO"
+		parameterMap="paramMapSearch">
+		{ call sp_search_byUser(?, ?) }
+	</select>
+	
+	<!-- 게시글 전체 검색 -->
+	<select id="searchByAll" statementType="CALLABLE"
+		resultMap="resultMapSelectList" parameterType="searchVO"
+		parameterMap="paramMapSearch">
+		{ call sp_search_byAll(?, ?) }
+	</select>
+	
+	<!-- 게시글 말멀 검색 -->
+	<select id="searchByHorse" statementType="CALLABLE"
+		resultMap="resultMapSelectList" parameterType="searchVO"
+		parameterMap="paramMapSearchHorse">
+		{ call sp_search_byHorse(?, ?, ?) }
+	</select>
+	
 	<!-- 게시글 조회 -->
 	<select id="selectDetailBoard" statementType="CALLABLE" resultMap="resultMapSelectDetail" parameterType="int"
 		parameterMap="paramMapSelectDetail">
@@ -297,5 +362,7 @@
 		parameterType="commentVO" parameterMap="paramMapComModify">
 		{ call sp_modify_comment(?, ?)}
 	</update>
+
 	
 </mapper>
+

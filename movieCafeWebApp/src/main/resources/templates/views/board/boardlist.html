@@ -22,6 +22,41 @@
 </style>
 </head>
 <section layout:fragment="content">
+
+	<!-- ****************************검색 추가 코드  시작-->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<form th:action="@{boardsearch/{cateNo}(cateNo=${cateNo})}"
+					th:method="get">
+					<select name="keyfield" id="keyfield">
+						<option value="all">전체</option>
+						<option value="boardTitle">제목</option>
+						<option value="boardContent">내용</option>
+						<option th:if="${cateNo == 2}" value="로맨스">로맨스</option>
+						<option th:if="${cateNo == 2}" value="스릴러">스릴러</option>
+						<option th:if="${cateNo == 2}" value="공포">공포</option>
+						<option th:if="${cateNo == 2}" value="SF판타지">SF판타지</option>
+						<option th:if="${cateNo == 2}" value="액션">액션</option>
+						<option th:if="${cateNo == 2}" value="코미디">코미디</option>
+						<option th:if="${cateNo == 2}" value="기타">기타</option>
+						<option th:if="${cateNo == 3}" value="시사회 후기">시사회 후기</option>
+						<option th:if="${cateNo == 3}" value="예정 시사회">예정 시사회</option>
+						<option th:if="${cateNo == 4}" value="영화관 리뷰">영화관 리뷰</option>
+						<option th:if="${cateNo == 4}" value="이벤트 정보">이벤트 정보</option>
+					</select> <input type="search" name="keyword" id="keyword"
+						class="form-control" placeholder="검색어를 입력하세요">
+					<button class="btn btn-success" type="submit" id="searchBtn">
+						검색</button>
+				</form>
+
+			</div>
+</div>
+			
+	</nav>
+<!-- *********************검색 추가 코드 끝************************** -->
+
 <input type="hidden" id="boardList" th:value="${list}" />
 <input type="hidden" id="cateNo" th:value="${cateNo}">
 
