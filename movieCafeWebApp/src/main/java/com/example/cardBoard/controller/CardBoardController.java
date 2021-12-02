@@ -99,6 +99,7 @@ public class CardBoardController {
 		boardMap.put("boardContent", boardContent);
 		boardMap.put("horseNo", horseNo);
 		
+		
 		this.cardBoardService.writeBoard(boardMap);
 		
 		return "redirect:/cardBoardList";
