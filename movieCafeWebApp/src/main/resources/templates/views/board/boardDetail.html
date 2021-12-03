@@ -281,6 +281,28 @@ table {
 	left:1100px;
 	top:430px;
 }
+
+#listComment{
+border-style: hidden;
+	border: 1px solid #ffebb5;
+	border-radius: 16px;
+	box-shadow: inset 0 0 3px #e7cf8d;
+	width: 60%;
+	height: 100px;
+	margin: auto;
+	text-align: left;
+}
+
+#addComment{
+border-style: hidden;
+	width: 60%;
+	height: 40%;
+	margin: auto;
+	text-align: left;
+}
+
+
+
 </style>
 
 </head>
@@ -335,7 +357,7 @@ table {
 					</tr>
 				</table>
 				
-				<table class="filetable" th:if="${board.boardfile != null}">
+				<table id="fileList" class="filetable" th:if="${board.boardfile != null}">
 					<tr>
 						<th colspan="6">파일명</th>
 						<th colspan="6">파일크기</th>
@@ -349,7 +371,7 @@ table {
 
 				</table>
 
-				<table class="filetable" th:if="${board.boardfile == null}">
+				<table id="fileList" class="filetable" th:if="${board.boardfile == null}">
 					<tr>
 						<td colspan="3">파일 없음</td>
 					</tr>
@@ -371,7 +393,7 @@ table {
 
 
 		<table id="listComment">
-			<thead>
+			<thead id ="commentHead">
 				<tr>
 					<td>작성자</td>
 					<td>날짜</td>
@@ -381,13 +403,11 @@ table {
 				<tr>
 					<td th:text="${comment.userNick}"></td>
 					<td th:text="${comment.comWdate}"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="comContent" th:text="${comment.comContent}"></td>
+					<td colspan="3" class="comContent" th:text="${comment.comContent}"></td>
 				</tr>
 				<tr th:if="${userInfo.userNick == comment.userNick || userInfo.rankType == 'A'}">
 				
-					<td colspan="2">
+					<td colspan="3">
 						<button id="updateComBtn" class="modifyComReqBtn" type="button">수정</button>
 						<button id="removeBtn">삭제</button>
 					</td>
@@ -407,7 +427,7 @@ table {
 				<button id="addComBtn">댓글 달기</button>
 				<div id="resultCom"></div>
 			</div>
-			댓글 수정
+			
 			<div id="modifyComment" style="display: none;">
 				<div>
 					<input type="hidden" id="comNo">

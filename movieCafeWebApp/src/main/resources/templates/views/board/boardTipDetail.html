@@ -11,9 +11,7 @@
 <script>
 $(document).ready(function(){
 
-	$("#addComBtn").click(function(){
-
-		
+	$("#addComBtn").click(function(){		
 			//댓글 유효성 검사
 				const comContent =$('#comContent').val();
 				
@@ -193,6 +191,24 @@ border-top: 1px solid black; border-bottom: 1px solid black;
 	border-collapse: collapse;
 	background-color: rgb(255, 255, 240);
 }
+#listComment{
+border-style: hidden;
+	border: 1px solid #ffebb5;
+	border-radius: 16px;
+	box-shadow: inset 0 0 3px #e7cf8d;
+	width: 60%;
+	height: 100px;
+	margin: auto;
+	text-align: left;
+}
+
+#addComment{
+border-style: hidden;
+	width: 60%;
+	height: 40%;
+	margin: auto;
+	text-align: left;
+}
 
 </style>
 </head>
@@ -280,33 +296,28 @@ map: map // 마커를 표시할 지도 객체
 });
 </script>
 	
-	<table>
-		<thead>
-			<tr>
-				<td>작성자</td>
-				<td>날짜</td>
-			</tr>
-		</thead>
-		<div id="listComment">
-			<p th:each="comment : ${list}">
-				<tbody th:id="${comment.comNo}">
+	<table id="listComment">
+			<thead id ="commentHead">
+				<tr>
+					<td>작성자</td>
+					<td>날짜</td>
+				</tr>
+			</thead>
+			<tbody th:each="comment : ${list}" th:id="${comment.comNo}">
 				<tr>
 					<td th:text="${comment.userNick}"></td>
 					<td th:text="${comment.comWdate}"></td>
+					<td colspan="3" class="comContent" th:text="${comment.comContent}"></td>
 				</tr>
-				<tr>
-					<td colspan="2" class="comContent" th:text="${comment.comContent}"></td>
+				<tr th:if="${userInfo.userNick == comment.userNick || userInfo.rankType == 'A'}">
+				
+					<td colspan="3">
+						<button id="updateComBtn" class="modifyComReqBtn" type="button">수정</button>
+						<button id="removeBtn">삭제</button>
+					</td>
 				</tr>
-				 <tr>
-                  <td colspan="2">
-                     <button class="modifyFormBtn" type="button">수정</button>
-                     <button id="removeBtn">삭제</button>
-                  </td>
-               </tr>
-               </tbody>
-			</p>
-		</div>
-	</table>
+			</tbody>
+		</table>
 
 
 	<!-- 댓글 달기 -->
