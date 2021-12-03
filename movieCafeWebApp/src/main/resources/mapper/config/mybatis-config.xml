@@ -12,6 +12,7 @@
 		<typeAlias type="com.example.board.vo.ReportVO" alias="reportVO"/>
 		<typeAlias type="com.example.board.vo.CommentVO" alias="commentVO"/>
 		<typeAlias type="com.example.board.vo.BoardFileVO" alias="boardFileVO"/>
+		<typeAlias type="com.example.cardBoard.vo.BoardVO" alias="cardboardVO"/>
 		
 		<!-- 검색 추가 코드 -->
 		<typeAlias type="com.example.board.vo.SearchVO" alias="searchVO"/>

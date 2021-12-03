@@ -8,7 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.board.vo.BoardVO;
+import com.example.board.vo.BoardFileVO;
+import com.example.cardBoard.vo.BoardVO;
 
 @Repository("cardBoardDao")
 public class CardBoardDaoImpl implements CardBoardDao {
@@ -43,17 +44,18 @@ public class CardBoardDaoImpl implements CardBoardDao {
 
 		int boardNo = tempNo.intValue();
 		
-		System.out.println("Dao boardNo : " + boardNo);
+		//System.out.println("Dao boardNo : " + boardNo);
 		
 		return boardNo;
 		
 	}//insertBoard() end
 
 	@Override
-	public void insertBoardFile(int boardNo) {
-		// TODO Auto-generated method stub
+	public void insertBoardFile(HashMap<String, Object> boardFileMap) {
 		
-	}
+		this.sqlSession.insert("cardBoard.insertCardBoardFile", boardFileMap);
+		
+	}//insertBoardFile() end
 
 	@Override
 	public void updateBoardCount(int boarNo) {
@@ -66,7 +68,7 @@ public class CardBoardDaoImpl implements CardBoardDao {
 	@Override
 	public void deleteCardBoard(int boarNo) {
 		
-		this.sqlSession.delete("deleteCardBoard", boarNo);
+		this.sqlSession.delete("cardBoard.deleteCardBoard", boarNo);
 		
 	}//deleteCardBoard() end
 	
@@ -74,9 +76,17 @@ public class CardBoardDaoImpl implements CardBoardDao {
 	@Override
 	public void updateCardBoard(HashMap<String, Object> modifyBoard) {
 		
-		this.sqlSession.update("", modifyBoard);
+		this.sqlSession.update("cardBoard.modifyCardBoard", modifyBoard);
 		
 	}//updateCardBoard() end
+	
+	//게시글 파일 가져오기
+	@Override
+	public List<BoardFileVO> selectBoardFileLisrt() {
+		
+	return this.sqlSession.selectList("cardBoard.selectboardFileList");
+		
+	}//selectBoardFileLisrt() end
 	 
 	 
 	

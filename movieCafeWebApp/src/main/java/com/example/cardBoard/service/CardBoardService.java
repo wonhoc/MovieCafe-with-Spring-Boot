@@ -3,7 +3,8 @@ package com.example.cardBoard.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.board.vo.BoardVO;
+import com.example.cardBoard.vo.BoardVO;
+
 
 public interface CardBoardService {
 

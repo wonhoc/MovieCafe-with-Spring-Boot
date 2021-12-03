@@ -57,7 +57,6 @@
 	<div id="content" style="overflow: hidden;">
 
 		<span th:if="${cardBoardList == null}" style="text-align: center;">
-			<div class="col-sm-4" style="text-align: center;">
 				<div class="thumbnail">
 					<img src="/images/login.png" width="200px" height="100px">
 					<p>
@@ -73,8 +72,9 @@
 					<div class="cardLeft">
 						<a
 							th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}">
-							<img src="/images/noPicture.png" class="cardThumnail">
-						</a>
+							 <img th:if="${#lists.size(cardBoard.boardfileList) > 0}" class="cardThumnail" th:src="@{'/upload/' + ${cardBoard.boardfileList[0].boardfileSys}}">
+				        <img th:if="${#lists.size(cardBoard.boardfileList) == 0}" class="cardThumnail" src="/images/noPicture.png"></a>
+				     
 					</div>
 					<div class="cardRight">
 						<div th:text="${cardBoard.horse}"></div>
@@ -90,7 +90,6 @@
 						<img src="/images/readIcon.png" width="20px" height="20px">
 						<span th:text="${cardBoard.boardCount}"></span>
 					</div>
-					
 				</div>
 			</div>
 		</div>
