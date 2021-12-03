@@ -11,7 +11,19 @@
 <head>
 <script>
 	$(document).ready(function() {
+		
+		
+		
 		$("#addComBtn").click(function() {
+			//댓글 유효성 검사
+				const comContent =$('#comContent').val();
+				
+				if(comContent== "") {
+					alert("댓글을 입력하세요");
+		        	
+				} 
+				else {
+		
 			$.ajax({
 				url : "/createcom",
 				type : 'POST',
@@ -54,6 +66,7 @@
 						console.log(err);
 				}
 			});
+				};
 		});
 
 						$(document)
@@ -377,7 +390,7 @@ position:absolute;
 						placeholder="댓글을 입력해주세요 ."></textarea>
 				</div>
 				<button id="addComBtn">댓글 달기</button>
-
+				<div id="resultCom"></div>
 			</div>
 			<div id="modifyComment" style="display: none;">
 				<div>
