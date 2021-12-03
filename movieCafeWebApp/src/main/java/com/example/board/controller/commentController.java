@@ -34,14 +34,7 @@ public class commentController {
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 	      
 		
-		System.out.println("userInfo = "+userInfo.getUserId());	
-		
-		
-		
-		
 	      int boardNo = comment.getBoardNo();
-	      System.out.println("boardNo"+boardNo);
-	      System.out.println("userInfo.getUserId() = "+userInfo.getUserId());
 	      
 	      comment.setUserId(userInfo.getUserId());
 	      
@@ -49,9 +42,9 @@ public class commentController {
 	      this.boardService.createComment(comment);
 	      List<CommentVO> list = boardService.readCommentList(boardNo);
 	      
-	      System.out.println(list.toString());
 	      
 	      map.put("results", list);
+	      
 	      
 	      return map;
 	   }
