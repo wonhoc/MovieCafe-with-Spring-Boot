@@ -24,3 +24,6 @@ th {
 .deleteBtn:hover {
 	background-color: #ccc;
 }
+.newMessage {
+	color: orange;
+}
