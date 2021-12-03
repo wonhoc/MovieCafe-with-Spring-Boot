@@ -22,6 +22,7 @@ import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
 import com.example.board.vo.SearchVO;
+import com.example.member.service.UserService;
 import com.example.member.vo.UserInfoVo;
 import com.example.util.FileUploadService;
 
@@ -33,6 +34,9 @@ public class boardController {
 
 	@Autowired
 	private BoardService boardServie;
+	
+	@Autowired
+	private UserService userService; 
 	
 	@Autowired
     private FileUploadService fileUploadService;
@@ -157,11 +161,11 @@ public class boardController {
 	
 	@PostMapping("/fileUpload")
 	public String boardwrite(BoardVO board, @RequestPart(value = "boardFileInput", required = false) MultipartFile boardFileSys, 
-			Model model, HttpServletRequest request) {
+			Model model, HttpSession session, HttpServletRequest request) {
 		BoardFileVO boardfile = new BoardFileVO();
-		HttpSession session = request.getSession();
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 		boardfile.setBoardfileOrigin(boardFileSys.getOriginalFilename());
+		String userId1 = board.getUserId();
 		String boardFileName = null;
 		if(!boardFileSys.getOriginalFilename().isEmpty()) {
 			boardFileName = fileUploadService.boardRestore(boardFileSys, request);
@@ -184,6 +188,8 @@ public class boardController {
 				boardfile.setBoardNo(no);
 			this.boardServie.createFile(boardfile);
 			}
+			UserInfoVo user = userService.uploadUserInfo(userId1);
+			session.setAttribute("userInfo", user);
 			return "redirect:boardlist/1";
 		}else if(cateNo ==2){
 			this.boardServie.createBoard(board);
@@ -193,6 +199,8 @@ public class boardController {
 				boardfile.setBoardNo(no);
 			this.boardServie.createFile(boardfile);
 			}
+			UserInfoVo user = userService.uploadUserInfo(userId1);
+			session.setAttribute("userInfo", user);
 			return "redirect:boardlist/2";
 		}else if(cateNo ==3){
 			this.boardServie.createBoard(board);
@@ -201,6 +209,8 @@ public class boardController {
 				boardfile.setBoardNo(no);
 			this.boardServie.createFile(boardfile);
 			}
+			UserInfoVo user = userService.uploadUserInfo(userId1);
+			session.setAttribute("userInfo", user);
 			return "redirect:boardlist/3";
 		}else{
 				this.boardServie.createBoard(board);
@@ -210,6 +220,9 @@ public class boardController {
 					boardfile.setBoardNo(no);
 				this.boardServie.createFile(boardfile);
 				}
+				// 세션에 가져온 유저정보 등록
+				UserInfoVo user = userService.uploadUserInfo(userId1);
+				session.setAttribute("userInfo", user);
 				return "redirect:boardlist/4";
 	}
 	}

@@ -46,7 +46,7 @@ public class UserInfoController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId); 
 		map.put("userPwd", userPwd);
-
+		
 		int isCheckUser = this.userService.isCheckUserCount(map);
 		
 		//로그인에 성공했을 경우
@@ -57,6 +57,7 @@ public class UserInfoController {
 			UserInfoVo user = userService.uploadUserInfo(userId);
 			// 세션에 가져온 유저정보 등록
 			session.setAttribute("userInfo", user);
+			
 			return "redirect:/main";
 		} else { 
 			// 리다이렉트로 로그인 페이지 다시
@@ -86,11 +87,10 @@ public class UserInfoController {
 			@RequestParam(value = "birthDate") String tempDate, @RequestParam(value = "contact1") String tempCon1,
 			@RequestParam(value = "contact2") String tempCon2, @RequestParam(value = "contact3") String tempCon3,
 			@RequestParam(value = "userNick") String userNick, @RequestParam(value = "userName") String userName,
-			@RequestParam(value = "pickGender") String gender, Model model) {
+			@RequestParam(value = "pickGender") String gender,HttpSession session, Model model) {
 		System.out.println(userPwd);
 		System.out.println(userEmail);
 		System.out.println(tempYear);
-		
 		
 		UserInfoVo user = new UserInfoVo();
 
@@ -108,6 +108,9 @@ public class UserInfoController {
 		user.setUserName(userName);
 		user.setGender(gender);
 		this.userService.insertUserInfo(user);
+		// 세션에 가져온 유저정보 등록
+		UserInfoVo userInfo = userService.uploadUserInfo(userId);
+		session.setAttribute("userInfo", userInfo);
 		return "redirect:/";
 
 	}
