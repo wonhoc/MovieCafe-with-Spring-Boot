@@ -12,6 +12,16 @@
 $(document).ready(function(){
 
 	$("#addComBtn").click(function(){
+
+		
+			//댓글 유효성 검사
+				const comContent =$('#comContent').val();
+				
+				if(comContent== "") {
+					alert("댓글을 입력하세요");
+		        	
+				} 
+				else {
 	 $.ajax({
 	    url : "/createcom",
 	    type : 'POST',
@@ -50,6 +60,7 @@ $(document).ready(function(){
 
 
 	 });
+	}
 	});
 
 
@@ -212,7 +223,7 @@ border-top: 1px solid black; border-bottom: 1px solid black;
 				<td align="center">작성일<img height="30px;" width="30px;" src="/images/writer.png"></td>
 				<td align="center">조회수</td>
 				<td align="center">추천<img height="30px;" width="30px;" src="/images/참잘함ㅇㅇㅇㅇ.png"></td>
-				<td align="center">신고<img height="30px;" width="30px;" src="/images/참못했어요.png"></td>
+				<td align="center">댓글<img height="30px;" width="30px;" src="/images/참못했어요.png"></td>
 			</tr>
 			<tr>
 				<td width="600px;" th:text="${board.userNick}"></td>
