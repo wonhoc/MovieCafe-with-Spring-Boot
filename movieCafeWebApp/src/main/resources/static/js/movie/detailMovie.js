@@ -32,8 +32,6 @@ function uplike(t) {
 
 $(document).ready(function () {
     let userId = $('#userId').val();
-    if(userId == "") console.log("ppppppppppppp");
-    console.log(userId);
     $('.heart').click(function () {
         alert("000");
     });
