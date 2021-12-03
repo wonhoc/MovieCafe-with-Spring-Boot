@@ -93,8 +93,9 @@ public class MovieMain {
 		return "redirect:/detailMovie/" + movieId;
 	}
 	
-	@PostMapping("/deleteGuanram/{movieId}")
+	@GetMapping("/deleteGuanram/{movieId}")
 	public String deleteGuanram(@PathVariable String movieId, @RequestParam("guanramNo") int guanramNo, Model model) {
+		System.out.println("-------------");
 		this.guanramService.removeGuanram(guanramNo);
 		List<GuanramListVO> guanramList = this.guanramService.selectGuanramList(Integer.parseInt(movieId));
 		model.addAttribute("guanramList", guanramList);

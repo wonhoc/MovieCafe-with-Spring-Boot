@@ -5,7 +5,7 @@
  <th:block layout:fragment="script">
         <script th:src="@{/js/board/boardwrite.js}"></script>
     </th:block>
-    
+
     
 <head>
 <script>
@@ -13,6 +13,34 @@ if(document.getElementById("input_check").checked) {
     document.getElementById("input_check_hidden").disabled = true;
 }
 </script>
+<style>
+.form_imgBtn label {
+	margin-top: 1em;
+	display: inline-block;
+	padding: 0.5em 0.75em;
+	color: #404040;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #626262;
+	border-radius: 0.25em;
+}
+
+.form_imgBtn input[type="file"] {
+	/* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+</style>
+
 </head>
 <section layout:fragment="content">
       <div>
@@ -58,12 +86,11 @@ if(document.getElementById("input_check").checked) {
                   th:value="${board.boardContent}" style="height: 300px;">
             </div>
 			<div> .</div>
-
+<label for="fileinput">파일</label> <input type="file" class="form_imgBtn" id="fileinput" name="fileinput" multiple>
             <div class="mb-3">
-               <label>파일</label> <input type="file" class="form-control" name="fileList" multiple>
+            
+               <label for="fileinput">파일</label> <input type="file" class="form_imgBtn" id="fileinput" name="fileinput" multiple>
             </div>
-
-          
 
            <div th:if="${userInfo.rankType.equals('A')}">
             <input type="checkbox" name="boardNotice" value='1' id="input_check"><label>공지</label>

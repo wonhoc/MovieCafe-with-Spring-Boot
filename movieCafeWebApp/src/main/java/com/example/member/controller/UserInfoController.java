@@ -60,23 +60,23 @@ public class UserInfoController {
 			return "redirect:/main";
 		} else { 
 			// 리다이렉트로 로그인 페이지 다시
-			return "redirect:/loginFailCaseOne";
+			return "redirect:/loginFail";
 		}
 	}
 	@GetMapping("/loginFail") 
 		public String loginFail() {
 			return "views/member/loginFail";
 	}
-	// ID, PW를 정확하게 입력하지 않았을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
-	@GetMapping("/loginFailCaseOne")
-	public String loginFailOne() {
-		return "views/member/loginFailCaseOne";
-	}
-	// 비로그인 상태로 게시판의 상세 보기를 시도했을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
-	@GetMapping("/loginFailCaseTwo")
-	public String loginFailTwo() {
-		return "views/member/loginFailCaseTwo";
-	}
+//	// ID, PW를 정확하게 입력하지 않았을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
+//	@GetMapping("/loginFailCaseOne")
+//	public String loginFailOne() {
+//		return "views/member/loginFailCaseOne";
+//	}
+//	// 비로그인 상태로 게시판의 상세 보기를 시도했을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
+//	@GetMapping("/loginFailCaseTwo")
+//	public String loginFailTwo() {
+//		return "views/member/loginFailCaseTwo";
+//	}
 
 	// 회원 가입
 	@PostMapping(value = "/joinUserRequest")

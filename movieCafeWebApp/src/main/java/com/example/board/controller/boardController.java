@@ -99,7 +99,7 @@ public class boardController {
 				}
 				// UserInfo가 없을 경우
 			} else {
-				return "redirect:/loginFailCaseTwo";
+				return "redirect:/loginFail";
 			}
 			
 		}
@@ -110,8 +110,6 @@ public class boardController {
 			UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 			
 			BoardVO board = boardServie.readOne(boardNo);
-			
-			
 			
 			List<CommentVO> list = this.boardServie.readCommentList(boardNo);
 			model.addAttribute("board", board);
@@ -130,8 +128,6 @@ public class boardController {
 		
 		int cateNo = board.getCateNo();
 		
-		System.out.println("cateNo = " + cateNo);
-		
 		this.boardServie.removeBoard(boardNo);
 		
 		if (cateNo == 1) {
@@ -141,7 +137,6 @@ public class boardController {
 		}else if(cateNo == 3){
 			return "redirect:/boardlist/3";
 		}else{
-			System.out.println("dddddddddddddd");
 			return "redirect:/boardlist/4";
 	}
 		
@@ -232,8 +227,6 @@ public class boardController {
 		if(board.getApiX().equals("")) board.setApiX("null");
 		if(board.getApiY().equals("")) board.setApiY("null");
 		
-		System.out.println("board = "+ board.toString());
-		
 		this.boardServie.createTipBoard(board);
 
 		return "redirect:/boardlist/4";
@@ -289,7 +282,6 @@ public class boardController {
 		board.setBoardTitle(boardTitle);
 		board.setBoardContent(boardContent);
 		board.setHorseNo(horseNo);
-		System.out.println(boardNotice);
 		board.setBoardNotice(boardNotice);
 		board.setBoardNo(boardNo);
 		
@@ -312,9 +304,6 @@ public class boardController {
 		
 		if(board.getApiX().equals("")) board.setApiX("null");
 		if(board.getApiY().equals("")) board.setApiY("null");
-		
-		
-		System.out.println("boardNo + " + board.toString());
 		
 		this.boardServie.modifyBoard(board);
 		
