@@ -28,32 +28,24 @@
 					$('#origincom').hide();
 					$('#comAction').text(data.comCnt);
 					$("#listComment").html("");
-					let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
+					let str = '<thead><tr><td align="center" >작성자</td><td align="center" >날짜</td><td align="center" >내용</td><td></td><td></td></tr><thead>'
 					for (let i = 0; i < comment.length; i++) {
 						str += '<tbody id = "' + comment[i].comNo + '">'
 							+ '<tr>'
-							+ '<td>'
+							+ '<td align="center" width="100px;" >'
 							+ comment[i].userNick
 							+ '</td>'
-							+ '<td>'
+							+ '<td align="center" width="100px;" >'
 							+ comment[i].comWdate
 							+ '</td>'
-							+ '</tr>'
-							+ '<tr>'
-							+ '<td colspan="2" class="comContent">'
+							+ '<td align="center" width="400px;" class="comContent">'
 							+ comment[i].comContent
-							+ '</td>'
-							+ '</tr>';
+							+ '</td>';
 							if(userInfo.userNick == comment[i].userNick || userInfo.rankType == "A"){
-								
-							str += '<tr>'
-								+ '<td colspan="2">'
-								+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
-								+ '<button id="removeBtn">삭제</button>'
-								+ '</td>'
+							str	+= '<td><button class="modifyComReqBtn" type="button">수정</button></td>'
+								+'<td><button id="removeBtn">삭제</button></td>' 
 								+ '</tr>';
 							};
-							
 							str += '</tbody>';
 					}
 					$("#listComment").html(str);
@@ -83,45 +75,37 @@
 														success : function(data) {
 															const comment = data.results;
 															const userInfo = data.userInfo;
+															const comCtn = data.comCnt;
 															
+															$('#comAction').empty;
+																var com = '<p id ="' + origincom + '"width="30px;">' + comCtn +'</p>';
+															$('#comAction').html(com);
 															
 															$('#origincom')
 																	.hide();
-															$('#comAction')
-																	.text(
-																			data.comCnt);
 
 															$("#listComment")
 																	.html("");
-															let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
-															for (let i = 0; i < comment.length; i++) {
-																
-																str += '<tbody id = "' + comment[i].comNo + '">'
+															let str = '<thead><tr><td align="center" >작성자</td><td align="center" >날짜</td><td align="center" >내용</td><td></td><td></td></tr><thead>'
+																for (let i = 0; i < comment.length; i++) {
+																	str += '<tbody id = "' + comment[i].comNo + '">'
 																		+ '<tr>'
-																		+ '<td>'
+																		+ '<td align="center" width="100px;" >'
 																		+ comment[i].userNick
 																		+ '</td>'
-																		+ '<td>'
+																		+ '<td align="center" width="100px;" >'
 																		+ comment[i].comWdate
 																		+ '</td>'
-																		+ '</tr>'
-																		+ '<tr>'
-																		+ '<td colspan="2" class="comContent">'
+																		+ '<td align="center" width="400px;" class="comContent">'
 																		+ comment[i].comContent
-																		+ '</td>'
-																		+ '</tr>';
-																		
+																		+ '</td>';
 																		if(userInfo.userNick == comment[i].userNick || userInfo.rankType == "A"){
-																			str += '<tr>'
-																			+ '<td colspan="2">'
-																			+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
-																			+ '<button id="removeBtn">삭제</button>'
-																			+ '</td>'
+																		str	+= '<td><button class="modifyComReqBtn" type="button">수정</button></td>'
+																			+'<td><button id="removeBtn">삭제</button></td>' 
 																			+ '</tr>';
-																		}
-																		
+																		};
 																		str += '</tbody>';
-															}
+																}
 															$("#listComment")
 																	.html(str);
 
@@ -191,33 +175,26 @@
 																	data.comCnt);
 															$("#listComment")
 																	.html("");
-															let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
-															for (let i = 0; i < comment.length; i++) {
-																str += '<tbody id = "' + comment[i].comNo + '">'
+															let str = '<thead><tr><td align="center" >작성자</td><td align="center" >날짜</td><td align="center" >내용</td><td></td><td></td></tr><thead>'
+																for (let i = 0; i < comment.length; i++) {
+																	str += '<tbody id = "' + comment[i].comNo + '">'
 																		+ '<tr>'
-																		+ '<td>'
+																		+ '<td align="center" width="100px;" >'
 																		+ comment[i].userNick
 																		+ '</td>'
-																		+ '<td>'
+																		+ '<td align="center" width="100px;" >'
 																		+ comment[i].comWdate
 																		+ '</td>'
-																		+ '</tr>'
-																		+ '<tr>'
-																		+ '<td colspan="2" class="comContent">'
+																		+ '<td align="center" width="400px;" class="comContent">'
 																		+ comment[i].comContent
-																		+ '</td>'
-																		+ '</tr>';
-																		
+																		+ '</td>';
 																		if(userInfo.userNick == comment[i].userNick || userInfo.rankType == "A"){
-																			str += '<tr>'
-																			+ '<td colspan="2">'
-																			+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
-																			+ '<button id="removeBtn">삭제</button>'
-																			+ '</td>'
+																		str	+= '<td><button class="modifyComReqBtn" type="button">수정</button></td>'
+																			+'<td><button id="removeBtn">삭제</button></td>' 
 																			+ '</tr>';
-																		}
+																		};
 																		str += '</tbody>';
-															}
+																}
 															$("#listComment")
 																	.html(str);
 
@@ -265,8 +242,23 @@ table {
 }
 .filetable{
 	position:absolute;
-	left:1100px;
+	left:1400px;
+	top:480px;
+}
+#aa{
+position:absolute;
+	left:800px;
 	top:430px;
+}
+#bb{
+position:absolute;
+	left:840px;
+	top:435px;
+}
+#origincom{
+position:absolute;
+	left:900px;
+	top:435px;
 }
 </style>
 
@@ -297,22 +289,14 @@ table {
 						<td align="center">조회수</td>
 						<td align="center">추천
 						<img height="30px;" width="30px;" src="/images/참잘함ㅇㅇㅇㅇ.png"></td>
-						<td align="center">댓글
-						<img height="30px;" width="30px;" src="/images/참못했어요.png"></td>
 					</tr>
 
 					<tr class="board">
 						<td width="600px;" th:text="${board.userNick}"></td>
 						<td align="center" th:text="${board.boardWdate}"></td>
 						<td align="center" th:text="${board.boardCount}"></td>
-						
-
 						<div id="recomAction">
 							<td id="originRecom" width="30px;" th:text="${board.recomCount}"></td>
-						</div>
-						
-						<div id="comAction">
-							<td id="origincom" width="30px;" th:text="${board.commentCount}"></td>
 						</div>
 
 					</tr>
@@ -352,31 +336,32 @@ table {
 		<button type="button" class="btn btn-warning" id="reportBtn">
 			신고</button>
 
-		<a class="btn btn-default waves-effect waves-light"
+		<a  class="btn btn-default waves-effect waves-light"
 			th:href="@{/boardlist/{cateNo}(cateNo=${board.cateNo})}">목록</a>
 
+<img id="aa" height="30px;" width="30px;" src="/images/참못했어요.png"><p id="bb" >댓글수</p>
+
+	<div id="comAction">
+		<p id="origincom" th:text="${board.commentCount}"></p>
+	</div>
 
 		<table id="listComment">
 			<thead>
 				<tr>
-					<td>작성자</td>
-					<td>날짜</td>
+					<td align="center" width="100px;" class="comW">작성자</td>
+					<td align="center" width="100px;" class="comWda">날짜</td>
+					<td align="center" width="400px;" class="comCt">내용</td>
+					<td></td>
+					<td></td>
 				</tr>
 			</thead>
 			<tbody th:each="comment : ${list}" th:id="${comment.comNo}">
 				<tr>
-					<td th:text="${comment.userNick}"></td>
-					<td th:text="${comment.comWdate}"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="comContent" th:text="${comment.comContent}"></td>
-				</tr>
-				<tr th:if="${userInfo.userNick == comment.userNick || userInfo.rankType == 'A'}">
-				
-					<td colspan="2">
-						<button id="updateComBtn" class="modifyComReqBtn" type="button">수정</button>
-						<button id="removeBtn">삭제</button>
-					</td>
+					<td align="center" th:text="${comment.userNick}"></td>
+					<td align="center" th:text="${comment.comWdate}"></td>
+					<td align="center" class="comContent" th:text="${comment.comContent}"></td>
+					<td align="center" th:if="${userInfo.userNick == comment.userNick || userInfo.rankType == 'A'}"><button id="updateComBtn" class="modifyComReqBtn" type="button">수정</button></td>
+					<td align="center" th:if="${userInfo.userNick == comment.userNick || userInfo.rankType == 'A'}"><button id="removeBtn">삭제</button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -393,7 +378,6 @@ table {
 				<button id="addComBtn">댓글 달기</button>
 
 			</div>
-			댓글 수정
 			<div id="modifyComment" style="display: none;">
 				<div>
 					<input type="hidden" id="comNo">

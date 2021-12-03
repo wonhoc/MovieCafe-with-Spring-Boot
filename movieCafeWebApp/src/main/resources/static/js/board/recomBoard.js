@@ -13,7 +13,6 @@ $(document).ready(function() {
                         
                     },
                     success: function(data) {                       
-                        alert(data.result);
                        const recomCnt = data.recomCnt;
                         $("#originRecom").html("");
                         	let str = '<td>'+ recomCnt + '</td>'
