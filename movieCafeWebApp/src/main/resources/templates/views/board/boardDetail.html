@@ -348,8 +348,9 @@ table {
 		</div>
 		<button type="button" class="btn btn-success" id="recomBtn">
 			추천</button>
-
-		<button type="button" class="btn btn-warning" id="reportBtn">
+		
+		
+		<button th:unless="${userInfo.userId == board.userId || board.userId == 'test_user01'}" type="button" class="btn btn-warning" id="reportBtn">
 			신고</button>
 
 		<a class="btn btn-default waves-effect waves-light"

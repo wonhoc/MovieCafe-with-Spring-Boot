@@ -117,8 +117,6 @@ public class boardController {
 			model.addAttribute("userInfo", userInfo);
 			return "views/board/boardTipDetail";
 		}
-	
-	
 	 
 	@PostMapping("/deleteBoard/{boardNo}")
 	public String deleteBoard(@PathVariable int boardNo, BoardVO board, HttpServletRequest request, Model model) {

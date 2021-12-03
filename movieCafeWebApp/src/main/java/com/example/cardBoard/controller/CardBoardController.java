@@ -100,12 +100,12 @@ public class CardBoardController {
 		boardMap.put("horseNo", horseNo);
 		
 	
-		
+		HashMap<String, Object> boardFileMap = new HashMap<String, Object>();
 		
 			//파일의 관한 map
 			if(!photoSys.isEmpty()) {
 				
-			HashMap<String, Object> boardFileMap = new HashMap<String, Object>();
+		
 			
 			FileUploadService fileService = new FileUploadService();
 			
@@ -119,9 +119,11 @@ public class CardBoardController {
 			
 			boardFileMap.put("boardfileSize", boardfileSize);
 			
-			boardMap.put("boardFileMap", boardFileMap);
+			
 			
 			}//if end
+			
+			boardMap.put("boardFileMap", boardFileMap);
 			
 			this.cardBoardService.writeBoard(boardMap);
 			

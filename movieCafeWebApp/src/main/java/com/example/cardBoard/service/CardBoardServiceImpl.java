@@ -81,7 +81,8 @@ public class CardBoardServiceImpl implements CardBoardService {
 		
 			//게시글 파일 업로드
 			HashMap<String, Object> boardFileMap = (HashMap<String, Object>)boardMap.get("boardFileMap");
-			if(!boardFileMap.isEmpty()) {
+			
+			if(boardFileMap.size() > 0) {
 				boardFileMap.put("boardNo", boardNo);
 				
 				System.out.println("boardfileSys : " + boardFileMap.get("boardfileSys"));
