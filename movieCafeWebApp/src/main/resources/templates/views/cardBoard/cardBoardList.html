@@ -64,7 +64,8 @@
 		    <div class="col-sm-4" style="text-align: center;">
 				        <div class="thumbnail">
 				        <a th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}">
-				        <img src="/images/noPicture.png" width="200px" height="100px"></a></div>
+				        <img th:if="${#lists.size(cardBoard.boardfileList) > 0}" th:src="@{'/upload/' + ${cardBoard.boardfileList[0].boardfileSys}}" width="200px" height="100px">
+				        <img th:if="${#lists.size(cardBoard.boardfileList) == 0}" src="/images/noPicture.png" width="200px" height="100px"></a></div>
 				        <div th:text="${cardBoard.horse}"></div>
 				         <p><a th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}"><strong th:text="${cardBoard.boardTitle}"></strong></a></p>
 			          	 <img src="/images/writer.png" width="20px" height="20px"> <span th:text="${cardBoard.userNick}"></span><br>

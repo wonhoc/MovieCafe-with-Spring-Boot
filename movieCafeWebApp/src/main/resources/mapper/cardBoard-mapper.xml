@@ -65,5 +65,32 @@
 	WHERE boardNo = #{boardNo}
 	
 	</update>
-		
+	
+	<!-- 게시글 파일 등록 -->
+	<insert id="insertCardBoardFile" parameterType="hashMap">
+	
+	INSERT INTO boardfile (boardNo, boardfileOrigin, boardfileSys, boardfileSize)
+	VALUES (#{boardNo}, #{boardfileOrigin}, #{boardfileSys}, #{boardfileSize})
+	
+	</insert>
+	
+	<!--  BoardFileVo resultmap -->
+	<resultMap type="BoardFileVO" id="BoardFileList">
+	<result property="boardfileNo" javaType="int" column="boardfileNo" jdbcType="INTEGER"/>
+	<result property="boardfileOrigin" javaType="string" column="boardfileOrigin" jdbcType="VARCHAR"/>
+	<result property="boardfileSys" javaType="string" column="boardfileSys" jdbcType="VARCHAR"/>
+	<result property="boardNo" javaType="int" column="boardNo" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	
+	<!-- 파일이 있는 게시글 가져오기 -->
+	<select id="selectboardFileList" resultMap="BoardFileList">
+	
+	SELECT f.boardfileOrigin, f.boardfileSys, f.boardNo
+	FROM board AS b JOIN boardfile AS f USING(boardNo) JOIN horse AS h USING(horseNo)
+	WHERE h.cateNo = 2
+	
+	</select>
+	
+	
 	</mapper>

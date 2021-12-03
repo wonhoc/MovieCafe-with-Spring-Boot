@@ -110,7 +110,11 @@ public class CardBoardController {
 		
 		boardFileMap.put("boardfileSys", boardfileOrigin);
 		boardFileMap.put("boardfileOrigin", photoSys.getName());
-		boardFileMap.put("boardfileSize", photoSys.getSize());
+		
+		//형변환
+		int boardfileSize = (int)photoSys.getSize();
+		
+		boardFileMap.put("boardfileSize", boardfileSize);
 		
 		boardMap.put("boardFileMap", boardFileMap);
 		
