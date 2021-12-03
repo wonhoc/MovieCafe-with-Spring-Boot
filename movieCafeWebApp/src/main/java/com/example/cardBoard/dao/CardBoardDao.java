@@ -16,4 +16,5 @@ public interface CardBoardDao {
 	public void deleteCardBoard(int boarNo);
 	public void updateCardBoard(HashMap<String, Object> modifyBoard);
 	public List<BoardFileVO> selectBoardFileLisrt();
+	public List<BoardFileVO> selectBoardFile(int boarNo);
 }//interface end

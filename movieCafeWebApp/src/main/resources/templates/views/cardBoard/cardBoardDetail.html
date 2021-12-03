@@ -20,14 +20,15 @@
 		<img src="/images/readIcon.png" width="20px" height="20px"><span th:text="${cardBoard.boardCount}"></span>  
 	</p>
 	<hr style="border: 0px; height: 3px; background: coral;">
-	<p style="font-size: 20px; text-align: center" th:text="${cardBoard.boardContent}"></p>
-	<hr style="border: 0px; height: 3px; background: coral;">
-	
-	<div th:if="${#lists.size(cardBoard.boardfileList) > 0}" th:each="boardfile : ${cardBoard.boardfileList}">
+	<div th:if="${#lists.size(cardBoard.boardfileList) > 0}" th:each="boardfile : ${cardBoard.boardfileList}" style="text-align: center;">
 		<div>
-		<img src="/upload + ${boardfile.boardfileOrigin}">
+		<img th:src="@{'/upload/' + ${boardfile.boardfileSys}}">
 		</div>
 	</div>
+	
+	<hr style="border: 0px; height: 3px; background: coral;">
+	<p style="font-size: 20px; text-align: center" th:text="${cardBoard.boardContent}"></p>
+	<hr style="border: 0px; height: 3px; background: coral;">
 	
 	<div align="right">
 		<span th:if="${session.userInfo != null}">

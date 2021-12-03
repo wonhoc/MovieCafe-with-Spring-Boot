@@ -87,6 +87,13 @@ public class CardBoardDaoImpl implements CardBoardDao {
 	return this.sqlSession.selectList("cardBoard.selectboardFileList");
 		
 	}//selectBoardFileLisrt() end
+
+	@Override
+	public List<BoardFileVO> selectBoardFile(int boarNo) {
+
+		return this.sqlSession.selectList("cardBoard.selectBoardFile", boarNo);
+		
+	}//selectBoardFile() end
 	 
 	 
 	
