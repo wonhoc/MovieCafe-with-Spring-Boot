@@ -92,5 +92,13 @@
 	
 	</select>
 	
+	<!-- 게시판 파일 정보 가져오기 -->
+	<select id="selectBoardFile" parameterType="int" resultMap="BoardFileList">
+	
+	SELECT boardfileNo, boardfileOrigin, boardfileSys, boardNo
+	FROM boardfile
+	WHERE boardNo = #{boardNo}
+	
+	</select>	
 	
 	</mapper>

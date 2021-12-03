@@ -61,7 +61,14 @@ public class CardBoardServiceImpl implements CardBoardService {
 	@Override
 	public BoardVO getCardBoardDetail(int boardNo) {
 		
-		return this.cardBoardDao.selectCardBoard(boardNo);
+		BoardVO board = this.cardBoardDao.selectCardBoard(boardNo);
+		
+		//파일정보
+		ArrayList<BoardFileVO> boardFileList = (ArrayList<BoardFileVO>)this.cardBoardDao.selectBoardFile(boardNo);
+		
+		board.setBoardfileList(boardFileList);
+		
+		return board;
 		
 	}//getCardBoardDetail() end
 
