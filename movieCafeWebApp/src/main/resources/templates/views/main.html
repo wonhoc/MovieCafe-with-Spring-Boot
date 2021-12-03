@@ -38,16 +38,22 @@
 					<th>댓글</th>
 				</thead>
 				<tr th:each="list : ${recomList}" >
-					<td th:if="${#strings.length(list.boardTitle) < 15}" class="list_title" th:text="${list.boardTitle}"></td>
-					<td th:if="${#strings.length(list.boardTitle) >= 15}" class="list_title" th:text="${#strings.substring(list.boardTitle,0,14)} + ..."></td>
+					<td th:if="${#strings.length(list.boardTitle) < 15}" class="list_title"><a th:href="@{/detail/{boardNo}(boardNo=${list.boardNo})}"
+							th:text="${list.boardTitle}"></a></td>
+					<td th:if="${#strings.length(list.boardTitle) >= 15}" class="list_title"><a th:href="@{/detail/{boardNo}(boardNo=${list.boardNo})}"
+							th:text="${#strings.substring(list.boardTitle,0,14)} + ..."></a></td>
 					<td th:text="${list.userNick}"></td>
 					<td th:text=${#strings.substring(list.boardWdate,0,11)}></td>
 					<td th:text="${list.boardCount}"></td>
-					<td></td>
-					<td></td>
+					<td th:text="${list.recomCount}"></td>
+					<td th:text="${list.commentCount}"></td>
 				</tr>
 			</table>
 		</div>
+		
+		
+		
+		
 		<div class="notice">
 			<h3 class="review_title">공지사항</h3>
 			<table class="table table-striped">
@@ -61,12 +67,14 @@
 				</thead>
 				<tr th:each="list : ${noticeList}">
 					<td class="list_notice">필독!!</td>
-					<td th:if="${#strings.length(list.boardTitle) < 15}" class="list_title" th:text="${list.boardTitle}"></td>
-					<td th:if="${#strings.length(list.boardTitle) >= 15}" class="list_title" th:text="${#strings.substring(list.boardTitle,0,14)} + ..."></td> 
+					<td th:if="${#strings.length(list.boardTitle) < 15}" class="list_title"><a th:href="@{/detail/{boardNo}(boardNo=${list.boardNo})}"
+							th:text="${list.boardTitle}"></a></td>
+					<td th:if="${#strings.length(list.boardTitle) >= 15}" class="list_title"><a th:href="@{/detail/{boardNo}(boardNo=${list.boardNo})}"
+							th:text="${#strings.substring(list.boardTitle,0,14)} + ..."></a></td> 
 					<td th:text="${list.userNick}"></td>
 					<td th:text=${#strings.substring(list.boardWdate,0,11)}></td>
 					<td th:text="${list.boardCount}"></td>
-					<td ></td>
+					<td th:text="${list.recomCount}"></td>
 				</tr>
 			</table>
 		</div>

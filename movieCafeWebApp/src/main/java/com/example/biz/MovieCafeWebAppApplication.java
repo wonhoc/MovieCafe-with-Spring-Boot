@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.example"})
+@ComponentScan(basePackages = {"com.example"}) 
 public class MovieCafeWebAppApplication extends SpringBootServletInitializer{
 
    public static void main(String[] args) {
@@ -15,6 +15,6 @@ public class MovieCafeWebAppApplication extends SpringBootServletInitializer{
    }
    @Override
    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-      return builder.sources(MovieCafeWebAppApplication.class);
+      return builder.sources(MovieCafeWebAppApplication.class); 
    }
 }

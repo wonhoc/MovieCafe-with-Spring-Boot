@@ -3,53 +3,102 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/defaultLayout}">
-<head>
-<section layout:fragment="content">
-	<th:block layout:fragment="script">
+<th:block layout:fragment="script">
 	<script th:src="@{/js/cardBoard/cardBoardList.js}"></script>
-	</th:block>
+</th:block>
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/cardBoard/cardBoardList.css}">
+</th:block>
+<head>
+</head>
+<section layout:fragment="content">
 	<div>
-	<h1 style="text-align: center; padding-bottom: 10px; ">영화리뷰 게시판</h1>
+		<h1 style="text-align: center; padding-bottom: 10px;">영화리뷰 게시판</h1>
 	</div>
-	<hr style="border: 0px; height: 3px; background: coral;">
-	
-	<div id="searchBar">
-	검색상자	<p align="right" th:if="${session.userInfo != null }"><button type="button" id="boardWrite" class="btn-primary btn-sm">글쓰기</button></p>
-	
+
+	<div>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<form th:action="@{boardsearch/2}" th:method="get">
+						<select name="keyfield" id="keyfield">
+							<option value="all">전체</option>
+							<option value="boardTitle">제목</option>
+							<option value="boardContent">내용</option>
+							<option value="로맨스">로맨스</option>
+							<option value="스릴러">스릴러</option>
+							<option value="공포">공포</option>
+							<option value="SF판타지">SF판타지</option>
+							<option value="액션">액션</option>
+							<option value="코미디">코미디</option>
+							<option value="기타">기타</option>
+							<option value="시사회 후기">시사회 후기</option>
+							<option value="예정 시사회">예정 시사회</option>
+
+						</select> <input type="search" name="keyword" id="keyword"
+							class="form-control" style="width: 300px; display: inline-block;">
+						<button class="btn btn-success" type="submit" id="searchBtn">
+							<i class="fas fa-search"></i>
+						</button>
+					</form>
+
+				</div>
+			</div>
+
+		</nav>
+		<p align="right" th:if="${session.userInfo != null }">
+			<button type="button" id="boardWrite" class="btn-primary btn-sm">글쓰기</button>
+		</p>
+
 	</div>
-	
-	<hr style="border: 0px; height: 3px; background: coral;">
-	
-	<div id="content" style="overflow: hidden;" >
-	
+
+
+	<div id="content" style="overflow: hidden;">
+
 		<span th:if="${cardBoardList == null}" style="text-align: center;">
 			<div class="col-sm-4" style="text-align: center;">
-			        <div class="thumbnail">
-			          <img src="/images/login.png"  width="200px" height="100px">
-			          <p><strong>등록된 글이 없습니다.</strong></p>
-		          	</div>
-		     </div>	     
-	    </span>
-	    
-	    <span th:if="${cardBoardList != null}" style="align-content: center;">
-		    <span th:each="cardBoard : ${cardBoardList}">
-		    <div class="col-sm-4" style="text-align: center;">
-				        <div class="thumbnail">
-				        <a th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}">
-				        <img src="/images/noPicture.png" width="200px" height="100px"></a></div>
-				        <div th:text="${cardBoard.horse}"></div>
-				         <p><a th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}"><strong th:text="${cardBoard.boardTitle}"></strong></a></p>
-			          	 <img src="/images/writer.png" width="20px" height="20px"> <span th:text="${cardBoard.userNick}"></span><br>
-			          	 <img src="/images/commentCount.png" width="20px" height="20px"><span th:text="${cardBoard.commentCount}"></span>
-			    		<img src="/images/readIcon.png" width="20px" height="20px"><span th:text="${cardBoard.boardCount}"></span>
-			     </div>     	     
-			</span>
-		</span>	
+				<div class="thumbnail">
+					<img src="/images/login.png" width="200px" height="100px">
+					<p>
+						<strong>등록된 글이 없습니다.</strong>
+					</p>
+				</div>
+			</div>
+		</span>
+
+		<div class="cardBox" th:if="${cardBoardList != null}">
+			<div th:each="cardBoard : ${cardBoardList}">
+				<div class="card">
+					<div class="cardLeft">
+						<a
+							th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}">
+							<img src="/images/noPicture.png" class="cardThumnail">
+						</a>
+					</div>
+					<div class="cardRight">
+						<div th:text="${cardBoard.horse}"></div>
+						<p>
+							<a
+								th:href="@{/cardBoardDetail/{cardboardNo}(cardboardNo=${cardBoard.boardNo})}"><strong
+								th:text="${cardBoard.boardTitle}"></strong></a>
+						</p>
+						<img src="/images/writer.png" width="20px" height="20px"> 
+						<span th:text="${cardBoard.userNick}"></span><br> 
+						<img src="/images/commentCount.png" width="20px" height="20px">
+						<span th:text="${cardBoard.commentCount}"></span> 
+						<img src="/images/readIcon.png" width="20px" height="20px">
+						<span th:text="${cardBoard.boardCount}"></span>
+					</div>
+					
+				</div>
+			</div>
+		</div>
 	</div>
-	<hr style="border: 0px; height: 3px; background: coral;">
-	<div>
-		페이징처리
+
+	<div id="pagination-div" align="center">
+		<div id="page-content"></div>
 	</div>
-	<hr style="border: 0px; height: 3px; background: coral;">
+
 </section>
 </html>

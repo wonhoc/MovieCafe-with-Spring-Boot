@@ -5,7 +5,7 @@ $(document).ready(function() {
 				.open(
 					'/sendMsgList',
 					'_blank',
-					'height=500, width=400, resizable=no');
+					'height=500, width=500, resizable=no');
 		});
 
 });

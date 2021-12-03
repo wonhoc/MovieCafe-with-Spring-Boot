@@ -1,0 +1,35 @@
+.container {
+	margin-top: 10em;
+	background-color: bisque;
+    border-radius: 15px;
+	height: 60%;
+    width: 70%;
+	
+}
+
+.userId {
+    border: black;
+    padding: 3px;
+
+
+}
+
+.input {
+	width: 500px;
+	height: 200px;
+	font-size: 20px;
+	
+}
+
+.joinSearchDIV {
+	margin-top: 3em;
+}
+
+.joinButton {
+	margin-bottom: 10px;
+}
+.join_devide {
+	width: 30%;
+	height: 4px;
+	background-color: black;
+}
