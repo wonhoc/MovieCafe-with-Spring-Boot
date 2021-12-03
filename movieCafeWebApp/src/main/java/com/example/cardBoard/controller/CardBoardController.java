@@ -99,25 +99,32 @@ public class CardBoardController {
 		boardMap.put("boardContent", boardContent);
 		boardMap.put("horseNo", horseNo);
 		
-		//파일의 관한 map
-		HashMap<String, Object> boardFileMap = new HashMap<String, Object>();
+	
 		
-		FileUploadService fileService = new FileUploadService();
 		
-		String boardfileOrigin = fileService.restore(photoSys, req);
-		
-		boardFileMap.put("boardfileSys", boardfileOrigin);
-		boardFileMap.put("boardfileOrigin", photoSys.getName());
-		
-		//형변환
-		int boardfileSize = (int)photoSys.getSize();
-		
-		boardFileMap.put("boardfileSize", boardfileSize);
-		
-		boardMap.put("boardFileMap", boardFileMap);
-		
-		this.cardBoardService.writeBoard(boardMap);
-		
+			//파일의 관한 map
+			if(!photoSys.isEmpty()) {
+				
+			HashMap<String, Object> boardFileMap = new HashMap<String, Object>();
+			
+			FileUploadService fileService = new FileUploadService();
+			
+			String boardfileOrigin = fileService.restore(photoSys, req);
+			
+			boardFileMap.put("boardfileSys", boardfileOrigin);
+			boardFileMap.put("boardfileOrigin", photoSys.getOriginalFilename());
+			
+			//형변환
+			int boardfileSize = (int)photoSys.getSize();
+			
+			boardFileMap.put("boardfileSize", boardfileSize);
+			
+			boardMap.put("boardFileMap", boardFileMap);
+			
+			}//if end
+			
+			this.cardBoardService.writeBoard(boardMap);
+			
 		return "redirect:/cardBoardList";
 		
 	}//cardBoardWrite() end

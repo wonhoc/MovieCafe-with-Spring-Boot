@@ -35,13 +35,13 @@ public class CardBoardServiceImpl implements CardBoardService {
 			
 			for(BoardFileVO boardFile : boardFileList) {
 				
-				System.out.println("board : " + board.getBoardNo());
-				System.out.println("boardFile : " + boardFile.getBoardNo());
+				//System.out.println("board : " + board.getBoardNo());
+				//System.out.println("boardFile : " + boardFile.getBoardNo());
 				
 				if(board.getBoardNo() == boardFile.getBoardNo()) {
 					
 					boardFileArray.add(boardFile);
-					System.out.println("boardFile : " + boardFile.toString());
+					//System.out.println("boardFile : " + boardFile.toString());
 								
 				}//if end
 				
@@ -78,18 +78,27 @@ public class CardBoardServiceImpl implements CardBoardService {
 		//게시글 입력
 		int boardNo = this.cardBoardDao.insertBoard(boardMap);
 		
-		//게시글 파일 업로드
-		HashMap<String, Object> boardFileMap = (HashMap<String, Object>)boardMap.get("boardFileMap");
-		boardFileMap.put("boardNo", boardNo);
 		
-		System.out.println("boardfileSys : " + boardFileMap.get("boardfileSys"));
-		System.out.println("boardfileOrigin : " + boardFileMap.get("boardfileOrigin"));
-		System.out.println("boardfileSize : " + boardFileMap.get("boardfileSize"));
-		System.out.println("boardNo : " + boardFileMap.get("boardNo"));
-		
-		//게시글 파일 업로드
-		this.cardBoardDao.insertBoardFile(boardFileMap);
-
+			//게시글 파일 업로드
+			HashMap<String, Object> boardFileMap = (HashMap<String, Object>)boardMap.get("boardFileMap");
+			if(!boardFileMap.isEmpty()) {
+				boardFileMap.put("boardNo", boardNo);
+				
+				System.out.println("boardfileSys : " + boardFileMap.get("boardfileSys"));
+				System.out.println("boardfileOrigin : " + boardFileMap.get("boardfileOrigin"));
+				System.out.println("boardfileSize : " + boardFileMap.get("boardfileSize"));
+				System.out.println("boardNo : " + boardFileMap.get("boardNo"));
+				
+				//게시글 파일 업로드
+				this.cardBoardDao.insertBoardFile(boardFileMap);
+			}else{
+				
+				System.out.println("파일이 없습니다.");
+				
+			}//if end
+			
+			
+			
 	}//writeBoard() end
 	
 	//조회수 증가
