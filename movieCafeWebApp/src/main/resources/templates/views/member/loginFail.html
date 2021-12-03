@@ -14,9 +14,8 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 </head>
-<section layout:fragment="content"> 
-
   <body>
+<section layout:fragment="content"> 
 
     <div class="container" >
     
@@ -38,8 +37,8 @@
         <input type="password" id="userPwd" name="userPwd" class="form-control" placeholder="Password">
         <div>
       		<button class="btn btn-lg btn btn-light" type="submit">로그인</button>
-        	<a th:href="@{redirect:/views/main}">
-        		<button class="btn btn-lg btn btn-light">취소</button>
+        	<a th:href="@{/}">
+        		<button type="button" class="btn btn-lg btn btn-light">취소</button>
         	</a>
         </div>
         </form>
@@ -59,10 +58,6 @@
          </div>
          </div>
          
-         
-         
-       
-      
 
     </div> <!-- /container -->
 
