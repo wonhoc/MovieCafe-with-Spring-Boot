@@ -60,18 +60,18 @@ public class UserInfoController {
 			return "redirect:/main";
 		} else { 
 			// 리다이렉트로 로그인 페이지 다시
-			return "redirect:/loginFail";
+			return "redirect:/loginFailCaseOne";
 		}
 	}
 	@GetMapping("/loginFail") 
 		public String loginFail() {
 			return "views/member/loginFail";
 	}
-//	// ID, PW를 정확하게 입력하지 않았을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
-//	@GetMapping("/loginFailCaseOne")
-//	public String loginFailOne() {
-//		return "views/member/loginFailCaseOne";
-//	}
+	// ID, PW를 정확하게 입력하지 않았을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
+	@GetMapping("/loginFailCaseOne")
+	public String loginFailOne() {
+		return "views/member/loginFailCaseOne";
+	}
 //	// 비로그인 상태로 게시판의 상세 보기를 시도했을 경우 -> Alert 창 띄우는 html 지난 후 loginFail로 이동
 //	@GetMapping("/loginFailCaseTwo")
 //	public String loginFailTwo() {
@@ -87,7 +87,11 @@ public class UserInfoController {
 			@RequestParam(value = "contact2") String tempCon2, @RequestParam(value = "contact3") String tempCon3,
 			@RequestParam(value = "userNick") String userNick, @RequestParam(value = "userName") String userName,
 			@RequestParam(value = "pickGender") String gender, Model model) {
-
+		System.out.println(userPwd);
+		System.out.println(userEmail);
+		System.out.println(tempYear);
+		
+		
 		UserInfoVo user = new UserInfoVo();
 
 		user.setUserId(userId);
@@ -104,7 +108,7 @@ public class UserInfoController {
 		user.setUserName(userName);
 		user.setGender(gender);
 		this.userService.insertUserInfo(user);
-		return "views/main";
+		return "redirect:/";
 
 	}
 
