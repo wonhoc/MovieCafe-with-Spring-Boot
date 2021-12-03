@@ -23,6 +23,8 @@
 				}),
 				success : function(data) {
 					const comment = data.results;
+					const userInfo = data.userInfo;
+					
 					$('#origincom').hide();
 					$('#comAction').text(data.comCnt);
 					$("#listComment").html("");
@@ -41,13 +43,18 @@
 							+ '<td colspan="2" class="comContent">'
 							+ comment[i].comContent
 							+ '</td>'
-							+ '</tr>'
-							+ '<tr>'
-							+ '<td colspan="2">'
-							+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
-							+ '<button id="removeBtn">삭제</button>'
-							+ '</td>'
-							+ '</tr></tbody>'
+							+ '</tr>';
+							if(userInfo.userNick == comment[i].userNick || userInfo.rankType == "A"){
+								
+							str += '<tr>'
+								+ '<td colspan="2">'
+								+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
+								+ '<button id="removeBtn">삭제</button>'
+								+ '</td>'
+								+ '</tr>';
+							};
+							
+							str += '</tbody>';
 					}
 					$("#listComment").html(str);
 				},
@@ -75,6 +82,9 @@
 														dataType : 'json',
 														success : function(data) {
 															const comment = data.results;
+															const userInfo = data.userInfo;
+															
+															
 															$('#origincom')
 																	.hide();
 															$('#comAction')
@@ -85,6 +95,7 @@
 																	.html("");
 															let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
 															for (let i = 0; i < comment.length; i++) {
+																
 																str += '<tbody id = "' + comment[i].comNo + '">'
 																		+ '<tr>'
 																		+ '<td>'
@@ -98,13 +109,18 @@
 																		+ '<td colspan="2" class="comContent">'
 																		+ comment[i].comContent
 																		+ '</td>'
-																		+ '</tr>'
-																		+ '<tr>'
-																		+ '<td colspan="2">'
-																		+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
-																		+ '<button id="removeBtn">삭제</button>'
-																		+ '</td>'
-																		+ '</tr></tbody>'
+																		+ '</tr>';
+																		
+																		if(userInfo.userNick == comment[i].userNick || userInfo.rankType == "A"){
+																			str += '<tr>'
+																			+ '<td colspan="2">'
+																			+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
+																			+ '<button id="removeBtn">삭제</button>'
+																			+ '</td>'
+																			+ '</tr>';
+																		}
+																		
+																		str += '</tbody>';
 															}
 															$("#listComment")
 																	.html(str);
@@ -166,6 +182,13 @@
 																}),
 														success : function(data) {
 															const comment = data.results;
+															const userInfo = data.userInfo;
+															
+															$('#origincom')
+															.hide();
+													$('#comAction')
+															.text(
+																	data.comCnt);
 															$("#listComment")
 																	.html("");
 															let str = '<thead><tr><td>작성자</td><td>날짜</td></tr><thead>'
@@ -183,14 +206,17 @@
 																		+ '<td colspan="2" class="comContent">'
 																		+ comment[i].comContent
 																		+ '</td>'
-																		+ '</tr>'
-																		+ '<tr>'
-																		+ '<td colspan="2">'
-																		+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
-																		+ '<button id="removeBtn">삭제</button>'
-																		+ '</td>'
-																		+ '</tr>'
-																		+ '</tbody>'
+																		+ '</tr>';
+																		
+																		if(userInfo.userNick == comment[i].userNick || userInfo.rankType == "A"){
+																			str += '<tr>'
+																			+ '<td colspan="2">'
+																			+ '<button class="modifyComReqBtn" type="button">수정</button>&nbsp;'
+																			+ '<button id="removeBtn">삭제</button>'
+																			+ '</td>'
+																			+ '</tr>';
+																		}
+																		str += '</tbody>';
 															}
 															$("#listComment")
 																	.html(str);
@@ -220,17 +246,28 @@ table {
 	border: 1px solid #ffebb5;
 	border-radius: 16px;
 	box-shadow: inset 0 0 3px #e7cf8d;
-	width: 1100px;
+	width: 950px;
 	height: 265px;
 }
 
 #boardTitle {
 	background-color: #fcf4de;
+	
 }
 /* #boardContent{
    background-color: rgb(255, 255, 240);
 
 } */
+
+#titi{
+	font-family: '맑은 고딕'; font-size: 30px; color: #000;
+
+}
+.filetable{
+	position:absolute;
+	left:1100px;
+	top:430px;
+}
 </style>
 
 </head>
@@ -254,13 +291,13 @@ table {
 
 				<table class="table">
 					<tr id="boardTitle" class="board">
-						<td width="600px;" th:text="${board.boardTitle}"></td>
+						<td id="titi" width="600px;" th:text="${board.boardTitle}"></td>
 						<td align="center">작성일<img height="30px;" width="30px;"
 							src="/images/writer.png"></td>
 						<td align="center">조회수</td>
 						<td align="center">추천
 						<img height="30px;" width="30px;" src="/images/참잘함ㅇㅇㅇㅇ.png"></td>
-						<td align="center">신고
+						<td align="center">댓글
 						<img height="30px;" width="30px;" src="/images/참못했어요.png"></td>
 					</tr>
 
@@ -268,17 +305,15 @@ table {
 						<td width="600px;" th:text="${board.userNick}"></td>
 						<td align="center" th:text="${board.boardWdate}"></td>
 						<td align="center" th:text="${board.boardCount}"></td>
-						<td align="center" th:text="${board.recomCount}"></td>
-						<td align="center" th:text="${board.commentCount}"></td>
+						
 
-						<td>추천</td>
-						<td id="originRecom" th:text="${board.recomCount}">
-						<td><div id="recomAction"></div></td>
-						</td>
-						<td>댓글</td>
-						<td id="origincom" th:text="${board.commentCount}">
-						<td><div id="comAction"></div></td>
-						</td>
+						<div id="recomAction">
+							<td id="originRecom" width="30px;" th:text="${board.recomCount}"></td>
+						</div>
+						
+						<div id="comAction">
+							<td id="origincom" width="30px;" th:text="${board.commentCount}"></td>
+						</div>
 
 					</tr>
 					<tr class="board">
@@ -286,7 +321,8 @@ table {
 							th:text="${board.boardContent}"></td>
 					</tr>
 				</table>
-				<table th:if="${board.boardfile != null}">
+				
+				<table class="filetable" th:if="${board.boardfile != null}">
 					<tr>
 						<th colspan="6">파일명</th>
 						<th colspan="6">파일크기</th>
@@ -300,14 +336,17 @@ table {
 
 				</table>
 
-				<table th:if="${board.boardfile == null}">
+				<table class="filetable" th:if="${board.boardfile == null}">
 					<tr>
 						<td colspan="3">파일 없음</td>
 					</tr>
 				</table>
+				
+				
+				
 			</form>
 		</div>
-		<!-- <button type="button" class="btn btn-success" id="recomBtn">
+		<button type="button" class="btn btn-success" id="recomBtn">
 			추천</button>
 
 		<button type="button" class="btn btn-warning" id="reportBtn">
@@ -332,7 +371,8 @@ table {
 				<tr>
 					<td colspan="2" class="comContent" th:text="${comment.comContent}"></td>
 				</tr>
-				<tr>
+				<tr th:if="${userInfo.userNick == comment.userNick || userInfo.rankType == 'A'}">
+				
 					<td colspan="2">
 						<button id="updateComBtn" class="modifyComReqBtn" type="button">수정</button>
 						<button id="removeBtn">삭제</button>
@@ -341,7 +381,8 @@ table {
 			</tbody>
 		</table>
 
-		댓글 달기
+		
+		
 		<form method="get">
 
 			<div id="addComment">
@@ -366,6 +407,6 @@ table {
 				</div>
 			</div>
 
-		</form> -->
+		</form>
 </section>
 </html>

@@ -2,6 +2,10 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{layout/defaultLayout}">
+ <th:block layout:fragment="script">
+        <script th:src="@{/js/board/boardwrite.js}"></script>
+    </th:block>
+
 
 <head>
 <script type="text/javascript">

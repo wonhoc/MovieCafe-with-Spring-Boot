@@ -14,8 +14,11 @@ $(document).ready(function() {
                     },
                     success: function(data) {                       
                         alert(data.result);
-                        $('#originRecom').hide();
-                        $('#recomAction').text(data.recomCnt);
+                       const recomCnt = data.recomCnt;
+                        $("#originRecom").html("");
+                        	let str = '<td>'+ recomCnt + '</td>'
+                       $("#originRecom").html(str);
+                       
                         
                         resolve(data);
                     }, 
