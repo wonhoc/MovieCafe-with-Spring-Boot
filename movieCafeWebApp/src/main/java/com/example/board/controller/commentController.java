@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.board.service.BoardService;
+import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
 import com.example.member.vo.UserInfoVo;
 
@@ -33,22 +34,20 @@ public class commentController {
 		HttpSession session = req.getSession(false);
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 		
-		
-		
-		
 	      int boardNo = comment.getBoardNo();
-	      System.out.println("boardNo"+boardNo);
-	      System.out.println("userInfo.getUserId() = "+userInfo.getUserId());
 	      
 	      comment.setUserId(userInfo.getUserId());
+	      
+	      BoardVO board = boardService.readOne(boardNo);
 	      
 	      Map<String, Object> map = new HashMap<String, Object>();
 	      this.boardService.createComment(comment);
 	      List<CommentVO> list = boardService.readCommentList(boardNo);
+
 	      map.put("comCnt", this.boardService.readCommCount(boardNo));
-	      System.out.println(list.toString());
-	      
 	      map.put("results", list);
+	      map.put("userInfo", userInfo);
+	      
 	      
 	      return map;
 	   }
@@ -59,13 +58,16 @@ public class commentController {
 		HttpSession session = req.getSession();
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		model.addAttribute("userInfo", userInfo);
 		
-		map.put(boardNo, boardNo);
+		BoardVO board = boardService.readOne(boardNo);
+		
+		
 		this.boardService.removeComment(comNo);
 		List<CommentVO> list = boardService.readCommentList(boardNo);
 		map.put("comCnt", this.boardService.readCommCount(boardNo));
 		map.put("results", list);
+		map.put("userInfo", userInfo);
+		
 		return map;
 	}
 	
@@ -75,10 +77,18 @@ public class commentController {
 	      HttpSession session = req.getSession();
 	      UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 	      Map<String, Object> map = new HashMap<String, Object>();
+	      
+	      int boardNo = comment.getBoardNo();
+	      
+	      BoardVO board = boardService.readOne(boardNo);
+	      
 	      CommentVO modiCom = new CommentVO(comment.getComNo(), comment.getComContent());
 	      this.boardService.modifyComment(modiCom);
 	      List<CommentVO> list = boardService.readCommentList(comment.getBoardNo());
 	      map.put("results", list);
+	      map.put("userInfo", userInfo);
+	      
+	      
 	      return map;
 	   }
 }
