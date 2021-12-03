@@ -3,21 +3,24 @@
 <head>
 <meta charset='UTF-8' />
 <title>쪽지 작성</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css" />
+<link rel="stylesheet" th:href="@{/css/message/sendMsgForm.css}" />
 <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 <script th:src="@{/js/message/sendMsgForm.js}"> </script>
 </head>
 <body>
-	<div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
-		<button type="button" id="sendFormBtn"
-			onclick="location='/sendMsgForm'">쪽지쓰기</button>
-		<button type="button" id="sendMsglistBtn"
+<section class="container">
+	<div id="navibox">
+		<button class="btn btn-secondary messageBtn" type="button" id="sendMsglistBtn"
 			onclick="location='/sendMsgList'">보낸쪽지함</button>
-		<button type="button" id="recieveMsglistBtn"
+		<button class="btn btn-secondary messageBtn" type="button" id="recieveMsglistBtn"
 			onclick="location='/receiveMsgList'">받은쪽지함</button>
+		<button class="btn btn-secondary messageBtn" type="button" id="sendFormBtn"
+			onclick="location='/sendMsgForm'">쪽지쓰기</button>
 	</div>
 	<div id="content">
 		<form id="sendMsgForm" action="/sendMsg" method="POST">
-			<table border="1" id="sendMsgListTb">
+			<table class="table table-bordered" border="1" id="sendMsgListTb">
 				<tr>
 					<td id="recieveId">받는사람 : <input type="text" name="reciveId"
 						class="reciveId" placeholder="받는사람">
@@ -25,17 +28,18 @@
 				</tr>
 				<tr>
 					<td>내용<br> <textarea id="sendMsgContent"
-							name="sendMsgContent"	 style="width: 300px; height: 200px;"></textarea>
+							name="sendMsgContent" rows="5" cols="61"></textarea>
 
 					</td>
 				</tr>
 				<tr>
 					<td><div id="infoSendtext"></div>
-						<button type="button" id="sendMsgBtn" style="margin-left: 250px;">보내기</button></td>
+						<button class="btn btn-secondary deleteBtn" type="button" id="sendMsgBtn">보내기</button></td>
 				</tr>
 
 			</table>
 		</form>
 	</div>
+	</section>
 </body>
 </html>

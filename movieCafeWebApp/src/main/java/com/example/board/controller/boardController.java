@@ -12,16 +12,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.example.board.service.BoardService;
+import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
 import com.example.board.vo.SearchVO;
 import com.example.member.vo.UserInfoVo;
+import com.example.util.FileUploadService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +34,8 @@ public class boardController {
 	@Autowired
 	private BoardService boardServie;
 	
+	@Autowired
+    private FileUploadService fileUploadService;
 
 	@GetMapping("/boardlist/{cateNo}")
 	public String boardlist(@PathVariable int cateNo, Model model, HttpServletRequest request) {
@@ -45,6 +49,7 @@ public class boardController {
 			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
 			board.setCommentCount(this.boardServie.readCommCount(board.getBoardNo()));
 		}
+		
 		model.addAttribute("list",list);
 		
 		return "views/board/boardlist";
@@ -54,6 +59,10 @@ public class boardController {
 	   @GetMapping("/getBoardList/{cateNo}")
 	   public @ResponseBody List<BoardVO> listBoard(@PathVariable int cateNo) {
 	      List<BoardVO> list= boardServie.readAllByCateNo(cateNo);
+	  	for(BoardVO board : list) {
+			board.setRecomCount(this.boardServie.readRecomCount(board.getBoardNo()));
+			board.setCommentCount(this.boardServie.readCommCount(board.getBoardNo()));
+		}
 	      return list;
 	   }
 
@@ -65,9 +74,13 @@ public class boardController {
 
 			HttpSession session = request.getSession();
 			UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
-
+			
 			BoardVO board = boardServie.readOne(boardNo);
+
+			board.setBoardfile(this.boardServie.readBoardFile(boardNo));
+			
     	board.setCommentCount(this.boardServie.readCommCount(boardNo));
+
 			board.setRecomCount(this.boardServie.readRecomCount(boardNo));
 			List<CommentVO> list = this.boardServie.readCommentList(boardNo);
 			
@@ -77,11 +90,18 @@ public class boardController {
 			model.addAttribute("board", board);
 			model.addAttribute("list", list);
 			model.addAttribute("userInfo", userInfo);
-			if (cateNo == 4) {
-				return "views/board/boardTipDetail";
+			// UserInfo 가 있을 경우
+			if (userInfo != null) {
+				if (cateNo == 4) {
+					return "views/board/boardTipDetail";
+				} else {
+					return "views/board/boardDetail";
+				}
+				// UserInfo가 없을 경우
 			} else {
-				return "views/board/boardDetail";
-		}
+				return "redirect:/loginFailCaseTwo";
+			}
+			
 		}
 		
 		@GetMapping("/detail/detailTipboard{boardNo}")
@@ -143,25 +163,61 @@ public class boardController {
 	
 	
 	@PostMapping("/fileUpload")
-	public String boardwrite(BoardVO board, Model model, HttpServletRequest request) {
+	public String boardwrite(BoardVO board, @RequestPart(value = "boardFileInput", required = false) MultipartFile boardFileSys, 
+			Model model, HttpServletRequest request) {
+		BoardFileVO boardfile = new BoardFileVO();
 		HttpSession session = request.getSession();
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
+		boardfile.setBoardfileOrigin(boardFileSys.getOriginalFilename());
+		String boardFileName = null;
+		if(!boardFileSys.getOriginalFilename().isEmpty()) {
+			boardFileName = fileUploadService.boardRestore(boardFileSys, request);
+			boardfile.setBoardfileSys(boardFileName);
+			boardfile.setBoardfileSize(boardFileSys.getSize());
+			boardfile.setBoardfileType(boardFileSys.getContentType());
+			board.setBoardfile(boardfile);
+			//this.boardServie.createFile(boardfile);
+		}
 		
 		int cateNo = board.getCateNo();
 		
 		model.addAttribute("userInfo", userInfo);
 		if (cateNo == 1) {
+			
 			this.boardServie.createBoard(board);
+			
+			if(!board.getBoardfile().equals(null)) {
+				int no = this.boardServie.lastId();
+				boardfile.setBoardNo(no);
+			this.boardServie.createFile(boardfile);
+			}
 			return "redirect:boardlist/1";
 		}else if(cateNo ==2){
 			this.boardServie.createBoard(board);
+
+			if(!board.getBoardfile().equals(null)) {
+				int no = this.boardServie.lastId();
+				boardfile.setBoardNo(no);
+			this.boardServie.createFile(boardfile);
+			}
 			return "redirect:boardlist/2";
 		}else if(cateNo ==3){
 			this.boardServie.createBoard(board);
+			if(!board.getBoardfile().equals(null)) {
+				int no = this.boardServie.lastId();
+				boardfile.setBoardNo(no);
+			this.boardServie.createFile(boardfile);
+			}
 			return "redirect:boardlist/3";
 		}else{
-			this.boardServie.createBoard(board);
-			return "redirect:boardlist/4";
+				this.boardServie.createBoard(board);
+
+				if(!board.getBoardfile().equals(null)) {
+					int no = this.boardServie.lastId();
+					boardfile.setBoardNo(no);
+				this.boardServie.createFile(boardfile);
+				}
+				return "redirect:boardlist/4";
 	}
 	}
 
@@ -233,6 +289,7 @@ public class boardController {
 		board.setBoardTitle(boardTitle);
 		board.setBoardContent(boardContent);
 		board.setHorseNo(horseNo);
+		System.out.println(boardNotice);
 		board.setBoardNotice(boardNotice);
 		board.setBoardNo(boardNo);
 		

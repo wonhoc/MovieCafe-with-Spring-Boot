@@ -3,6 +3,7 @@ package com.example.board.service;
 import java.util.List;
 import java.util.Map;
 
+import com.example.board.vo.BoardFileVO;
 import com.example.board.vo.BoardVO;
 import com.example.board.vo.CommentVO;
 import com.example.board.vo.RecomVO;
@@ -28,8 +29,11 @@ public interface BoardService {
 	List<BoardVO> readNoticeRevList();
 
 	
+	//파일 등록
+	void createFile(BoardFileVO file);
+	int lastId();
 	
-	
+	BoardFileVO readBoardFile(int boardNo);
 	
 	//추천
 	void createRecommend(RecomVO recommend);

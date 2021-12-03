@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.board.vo.BoardFileVO;
-import com.example.board.vo.BoardVO;
 import com.example.cardBoard.dao.CardBoardDao;
+import com.example.cardBoard.vo.BoardVO;
 
 @Service("cardBoardService")
 public class CardBoardServiceImpl implements CardBoardService {

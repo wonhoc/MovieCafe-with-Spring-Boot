@@ -1,140 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
- <head>
-        <meta charset='UTF-8'>
-        <title>내가쓴 쪽지</title>
-     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-	 <script th:src="@{/js/message/sendMsgList.js}"> </script>
-   	<style>
-  	#removeSendMsgBtn,
- 	#sendFormBtn,
-#sendMsglistBtn,
-#recieveMsglistBtn,
-#sendMsgBtn {
-  height: 2rem;
-  margin: 0 0.3em;
-  font-size: 18px;
-  color: #5b5b5b;
-  background-color: #fdfdfd;
-  border: 2px solid #b1b1b1;
-  border-radius: 0.25em;
-  transition: all 150ms ease-in;
-  cursor: pointer;
-}
-#removeSendMsgBtn:hover,
-#sendFormBtn:hover,
-#sendMsglistBtn:hover,
-#recieveMsglistBtn:hover,
-#sendMsgBtn:hover {
-  background-color: #e2e2e2;
-}
+<head>
+<meta charset='UTF-8'>
+<title>내가쓴 쪽지</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css" />
+<link rel="stylesheet" th:href="@{/css/message/sendMsgList.css}" />
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/message/sendMsgList.js}">
+</script>
 
-#sendMsgList {
-  border: #eab48a 4px solid;
-  border-radius: 0.5em;
-}
-
-.reciveId {
-  width: 60%;
-  height: 1.7rem;
-  line-height: 1.7rem;
-}
-#plusFrom {
-  cursor: pointer;
-}
-#removeSendMsgBtn{
-	margin-left: 350px;
-	color: red;
-	
-}
-
-#paging{
-	width: 350px;
-	text-align: center;
-}
-
-
-#recieveId,
-.content {
-  font-size: 16px;
-  padding: 0.5em;
-  border: 1px solid #b1b1b1;
-}
-#sendMsgList {
-  width: 400px;
-  height: 200px;
-}
-section{
-margin-left: auto;
-margin-right: auto;
-}
-.bottom {
-  text-align: end;
-}   	
-   	</style>
-    </head>
-    <body>
-    <section>
-        <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
-            <button type="button" id="sendFormBtn" onclick="location='/sendMsgForm'">쪽지쓰기</button>
-            <button type="button" id=sendMsglistBtn onclick="location='/sendMsgList'">보낸쪽지함</button>
-            <button type="button" id="recieveMsglistBtn" onclick="location='/receiveMsgList'">받은쪽지함</button>
-        </div>
-        <form action="/removeSendMsg" method="POST" id="removeSendMsgForm">
+</head>
+<body>
+	<section class="container">
+		<div class="container" id="navibox">
+			<button class="btn btn-secondary messageBtn" type="button" id=sendMsglistBtn
+				onclick="location='/sendMsgList'">보낸쪽지함</button>
+			<button class="btn btn-secondary messageBtn" type="button" id="recieveMsglistBtn"
+				onclick="location='/receiveMsgList'">받은쪽지함</button>
+			<button class="btn btn-secondary messageBtn" type="button" id="sendFormBtn"
+				onclick="location='/sendMsgForm'">쪽지쓰기</button>
+		</div>
+		<form action="/removeSendMsg" method="POST" id="removeSendMsgForm">
 			<div id="content">
 				<div>
-					<table border="1" id="sendMsgList">
+					<table class="table table-striped" border="1" id="sendMsgList">
 						<thead>
-							<tr>             	
-								<td style="text-align: center; width: 100px;">받는사람</td>
-								<td style="text-align: center; width: 100px;">내용</td> 
-								<td style="text-align: center; width: 200px;">작성시간</td>
-								<div th:if = "${#lists.size(sendMsgList) > 0}">		
-								<td style="text-align: center; width: 200px; color: red; font-size: 12px;"><input type="checkbox" id="allChecked">선택</td>
+							<tr>
+								<th>받는사람</th>
+								<th>내용</th>
+								<th>작성시간</th>
+								<div th:if="${#lists.size(sendMsgList) > 0}">
+									<th><input type="checkbox" id="allChecked">선택</th>
 								</div>
 							</tr>
 						</thead>
-							<tbody>
-								<div th:if = "${#lists.size(sendMsgList) == 0}">	
-									<tr>
-										<td colspan="4">보낸 쪽지가 없습니다.</td>
-									</tr>
-								</div>							
-								<div th:if = "${#lists.size(sendMsgList) > 0}">		
-									<tr th:each="sendMsg : ${sendMsgList}">
-										<!-- 받는사람이 1명일때  -->
-										<span th:if="${#lists.size(sendMsg.addresses) < 2}">
-											<td style="text-align: center;" >
-												<span th:text="${sendMsg.addresses[0].receiveId}" />
-											</td>
-										</span>
-										<!--  받는사람이 2명 이상일때 -->
-											<span th:if="${#lists.size(sendMsg.addresses) >= 2}">
-											<td>
-												<span th:text="${sendMsg.addresses[0].receiveId} + ' 외 ' + ${#lists.size(sendMsg.addresses) - 1} + '명'  " />
-											</td>
-										</span>
-										<!-- 내용이 10글자가 넘으면 -->
-										<span th:if="${#strings.length(sendMsg.sendMsgContent) > 10 }">								
-											<td style="text-align: center; width: 400px"><a th:text="${#strings.substring(sendMsg.sendMsgContent, 0, 10) + '...'}" th:href="@{/sendMsgDetail/{sendMsgNo}(sendMsgNo=${sendMsg.sendMsgNo})}"></a></td>
-										</span>
-										
-										<!-- 내용이 10글자가 넘지 않으면 -->
-										<span th:if="${#strings.length(sendMsg.sendMsgContent) <= 10 }">								
-											<td style="text-align: center; width: 400px"><a th:text="${sendMsg.sendMsgContent}" th:href="@{/sendMsgDetail/{sendMsgNo}(sendMsgNo=${sendMsg.sendMsgNo})}"></a></td>
-										</span>
-										<td style="text-align: center; width: 300px;" th:text="${#strings.substring(sendMsg.msgWdate, 0, 10)}"></td>
-										<td style="text-align: center;" ><input type="checkbox" name="removeCheckBox" th:value="${sendMsg.sendMsgNo}"></td>
-									</tr>								
-								</div>
-							</tbody>
+						<tbody>
+							<div th:if="${#lists.size(sendMsgList) == 0}">
+								<tr>
+									<td colspan="4">보낸 쪽지가 없습니다.</td>
+								</tr>
+							</div>
+							<div th:if="${#lists.size(sendMsgList) > 0}">
+								<tr th:each="sendMsg : ${sendMsgList}">
+									<!-- 받는사람이 1명일때  -->
+									<span th:if="${#lists.size(sendMsg.addresses) < 2}">
+										<td><span
+											th:text="${sendMsg.addresses[0].receiveId}" /></td>
+									</span>
+									<!--  받는사람이 2명 이상일때 -->
+									<span th:if="${#lists.size(sendMsg.addresses) >= 2}">
+										<td><span
+											th:text="${sendMsg.addresses[0].receiveId} + ' 외 ' + ${#lists.size(sendMsg.addresses) - 1} + '명'  " />
+									</td>
+									</span>
+									<!-- 내용이 10글자가 넘으면 -->
+									<span th:if="${#strings.length(sendMsg.sendMsgContent) > 10 }">
+										<td><a
+											th:text="${#strings.substring(sendMsg.sendMsgContent, 0, 10) + '...'}"
+											th:href="@{/sendMsgDetail/{sendMsgNo}(sendMsgNo=${sendMsg.sendMsgNo})}"></a></td>
+									</span>
+
+									<!-- 내용이 10글자가 넘지 않으면 -->
+									<span th:if="${#strings.length(sendMsg.sendMsgContent) <= 10 }">
+										<td><a
+											th:text="${sendMsg.sendMsgContent}"
+											th:href="@{/sendMsgDetail/{sendMsgNo}(sendMsgNo=${sendMsg.sendMsgNo})}"></a></td>
+									</span>
+									<td th:text="${#strings.substring(sendMsg.msgWdate, 0, 10)}"></td>
+									<td><input type="checkbox"
+										name="removeCheckBox" th:value="${sendMsg.sendMsgNo}"></td>
+								</tr>
+							</div>
+						</tbody>
 					</table>
 				</div>
-				<div th:if = "${sendMsgList != null}">
-					<button type="submit" id="removeSendMsgBtn">삭제</button>
+				<div th:if="${sendMsgList != null}">
+					<button class="btn btn-secondary deleteBtn" type="submit" id="removeSendMsgBtn">삭제</button>
 				</div>
 			</div>
 		</form>
-		</section>
-    </body>
+	</section>
+</body>
 </html>

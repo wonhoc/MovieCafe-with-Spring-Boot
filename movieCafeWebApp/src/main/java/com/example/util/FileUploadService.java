@@ -64,5 +64,31 @@ public class FileUploadService {
 		fos.close();
 		
 		return result;
-	}	
+	}
+	
+public String boardRestore(MultipartFile multipartFile, HttpServletRequest req) {
+		
+		String url = null;
+		
+		try {
+			String boardFileOrigin = multipartFile.getOriginalFilename();
+			String extName = boardFileOrigin.substring(boardFileOrigin.lastIndexOf("."),
+					boardFileOrigin.length());
+			Long size = multipartFile.getSize();
+			
+			// 서버에서 저장 할 파일 이름
+			String boardFileSys = genSaveFileName(extName);
+			
+		
+			//file저장
+			writeFile(multipartFile, boardFileSys);
+	
+			url = boardFileSys;
+	
+		}catch(IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return url;
+	}
 }

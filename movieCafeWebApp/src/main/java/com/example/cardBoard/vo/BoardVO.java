@@ -1,6 +1,8 @@
-package com.example.board.vo;
+package com.example.cardBoard.vo;
 
 import java.util.ArrayList;
+
+import com.example.board.vo.BoardFileVO;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,6 @@ public class BoardVO {
 	private String userNick;//
 	private String apiX;//
 	private String apiY;//
-	private BoardFileVO boardfile = new BoardFileVO();
-	private ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
+
+	private ArrayList<BoardFileVO> boardfileList = new ArrayList<BoardFileVO>();
 }

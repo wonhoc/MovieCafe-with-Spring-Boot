@@ -1,6 +1,5 @@
 package com.example.cardBoard.controller;
 
-import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.board.file.FileUploadUtils;
-import com.example.board.vo.BoardVO;
 import com.example.cardBoard.service.CardBoardService;
+import com.example.cardBoard.vo.BoardVO;
 import com.example.member.vo.UserInfoVo;
 import com.example.util.FileUploadService;
 

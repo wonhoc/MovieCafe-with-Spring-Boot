@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.board.vo.BoardFileVO;
-import com.example.board.vo.BoardVO;
+import com.example.cardBoard.vo.BoardVO;
 
 @Repository("cardBoardDao")
 public class CardBoardDaoImpl implements CardBoardDao {
