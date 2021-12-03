@@ -74,6 +74,19 @@ public class BoardServiceImpl implements BoardService{
 	
 	
 	@Override
+	public void modifyFile(BoardFileVO file) {
+		this.boardDao.updateBoardFile(file);
+		
+	}
+
+	
+	@Override
+	public void removeFile(int boardFileNo) {
+		this.boardDao.deleteBoardFile(boardFileNo);
+		
+	}
+
+	@Override
 	public BoardFileVO readBoardFile(int boardNo) {
 		return this.boardDao.selectBoardFile(boardNo);
 	}

@@ -16,6 +16,8 @@ public interface BoardDao {
 	BoardVO selectBoard(int boardNo);
 	void insertBoard(BoardVO board);
 	void insertBoardFile(BoardFileVO file);
+	void updateBoardFile(BoardFileVO file);
+	void deleteBoardFile(int boardFileNo);
 	BoardFileVO selectBoardFile(int boardNo);
 	void insertBoardTip(BoardVO board);
 	void updateBoard(BoardVO board);

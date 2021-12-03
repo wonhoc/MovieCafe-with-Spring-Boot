@@ -234,14 +234,17 @@ public class boardController {
 
 	// 게시글 수정폼불러오기
 	@GetMapping("/modifyform/{boardNo}")
-	public String boardModifyForm(@PathVariable int boardNo, Model model, HttpServletRequest request) {
+	public String boardModifyForm(@PathVariable int boardNo, @RequestPart(value = "boardFileInput",required = false) MultipartFile boardFileSys, 
+			Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 		
 		BoardVO board = boardServie.readOne(boardNo);
 		board.setBoardNo(boardNo);
+		board.setBoardfile(this.boardServie.readBoardFile(boardNo));
 		model.addAttribute("userInfo", userInfo);
 		model.addAttribute("board",board);
+		//System.out.println(board.getBoardfile().getBoardfileOrigin());
 		if(board.getHorseNo()>=1 && board.getHorseNo()<8  ) 
 			{
 			model.addAttribute("cateNo",2);
@@ -268,22 +271,44 @@ public class boardController {
 	@PostMapping("/modifyboard/{cateNo}")
 	public String boardModify(@PathVariable int cateNo, @RequestParam("boardContent") String boardContent,  
 							@RequestParam("horseNo") int horseNo, @RequestParam("boardNotice") int boardNotice,
-							@RequestParam("boardTitle") String boardTitle,
-							@RequestParam("boardNo") int boardNo, Model model, HttpServletRequest request) {
+							@RequestParam("boardTitle") String boardTitle, @RequestPart(value = "boardFileInput",required = false) MultipartFile boardFileSys,
+							@RequestParam("boardNo") int boardNo, @RequestParam("boardfileNo") int boardfileNo,
+							Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		UserInfoVo userInfo = (UserInfoVo) session.getAttribute("userInfo");
 		model.addAttribute("userInfo", userInfo);
 		
-		BoardVO board = new BoardVO();
+		BoardVO newboard = new BoardVO();
+		BoardFileVO boardfile = new BoardFileVO();
 		
+		boardfile.setBoardfileOrigin(boardFileSys.getOriginalFilename());
 		
-		board.setBoardTitle(boardTitle);
-		board.setBoardContent(boardContent);
-		board.setHorseNo(horseNo);
-		board.setBoardNotice(boardNotice);
-		board.setBoardNo(boardNo);
+		String boardFileName = null;
+		if(!boardFileSys.getOriginalFilename().isEmpty()) {
+			boardFileName = fileUploadService.boardRestore(boardFileSys, request);
+			boardfile.setBoardfileSys(boardFileName);
+			boardfile.setBoardfileSize(boardFileSys.getSize());
+			boardfile.setBoardfileType(boardFileSys.getContentType());
+			newboard.setBoardfile(boardfile);
+		}
 		
-		this.boardServie.modifyBoard(board);		
+		newboard.setBoardTitle(boardTitle);
+		newboard.setBoardContent(boardContent);
+		newboard.setHorseNo(horseNo);
+		
+		newboard.setBoardNotice(boardNotice);
+		newboard.setBoardNo(boardNo);
+		//newboard.setBoardfile(boardfile);
+		this.boardServie.modifyBoard(newboard);
+		
+		if(!newboard.getBoardfile().equals(null)) {
+			
+			boardfile.setBoardNo(boardNo);
+			this.boardServie.removeFile(boardfileNo);
+		this.boardServie.createFile(boardfile);
+		}
+
+		
 		if (cateNo == 1) {
 			return "redirect:/boardlist/1";
 		}else if(cateNo == 2){
@@ -352,7 +377,3 @@ public class boardController {
 
 
 	}
-	
-	
-			
-

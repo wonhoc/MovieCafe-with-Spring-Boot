@@ -66,7 +66,20 @@ public class BoardDaoImpl implements BoardDao {
 		
 	}
 
+	//파일 수정
+	@Override
+	public void updateBoardFile(BoardFileVO file) {
+		this.sqlSession.update("updateBoardFileCall",file);
+		
+	}
+
 	
+	@Override
+	public void deleteBoardFile(int boardFileNo) {
+		this.sqlSession.delete("deleteBoardFileCall",boardFileNo );
+		
+	}
+
 	@Override
 	public BoardFileVO selectBoardFile(int boardNo) {
 		return this.sqlSession.selectOne("selectBoardFileCall", boardNo);
