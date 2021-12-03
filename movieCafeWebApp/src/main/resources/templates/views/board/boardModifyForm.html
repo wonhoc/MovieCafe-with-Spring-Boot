@@ -2,13 +2,27 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/board/boardModify.css}">
+</th:block>
  <th:block layout:fragment="script">
         <script th:src="@{/js/board/boardwrite.js}"></script>
     </th:block>
     
-    
+
 <head>
+
 <script>
+console.log("00000");
+console.log($("#boardFileInput").val());
+function fileinput() {
+	console.log("8888");
+	console.log($("#boardFileInput").val());
+	$("#fileText").hide();
+	 $('#fileText').text($("#boardFileInput").val());
+	 $("#fileText").show();
+}
+
 if(document.getElementById("input_check").checked) {
     document.getElementById("input_check_hidden").disabled = true;
 }
@@ -57,22 +71,23 @@ if(document.getElementById("input_check").checked) {
                <input type="text" class="form-control" name="boardContent" id="boardContent"
                   th:value="${board.boardContent}" style="height: 300px;">
             </div>
-
-
-            <div class="mb-3">
-               <label>파일</label> <input type="file" class="form-control" name="fileList" multiple>
-            </div>
-
-            <div>
-               <button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
-               <a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${board.cateNo})}">목록</a>
-            </div>
+			<div class="fileBox">
+			 <div class="form_imgBtn">
+							<label for="boardFileInput">파일 수정</label> <input type="file" class="form-fileInput" id="boardFileInput" name="boardFileInput" onchange="fileinput()">
+						</div>
+          	<div class="fileText" id="fileText" th:text="${board.boardfile.boardfileSys}"></div>
+			</div>
+   			<input type="hidden" name="boardfileNo" id="boardfileNo" th:value="${board.boardfile.boardfileNo}">
 
            <div th:if="${userInfo.rankType.equals('A')}">
 				<input type="checkbox" name="boardNotice" value='1' id="input_check"><label>공지</label>
-				<input type="hidden" name="boardNotice" value='0' id="input_check_hidden">
+				
 			</div>
-            
+			<input type="hidden" name="boardNotice" value='0' id="input_check_hidden">
+              <div>
+               <button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
+               <a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${board.cateNo})}">목록</a>
+            </div>
          </form>
       </div>
 </section>

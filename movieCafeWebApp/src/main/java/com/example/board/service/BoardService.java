@@ -32,7 +32,8 @@ public interface BoardService {
 	//파일 등록
 	void createFile(BoardFileVO file);
 	int lastId();
-	
+	void modifyFile(BoardFileVO file);
+	void removeFile(int boardFileNo);
 	BoardFileVO readBoardFile(int boardNo);
 	
 	//추천

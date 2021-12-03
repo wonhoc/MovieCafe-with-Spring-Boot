@@ -86,6 +86,20 @@
 			jdbcType="INTEGER" mode="IN" />
 	</parameterMap>
 
+<!-- 파일 수정 -->
+<parameterMap type="boardFileVO" id="boardfileUpdate">
+		<parameter property="boardNo" javaType="int" jdbcType="INTEGER" mode="IN" />
+		<parameter property="boardfileOrigin" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="boardfileSys" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="boardfileSize" javaType="int" jdbcType="INTEGER" mode="IN" />
+		<parameter property="boardfileType" javaType="String" jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+	
+	<!-- 파일 삭제 -->
+<parameterMap type="int" id="boardfileDelete">
+		<parameter property="boardFileNo" javaType="int" jdbcType="INTEGER" mode="IN" />	
+	</parameterMap>
+	
 <!-- 게시글 검색  -->
 <parameterMap type="searchVO" id="paramMapSearch">
 		<parameter property="cateNo" javaType="int" jdbcType="INTEGER" mode="IN" />
@@ -262,7 +276,14 @@
 		statementType="CALLABLE" parameterMap="boardfileSelect">
 		{call sp_select_boardfile(?)		}
 	</select>
-	
+	<!-- 게시글 파일 수정 -->
+	<select id="updateBoardFileCall" parameterType="BoardFileVo" statementType="CALLABLE" parameterMap="boardfileUpdate">
+		{call sp_update_boardfile(?,?,?,?,?)		}
+	</select>
+	<!-- 게시글 파일 삭제 -->
+	<select id="deleteBoardFileCall" parameterType="int" statementType="CALLABLE" parameterMap="boardfileDelete">
+		{call sp_delete_boardfile(?)		}
+	</select>
 	<!--게시글 수정 -->
 	<update id="updateBoardCall" parameterType="BoardVo" statementType="CALLABLE" parameterMap="boardUpdateMap">
 		{call sp_modify_board(?,?,?,?,?,?,?) }
