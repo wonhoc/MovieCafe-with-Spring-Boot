@@ -24,13 +24,52 @@
 #pagination-div{
    text-align: center;   
 }
+
+thead{
+text-align: center;
+}
+
+#horse{
+	color: gray;
+}
+
+#UK{
+	width: 150px;
+	line-height: 3.5em;
+}
+
+#keyfield{
+	width:100px; height: 40px; float:left;
+}
+
+#keyword{
+	height: 40px; width: 700px; float:left;
+}
+#searchBtn{
+	height: 40px;
+}
+#thead{
+	background-color: burlywood;
+	
+}
+#boardList{
+	background-color : antiquewhite;
+	
+}
+#wdate,#bc,#rc,#cc,span{
+	line-height: 3.5em;
+}
+.navBox {
+	margin-top: 1em;
+}
+
 </style>
 
 </head>
-<section layout:fragment="content">
+<section class="container" layout:fragment="content">
 
 	<!-- ****************************검색 추가 코드  시작-->
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default navBox">
 		<div class="container-fluid">
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
@@ -51,8 +90,8 @@
 						<option th:if="${cateNo == 3}" value="예정 시사회">예정 시사회</option>
 						<option th:if="${cateNo == 4}" value="영화관 리뷰">영화관 리뷰</option>
 						<option th:if="${cateNo == 4}" value="이벤트 정보">이벤트 정보</option>
-					</select> <input type="search" name="keyword" id="keyword"
-						class="form-control" placeholder="검색어를 입력하세요">
+					</select>&nbsp;<input type="search" name="keyword" id="keyword"
+						class="form-control" placeholder="검색어를 입력하세요">&nbsp;
 					<button class="btn btn-success" type="submit" id="searchBtn">
 						검색</button>
 				</form>
@@ -70,12 +109,12 @@
 <form name="form" th:action="@{boardwrite/{cateNo}(cateNo=${cateNo})}" method="get">
 
    
-   <div class="container">
-      <table class="table table-hover">
-         <thead class="thead-dark" id=thead>
+   <div>
+      <table id="table" class="table table-hover">
+         <thead id="thead">
             <tr>
                <th scope="col">작성자</th>
-               <th colspan="2" scope="col">제목</th>
+               <th class="text-center" scope="col">제목</th>
                <th scope="col">작성일자</th>
                <th scope="col">조회</th>
                <th scope="col">추천</th>
@@ -89,7 +128,7 @@
       <div id="pagination-div">
          <div id="page-content"></div>
       </div>
-      <button type="submit" class="btn btn-primary waves-effect waves-light">글작성</button>
+      <button th:unless="${session.userInfo == null}" type="submit" class="btn btn-primary waves-effect waves-light">글작성</button>
    </div>
    </form>
 

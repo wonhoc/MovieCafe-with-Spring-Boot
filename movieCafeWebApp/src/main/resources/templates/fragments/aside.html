@@ -53,6 +53,13 @@
 							<p
 								th:text="${#strings.substring(session.userInfo.joinDate,0,11)}"></p>
 						</div>
+						<div class="usertext">
+							<p>등급 :</p>
+							<p th:if="${session.userInfo.rankType} == 'A'">관리자</p>
+							<p th:if="${session.userInfo.rankType} == 'N'">새싹회원</p>
+							<p th:if="${session.userInfo.rankType} == 'R'">정회원</p>
+							<p th:if="${session.userInfo.rankType} == 'B'">제재회원</p>
+						</div>
 					</div>
 					<div class="usertext">
 						<button type="button" class="btn btn-light" id="MsgHomeBtn">쪽지</button>

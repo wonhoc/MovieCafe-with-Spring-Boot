@@ -1,6 +1,5 @@
 package com.example.cardBoard.controller;
 
-import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.board.file.FileUploadUtils;
-import com.example.board.vo.BoardVO;
 import com.example.cardBoard.service.CardBoardService;
+import com.example.cardBoard.vo.BoardVO;
 import com.example.member.vo.UserInfoVo;
 import com.example.util.FileUploadService;
 
@@ -49,7 +47,8 @@ public class CardBoardController {
 	public String cardBoardDetail(Model model, @PathVariable int cardboardNo) {
 		
 		BoardVO cardBoard =  this.cardBoardService.getCardBoardDetail(cardboardNo);
-		
+		//조회수 증가
+		this.cardBoardService.upBoardCount(cardboardNo);
 		model.addAttribute("cardBoard", cardBoard);
 		
 		return path + "cardBoardDetail";
@@ -78,6 +77,7 @@ public class CardBoardController {
 		
 	}//boardWrite() end
 	
+	//글 작성
 	@PostMapping("/cardBoardWrite")
 	public String cardBoardWrite(@RequestParam String boardTitle,
 								 @RequestParam String boardContent,
@@ -91,6 +91,7 @@ public class CardBoardController {
 		
 		String userId = user.getUserId();
 		
+		//게시글의 대한 map
 		HashMap<String, Object> boardMap = new HashMap<String, Object>();
 		
 		boardMap.put("userId", userId);
@@ -98,11 +99,120 @@ public class CardBoardController {
 		boardMap.put("boardContent", boardContent);
 		boardMap.put("horseNo", horseNo);
 		
-		this.cardBoardService.writeBoard(boardMap);
+	
+		HashMap<String, Object> boardFileMap = new HashMap<String, Object>();
 		
+			//파일의 관한 map
+			if(!photoSys.isEmpty()) {
+				
+		
+			
+			FileUploadService fileService = new FileUploadService();
+			
+			String boardfileOrigin = fileService.restore(photoSys, req);
+			
+			boardFileMap.put("boardfileSys", boardfileOrigin);
+			boardFileMap.put("boardfileOrigin", photoSys.getOriginalFilename());
+			
+			//형변환
+			int boardfileSize = (int)photoSys.getSize();
+			
+			boardFileMap.put("boardfileSize", boardfileSize);
+			
+			
+			
+			}//if end
+			
+			boardMap.put("boardFileMap", boardFileMap);
+			
+			this.cardBoardService.writeBoard(boardMap);
+			
 		return "redirect:/cardBoardList";
 		
 	}//cardBoardWrite() end
+	
+	//리뷰게시판 게시글 삭제 요청
+	@GetMapping("/deleteCardBoard/{boardNo}/{userNick}")
+	public String deleteCardBoard(@PathVariable(value = "boardNo") int boardNo,
+								  @PathVariable(value = "userNick") String userNick,
+								HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		
+		//System.out.println("session : " + user.getUserNick());
+		//System.out.println("path boardNo : " +  boardNo);
+		//System.out.println("path userNick : " +  userNick);
+		
+		//아무나 못지우게 설정
+		if(userNick.equals(user.getUserNick())) {
+			
+			this.cardBoardService.removeCardBoard(boardNo);
+			
+		}//if end
+		
+		return "redirect:/cardBoardList";
+		
+	}//class end
+	
+	//게시글 수정 요청
+	@GetMapping("/modifyCardBoardForm/{boardNo}/{userNick}")
+	public String modifyCardBoardForm (@PathVariable(value = "boardNo") int boardNo,
+										@PathVariable(value = "userNick") String userNick,
+										HttpServletRequest req, 
+										Model model) 
+	{
+		
+		HttpSession session = req.getSession();
+		
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		
+		
+		
+	
+		//수정폼 요청
+		if(userNick.equals(user.getUserNick())) {
+			
+			BoardVO cardBoard = this.cardBoardService.getCardBoardDetail(boardNo);
+			
+			model.addAttribute("cardBoard", cardBoard);
+			
+			return  path + "modifyCardBoardForm";
+			
+		}//if end
+		
+		
+		return "redirect:/cardBoardList";
+		
+	}//modifyCardBoardForm() end
+	
+	//게시글 수정
+	@PostMapping("/modifyCardBoard")
+	public String modifyCardBoard(Model model,
+			@RequestParam String boardTitle,
+			 @RequestParam String boardContent,
+			 @RequestParam int horseNo,
+			 @RequestParam String boardNo,
+			 @RequestPart(value = "fileList", required = false) MultipartFile photoSys,
+			 HttpServletRequest req) {
+		
+		//형변환
+		int prboardno = Integer.parseInt(boardNo);
+
+		HashMap<String, Object> modifyBoard = new HashMap<String, Object>();
+		
+		modifyBoard.put("boardNo", prboardno);
+		modifyBoard.put("boardTitle", boardTitle);
+		modifyBoard.put("boardContent", boardContent);
+		modifyBoard.put("horseNo", horseNo);
+		
+		this.cardBoardService.modifyCardBoard(modifyBoard);
+		
+		
+		return "redirect:/cardBoardList";
+		
+	}//modifyCardBoard() end
 	
 	
 	

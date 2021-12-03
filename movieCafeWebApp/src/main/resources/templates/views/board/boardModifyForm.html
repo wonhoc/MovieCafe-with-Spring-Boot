@@ -8,7 +8,6 @@
  <th:block layout:fragment="script">
         <script th:src="@{/js/board/boardwrite.js}"></script>
     </th:block>
-    
 
 <head>
 
@@ -27,39 +26,67 @@ if(document.getElementById("input_check").checked) {
     document.getElementById("input_check_hidden").disabled = true;
 }
 </script>
+<style>
+.form_imgBtn label {
+	margin-top: 1em;
+	display: inline-block;
+	padding: 0.5em 0.75em;
+	color: #404040;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #626262;
+	border-radius: 0.25em;
+}
+
+.form_imgBtn input[type="file"] {
+	/* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+</style>
+
 </head>
 <section layout:fragment="content">
       <div>
       <!-- 새싹 게시판 -->
       <div th:if="${cateNo==1}" role="main">
-					<input name="horseNo" type="hidden" value="12" >
-				</div>
+               <input name="horseNo" type="hidden" value="12" >
+            </div>
          <form name="form" id="form" role="form" method="post" th:action="@{/modifyboard/{cateNo}(cateNo=${board.cateNo})}" enctype="multipart/form-data">
             
             <input type="hidden" name="boardNo" id="boardNo" th:value="${board.boardNo}">
             
             <div th:if="${cateNo==1}" role="main">
-					<input name="horseNo" type="hidden" value="12" >
-			</div>
+               <input name="horseNo" type="hidden" value="12" >
+         </div>
             
             <div th:if="${cateNo==2}" class="container" role="main">
-				<label>말머리</label> <select name="horseNo" id="horseNo">
-					<option value="1">로맨스</option>
-					<option value="2">스릴러</option>
-					<option value="3">공포</option>
-					<option value="4">SF판타지</option>
-					<option value="5">액션</option>
-					<option value="6">코미디</option>
-					<option value="7">기타</option>
-				</select>
-				</div>
+            <label>말머리</label> <select name="horseNo" id="horseNo">
+               <option value="1">로맨스</option>
+               <option value="2">스릴러</option>
+               <option value="3">공포</option>
+               <option value="4">SF판타지</option>
+               <option value="5">액션</option>
+               <option value="6">코미디</option>
+               <option value="7">기타</option>
+            </select>
+            </div>
             
             <div th:if="${cateNo==3}" class="container" role="main">
-				<label>말머리</label> <select name="horseNo" id="horseNo">
-					<option value="8">시사회 후기</option>
-					<option value="9">예정 시사회</option>
-				</select>
-				</div>
+            <label>말머리</label> <select name="horseNo" id="horseNo">
+               <option value="8">시사회 후기</option>
+               <option value="9">예정 시사회</option>
+            </select>
+            </div>
             
             <div class="mb-3">
                <h3 class="text-title" th:text="#{category.modifytitle1}"></h3>
@@ -71,6 +98,7 @@ if(document.getElementById("input_check").checked) {
                <input type="text" class="form-control" name="boardContent" id="boardContent"
                   th:value="${board.boardContent}" style="height: 300px;">
             </div>
+
 			<div class="fileBox">
 			 <div class="form_imgBtn">
 							<label for="boardFileInput">파일 수정</label> <input type="file" class="form-fileInput" id="boardFileInput" name="boardFileInput" onchange="fileinput()">
@@ -84,6 +112,7 @@ if(document.getElementById("input_check").checked) {
 				
 			</div>
 			<input type="hidden" name="boardNotice" value='0' id="input_check_hidden">
+
               <div>
                <button type="button" class="btn btn-sm btn-primary" id="saveBtn">수정</button>
                <a class="btn btn-default waves-effect waves-light" th:href="@{/boardlist/{cateNo}(cateNo=${board.cateNo})}">목록</a>

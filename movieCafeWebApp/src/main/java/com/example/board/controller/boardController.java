@@ -99,7 +99,7 @@ public class boardController {
 				}
 				// UserInfo가 없을 경우
 			} else {
-				return "redirect:/loginFailCaseTwo";
+				return "redirect:/loginFail";
 			}
 			
 		}
@@ -111,16 +111,12 @@ public class boardController {
 			
 			BoardVO board = boardServie.readOne(boardNo);
 			
-			
-			
 			List<CommentVO> list = this.boardServie.readCommentList(boardNo);
 			model.addAttribute("board", board);
 			model.addAttribute("list", list);
 			model.addAttribute("userInfo", userInfo);
 			return "views/board/boardTipDetail";
 		}
-	
-	
 	 
 	@PostMapping("/deleteBoard/{boardNo}")
 	public String deleteBoard(@PathVariable int boardNo, BoardVO board, HttpServletRequest request, Model model) {
@@ -129,8 +125,6 @@ public class boardController {
 		model.addAttribute("userInfo", userInfo);
 		
 		int cateNo = board.getCateNo();
-		
-		System.out.println("cateNo = " + cateNo);
 		
 		this.boardServie.removeBoard(boardNo);
 		
@@ -141,7 +135,6 @@ public class boardController {
 		}else if(cateNo == 3){
 			return "redirect:/boardlist/3";
 		}else{
-			System.out.println("dddddddddddddd");
 			return "redirect:/boardlist/4";
 	}
 		
@@ -232,8 +225,6 @@ public class boardController {
 		if(board.getApiX().equals("")) board.setApiX("null");
 		if(board.getApiY().equals("")) board.setApiY("null");
 		
-		System.out.println("board = "+ board.toString());
-		
 		this.boardServie.createTipBoard(board);
 
 		return "redirect:/boardlist/4";
@@ -316,6 +307,7 @@ public class boardController {
 			this.boardServie.removeFile(boardfileNo);
 		this.boardServie.createFile(boardfile);
 		}
+
 		
 		if (cateNo == 1) {
 			return "redirect:/boardlist/1";
@@ -335,9 +327,6 @@ public class boardController {
 		
 		if(board.getApiX().equals("")) board.setApiX("null");
 		if(board.getApiY().equals("")) board.setApiY("null");
-		
-		
-		System.out.println("boardNo + " + board.toString());
 		
 		this.boardServie.modifyBoard(board);
 		

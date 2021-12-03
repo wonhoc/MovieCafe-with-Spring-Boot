@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<head>
+<section layout:fragment="content">
+
+<th:block layout:fragment="script">
+	<script th:src="@{/js/cardBoard/modifyCardBoardForm.js}"></script>
+</th:block>
+	
+	<hr style="border: 0px; height: 3px; background: coral;">
+	 <h1 style="text-align: center;">게시판 글 수정</h1>
+	 <hr style="border: 0px; height: 3px; background: coral;">	
+	
+	 <form action="/modifyCardBoard" id="FormCardBoardWrite" method="post" enctype="multipart/form-data">
+	 <input type="hidden" id="boardNo" name="boardNo" th:value="${cardBoard.boardNo}">
+	 <div>
+	 <label>말머리</label>
+	 <select name="horseNo" id="horseNo" class="form-control" style="width: 300px;">
+					<option value="1">로맨스</option>
+					<option value="2">스릴러</option>
+					<option value="3">공포</option>
+					<option value="4">SF판타지</option>
+					<option value="5">액션</option>
+					<option value="6">코미디</option>
+					<option value="7">기타</option>
+				</select>
+				<br>
+	 </div>
+	 
+	 <div class="input-group">
+    	<span class="input-group-addon">제목</span>
+    	<input type="text" class="form-control" id="boardTitle" name="boardTitle" th:value="${cardBoard.boardTitle}">
+  </div>
+	<hr style="border: 0px; height: 3px; background: coral;">
+	<p>	
+		<p align="center">
+		<label>내용</label>
+		</p>
+		<textarea class="form-control" id="boardContent" name="boardContent" style="height: 300px;" th:text="${cardBoard.boardContent}"></textarea>
+	</p>
+	<hr style="border: 0px; height: 3px; background: coral;">
+	 <div class="form-group" align="center">
+	    <label for="exampleFormControlFile1">이미지 첨부하기</label>
+	    <input type="file" class="form-control-file" id="fileList" name="fileList" multiple="multiple">
+	<hr style="border: 0px; height: 3px; background: coral;">
+  </div>
+	<div align="right">
+	<button type="button" class="btn-success btn-sm" id="btnWriteFormSubmit">글 수정</button>&nbsp;
+	<button type="button" id="btnGoList" class="btn-primary btn-sm">목록</button>
+	</div>
+	</form>
+	<hr style="border: 0px; height: 3px; background: coral;">
+</section>
+</html>

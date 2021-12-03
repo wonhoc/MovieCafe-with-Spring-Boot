@@ -78,6 +78,7 @@
 		<result property="msgWdate" javaType="string" column="msgWdate" jdbcType="VARCHAR" />
 	</resultMap>
 	
+	
 	<!-- 받은 메세지 모두 조회 -->
 	<select id="selectReceiveMsgList" parameterType="String" resultMap="receiveMsgList">
 	
@@ -131,9 +132,5 @@
 	WHERE userId = #{userId}
 	
 	</select>
-	
-	
-	
-	
-	
+
 </mapper>

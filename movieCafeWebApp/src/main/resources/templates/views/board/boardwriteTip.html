@@ -2,9 +2,33 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{layout/defaultLayout}">
+ <th:block layout:fragment="script">
+        <script th:src="@{/js/board/boardwrite.js}"></script>
+    </th:block>
+
 
 <head>
 <script type="text/javascript">
+
+window.addEventListener('load', function() {
+    const saveBtn = document.getElementById('saveBtn');
+   
+    saveBtn.addEventListener('click', function() {
+    
+    const boardTitle = $('#boardTitle').val();
+    const boardContent = $('#boardContent').val();
+        if(boardTitle == ""){
+            alert("제목을 입력해주세요.");
+        }else if(boardContent == ""){
+            alert("내용을 입력해주세요.");
+        }else{
+        const form = document.getElementById('form');
+        form.submit();
+    }
+    }); 
+})
+
+
 $(document).ready(function() {
 	
     $('#horseNo').on('change', function() {
@@ -33,7 +57,20 @@ window.addEventListener('load', function() {
     }); 
 });
 </script>
+<style>
+#boardTitle{
+width: 700px;
+}
+#boardContent{
+	height: 350px;
+	width: 700px;
+	float:left;
+}
+#file{
+width: 700px;
+}
 
+</style>
 </head>
 <section layout:fragment="content">
    <article>
@@ -54,13 +91,16 @@ window.addEventListener('load', function() {
             </div>
 
             <div class="mb-3">
-               <input type="text" class="form-control" name="boardContent" id="boardContent"
-                  placeholder="내용을 입력해주세요" style="height: 300px;">
+               <input type="text" class="form-control" name="boardContent" id="boardContent" placeholder="내용을 입력해주세요">
             </div>
-
-
+			<div id="map"
+				style="width: 350px; height: 350px; margin-top: 10px; display: none"></div>
+				
+				<div> .</div>
+				
+				
             <div class="mb-3">
-               <label>파일</label> <input type="file" class="form-control" name="fileList" multiple>
+                <input type="file" id="file" class="form-control" name="fileList" multiple>
 
             </div>
 
@@ -77,8 +117,7 @@ window.addEventListener('load', function() {
          <input type="text" id="sample5_address" placeholder="주소"> <input
 				type="button" id="address" onclick="sample5_execDaumPostcode()"
 				value="주소 검색"><br>
-			<div id="map"
-				style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+			
 
 			<script
 				src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
