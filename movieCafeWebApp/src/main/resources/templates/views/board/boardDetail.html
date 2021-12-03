@@ -236,6 +236,29 @@ border: 1px solid #ffebb5;
 				<td id="boardContent" height="150px;" colspan="5" th:text="${board.boardContent}"></td>
 			</tr>
 		</table>
+		<table th:if="${board.boardfile != null}">
+			<tr>
+				<th colspan="6">파일명</th>
+				<th colspan="6">파일크기</th>
+				<th colspan="6">파일타입</th>
+			</tr>
+				<tr>
+					<td colspan="6" th:text="${board.boardfile.boardfileOrigin }"></td>
+					<td colspan="6" th:text="${board.boardfile.boardfileSize}">bytes</td>
+					<td colspan="6" th:text="${board.boardfile.boardfileType}"></td>
+				</tr>
+
+		</table>
+	
+
+
+		<table th:if="${board.boardfile == null}">
+			<tr>
+				<td colspan="3">파일 없음</td>
+			</tr>
+		</table>
+	
+
 		
 	</div>	
 		

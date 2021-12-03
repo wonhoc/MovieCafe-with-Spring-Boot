@@ -17,10 +17,8 @@
 <section layout:fragment="content">
 	<article>
 	<div class="container">
-		<!-- 임의로 로그인 상태 부여 -->
 
 		<!-- 새싹 게시판 -->
-		
 			<form name="form" id="form" role="form" method="post" th:action="@{/fileUpload}"
 				enctype="multipart/form-data">
 				<input type="hidden" id="writer" name="userId" th:value="${userInfo.userId}">
@@ -62,7 +60,7 @@
 				
 				
 				<div class="mb-3">
-					<label>파일</label> <input type="file" class="form-control" name="fileList" multiple>
+					<labe for="boardFileInput">파일</label> <input type="file" class="form-fileInput" id="boardFileInput" name="boardFileInput">
 				</div>
 
 				
