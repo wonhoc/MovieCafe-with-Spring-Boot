@@ -5,6 +5,12 @@ MovieCafe-with-Spring-Boot
 영화에 관한 정보를 서로 공유할 수 있는 카페이며
 시사회 정보 이달의 영화등 영화에 관한 다양한 정보를 얻을 수 있다
 
+이전에는 jsp와 servlet을 이용하여 프로젝트를 구현했지만 
+Spring Boot 프레임 워크를 이용하여 구현하였다.
+
+![image](https://user-images.githubusercontent.com/92851140/150704781-530b2c3f-313a-4e4e-8f85-71791390b3ad.png)
+
+
 1. 이달의 영화 추천 (api를 이용하여 실시간으로 데이터를 받아옴)
 2. 게시판(수정, 삭제, 작성)
 3. 댓글 구현(사용자들간의 소통을 위함)
